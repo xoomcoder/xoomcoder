@@ -36,4 +36,10 @@ En plusieurs étapes:
 
     => Il y a une extension VSCode qui se connecte au compte github.com
 
+
+## Ajout du dossier public
+
+    créer le dossier public/
+    et ensuite coder une page index.html
+
     
