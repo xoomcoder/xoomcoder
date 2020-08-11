@@ -42,4 +42,9 @@ En plusieurs étapes:
     créer le dossier public/
     et ensuite coder une page index.html
 
+
+## Hébergement avec SSH
+
+    On peut cloner le code du repo sur son hébergement si on a un accès SSH et git
     
+    git clone https://github.com/xoomcoder/xoomcoder.git
