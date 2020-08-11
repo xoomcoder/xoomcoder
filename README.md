@@ -14,4 +14,11 @@ En plusieurs étapes:
     Et ensuite, on peut ajouter git
 
     git init
+
+    git config user.name "LH XoomCoder"
+
+    git config user.email github@xoomcoder.com
+
+    Voilà on peut utiliser git dans VSCode
+
     
