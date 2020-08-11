@@ -21,4 +21,9 @@ En plusieurs étapes:
 
     Voilà on peut utiliser git dans VSCode
 
+
+
+    git remote add origin https://github.com/xoomcoder/xoomcoder.git
+
+    git push -u origin master
     
