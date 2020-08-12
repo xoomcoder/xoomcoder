@@ -48,3 +48,35 @@ En plusieurs étapes:
     On peut cloner le code du repo sur son hébergement si on a un accès SSH et git
     
     git clone https://github.com/xoomcoder/xoomcoder.git
+
+## Ajout WebHook avec github.com
+
+    github.com permet de déclencher l'appel à une URL d'un autre site à chauqe événement push sur le repository
+
+    On va créer un fichier public/gitpull.php
+
+```php
+<?php
+
+// ici on mettra le code pour déclencher la commande git pull
+// https://www.php.net/manual/fr/function.passthru.php
+$commande = "git pull";
+
+passthru($commande);
+
+```
+
+    et ensuite synchroniser à la main l'hébergement avec github.com
+    cela permet d'avoir cette nouvelle page:
+    https://xoomcoder.com/gitpull.php
+
+    et on va aller ajouter un nouveau webhhok dans le repository github.com
+    
+* sur github.com, aller dans le repository du projet
+* cliquer sur l'onglet settings
+* cliquer sur le menu webhhoks (sur la gauche)
+* cliquer sur le bouton "add webhook"
+* entrer l'URL dans Payload URL
+* on peut laisser les autres paramètres tels quels
+* enregistrer en appuyant sur le bouton "add webbhook"
+
