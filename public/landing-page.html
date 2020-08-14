@@ -20,7 +20,30 @@ html, body {
 }   
 p {
     padding:0.5rem;
-}     
+}  
+/* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
+@media (min-width: 480px)
+{
+
+    section {
+        display:flex;
+        flex-wrap:wrap;
+    }
+
+    section article {
+        width: calc(100% / 2);
+    }
+
+}
+
+@media (min-width: 960px)
+{
+
+    section article {
+        width: calc(100% / 4);
+    }
+
+}
     </style>
 </head>
 <body>
@@ -46,6 +69,26 @@ p {
                 <a href="https://github.com/xoomcoder">https://github.com/xoomcoder</a>
 
             </p>
+        </section>
+
+        <section>
+            <h2>Technologies Web</h2>
+            <article>
+                <h3>HTML</h3>
+                <p>HyperText Markup Language</p>
+            </article>
+            <article>
+                <h3>CSS</h3>
+                <p>Cascading StyleSheet</p>
+            </article>
+            <article>
+                <h3>JS</h3>
+                <p>Javascript</p>
+            </article>
+            <article>
+                <h3>VueJS</h3>
+                <p>VueJS est un framework Front</p>
+            </article>
         </section>
     </main>
     <footer>

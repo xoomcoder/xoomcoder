@@ -12,4 +12,22 @@ On va coder une Landing Page comme page d'accueil de notre site
 * on pourra gérer 3 tailles d'écran
 * smartphone, tablette, desktop
 
+## Mobile-First et responsive CSS
+
+Depuis quelques années, les visiteurs utilisent leurs smartphones comme moyen principal
+pour visiter les sites internet.
+
+Le design Mobile-First consiste à commencer à créer le design de la page sur la surface disponible pour un smartphone en mode portrait.
+
+Sur cette base Mobile-First, on crée ensuite les variantes pour les tailles d'écran plus grands
+* smartphones
+* tablettes
+* desktops
+
+
+Cela nous amène à utiliser les techniques HTML et CSS 
+* avec flexbox
+* avec les media queries
+
+
 
