@@ -17,10 +17,47 @@ html, body {
     width:100%;
     box-sizing: border-box;
     text-align:center;
-}   
+}  
+header {
+    padding-bottom: 2rem;
+    background-color: #cccccc;
+}
+footer {
+    padding-bottom: 4rem;
+    background-color: #aaaaaa;
+}
 p {
     padding:0.5rem;
 }  
+
+main {
+    display:flex;
+    flex-direction: column;
+    align-items:center;
+}
+section {
+    max-width: 1366px;
+}
+
+h1 {
+    font-size:1.5rem;
+    padding:0.5rem;
+    margin:0;
+}
+h2 {
+    font-size:1.2rem;
+    padding:0.5rem;
+    margin:0;
+}
+h3 {
+    font-size:1rem;
+    padding:0.5rem;
+    margin:0;
+}
+
+article {
+    padding:0.5rem;
+}
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (min-width: 480px)
 {
