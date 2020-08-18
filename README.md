@@ -80,3 +80,24 @@ passthru($commande);
 * on peut laisser les autres paramètres tels quels
 * enregistrer en appuyant sur le bouton "add webbhook"
 
+## Images et couleurs
+
+* Privilégier les logos en SVG car vectoriels et plus légers
+* Pour un choix de couleurs suivant le Material Design
+* https://material.io/resources/color/#!/
+
+* red #ba000d
+* yellow #ffeb3b
+* grey dark #212121
+* grey #9e9e9e
+* cyan #00bcd4
+
+
+
+
+
+
+
+
+
+

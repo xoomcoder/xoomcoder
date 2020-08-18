@@ -2,11 +2,18 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
+
+
     <!-- important pour rendre la page responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
     <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="assets/img/xoomcoder.svg">
+
+
     <style>
 html, body {
     padding:0;
@@ -20,11 +27,12 @@ html, body {
 }  
 header {
     padding-bottom: 2rem;
-    background-color: #cccccc;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 footer {
-    padding-bottom: 4rem;
-    background-color: #aaaaaa;
+    padding: 4rem 0;
 }
 p {
     padding:0.5rem;
@@ -36,6 +44,7 @@ main {
     align-items:center;
 }
 section {
+    padding:2rem 0;
     max-width: 1366px;
 }
 
@@ -58,6 +67,17 @@ h3 {
 article {
     padding:0.5rem;
 }
+
+article img {
+    height:10vmin;
+    object-fit:contain;
+}
+.logo {
+    width:5vmin;
+    height:5vmin;
+    object-fit: contain ;
+}
+
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (min-width: 480px)
 {
@@ -65,6 +85,7 @@ article {
     section {
         display:flex;
         flex-wrap:wrap;
+        justify-content: center;
     }
 
     section article {
@@ -81,21 +102,55 @@ article {
     }
 
 }
+
+.w50 {
+    width:50%;
+}
+
+/* colors */
+header, footer {
+    background-color: #9e9e9e;
+}
+main {
+    background-color: #9e9e9e;
+}
+section {
+    background-color: #ffffff;
+}
+h1{
+    color:#ba000d;
+} 
+h2, h3 {
+    color:#9e9e9e;
+}
+header {
+    color:#ba000d;
+}
+.s1, .s3, .s5, .s7 {
+    background-color: #9e9e9e;
+}
+.s1 h2, .s3 h2, .s5 h2, .s7 h2,
+.s1 h3, .s3 h3, .s5 h3, .s7 h3
+{
+    color:#ffffff;
+}
+
     </style>
 </head>
 <body>
     <header>
         <h1>XoomCoder</h1>
+        <img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com">
         <strong>Formation Développeur Fullstack à Distance</strong>
     </header>
     <main>
 
-        <section>
+        <section class="s1">
             <h2>Formation Développeur Fullstack</h2>
             <p>Devenez en quelques mois un développeur fullstack en apprenant à coder une MarketPlace, en méthodologie Agile</p>
         </section>
 
-        <section>
+        <section class="s2">
             <h2>Formation Progressive et Agile</h2>
             <p>Suivez une formation axée sur des projets, de plus en plus complexes. Avancez comme une startup qui va créer une MarketPlace.</p>
             <article>
@@ -114,26 +169,35 @@ article {
                 <h3>CMS</h3>
                 <p>Content Management System ou Système de Gestion de Contenus. Avant d'ouvrir votre site aux contributeurs de votre communauté, c'est important de pouvoir disposer d'outils pour gérer efficacement le contenu de votre site.</p>
             </article>
+            <article class="w50">
+                <h3>MarketPlace</h3>
+                <p>Depuis une quinzaine d'années, les sites les plus populaires sont basés sur une plateforme MarketPlace. La plateforme propose un gébergement et des fonctionnalités pour publier du contenu. La communauté d'internautes va créer du contenu et le publier sur la plateforme. On peut donner comme exemple: Gmail, YouTube, Facebook, Airbnb, LeBonCoin, Instagram, Twitter, TikTok, etc... De nombreuses startups surfent sur ce business plan et recherchent des développeurs fullstack qui pourront les aider à développer une plateforme MarketPlace.</p>
+            </article>
         </section>
 
-        <section>
+        <section class="s3">
             <h2>Vidéos sur YouTube</h2>
             <p>                
                 Les Vidéos seront disponibles sur la chaine YouTube:
                 <a href="https://www.youtube.com/channel/UCUDm9QajR-bh7I8NdSScR5A">Visitez la chaine YouTube pour XoomCoder</a>
             </p>
+            <a href="https://www.youtube.com/channel/UCUDm9QajR-bh7I8NdSScR5A">
+                <img class="logo" src="assets/img/youtube.svg" alt="youtube.com" title="thanks freepik ;-p">
+            </a>
         </section>
 
-        <section>
+        <section class="s4">
             <h2>Code complet sur GitHub.com</h2>
             <p>
                 Les codes seront accessibles sur GitHub.com:
                 <a href="https://github.com/xoomcoder">Explorez le Repository GitHub pour XoomCoder</a>
-
             </p>
-        </section>
+            <a href="https://github.com/xoomcoder">
+                <img class="logo" src="assets/img/github.svg" alt="github.com">
+            </a>
+    </section>
 
-        <section>
+        <section class="s5">
             <h2>Techniques de programmation</h2>
             <article>
                 <h3>Programmation Fonctionnelle</h3>
@@ -153,27 +217,31 @@ article {
             </article>
         </section>
 
-        <section>
+        <section class="s6">
             <h2>Technologies Web (Front)</h2>
             <article>
+                <img src="assets/img/html5.svg" alt="html5">
                 <h3>HTML</h3>
                 <p>HyperText Markup Language</p>
             </article>
             <article>
+                <img src="assets/img/css3.svg" alt="css3">
                 <h3>CSS</h3>
                 <p>Cascading StyleSheet</p>
             </article>
             <article>
+                <img src="assets/img/javascript.svg" alt="javascript">
                 <h3>JS</h3>
                 <p>Javascript</p>
             </article>
             <article>
+                <img src="assets/img/vue.svg" alt="VueJS">
                 <h3>VueJS</h3>
                 <p>VueJS est un framework Front</p>
             </article>
         </section>
 
-        <section>
+        <section class="s7">
             <h2>Technologies Web (Back)</h2>
             <article>
                 <h3>PHP</h3>
@@ -193,7 +261,7 @@ article {
             </article>
         </section>
 
-        <section>
+        <section class="s8">
             <h2>Serveur Web (LAMP)</h2>
             <article>
                 <h3>Linux</h3>
