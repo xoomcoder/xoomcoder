@@ -40,12 +40,13 @@ header {
     justify-content: left;
 }
 footer {
-    padding: 4rem 0;
+    padding: 4rem 0 8rem;
 }
 main {
     display:flex;
     flex-direction: column;
     align-items:center;
+    border-bottom: 2rem solid #000000;
 }
 header, main, footer {
     max-width: 1366px;
@@ -141,8 +142,17 @@ article img {
 
 }
 
+.h10{
+    height: 10vmin;
+} 
+.h20{
+    height: 20vmin;
+} 
 .h30{
     height: 30vmin;
+} 
+.h40{
+    height: 40vmin;
 } 
 .h50{
     height: 50vmin;
@@ -160,7 +170,7 @@ body {
     background: #000000 url(https://xoomcoder.com/assets/img/xoomcoder.svg) fixed no-repeat center center;
     background-size: contain;
 }  
-header, footer {
+header {
     background: url('assets/img/code-1600.jpg') right top;
     background-size: cover;
 }
@@ -323,7 +333,7 @@ Des modules supplémentaires sont aussi disponibles
                 <a href="https://www.youtube.com/channel/UCUDm9QajR-bh7I8NdSScR5A">Visitez la chaine YouTube pour XoomCoder</a>
             </p>
             <a href="https://www.youtube.com/channel/UCUDm9QajR-bh7I8NdSScR5A">
-                <img class="logo" src="assets/img/youtube.svg" alt="youtube.com" title="thanks freepik ;-p">
+                <img class="w10 h10" src="assets/img/youtube.svg" alt="youtube.com" title="thanks freepik ;-p">
             </a>
         </section>
 
@@ -334,7 +344,7 @@ Des modules supplémentaires sont aussi disponibles
                 <a href="https://github.com/xoomcoder">Explorez le Repository GitHub pour XoomCoder</a>
             </p>
             <a href="https://github.com/xoomcoder">
-                <img class="logo" src="assets/img/github.svg" alt="github.com">
+                <img class="w10 h10" src="assets/img/github.svg" alt="github.com">
             </a>
     </section>
 
