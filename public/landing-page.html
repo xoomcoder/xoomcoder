@@ -34,10 +34,11 @@ body {
 }
 
 header {
-    padding-bottom: 2rem;
+    padding: 1rem;
     display: flex;
-    flex-direction: column;
+    flex-wrap: wrap;
     align-items: center;
+    justify-content: space-around;
 }
 footer {
     padding: 4rem 0;
@@ -113,6 +114,18 @@ article img {
         width: calc(100% / 2);
     }
 
+    .w10 {
+        width:10%;
+    }
+    .w20 {
+        width:20%;
+    }
+    .w30 {
+        width:30%;
+    }
+    .w40 {
+        width:40%;
+    }
     .w50 {
         width:50%;
     }
@@ -138,20 +151,24 @@ article img {
     height: 60vmin;
 }
 
-/* colors */
+/*********************/
+/* COLORS            */
+/*********************/
+
 
 body {
     background: #000000 url(https://xoomcoder.com/assets/img/xoomcoder.svg) fixed no-repeat center center;
     background-size: contain;
 }  
 header, footer {
-    background-color: rgba(255, 255, 255, 0.75);
+    background: url('assets/img/code-1600.jpg') right top;
+    background-size: cover;
 }
 main {
     background-color: #bdbdbd;
 }
 section {
-    background-color: #ffffff;
+    background-color: #fcfcfc;
 }
 h1{
     color:#ba000d;
@@ -159,15 +176,16 @@ h1{
 h2, h3 {
     color: #212121;;
 }
-header h1 {
-    color:#ba000d;
+header, header h1 a {
+    color:#ffffff;
+    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
 }
 
 .s1, .s3, .s5, .s7 {
     color: #000000;
 }
 .s2, .s4, .s6, .s8 {
-    background-color: #bdbdbd;
+    background-color: #eeeeee;
 }
 .s2 a, .s4 a, .s6 a, .s8 a {
     color: #212121;
@@ -189,9 +207,9 @@ a {
 </head>
 <body>
     <header>
-        <h1><a href="?">XoomCoder</a></h1>
-        <a href="?"><img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com"></a>
-        <strong>Formation Développeur Fullstack à Distance</strong>
+        <h1 class="w20"><a href="?">XoomCoder</a></h1>
+        <a class="w10" href="?"><img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com"></a>
+        <strong class="w20">Formation Développeur Fullstack à&nbsp;Distance</strong>
     </header>
     <main>
 
@@ -201,9 +219,7 @@ a {
             <pre class="w50">
 Devenez en quelques mois un développeur fullstack en apprenant à coder une MarketPlace, en méthodologie Agile. 
 
-Apprenez progessivement en travaillant sur des projets d'abord simples et puis de plus en plus complexes. 
-
-Les techniques pour chaque projet complètent, étape par étape, les outils dont vous avez besoin pour réaliser le projet final de MarketPlace.
+Apprenez progessivement en travaillant sur des projets d'abord simples et puis de plus en plus complexes. Les techniques pour chaque projet complètent, étape par étape, les outils dont vous avez besoin pour réaliser le projet final de MarketPlace.
 
 * Level 1: Landing page
 * Level 2: Site Vitrine
@@ -354,12 +370,12 @@ Des modules supplémentaires sont aussi disponibles
                 <p>Cascading StyleSheet</p>
             </article>
             <article>
-                <img src="assets/img/javascript.svg" alt="javascript">
+                <img src="assets/img/javascript-2.svg" alt="javascript">
                 <h3>JS</h3>
                 <p>Javascript</p>
             </article>
             <article>
-                <img src="assets/img/vue.svg" alt="VueJS">
+                <img src="assets/img/vuejs-3.svg" alt="VueJS">
                 <h3>VueJS</h3>
                 <p>VueJS est un framework Front</p>
             </article>
@@ -368,36 +384,44 @@ Des modules supplémentaires sont aussi disponibles
         <section class="s7">
             <h2>Technologies Web (Back)</h2>
             <article>
+                <img src="assets/img/php.svg" alt="php">
                 <h3>PHP</h3>
                 <p>PHP is a HyperText PreProcessor</p>
             </article>
             <article>
+                <img src="assets/img/mysql.svg" alt="mysql">
                 <h3>SQL</h3>
                 <p>Structured Query Language</p>
             </article>
             <article>
+                <img src="assets/img/laravel-2.svg" alt="laravel">
                 <h3>Laravel</h3>
                 <p>Laravel est le Framework Back PHP le plus populaire</p>
             </article>
             <article>
+                <img src="assets/img/wordpress.svg" alt="WordPress">
                 <h3>WordPress</h3>
                 <p>WordPress est le CMS le plus populaire</p>
             </article>
 
             <h2>Serveur Web (LAMP)</h2>
             <article>
+                <img src="assets/img/linux-tux.svg" alt="linux">
                 <h3>Linux</h3>
                 <p>Linux est le Système d'exploitation (OS) libre et robuste préféré pour les serveurs web</p>
             </article>
             <article>
+                <img src="assets/img/apache-feather.svg" alt="apache">
                 <h3>Apache</h3>
                 <p>Apache reste populaire pour les hébergements mutualisés, même si Nginx devient leader pour les serveurs web</p>
             </article>
             <article>
+                <img src="assets/img/mysql.svg" alt="mysql">
                 <h3>MySQL ou MariaDB</h3>
                 <p>Les Base De Données (BDD) sont des outils très puissants et donc toujours très utilisés. Racheté par Oracle, La Base De Données MySQL a aussi comme alternative communautaire MariaDB</p>
             </article>
             <article>
+                <img src="assets/img/php.svg" alt="php">
                 <h3>PHP</h3>
                 <p>PHP reste le langage serveur le plus populaire pour les projets web</p>
             </article>
