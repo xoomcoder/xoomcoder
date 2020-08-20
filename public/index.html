@@ -200,7 +200,7 @@ header {
     background-size: cover;
 }
 main {
-    background-color: #bdbdbd;
+    background: none;
 }
 section {
     background-color: #fcfcfc;
@@ -219,17 +219,8 @@ footer {
 .s1, .s3, .s5, .s7 {
     color: #000000;
 }
-.s2, .s4, .s6, .s8 {
+.s2, .s6, .s8 {
     background-color: #eeeeee;
-}
-.s2 a, .s4 a, .s6 a, .s8 a {
-    color: #212121;
-}
-
-.s1 h2, .s3 h2, .s5 h2, .s7 h2,
-.s1 h3, .s3 h3, .s5 h3, .s7 h3
-{
-    color:#212121;
 }
 article {
     border-top:1px solid #ba000d;
@@ -238,7 +229,12 @@ a {
     text-decoration: none;
     color:#ba000d;
 }
-
+.nobg {
+    background:none;
+}
+.nobg * {
+    color: white;
+}
 
     </style>
 </head>
@@ -273,7 +269,7 @@ La formation est découpée en modules. Vous composez votre parcours progressive
 
 * Qui est le formateur ?
 
-Long Hai est diplômé Ingénieur Logiciel (ENSIMAG) depuis +20 ans. Et il a commencé à coder il y a plus de 35 ans. Long Hai a une grande expérience des formations intensives, avec des groupes de 10-20 apprenant(e)s. En effet, il est formateur depuis plus de 6 ans, dans les écoles labellisées Grande Ecole du Numérique.
+Long Hai est diplômé Ingénieur Logiciel (Ensimag) depuis +20 ans. Et il a commencé à coder il y a plus de 35 ans. Long Hai a une grande expérience des formations intensives, avec des groupes de 10-20 apprenant(e)s. En effet, il est formateur depuis plus de 6 ans, dans les écoles labellisées Grande Ecole du Numérique.
 Les formations "développeur web fullstack" en présentiel durent de 3 à 6 mois en général.
 Depuis le confinement de 2020, les organismes de formation sont passées, pour la plupart, en formation à distance, avec la mise en place du télétravail.
 
@@ -353,7 +349,7 @@ Des modules supplémentaires sont aussi disponibles
             </article>
         </section>
 
-        <section class="s3">
+        <section class="s3 nobg">
             <h2>Vidéos sur YouTube</h2>
             <p>                
                 Les Vidéos seront disponibles sur la chaine YouTube:
@@ -364,7 +360,7 @@ Des modules supplémentaires sont aussi disponibles
             </a>
         </section>
 
-        <section class="s4">
+        <section class="s4 nobg">
             <h2>Code complet sur GitHub.com</h2>
             <p>
                 Les codes seront accessibles sur GitHub.com:
