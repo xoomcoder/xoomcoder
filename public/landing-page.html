@@ -466,7 +466,9 @@ Des modules supplémentaires sont aussi disponibles
         <section>
             <h2>Formulaire de contact</h2>
             <strong>Remplissez le formulaire et recevez un code promo de 20% sur votre achat.</strong>
-            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdz3ZjxG5lYBoV7vwnab00pnldHRl92tRVq9ydH-0WCeIiMug/viewform?embedded=true" width="10%" height="3600" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>   
+            <script type="text/xoomcoder">
+                <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdz3ZjxG5lYBoV7vwnab00pnldHRl92tRVq9ydH-0WCeIiMug/viewform?embedded=true" width="10%" height="3600" frameborder="0" marginheight="0" marginwidth="0">Chargement…</iframe>   
+            </script>
         </section>
     </main>
     <footer>
@@ -477,5 +479,28 @@ Des modules supplémentaires sont aussi disponibles
         <p>Ce site est géré et publié par <a href="https://www.linkedin.com/in/applh">Long Hai LH</a> et le code est hébergé sur ionos.fr</p>
         <p>Des informations statistiques sur les visites sont stockées par l'hébergement.</p>
     </footer>
+
+    <script>
+// https://plainjs.com/javascript/events/running-code-when-the-document-is-ready-15/
+function run() {
+    // do something
+    scripts = document.querySelectorAll('script[type=text/xoomcoder.com]');
+    for(var s=0; s<scripts.length; s++)
+    {
+        var current = scripts[s];
+        // https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
+        current.insertAdjacentHTML('afterend', current.innerHTML);
+    }
+}
+
+// in case the document is already rendered
+if (document.readyState!='loading') run();
+// modern browsers
+else if (document.addEventListener) document.addEventListener('DOMContentLoaded', run);
+// IE <= 8
+else document.attachEvent('onreadystatechange', function(){
+    if (document.readyState=='complete') run();
+});        
+    </script>
 </body>
 </html>

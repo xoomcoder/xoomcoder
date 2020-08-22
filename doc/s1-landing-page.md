@@ -75,6 +75,14 @@ La méthode "Mobile First" pour le design
 
 🌞 Utiliser les sites comme https://web.dev pour valider vos pages web
 
+
+## Insérer un formulaire Google Forms
+
+Très facile à créer avec son compte Google Drive
+👌 et à insérer dans une page avec le code iframe
+😱 mais ce code ajoute du javascript en plus qui fait tomber le score "Performance" autour de 50
+😻 pour retarder ce code JS... il faut ajouter un autre code JS 
+
 ## markdown, emoji et images
 
 Insérer un emoji
