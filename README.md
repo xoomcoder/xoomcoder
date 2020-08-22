@@ -92,6 +92,29 @@ passthru($commande);
 * grey #9e9e9e
 * cyan #00bcd4
 
+## ffmpeg et montage video
+
+    ffmpeg est un outil très puissant, en ligne de commande, pour manipuler les videos
+
+    🔥🔥🔥 FADE MELANGE 2S DES 2 VIDEOS...  
+    --------------------
+    ffmpeg -i jump4ka.mp4 -i zoom0.mp4 \
+    -filter_complex \
+    "color=black:3840x2160:d=6[base]; \
+    [0:v]setpts=PTS-STARTPTS[v0]; \
+    [1:v]format=yuva420p,fade=in:st=0:d=2:alpha=1, \
+        setpts=PTS-STARTPTS+(4/TB)[v1]; \
+    [base][v0]overlay[tmp]; \
+    [tmp][v1]overlay,format=yuv420p[fv]; \
+    [0:a][1:a]acrossfade=d=2[fa]" \
+    -map [fv] -map [fa] fade.mp4
+    --------------------
+
+    ajouter une piste son vide 
+    mono aac 32000
+
+    ffmpeg -f lavfi -i anullsrc=channel_layout=mono:sample_rate=32000 -i jump.mp4 -c:v copy -c:a aac -shortest zoom2.mp4
+
 
 
 
