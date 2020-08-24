@@ -74,7 +74,7 @@ Une fois que le fichier .php affiche correctement la page,
 on peut maintenant profiter de PHP pour découper le code HTML, 
 et le séparer dans différents fichiers.
 
-On va créer 3 fichiers .php pour chauqe partie du code HTML.
+On va créer 3 fichiers .php pour chaque partie du code HTML.
 
 🔥 header.php
 🔥 contenu-tuto1.php
