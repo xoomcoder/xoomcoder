@@ -1,4 +1,4 @@
-# SITE VITRINE.
+# SITE VITRINE. (partie 1)
 
 ## OBJECTIFS DU PROJET.
 
@@ -6,7 +6,7 @@ Créer un site vitrine de plusieurs pages.
 
 ## Notions à comprendre.
 
-🔥 Un site vitrine se compose de plusieurs pages reliés par des hyperliens (textes cliquables...).
+🔥 Un site vitrine se compose de plusieurs pages reliées par des hyperliens (textes cliquables...).
 
 🔥 La notion d'identité visuelle et de charte graphique.
 
