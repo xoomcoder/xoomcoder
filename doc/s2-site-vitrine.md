@@ -18,7 +18,9 @@ Créer un site vitrine de plusieurs pages.
 
 🔥 Les templates sont codés par le développeur.
 
-😇 Un site de 1000 pages peut utiliser seulement... une dizaine de templates ?
+😇 Un site de 1000 pages pourrait seulement utiliser... une dizaine de templates ?
+
+😇 Le travail du développeur est très lié au nombre de templates à coder.
 
 ❓ Sur un projet, commencer par cadrer le volume de pages: combien faudra-t-il de pages ?
 
@@ -51,7 +53,12 @@ Comme l'achitecture LAMP est très populaire, la plupart des hébergeurs mutuali
 
 Actuellement, environ 80% des sites internet utilisent PHP.
 
-😇 Malin et facile: pour activer PHP sur un site codé initialement en HTML, il suffit de changer les fichier .html en .php et le serveur web active PHP automatiquement pour ces fichiers.
+😇 Malin et facile: pour activer PHP sur un site codé initialement en HTML, il suffit de changer les fichiers .html en .php et le serveur web active PHP automatiquement pour ces fichiers.
+
+### Exercice pratique: changement de HTML à PHP.
+
+    On va changer le fichier index.html en index.php
+    Et ensuite, on va vérifier si les performances sont toujours correctes.
 
 
 
