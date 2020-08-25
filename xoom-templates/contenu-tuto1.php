@@ -1,8 +1,9 @@
 
-        <section>
+        <section class="x2col">
             <h1>TUTORIEL POUR CODER UNE LANDING PAGE</h1>
-            <p>Maintenant on a découpé la page dans différents fichiers 😇</p>
-            <pre>
-Et avec une balise pre on peut garder les retours à la ligne sans code HTML.
-            </pre>
+            <p>Vous pouvez voir <a href="landing-page.html">l'exemple de la landing page en cliquant ici</a>.</p>
+            <article>
+                <h2>Etapes pour coder la Landing Page</h2>
+                <p>HTML, CSS, JS</p>
+            </article>
         </section>
