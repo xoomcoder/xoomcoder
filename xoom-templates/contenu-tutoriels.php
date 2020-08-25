@@ -9,7 +9,7 @@
                 <p>tutoriel pour coder une landing page</p>
             </article>
             <article>
-                <a href="tutoriel-landing-page.php">
+                <a href="tutoriel-site-vitrine.php">
                     <h2>Coder un Site Vitrine</h2>
                 </a>
                 <p>tutoriel pour coder un site vitrine</p>
