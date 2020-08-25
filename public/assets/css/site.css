@@ -255,3 +255,11 @@ a {
     }
 
 }
+
+/*********************/
+/* SPECIFIC PAGE CSS */
+/*********************/
+
+body.contenu-contact header {
+    background:none;
+}
