@@ -1,6 +1,6 @@
 
         <section class="s1 x2col">
-            <h2>Formation Développeur Fullstack</h2>
+            <h1>Formation Développeur Fullstack</h1>
             <img class="" src="assets/img/team-640.jpg" alt="xoomcoder team">
             <pre class="">
 Devenez en quelques mois un développeur fullstack en apprenant à coder une MarketPlace, en méthodologie Agile. Apprenez progressivement en travaillant sur des projets d'abord simples et puis de plus en plus complexes. Les techniques pour chaque projet complètent, étape par étape, les outils dont vous avez besoin pour réaliser le projet final de MarketPlace.

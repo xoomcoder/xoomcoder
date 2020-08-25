@@ -1,6 +1,6 @@
 
         <section>
-            <h2>Liste des tutoriels</h2>
+            <h1>Liste des tutoriels</h1>
             <p>Maintenant on a découpé la page dans différents fichiers 😇</p>
             <pre>
 Et avec une balise pre on peut garder les retours à la ligne sans code HTML.
