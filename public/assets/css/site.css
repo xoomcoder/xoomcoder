@@ -34,6 +34,17 @@ main {
 header, main, footer {
     max-width: 1366px;
 }
+
+nav {
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+nav a {
+    width: auto;
+    padding:1rem;
+}
+
 p {
     padding:0 1rem;
 }  

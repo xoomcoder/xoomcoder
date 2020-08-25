@@ -31,6 +31,7 @@
         <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
         <nav>
             <a href="tutoriels.php">tutoriels</a>
+            <a href="contact.php">contact</a>
         </nav>
     </header>
     <main>
