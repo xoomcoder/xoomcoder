@@ -208,7 +208,7 @@ a {
 
 @media (min-width: 480px)
 {
-    header, header h1 a, footer {
+    header, header a, footer {
         color:#ffffff;
         text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
     }
