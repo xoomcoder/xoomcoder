@@ -8,6 +8,8 @@
             <article>
                 <h2>Tuto Video</h2>
                 <p>HTML, CSS, JS, PHP</p>
-                <iframe width="560" height="315" src="https://www.youtube.com/embed/lEAII_9Sqkw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                <script type="text/xoomcoder">
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/lEAII_9Sqkw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </script>
             </article>
         </section>
