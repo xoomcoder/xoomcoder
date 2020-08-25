@@ -8,7 +8,7 @@
         <p>Des informations statistiques sur les visites sont stockées par l'hébergement.</p>
     </footer>
 
-    <script src="assets/js/site.js"></script>
+    <script type="module" src="assets/js/site.js"></script>
     <script>
     
     </script>
