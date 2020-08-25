@@ -11,7 +11,7 @@
     <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
     <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
 
-    <link rel="canonical" href="https://xoomcoder.com/">
+    <link rel="canonical" href="https://xoomcoder.com<?php echo $_SERVER["PHP_SELF"] ?>">
     <!-- favicon -->
     <link rel="icon" href="assets/img/xoomcoder.svg">
 
