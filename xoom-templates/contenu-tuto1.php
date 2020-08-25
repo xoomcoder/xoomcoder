@@ -14,7 +14,7 @@
                 <h2>Tuto Video</h2>
                 <p><a href="https://www.youtube.com/watch?v=fkqulsv8mrk">Lien vers la video YouTube</a></p>
                 <script type="text/xoomcoder">
-                    <iframe width="560" height="315" src="https://www.youtube.com/embed/fkqulsv8mrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            
+                    <iframe title="formulaire de contact" width="560" height="315" src="https://www.youtube.com/embed/fkqulsv8mrk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>            
                 </script>
             </article>
         </section>
