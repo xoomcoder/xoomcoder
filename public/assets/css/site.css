@@ -99,59 +99,6 @@ article img {
     object-fit: contain ;
 }
 
-/* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
-@media (max-width: 480px)
-{
-    section:first-of-type img {
-        max-height: 25vmax;
-    }
-}
-
-@media (min-width: 480px)
-{
-
-    section {
-        display:flex;
-        flex-wrap:wrap;
-        justify-content: center;
-        align-items:stretch;
-    }
-    section.x2col > * {
-        width: calc(100% / 2);
-    }
-    section.x2col h1, section.x2col h2 {
-        width:100%;
-    }
-    section article {
-        width: calc(100% / 2);
-    }
-
-    .w10 {
-        width:10%;
-    }
-    .w20 {
-        width:20%;
-    }
-    .w30 {
-        width:30%;
-    }
-    .w40 {
-        width:40%;
-    }
-    .w50 {
-        width:50%;
-    }
-
-}
-
-@media (min-width: 960px)
-{
-
-    section article {
-        width: calc(100% / 4);
-    }
-
-}
 
 .h10{
     height: 10vmin;
@@ -213,10 +160,6 @@ section {
 h2, h3 {
     color: #212121;;
 }
-header, header h1 a, footer {
-    color:#ffffff;
-    text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
-}
 footer {
     background-color: rgba(0,0,0,0.5);
 }
@@ -239,4 +182,76 @@ a {
 }
 .nobg * {
     color: white;
+}
+
+
+/* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
+@media (max-width: 480px)
+{
+    html, body {
+        font-size:12px;
+    }
+    header {
+        background:#ffffff;
+    }
+    section:first-of-type img {
+        max-height: 25vmax;
+    }
+    header {
+        padding: 1rem;
+        display: grid;
+        align-items: center;
+        justify-content: center;
+    }
+    
+}
+
+@media (min-width: 480px)
+{
+    header, header h1 a, footer {
+        color:#ffffff;
+        text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+    }
+    
+    section {
+        display:flex;
+        flex-wrap:wrap;
+        justify-content: center;
+        align-items:stretch;
+    }
+    section.x2col > * {
+        width: calc(100% / 2);
+    }
+    section.x2col h1, section.x2col h2 {
+        width:100%;
+    }
+    section article {
+        width: calc(100% / 2);
+    }
+
+    .w10 {
+        width:10%;
+    }
+    .w20 {
+        width:20%;
+    }
+    .w30 {
+        width:30%;
+    }
+    .w40 {
+        width:40%;
+    }
+    .w50 {
+        width:50%;
+    }
+
+}
+
+@media (min-width: 960px)
+{
+
+    section article {
+        width: calc(100% / 4);
+    }
+
 }
