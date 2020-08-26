@@ -30,6 +30,7 @@
         </a>
         <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
         <nav>
+            <a href="news">news</a>
             <a href="tutoriels">tutoriels</a>
             <a href="contact">contact</a>
         </nav>
