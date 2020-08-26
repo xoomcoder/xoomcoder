@@ -65,6 +65,9 @@ class ApiInstall
     {
         $email      = Form::filterInput("email");
         $adminkey   = Form::filterInput("adminkey");
+        // https://www.php.net/manual/fr/function.class-exists.php
+        // https://www.php.net/manual/fr/function.isset.php
+        // https://www.php.net/manual/fr/function.password-verify.php
         if (class_exists("Config") 
             && isset(Config::$adminEmail) 
             && ($email == Config::$adminEmail ?? "")) {
@@ -78,10 +81,14 @@ class ApiInstall
                 x;
     
                 $installfile = Xoom::$rootdir . "/xoom-data/my-install.php";
+                // https://www.php.net/manual/fr/function.file-get-contents.php
                 $code = file_get_contents($installfile);
                 $dicosa = [
                     "//@end"    => $extracode,
                 ];
+                // https://www.php.net/manual/fr/function.str-replace.php
+                // https://www.php.net/manual/fr/function.array-keys.php
+                // https://www.php.net/manual/fr/function.array-values.php
                 $code = str_replace(array_keys($dicosa), array_values($dicosa), $code);
                 // https://www.php.net/manual/en/function.file-put-contents
                 file_put_contents($installfile, $code);   
