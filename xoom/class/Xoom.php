@@ -53,7 +53,7 @@ class Xoom
 
         // store filename
         Xoom::$filename = $filename;
-
+        
         // if there's a page
         $pagefile = Xoom::$rootdir . "/xoom-pages/$filename.php";
         if (is_file($pagefile)) {

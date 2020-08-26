@@ -93,6 +93,21 @@ article img {
     height:10vmin;
     object-fit:contain;
 }
+
+form {
+    max-width:640px;
+}
+form label {
+    display: block;
+}
+form label > div {
+    display: none;
+}
+
+form * {
+    margin:0.25rem;
+    padding:0.5rem;
+}
 .logo {
     width:5vmin;
     height:5vmin;
@@ -137,6 +152,7 @@ article img {
 .of-out {
     object-fit: cover;
 }
+
 
 /*********************/
 /* COLORS            */
