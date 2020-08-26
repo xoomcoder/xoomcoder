@@ -12,9 +12,9 @@
             </article>
             <article>
                 <h2>Tuto Video</h2>
-                <p><a href="https://www.youtube.com/watch?v=lEAII_9Sqkw">Lien vers la video YouTube</a></p>
+                <p><a href="https://www.youtube.com/watch?v=hTXjKC2f-n4">Lien vers la video YouTube</a></p>
                 <script type="text/xoomcoder">
-                    <iframe title="tutoriels youtube" width="560" height="315" src="https://www.youtube.com/embed/lEAII_9Sqkw" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                    <iframe title="tutoriels youtube" width="560" height="315" src="https://www.youtube.com/embed/hTXjKC2f-n4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </script>
             </article>
         </section>
