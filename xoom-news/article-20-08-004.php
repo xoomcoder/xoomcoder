@@ -9,6 +9,26 @@
 </article>
 
 <article>
+    <h2>Level 3: tutoriels sur VueJS 3 en framework front</h2>
+    <p>
+        VueJS 3 va bientôt devenir la nouvelle version officielle.
+        Dans les 3 principaux frameworks front, on peut nommer React, Angular et Vue.
+        Cette version VueJS 3 est une évolution importante pour le framework qui a rapidement gagné en popularité ces dernières années.
+        Un des aspects très intéressant est la prise en main très facile pour commencer à manipuler les possibilités des frameworks front.
+        VueJS propose un package complet en un seul fichier. 
+        Il suffit de l'ajouter dans votre page HTML et vous pouvez directement utiliser VueJS !
+        Si vous comparez avec React ou Angular, vous allez vous apercevoir que c'est beaucoup plus lourd pour démarrer avec React et Angular.
+        Pour coder avec VueJS, on utilise du JS moderne mais aussi des ajouts assez proches du JS.
+        React préfère JSX et Angular préfère TypeScript.
+        Ensuite si vous voulez pousser VueJS pour un projet plus complexe, il est aussi évidemment possible de créer des composants compilés côté serveur, avec nodeJS et npm...
+    </p>
+    <p>
+        Pour suivre les actualités, visitez cette page: 
+        https://news.vuejs.org/
+    </p>
+</article>
+
+<article>
     <h2>Level 3: Ajout d'une page installation</h2>
     <p>
         Pour gérer le contenu du site, il faut créer un compte administrateur.
@@ -44,5 +64,26 @@
     </p>
     <p>
         En conclusion: c'est un "must" que de programmer en Orienté-Objet avec PHP. Et c'est bien le niveau demandé dans les entreprises.
+    </p>
+</article>
+
+<article>
+    <h2>Level 3: Blog et astuce SEO</h2>
+    <p>
+        Les sites ont besoin des moteurs de recherche pour être bien référencés dans les résultats de recherche des visiteurs.
+        Mais il faut aussi voir que les moteurs de recherche ont aussi besoin d'être meilleurs que leurs concurrents.
+        Le point crucial se focalise sur les actualités. Les internautes veulent avoir les dernières nouvelles et quasiment en temps réel.
+        Les moteurs de recherche doivent donc repérer les sites qui sont à la pointe sur les dernières nouvelles selon les domaines populaires.
+        Votre site sera forcément mieux référencé que celui de votre concurrent si vous publiez régulièrement des nouveautés en lien avec les actualités.
+        Si on regarde l'histoire des sites, c'est le conseil qu'on donnait aux clients qui voulaient que leur site vitrine soit mieux référencé que le site vitrine du concurrent.
+        En ajoutant une page de "blog", "news", "actus", etc... Le site donne un signal fort aux moteurs de recherche qu'il est un site où il y a aura des contenus régulièrement et récents.
+        Google viendra consulter les pages plus souvent et les pages vont gagner des positions car elles vont proposer des contenus plus frais que les autres.
+        Et pour pouvoir publier du contenu régulièrement, il faut évidemment un outil bien adapté pour ce travail: il faut un Content Management System (CMS).
+        C'est une des clés du succès de WordPress, qui est utilisé pour publier plus de 35% des sites actuellement. 
+    </p>
+    <p>
+        Par exemple: pour cette page d'actualités, comme le site porte sur le développement web fullstack, il est intéressant de publier du contenu sur les prochaines sorties des frameworks.
+        Sur la partie front, VueJS 3 était annoncé pour ces dernières semaines. Le code du noyau VueJS 3 est prêt et ce sont plutôt les extensions et la documentation qui doivent maintenant se mettre à niveau.
+        On peut essayer de gagner en référencement sur VueJS 3 et aussi tout son écosystème. 
     </p>
 </article>

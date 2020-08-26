@@ -212,7 +212,7 @@ a {
 @media (max-width: 480px)
 {
     html, body {
-        font-size:12px;
+        font-size:14px;
     }
     header {
         background:#ffffff;
@@ -297,7 +297,7 @@ a {
 /* SPECIFIC PAGE CSS */
 /*********************/
 
-body.news article * {
+body.news article p {
     text-align:left;
 }
 body.news article h2:before {
