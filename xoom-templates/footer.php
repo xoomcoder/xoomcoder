@@ -5,7 +5,7 @@
         <p>XoomCoder * tous droits réservés</p>
         <p>&copy;2020</p>
         <p>Ce site est géré et publié par <a href="https://www.linkedin.com/in/applh">Long Hai LH</a> et le code est hébergé sur ionos.fr</p>
-        <p>Des informations statistiques sur les visites sont stockées par l'hébergement.</p>
+        <p>Des informations statistiques sur les visites sont stockées par l'hébergement et aussi par Google Analytics.</p>
     </footer>
 
     <script type="module" src="assets/js/site.js"></script>
