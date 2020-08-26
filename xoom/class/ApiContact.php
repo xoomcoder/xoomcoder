@@ -16,7 +16,7 @@ class ApiContact
 
         if ("$nom$email$message" != "") {
             // send a email
-            Email::send("contact@woomcoder.com", "message de: $nom / $email", $message);
+            Email::send("contact@xoomcoder.com", "message de: $nom / $email", $message);
         }
     }
 }
