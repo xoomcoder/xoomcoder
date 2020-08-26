@@ -8,6 +8,15 @@
     <p>Une partie admin ne doit pas être indexée par les moteurs de recherche. Dans cette situation, l'utilisation intensive de JS nous apporte beaucoup plus de facilités pour le développeur. Les utilisateurs profitent aussi d'une meilleure expérience (UX). Et les moteurs de recherche comprennent très mal le contenu produit par JS et l'indexent mal, ce qui est bien le résultat recherché pour cette page d'administration.</p>
 </article>
 
+<article>
+    <h2>Level 1: Ajout de Google Analytics</h2>
+    <p>
+        Si on suit les conseils de Google pour ajouter le code JS qui active Google Analytics. On perd 5 points en score de performance... 
+        Il vaut mieux insérer le code juste avant la balise fermante /body: cela ne fait perdre qu'un seul point en score de performance.
+        Mais le bon côté, c'est que le tracking est immédiat et temps réel.
+        Si vous voulez montrer des statistiques de fréquentation de votre site, c'est un standard incontournable.
+    </p>
+</article>
 
 <article>
     <h2>Level 3: Blog en POO sans BDD</h2>
