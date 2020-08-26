@@ -9,6 +9,19 @@
 </article>
 
 <article>
+    <h2>Level 3: Ajout d'une page installation</h2>
+    <p>
+        Pour gérer le contenu du site, il faut créer un compte administrateur.
+        La page d'installation demande l'email de l'administrateur. 
+        Et le traitement du formulaire envoie une clé admin sur cet email.
+        Ensuite, il y a un 2e formulaire d'activation pour valider que l'adresse email est correcte.
+        Il faut alors fournir l'email et la clé envoyée sur cette boite email.
+        Une fois le compte administrateur créé, les 2 formulaires sont désactivés: 
+        il devient impossible de créer un nouveau compte adminitrateur.
+    </p>
+</article>
+
+<article>
     <h2>Level 3: Blog en POO sans BDD</h2>
     <p>Le site XoomCoder arrive maintenant au niveau 3. On ajoute en premier une page news pour les actualités.</p>
     <p>Pour le SEO, il n'y a pas encore suffisamment de contenu dans chaque article pour les séparer dans une page à part. Pour le moment, tous les articles sont dans la page news.</p>
