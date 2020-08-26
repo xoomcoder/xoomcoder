@@ -45,7 +45,7 @@ function run() {
             // https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
             current.insertAdjacentHTML('afterend', current.innerHTML);
         }        
-    }, 2000);
+    }, 4000);
 
     // install ajax
     addAction("form[action=api]", "submit", cbAjax);
