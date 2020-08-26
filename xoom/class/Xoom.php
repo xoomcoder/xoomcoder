@@ -10,7 +10,7 @@ class Xoom
 
     // static methods
 
-    static function start ($rootdir)
+    static function start($rootdir)
     {
         error_reporting(E_ALL);
         ini_set("error_display", "1");
@@ -20,24 +20,23 @@ class Xoom
 
         // https://www.php.net/manual/fr/function.spl-autoload-register.php
         spl_autoload_register("Xoom::loadClass");
-        
+
         Xoom::getRequest();
 
         // build the page to the browser
         Xoom::sendResponse();
     }
 
-    static function loadClass ($classname)
+    static function loadClass($classname)
     {
         // https://www.php.net/manual/fr/function.glob.php
         $toFile = glob(__DIR__ . "/$classname.php");
 
         // https://www.php.net/manual/fr/function.count.php
         $result = count($toFile) ? require $toFile[0] : 0;
-
     }
 
-    static function getRequest ()
+    static function getRequest()
     {
         $uri = $_SERVER["REQUEST_URI"];
         // https://www.php.net/manual/fr/function.parse-url.php
@@ -57,17 +56,22 @@ class Xoom
 
         // if there's a page
         $pagefile = Xoom::$rootdir . "/xoom-pages/$filename.php";
-        if (is_file($pagefile)) include $pagefile;
+        if (is_file($pagefile)) {
+            // special template
+            include $pagefile;
+        } else {
+            // default template
+            $contentfile = Xoom::$rootdir . "/xoom-templates/contenu-$filename.php";
+            if (is_file($contentfile)) Xoom::$template = [ "header", "contenu-$filename", "footer" ];
+        }
     }
 
-    static function sendResponse ()
+    static function sendResponse()
     {
         // https://www.php.net/manual/fr/control-structures.foreach.php
-        foreach(Xoom::$template as $file)
-        {
+        foreach (Xoom::$template as $file) {
             // https://www.php.net/manual/fr/function.require-once.php
             require_once Xoom::$rootdir . "/xoom-templates/$file.php";
         }
-
     }
 }
