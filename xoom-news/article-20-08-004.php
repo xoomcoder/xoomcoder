@@ -9,16 +9,6 @@
 </article>
 
 <article>
-    <h2>Level 1: Ajout de Google Analytics</h2>
-    <p>
-        Si on suit les conseils de Google pour ajouter le code JS qui active Google Analytics. On perd 5 points en score de performance... 
-        Il vaut mieux insérer le code juste avant la balise fermante /body: cela ne fait perdre qu'un seul point en score de performance.
-        Mais le bon côté, c'est que le tracking est immédiat et temps réel.
-        Si vous voulez montrer des statistiques de fréquentation de votre site, c'est un standard incontournable.
-    </p>
-</article>
-
-<article>
     <h2>Level 3: Blog en POO sans BDD</h2>
     <p>Le site XoomCoder arrive maintenant au niveau 3. On ajoute en premier une page news pour les actualités.</p>
     <p>Pour le SEO, il n'y a pas encore suffisamment de contenu dans chaque article pour les séparer dans une page à part. Pour le moment, tous les articles sont dans la page news.</p>
