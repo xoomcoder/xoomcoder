@@ -10,6 +10,7 @@ class Email
             $headers = [
                 'From'      => Config::$adminEmail,
                 'Reply-To'  => Config::$adminEmail,
+                'X-Mailer' => 'PHP/' . phpversion(),    // does it help not be tagged as spam ???
             ];
         }
 
