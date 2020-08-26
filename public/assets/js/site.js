@@ -15,14 +15,21 @@ function cbAjax (event)
     var fd = new FormData(event.target);
 
     // send the form data
-    fetch("api", {
-        method:"POST",
+    fetch('api', {
+        method: 'POST',
         body: fd
     })
+    // process the response in json format
     .then(function(response) {
         response.json()
         .then(function(json){
             console.log(json);
+
+            // show the feedback to user
+            if ('feedback' in json) {
+                var feedback = event.target.querySelector('.feedback');
+                if (feedback) feedback.innerHTML = json.feedback;
+            }
         });
     })
 }

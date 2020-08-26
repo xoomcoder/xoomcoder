@@ -17,6 +17,7 @@
                     <textarea name="message" cols="80" rows="10" required></textarea>
                 </label>
                 <button type="submit">Envoyer votre message</button>
+                <div class="feedback"></div>
                 <!-- partie technique -->
                 <input type="hidden" name="classApi" value="Contact">
                 <input type="hidden" name="methodApi" value="message">
