@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <!-- IMPORTANT: NO INDEX -->
     <meta name="robots" content="noindex">
 
@@ -15,6 +15,8 @@
 
     https://v3.vuejs.org/guide/introduction.html#getting-started
 
+    https://v3.vuejs.org/guide/installation.html#release-notes
+
     </script>
 
 </head>
@@ -22,6 +24,12 @@
     <div id="app">
 
         <h1>{{ test }}</h1>
+
+        <section>
+            <button @click="doEx1">click here</button>
+            <div>you pressed the button {{ count1 }} times.</div>
+        </section>
+
     </div>
 
     <!-- TODO: change to the official Vuejs version 3 (when available) -->
@@ -33,7 +41,14 @@ const AppConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            count1: 0,
             test: 'XoomCoder'
+        }
+    },
+    methods: {
+        doEx1() {
+            // we can manipulate properties here
+            this.count1++;
         }
     }
 };
