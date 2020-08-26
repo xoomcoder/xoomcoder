@@ -8,19 +8,9 @@
     <meta name="robots" content="noindex">
 
     <title>XoomCoder Admin</title>
-
-    <script type="text/readme">
-
-    https://v3.vuejs.org/guide/installation.html#release-notes
-
-    https://v3.vuejs.org/guide/introduction.html#getting-started
-
-    https://v3.vuejs.org/guide/installation.html#release-notes
-
-    </script>
-
 </head>
 <body>
+    <!-- VueJS will only work inside this div -->
     <div id="app">
 
         <h1>{{ test }}</h1>
@@ -34,10 +24,11 @@
 
     <!-- TODO: change to the official Vuejs version 3 (when available) -->
     <script src="https://unpkg.com/vue@next"></script>
+
     <script>
 
 // https://v3.vuejs.org/guide/introduction.html#getting-started
-const AppConfig = {
+const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
@@ -53,8 +44,20 @@ const AppConfig = {
     }
 };
 
-var app = Vue.createApp(AppConfig).mount('#app');
+var app = Vue.createApp(appConfig).mount('#app');
 
     </script>
 </body>
 </html>
+
+<!-- 
+
+Documentation sur VueJS 3
+
+https://v3.vuejs.org/guide/installation.html#release-notes
+
+https://v3.vuejs.org/guide/introduction.html#getting-started
+
+https://v3.vuejs.org/guide/installation.html#release-notes
+
+-->

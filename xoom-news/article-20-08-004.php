@@ -16,3 +16,21 @@
     <p>Sur la page contact, il y a aussi un formulaire pour laisser un message. L'envoi du formulaire est réalisé en Ajax, sans chargement de la page.</p>
     <p>Comme souvent en développement local, il n'y a pas de serveur d'email. Il y a maintenant la possibilité d'ajouter un code local pour personnaliser ces fonctionnalités. La Programmation Par Classes (PPC) permet de ranger facilement son code.</p>
 </article>
+
+<article>
+    <h2>Level 3: Programmation Orienté-Objet</h2>
+    <p>
+        Avec PHP, il faut vraiment passer rapidement de la programmation fonctionnelle à la programmation orienté-objet (POO).
+        En effet, PHP propose pour la programmation Orienté-Objet un mécanisme de chargement automatique de classes.
+        Une fois ce mécanisme installé, le développeur peut se concentrer sur l'organisation de son code dans différentes les classes.
+        PHP pourra charger automatiquement le code nécessaire, et seulement au moment où l'exécution du code en a besoin.
+    </p>
+    <p>
+        Il y a donc un grand gain en termes de performances, puisque que PHP ne chargera que le code nécessaire, au dernier moment.
+        Le développeur peut capitaliser son code dans des classes.
+        Et de plus, un code incorrect n'aura pas de conséquences sur le reste de l'application si il n'a pas besoin d'être exécuté.
+    </p>
+    <p>
+        En conclusion: c'est un "must" que de programmer en Orienté-Objet avec PHP. Et c'est bien le niveau demandé dans les entreprises.
+    </p>
+</article>
