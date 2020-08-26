@@ -295,10 +295,6 @@ a {
 /* SPECIFIC PAGE CSS */
 /*********************/
 
-body.contact header {
-    background:none;
-}
-
 body.news article * {
     text-align:left;
 }
