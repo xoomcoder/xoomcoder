@@ -108,6 +108,11 @@ form * {
     margin:0.25rem;
     padding:0.5rem;
 }
+form .feedback {
+    font-size:1.2rem;
+    font-weight: 700;
+}
+
 .logo {
     width:5vmin;
     height:5vmin;
