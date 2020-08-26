@@ -14,4 +14,10 @@
                 </a>
                 <p>tutoriel pour coder un site vitrine</p>
             </article>
+            <article>
+                <a href="tutoriel-site-blog">
+                    <h2>Coder un Site Blog</h2>
+                </a>
+                <p>tutoriel pour coder un site blog</p>
+            </article>
         </section>

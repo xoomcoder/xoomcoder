@@ -1,9 +1,9 @@
 
         <section class="x2col">
-            <h1>TUTORIEL POUR CODER UN SITE VITRINE</h1>
+            <h1>TUTORIEL POUR CODER UN SITE BLOG</h1>
             <article>
                 <h2>Objectifs</h2>
-                <p>Coder un site de plusieurs pages.</p>
+                <p>Coder un site blog avec plusieurs articles.</p>
             </article>
             <article>
                 <h2>Etapes importantes</h2>
