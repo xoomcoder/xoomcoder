@@ -20,7 +20,7 @@
 
     </style>
 </head>
-<body class="<?php echo $template[1] ?>">
+<body class="<?php Xoom::showBodyClass() ?>">
     <header>
         <h1 class="">
             <a href="./">XoomCoder</a>

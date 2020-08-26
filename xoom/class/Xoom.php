@@ -74,4 +74,9 @@ class Xoom
             require_once Xoom::$rootdir . "/xoom-templates/$file.php";
         }
     }
+
+    static function showBodyClass ()
+    {
+        echo Xoom::$filename;
+    }
 }
