@@ -1,4 +1,14 @@
 
+
+<article>
+    <h2>Level 4: Ajout de page admin avec VueJS v3</h2>
+    <p>VueJS version3 devrait devenir disponible bientôt. En attendant, on peut déjà l'utiliser.</p>
+    <p>https://v3.vuejs.org/guide/installation.html#release-notes</p>
+    <p>Pour la partie admin, nous allons nous baser sur VueJS v3. Le code de démarrage est un peu plus complexe que pour la v2.</p>
+    <p>Une partie admin ne doit pas être indexée par les moteurs de recherche. Dans cette situation, l'utilisation intensive de JS nous apporte beaucoup plus de facilités pour le développeur. Les utilisateurs profitent aussi d'une meilleure expérience (UX). Et les moteurs de recherche comprennent très mal le contenu produit par JS et l'indexent mal, ce qui est bien le résultat recherché pour cette page d'administration.</p>
+</article>
+
+
 <article>
     <h2>Level 3: Blog en POO sans BDD</h2>
     <p>Le site XoomCoder arrive maintenant au niveau 3. On ajoute en premier une page news pour les actualités.</p>
