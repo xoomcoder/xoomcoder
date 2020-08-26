@@ -3,7 +3,7 @@
             <h1>TUTORIEL POUR CODER UNE LANDING PAGE</h1>
             <article>
                 <h2>Objectifs</h2>
-                <p>Vous pouvez voir <a href="landing-page.html">l'exemple de la landing page en cliquant ici</a>.</p>
+                <p>Vous pouvez voir <a href="landing-page">l'exemple de la landing page en cliquant ici</a>.</p>
             </article>
             <article>
                 <h2>Etapes pour coder la Landing Page</h2>

@@ -11,7 +11,7 @@
     <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
     <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
 
-    <link rel="canonical" href="https://xoomcoder.com<?php echo $_SERVER["PHP_SELF"] ?>">
+    <link rel="canonical" href="https://xoomcoder.com/<?php echo Xoom::$canonical ?>">
     <!-- favicon -->
     <link rel="icon" href="assets/img/xoomcoder.svg">
 
@@ -30,8 +30,8 @@
         </a>
         <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
         <nav>
-            <a href="tutoriels.php">tutoriels</a>
-            <a href="contact.php">contact</a>
+            <a href="tutoriels">tutoriels</a>
+            <a href="contact">contact</a>
         </nav>
     </header>
     <main>
