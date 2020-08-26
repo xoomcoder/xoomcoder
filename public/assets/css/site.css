@@ -246,6 +246,13 @@ a {
     section.x2col h1, section.x2col h2 {
         width:100%;
     }
+    section.x3col > * {
+        width: calc(100% / 2);
+    }
+    section.x3col h1, section.x2col h2 {
+        width:100%;
+    }
+
     section article {
         width: calc(100% / 2);
     }
@@ -275,6 +282,13 @@ a {
         width: calc(100% / 4);
     }
 
+    section.x3col > * {
+        width: calc(100% / 3);
+    }
+    section.x3col h1, section.x2col h2 {
+        width:100%;
+    }
+
 }
 
 /*********************/
@@ -283,4 +297,11 @@ a {
 
 body.contact header {
     background:none;
+}
+
+body.news article * {
+    text-align:left;
+}
+body.news article h2:before {
+    content: '🔥 ';
 }
