@@ -1,8 +1,16 @@
 <?php
 
+$localfiles = [
+    "my-code",
+    "my-install",
+];
+
 // load local config
-$localConfig = __DIR__ . "/my-config.php"; 
-if (is_file($localConfig)) include($localConfig);
+foreach($localfiles as $lf) {
+    $localConfig = __DIR__ . "/xoom-data/$lf.php"; 
+    if (is_file($localConfig)) include($localConfig);
+
+}
 
 // Start Object Oriented Programming 
 // with class Xoom
