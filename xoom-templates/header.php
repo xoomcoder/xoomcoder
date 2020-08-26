@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
 
-
     <!-- important pour rendre la page responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -19,6 +18,17 @@
     <style>
 
     </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-176412221-1"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-176412221-1');
+    </script>
+
 </head>
 <body class="<?php Xoom::showBodyClass() ?>">
     <header>
