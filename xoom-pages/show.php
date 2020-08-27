@@ -17,20 +17,20 @@ html, body {
 
 /* https://developer.mozilla.org/fr/docs/Web/CSS/white-space */
 pre {
-    padding:1rem;
+    margin-top:8vmax;
+    padding:2rem;
     max-width:30%;
     white-space:pre-line;
 }    
 .logo {
     position:fixed;
-    right:1rem;
+    left:1rem;
     top:1rem;
     width:5vmax;
     height:5vmax;
     object-fit:contain;
     z-index:999;
 }
-
 #lightbox {
     opacity:1;
     position:fixed;
@@ -55,7 +55,7 @@ pre {
     <pre>
 <?php 
 
-$markfile = "s2-site-blog-1.md";
+$markfile = "my-active.md";
 
 $content = file_get_contents("../doc/$markfile");
 
