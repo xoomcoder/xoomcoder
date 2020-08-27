@@ -106,8 +106,7 @@ form {
     justify-content: center;
     align-items: center;
 }
-form label {
-}
+
 form label > div {
     font-size:0.8rem;
 }
