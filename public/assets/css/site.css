@@ -331,6 +331,12 @@ header .logo {
     .w50 {
         width:50%;
     }
+    section article.w33 {
+        width:calc(100% / 3);
+    }
+    section article.w67 {
+        width:calc(2 * 100% / 3);
+    }
 
 }
 

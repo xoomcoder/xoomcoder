@@ -1,8 +1,10 @@
-<article>
+<article class="w67">
     <h2>Checkpoint: VSCode comme CMS</h2>
     <p>
     Comme point d'étapes sur les premières semaines de développement du site, il y a plusieurs réflexions étonnantes.
-    une fois que le nom de domaine et l'hébergement sont loués, il faut commencer par publier une landing page pour déclencher le référencement des moteurs de recherche.
+    </p>
+    <p>
+    Une fois que le nom de domaine et l'hébergement sont loués, il faut commencer par publier une landing page pour déclencher le référencement des moteurs de recherche.
     Cela prend quelques semaines et il faut aller pousser Google avec la search console pour l'encourager à indexer votre site.
     De plus, Google Search Console détecte les problèmes d'UX (User Experience) pour la version mobile.
     Il faut aussi valider votre score avec des outils comme web.dev pour mesurer les différents signaux importants. 
@@ -14,23 +16,31 @@
     C'est un travail considérable et par conséquent, la stratégie est plutôt de créer peu de pages, avec beaucoup de contenu sur chaque page.
     Et pour les visiteurs, il faut aérer et illustrer avec des images ou des photos.
     Techniquement, il n'y a pas besoin d'un framework, ni d'un CMS très évolué pour démarrer.
+    </p>
+    <p>
     Pour coder, l'atelier VSCode est devenu en quelques années un outil incontournable, car gratuit et très extensible.
-    C'est Microsoft qui nous fait profiter de décennies d'expérience dans les ateliers logigciels comme Visual Studio.
-    Tout en retrouvant l'aspect ouvert des ateliers comme Emacs ou Eclipse.
-
+    C'est Microsoft qui nous fait profiter de décennies d'expérience dans les ateliers logiciels comme Visual Studio.
+    Tout en retrouvant l'aspect ouvert des anciens ateliers comme Emacs ou Eclipse.
+    </p>
+    <p>
     Comme GitHub est aussi maintenant une entreprise Microsoft, c'est facile de connecter son VSCode à un repository sur GitHub.com pour gérer son code. 
     Cela fournit un historique puissant et une sauvegarde gratuite sur un serveur hors de l'ordinateur.
+    </p>
+    <p>
     Avec un hébergement qui propose un accès SSH et le programme git, on peut ensuite utiliser un webhook de GitHub.com pour déclencher un "git pull" automatiquement.
     Le code sur l'hébergement est obtenu avec un "git clone" du repository GitHub.com et ensuite, le webhook va déclencher automatiquement le "git pull".
-
+    </p>
+    <p>
     Sur mon ordinateur sous Windows, j'utilise WSL2 (Windows Subsystem Linux 2) pour avoir une machine virtuelle sous Ubuntu.
-    VSCode et WSL2 travaillent aussi ensemble. Cela permet de créer un environnement de développement en local pour tester son code. 
+    WSL2 s'intègre aussi directement dans VSCode. Cela permet de créer un environnement de développement en local pour tester son code. 
     Et ensuite, il suffit de créer des sauvegardes régulières avec des "git commit". 
-    Enfin pour mettre le code en production sur l'hébergement, il suffit de faire un "git push". 
+    Enfin pour mettre le code en production sur l'hébergement, il suffit de faire un "git push".
+    La synchronisation de mon code avec le repository GitHub déclenche à son tour la synchro avec l'hébergement.
+    C'est une mise en production rapide et facile. 
     </p>
     <p>
     Les langages à pratiquer pour créer de bonnes pages web: HTML, CSS, un peu de JS et aussi des bases de PHP.
-    Et en quelques semaines, vous pouvez obtenir un site Vitrine avec un Blog (sans base de données).
+    Et en quelques semaines, vous pouvez coder vous-même un site Vitrine avec une page Blog (sans base de données).
     (Si vous êtes pressés, le code de ce site est en ligne sur GitHub.com...)
     </p>   
 </article>

@@ -31,6 +31,7 @@
         <nav>
             <a href="news">news</a>
             <a href="tutoriels">tutoriels</a>
+            <a href="formation">formation</a>
             <a href="contact">contact</a>
         </nav>
     </header>
