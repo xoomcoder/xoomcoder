@@ -125,6 +125,10 @@ form .feedback {
     font-weight: 700;
 }
 
+button {
+    cursor: pointer;
+}
+
 .logo {
     width:5vmin;
     height:5vmin;
