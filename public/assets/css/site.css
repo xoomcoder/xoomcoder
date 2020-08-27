@@ -99,20 +99,26 @@ main strong {
 }
 
 form {
-    max-width:640px;
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 }
 form label {
-    display: block;
 }
 form label > div {
     font-size:0.8rem;
 }
 
 form * {
-    margin:0.25rem;
-    padding:0.25rem;
-    text-align:left;
+    display: block;
+    margin: 0.20rem;
+    padding: 0.25rem;
+    text-align: left;
     font-family: monospace;
+    max-width: 95%;
 }
 form .feedback {
     font-size:1.2rem;
