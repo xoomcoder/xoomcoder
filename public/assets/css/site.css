@@ -94,6 +94,10 @@ article img {
     object-fit:contain;
 }
 
+main strong {
+    padding: 1rem;
+}
+
 form {
     max-width:640px;
 }
