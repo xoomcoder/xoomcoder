@@ -16,9 +16,10 @@
         <header>
             <h1>Admin</h1>
             <nav>
-                <a href="./">Site</a>
                 <a href="#page1" @click.prevent="page=1">Admin</a>
                 <a href="#page2" @click.prevent="page=2">CMS</a>
+                <a href="./">Site</a>
+                
                 <a href="#logout" v-if="apikey" @click.prevent="logout">Logout</a>
                 <a href="#page3" v-else @click.prevent="page=3">Login</a>
             </nav>
