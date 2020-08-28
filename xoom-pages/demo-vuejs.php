@@ -8,35 +8,18 @@
     <meta name="robots" content="noindex">
 
     <title>XoomCoder Admin</title>
-    <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
     <!-- VueJS will only work inside this div -->
     <div id="app">
-        <header>
-            <h1>Admin</h1>
-            <nav>
-                <a href="#page1" @click="page=1">page 1</a>
-                <a href="#page2" @click="page=2">page 2</a>
-                <a href="#page3" @click="page=3">page 3</a>
-            </nav>
-        </header>
 
-        <section v-if="page==1">
-            <h1>Page 1</h1>
+        <h1>Admin</h1>
+
+        <section>
+            <button @click="doEx1">click here</button>
+            <div>you pressed the button {{ count1 }} times.</div>
         </section>
 
-        <section v-if="page==2">
-            <h1>Page 2</h1>
-        </section>
-
-        <section v-if="page==3">
-            <h1>Page 3</h1>
-        </section>
-
-        <footer>
-            <p>{{ test }}</p>
-        </footer>
     </div>
 
     <!-- TODO: change to the official Vuejs version 3 (when available) -->
@@ -49,16 +32,19 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
-            page: 1,
-            test: 'XoomCoder.com'
+            count1: 0,
+            test: 'XoomCoder'
         }
     },
     methods: {
-        // add here your functions/methods
+        doEx1() {
+            // we can manipulate properties here
+            this.count1++;
+        }
     }
 };
 
-var app = Vue.createApp(appConfig).mount('#app');   // css selector to link with HTML
+var app = Vue.createApp(appConfig).mount('#app');
 
     </script>
 </body>

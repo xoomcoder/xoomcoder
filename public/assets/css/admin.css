@@ -1,0 +1,25 @@
+html, body {
+    height:100%;
+    font-size:14px;
+    padding:0;
+    margin:0;
+}
+* {
+    box-sizing: border-box;
+    width:100%;
+}
+
+#app {
+    padding:1rem;
+}
+
+nav {
+    display: flex;
+    flex-wrap: wrap;
+}
+nav a {
+    display: inline-block;
+    padding:1rem;
+    width: auto;
+    text-decoration:none;
+}
