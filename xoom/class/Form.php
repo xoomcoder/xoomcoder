@@ -74,4 +74,30 @@ class Form
     {
         Form::$jsonsa["$key"] = $value;
     }
+
+    static function log ()
+    {
+        $logsa              = [];
+
+        // https://www.php.net/manual/fr/function.time.php
+        // https://www.php.net/manual/fr/function.date.php
+        $now                = time();
+        $today              = date("Y-md");
+
+        // https://www.php.net/manual/fr/reserved.variables.server.php
+        $logsa["timestamp"] = $now;
+        $logsa["datetime"]  = date("Y-m-d H:i:s", $now);
+        $logsa["ip"]        = $_SERVER["REMOTE_ADDR"];
+        $logsa["from"]      = $_SERVER["HTTP_REFERER"];
+        $logsa["ua"]        = $_SERVER["HTTP_USER_AGENT"];
+        $logsa["post"]      = $_POST;
+    
+        $json = json_encode($logsa, JSON_PRETTY_PRINT);
+        $b64  = base64_encode($json);
+
+        // append to the log file
+        $logfile = Xoom::$rootdir . "/xoom-data/my-api-$today.log";
+        // https://www.php.net/manual/fr/function.file-put-contents.php
+        file_put_contents($logfile, "$b64\n", FILE_APPEND);
+    }
 }
