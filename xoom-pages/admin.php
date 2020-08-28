@@ -16,9 +16,9 @@
         <header>
             <h1>Admin</h1>
             <nav>
-                <a href="#page1" @click="page=1">page 1</a>
-                <a href="#page2" @click="page=2">page 2</a>
-                <a href="#page3" @click="page=3">page 3</a>
+                <a href="#page1" @click.prevent="page=1">page 1</a>
+                <a href="#page2" @click.prevent="page=2">page 2</a>
+                <a href="#page3" @click.prevent="page=3">page 3</a>
             </nav>
         </header>
 
