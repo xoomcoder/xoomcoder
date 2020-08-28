@@ -69,4 +69,9 @@ class Form
         }
         return $result;
     }
+
+    static function addJson ($key, $value)
+    {
+        Form::$jsonsa["$key"] = $value;
+    }
 }

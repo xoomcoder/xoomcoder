@@ -16,16 +16,20 @@
         <header>
             <h1>Admin</h1>
             <nav>
-                <a href="#page1" @click.prevent="page=1">page 1</a>
-                <a href="#page2" @click.prevent="page=2">page 2</a>
-                <a href="#page3" @click.prevent="page=3">API Key</a>
+                <a href="./">Site</a>
+                <a href="#page1" @click.prevent="page=1">Admin</a>
+                <a href="#page2" @click.prevent="page=2">CMS</a>
+                <a href="#logout" v-if="apikey" @click.prevent="logout">Logout</a>
+                <a href="#page3" v-else @click.prevent="page=3">Login</a>
             </nav>
         </header>
 
         <section class="page1" v-if="page==1">
-            <h1>Page 1</h1>
+            <h1>Tableau de Bord</h1>
+
+            <h2>Panneau de Commande</h2>
             <form action="api" @submit.prevent="sendAjax">
-                <input type="text" name="command" required>
+                <textarea name="command" required cols="80" rows="10"></textarea>
                 <button type="submit">envoyer la commande</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->
@@ -36,11 +40,11 @@
         </section>
 
         <section class="page2" v-if="page==2">
-            <h1>Page 2</h1>
+            <h1>CMS</h1>
         </section>
 
         <section class="page3" v-if="page==3">
-            <h1>API Key</h1>
+            <h1>Login avec API Key</h1>
             <form action="api" @submit.prevent="sendAjax">
                 <input type="password" name="keyApi" required v-model="apikey">
                 <button type="submit">vérifier votre clé API</button>
@@ -66,12 +70,27 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            login: '',
             apikey: '',
             page: 1,
             test: 'XoomCoder.com'
         }
     },
+    mounted () {
+        // load apikey if present from localStorage to Vue
+        var apikey = localStorage.getItem('apikey');
+        if (apikey)
+            this.apikey = apikey;
+        else
+            this.page = 3;
+    },
     methods: {
+        logout () {
+            // reset api key
+            this.apikey = '';
+            this.page   = 3;
+            localStorage.removeItem('apikey');
+        },
         // add here your functions/methods
         sendAjax (event) {
             var fd = new FormData(event.target);
@@ -106,10 +125,17 @@ xcb.feedback = function (ajaxpack)  {
         var f = ajaxpack.event.target.querySelector('.feedback');
         if (f) f.innerHTML = ajaxpack.json.feedback;
     }
-}
+};
+
+xcb.login = function (ajaxpack) {
+    if (! 'login' in ajaxpack.json) return;
+
+    localStorage.setItem('apikey', app.apikey);
+};
+
 xcb.test = function (ajaxpack)  {
     console.log('test');
-}
+};
 
     </script>
 </body>

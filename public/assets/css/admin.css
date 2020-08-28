@@ -23,3 +23,8 @@ nav a {
     width: auto;
     text-decoration:none;
 }
+
+form textarea {
+    font-family: monospace;
+    padding:1rem;
+}
