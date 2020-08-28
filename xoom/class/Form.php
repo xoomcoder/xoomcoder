@@ -34,6 +34,10 @@ class Form
         $apiClass   = Form::filterInput("classApi");
         $apiMethod  = Form::filterInput("methodApi");
         
+        // security: check Config
+        // so api can use class Config freely
+        if(!class_exists("Config") && ($apiClass != "Install")) return;
+
         // security: only give access to Api... classes
         $callback = "Api$apiClass::$apiMethod";
         // https://www.php.net/manual/fr/function.is-callable.php

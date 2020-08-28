@@ -18,7 +18,7 @@
             <nav>
                 <a href="#page1" @click.prevent="page=1">page 1</a>
                 <a href="#page2" @click.prevent="page=2">page 2</a>
-                <a href="#page3" @click.prevent="page=3">page 3</a>
+                <a href="#page3" @click.prevent="page=3">API Key</a>
             </nav>
         </header>
 
@@ -39,7 +39,15 @@
         </section>
 
         <section class="page3" v-if="page==3">
-            <h1>Page 3</h1>
+            <h1>API Key</h1>
+            <form action="api" @submit.prevent="sendAjax">
+                <input type="text" name="apikey" v:model="apikey">
+                <button type="submit">vérifier votre clé API</button>
+                <div class="feedback"></div>
+                <!-- partie technique -->
+                <input type="hidden" name="classApi" value="Admin">
+                <input type="hidden" name="methodApi" value="checkApiKey">
+            </form>
         </section>
 
         <footer>
@@ -57,6 +65,7 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            apikey: '',
             page: 1,
             test: 'XoomCoder.com'
         }
