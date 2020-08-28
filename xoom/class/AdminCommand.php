@@ -20,5 +20,17 @@ class AdminCommand
     {
         Form::addJson("commandTime", date("Y-m-d H:i:s"));
     }
-    
+
+    static function apiLogRead ()
+    {
+        $today = date("Y-md");
+        $logfile = Xoom::$rootdir . "/xoom-data/my-api-$today.log";
+        $logs = [];
+        if (is_file($logfile)) 
+            // https://www.php.net/manual/fr/function.file.php
+            $logs = file($logfile);
+
+        Form::addJson("commandLogRead", $logs);
+    }
+
 }
