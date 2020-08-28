@@ -10,7 +10,7 @@
                 </label>
                 <label>
                     <div>votre email</div>
-                    <input type="email" name="nom" required placeholder="votre email">
+                    <input type="email" name="email" required placeholder="votre email">
                 </label>
                 <label>
                     <div>votre message</div>
