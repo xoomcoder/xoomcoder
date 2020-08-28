@@ -56,4 +56,17 @@ class Form
     {
         Form::$jsonsa["feedback"] = $message;
     }
+    
+    static function checkAdminApiKey ()
+    {
+        $result = false;
+        $apikey = Form::filterInput("keyApi");
+        if ($apikey != "") {
+            $hash = base64_decode($apikey);
+        }
+        if (password_verify(Config::$adminPH, $hash)) {
+            $result = true;
+        }
+        return $result;
+    }
 }

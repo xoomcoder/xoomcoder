@@ -25,12 +25,13 @@
         <section class="page1" v-if="page==1">
             <h1>Page 1</h1>
             <form action="api" @submit.prevent="sendAjax">
-                <input type="text" name="command">
+                <input type="text" name="command" required>
                 <button type="submit">envoyer la commande</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->
                 <input type="hidden" name="classApi" value="Admin">
                 <input type="hidden" name="methodApi" value="doCommand">
+                <input type="hidden" name="keyApi" v-model="apikey">
             </form>
         </section>
 
@@ -41,7 +42,7 @@
         <section class="page3" v-if="page==3">
             <h1>API Key</h1>
             <form action="api" @submit.prevent="sendAjax">
-                <input type="text" name="apikey" v:model="apikey">
+                <input type="password" name="keyApi" required v-model="apikey">
                 <button type="submit">vérifier votre clé API</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->

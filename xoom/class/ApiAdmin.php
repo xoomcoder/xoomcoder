@@ -4,20 +4,25 @@ class ApiAdmin
 {
     static function doCommand ()
     {
-        Form::setFeedback("Hello");
+        if (Form::checkAdminApiKey())
+        {
+            Form::setFeedback("...");
+        }
+        else
+        {
+            Form::setFeedback("Sorry...");
+        }
     }
 
     static function checkApiKey ()
     {
-        $apikey = Form::filterInput("apikey");
-        if ($apikey != "") {
-            $hash = base64_decode($apikey);
+        if (Form::checkAdminApiKey())
+        {
+            Form::setFeedback("Welcome Admin");
         }
-        if (password_verify(Config::$adminPH, $hash)) {
-            Form::setFeedback("...Welcome Admin...");
-        }
-        else {
-            Form::setFeedback("Sorry...$apikey...");
+        else
+        {
+            Form::setFeedback("Sorry...");
         }
     }
 }
