@@ -6,6 +6,18 @@ class ApiAdmin
     {
         if (Form::checkAdminApiKey())
         {
+
+            $command = Form::filterInput("command");
+            // https://www.php.net/manual/fr/function.explode.php
+            $lines = explode("\n", $command);
+            foreach($lines as $index => $line) {
+                $line = trim($line);
+
+                if ($line) {
+                    Command::process($line);
+                }
+            }
+
             Form::setFeedback("...");
         }
         else
