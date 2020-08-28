@@ -33,4 +33,17 @@ class AdminCommand
         Form::addJson("commandLogRead", $logs);
     }
 
+    /**
+     * REMOVE LOG FILES
+     * SECURITY: CAN BE DANGEROUS
+     */
+    static function apiLogReset ()
+    {
+        $logfiles = glob(Xoom::$rootdir . "/xoom-data/my-api-*.log");
+        foreach($logfiles as $index => $logfile) {
+            // https://www.php.net/manual/fr/function.unlink.php
+            unlink($logfile);
+            Form::addJson("commandLogReset-$index", $logfile);
+        }
+    }
 }

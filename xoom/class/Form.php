@@ -90,7 +90,15 @@ class Form
         $logsa["ip"]        = $_SERVER["REMOTE_ADDR"];
         $logsa["from"]      = $_SERVER["HTTP_REFERER"];
         $logsa["ua"]        = $_SERVER["HTTP_USER_AGENT"];
-        $logsa["post"]      = $_POST;
+
+        // security: remove confidential data
+        $filterPost = $_POST;
+        // https://www.php.net/manual/fr/function.unset.php
+        if (isset($filterPost['keyApi'])) {
+            $filterPost['keyApi'] = md5($filterPost['keyApi']);
+        }
+
+        $logsa["post"]      = $filterPost;
     
         $json = json_encode($logsa, JSON_PRETTY_PRINT);
         $b64  = base64_encode($json);

@@ -38,6 +38,19 @@
                 <input type="hidden" name="methodApi" value="doCommand">
                 <input type="hidden" name="keyApi" v-model="apikey">
             </form>
+
+            <h2>Décodeur B64</h2>
+            <ol>
+                <li v-for="(log, index) in logs">
+                    <button @click="data64=log">{{ log }}</button>
+                </li>
+            </ol>
+            <form action="" @submit.prevent="decode64">
+                <textarea name="data64" required cols="80" rows="10" v-model="data64"></textarea>
+                <button type="submit">décoder</button>
+                <pre class="feedback"></pre>
+            </form>
+
         </section>
 
         <section class="page2" v-if="page==2">
@@ -71,10 +84,12 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
-            login: '',
-            apikey: '',
-            page: 1,
-            test: 'XoomCoder.com'
+            data64:     '',
+            logs:       [],
+            login:      '',
+            apikey:     '',
+            page:       1,
+            test:       'XoomCoder.com'
         }
     },
     mounted () {
@@ -86,6 +101,16 @@ const appConfig = {
             this.page = 3;
     },
     methods: {
+        decode64 (event) {
+            var fd = new FormData(event.target);
+            var data64 = fd.get('data64');
+            var code = atob(data64);
+            console.log(code);
+
+            var f = event.target.querySelector('.feedback');
+            if (f) f.innerHTML = code;
+
+        },
         logout () {
             // reset api key
             this.apikey = '';
@@ -125,6 +150,11 @@ xcb.feedback = function (ajaxpack)  {
     if ('feedback' in ajaxpack.json) {
         var f = ajaxpack.event.target.querySelector('.feedback');
         if (f) f.innerHTML = ajaxpack.json.feedback;
+    }
+
+    if ('commandLogRead' in ajaxpack.json) {
+        app.logs = ajaxpack.json.commandLogRead;
+        console.log(app.logs);
     }
 };
 

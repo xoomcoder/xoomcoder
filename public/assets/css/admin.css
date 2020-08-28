@@ -41,3 +41,11 @@ textarea, input, button {
     padding:1rem;
     font-weight: 600;
 }
+
+pre {
+    overflow:auto;
+}
+
+button {
+    overflow-x:hidden;
+}
