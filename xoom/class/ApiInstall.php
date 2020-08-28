@@ -131,7 +131,9 @@ class ApiInstall
                     x;
     
                     Email::send($email, "your admin api key is ready", $mailbody);
-    
+
+                    Form::$jsonsa["feedback"] = "Your admin api key is ready";
+
                 }
                 else {
                     Form::$jsonsa["feedback"] = "Sorry...";
