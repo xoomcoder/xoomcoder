@@ -73,7 +73,9 @@ class ApiInstall
             && ($email == Config::$adminEmail ?? "")) {
             if (isset(Config::$adminPH) && password_verify($adminkey, Config::$adminPH)) {
                 $now = date("Y-m-d H:i:s");
-                $newcode = 'static $installActivation = "' . $now . '";';   // bad mix... :-/
+
+                // PHP is coding some PHP... AI is coming ?! ;-p
+                $newcode = 'static $installActivation = "' . $now . '";';   // weird mix... :-/
                 $extracode =
                 <<<x
                 $newcode
@@ -96,6 +98,44 @@ class ApiInstall
                 Form::$jsonsa["feedback"] = "Activation ok...";
 
             }
+
+        }
+    }
+
+    /** 
+     * admin api key is a password hash
+     * so there can be many different of them
+     * when checking, use password_verify
+     */
+    static function sendAdminApiKey ()
+    {
+        $email      = Form::filterInput("email");
+        if (class_exists("Config") 
+            && isset(Config::$adminEmail) 
+            && ($email == Config::$adminEmail ?? "")) {
+
+                if (isset(Config::$adminPH)) {
+                    // create 8-bit compatible api key
+                    // https://www.php.net/manual/fr/function.base64-encode
+                    $adminApiKey = base64_encode(password_hash(Config::$adminPH, PASSWORD_DEFAULT));
+
+                    $mailbody = 
+                    <<<x
+                    Hello,
+    
+                    Your admin API key est: 
+                    $adminApiKey
+    
+                    Keep it safe !
+    
+                    x;
+    
+                    Email::send($email, "your admin api key is ready", $mailbody);
+    
+                }
+                else {
+                    Form::$jsonsa["feedback"] = "Sorry...";
+                }
 
         }
     }
