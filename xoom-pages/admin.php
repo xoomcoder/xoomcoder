@@ -22,15 +22,23 @@
             </nav>
         </header>
 
-        <section v-if="page==1">
+        <section class="page1" v-if="page==1">
             <h1>Page 1</h1>
+            <form action="api" @submit.prevent="sendAjax">
+                <input type="text" name="command">
+                <button type="submit">envoyer la commande</button>
+                <div class="feedback"></div>
+                <!-- partie technique -->
+                <input type="hidden" name="classApi" value="Admin">
+                <input type="hidden" name="methodApi" value="doCommand">
+            </form>
         </section>
 
-        <section v-if="page==2">
+        <section class="page2" v-if="page==2">
             <h1>Page 2</h1>
         </section>
 
-        <section v-if="page==3">
+        <section class="page3" v-if="page==3">
             <h1>Page 3</h1>
         </section>
 
@@ -55,10 +63,43 @@ const appConfig = {
     },
     methods: {
         // add here your functions/methods
+        sendAjax (event) {
+            var fd = new FormData(event.target);
+            fetch('api', {
+                method: 'POST',
+                body: fd
+            })
+            .then((response) => {
+                response
+                    .json()
+                    .then((json) => {
+                        var ajaxpack = {
+                            'event': event,
+                            'fd' : fd,
+                            'response': response,
+                            'json': json 
+                            };
+                        for(m in xcb) {
+                            xcb[m](ajaxpack);
+                        }
+                    })
+            });
+        }
     }
 };
 
 var app = Vue.createApp(appConfig).mount('#app');   // css selector to link with HTML
+var xcb = {};
+// add callbacks to activate on ajax response
+xcb.feedback = function (ajaxpack)  {
+    if ('feedback' in ajaxpack.json) {
+        var f = ajaxpack.event.target.querySelector('.feedback');
+        if (f) f.innerHTML = ajaxpack.json.feedback;
+    }
+}
+xcb.test = function (ajaxpack)  {
+    console.log('test');
+}
 
     </script>
 </body>

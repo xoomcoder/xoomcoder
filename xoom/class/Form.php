@@ -47,4 +47,9 @@ class Form
     {
         echo json_encode(Form::$jsonsa, JSON_PRETTY_PRINT);
     }
+
+    static function setFeedback ($message)
+    {
+        Form::$jsonsa["feedback"] = $message;
+    }
 }
