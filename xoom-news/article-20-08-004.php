@@ -4,7 +4,7 @@
     Le référencement des mots clé avec YouTube est vraiment impressionnant ! 
     Une vidéo publiée hier est déjà bien classée dans le résultats de recherche Google, avec les mots clé "coder vuejs 3".
     La vidéo dure moins de 3 minutes et propose très peu de contenu texte.
-    Et cette vidéo récente se positionne déjà en 2è résultat sur la recherche "générale" et dans les 10 premiers en recherche "video".
+    Et cette vidéo récente se positionne déjà en 2è résultat Videos sur la recherche "générale" et dans les 10 premiers en recherche "video".
     </p>
 </article>
 <script type="text/xoomcoder">
