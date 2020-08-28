@@ -1,3 +1,17 @@
+<article class="">
+    <h2>Checkpoint: SEO avec YouTube</h2>
+    <p>
+    Le référencement des mots clé avec YouTube est vraiment impressionnant ! 
+    Une vidéo publiée hier est déjà bien classée dans le résultats de recherche Google, avec les mots clé "coder vuejs 3".
+    La vidéo dure moins de 3 minutes et proposer très peu de contenu texte.
+    Et cette vidéo récente se positionne en 2è résultat sur la recherche "générale" et dans les 10 premiers en recherche "video".
+    </p>
+</article>
+<script type="text/xoomcoder">
+        <img class="h50" src="assets/news/screenshot-2020-08-28-coder-vuejs-3-recherche-google.png" alt="coder vuejs 3">
+        <img class="h50" src="assets/news/screenshot-2020-08-28-coder-vuejs-3-recherche-google-video.png" alt="coder vuejs 3 video">
+</script>
+
 <article class="w67">
     <h2>Checkpoint: VSCode comme CMS</h2>
     <p>
