@@ -40,15 +40,15 @@
             </form>
 
             <h2>Décodeur B64</h2>
-            <ol>
-                <li v-for="(log, index) in logs">
-                    <button @click="data64=log">{{ log }}</button>
-                </li>
-            </ol>
+            <div class="rowflex x10col">
+                <div v-for="(log, index) in logs">
+                    <button :title="log" @click="data64=log;decode64()">{{ index+1 }}</button>
+                </div>
+            </div>
             <form action="" @submit.prevent="decode64">
-                <textarea name="data64" required cols="80" rows="10" v-model="data64"></textarea>
+                <pre class="feedback" :title="data64">{{ data64decode }}</pre>
                 <button type="submit">décoder</button>
-                <pre class="feedback"></pre>
+                <textarea name="data64" required cols="80" rows="10" v-model="data64"></textarea>
             </form>
 
         </section>
@@ -84,12 +84,13 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
-            data64:     '',
-            logs:       [],
-            login:      '',
-            apikey:     '',
-            page:       1,
-            test:       'XoomCoder.com'
+            data64decode:     '',
+            data64:           '',
+            logs:             [],
+            login:            '',
+            apikey:           '',
+            page:             1,
+            test:             'XoomCoder.com'
         }
     },
     mounted () {
@@ -101,15 +102,8 @@ const appConfig = {
             this.page = 3;
     },
     methods: {
-        decode64 (event) {
-            var fd = new FormData(event.target);
-            var data64 = fd.get('data64');
-            var code = atob(data64);
-            console.log(code);
-
-            var f = event.target.querySelector('.feedback');
-            if (f) f.innerHTML = code;
-
+        decode64 () {
+            this.data64decode = atob(this.data64);
         },
         logout () {
             // reset api key

@@ -49,3 +49,17 @@ pre {
 button {
     overflow-x:hidden;
 }
+
+.x4grid {
+    display:grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+}
+
+.rowflex {
+    display: flex;
+    flex-wrap: wrap;
+}
+.x10col > * {
+    margin:0.25rem;
+    width: calc(100% / 10 - 0.5rem);
+}
