@@ -14,7 +14,7 @@ class ApiAdmin
                 $line = trim($line);
 
                 if ($line) {
-                    Command::process($line);
+                    AdminCommand::process($line);
                 }
             }
 

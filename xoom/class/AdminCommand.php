@@ -1,12 +1,12 @@
 <?php
 
-class Command
+class AdminCommand
 {
     static function process ($command)
     {
         static $index = 0;
 
-        $code = "Command::call$command";
+        $code = "AdminCommand::api$command";
         // https://www.php.net/manual/fr/function.is-callable
         if (is_callable($code)) {
             $code();    
@@ -16,8 +16,9 @@ class Command
         $index++;
     }
 
-    static function callTime ()
+    static function apiTime ()
     {
         Form::addJson("commandTime", date("Y-m-d H:i:s"));
     }
+    
 }
