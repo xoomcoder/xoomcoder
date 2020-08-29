@@ -10,7 +10,7 @@ Un développeur passe sa journée de travail devant un écran d'ordinateur et é
 Les chiffres publiés donnent environ 400 lignes de code par jour.
 
 Si vous êtes aux 35 heures, ça veut dire 7H par jour, soit 7x60=420 minutes de travail journalier.
-Cela donnerait moins d'une ligne de code par minute ?! 
+😇 Cela donnerait moins d'une ligne de code par minute ?! 
 Si vous avez déjà écrit une ligne de code, vous savez que vous n'avez pas besoin d'une minute pour taper cette ligne sur un clavier.
 En réalité, avant d'écrire votre ligne de code, vous allez y réfléchir d'abord. 
 Et après avoir écrit la ligne de code, vous allez vérifier qu'elle fait ce que vous attendez.
@@ -22,8 +22,8 @@ Voilà une journée typique de développeur:
 
 La routine du quotidien passe... 
 🔥 En une semaine, on obtient 400x5, soit 2000 lignes de code ! 
-🔥 Disons que vous travaillez 50 semaines par an... 
-😓 50x2000 lignes, cela donne environ 100000 lignes de code par an ?! 
+😓 Disons que vous travaillez 50 semaines par an... 
+🔥 50x2000 lignes, cela donne environ 100000 lignes de code par an ?! 
 
 Si vous vous placez du point de vue d'une entreprise, vous savez qu'un développeur pourra produire autour de 100.000 lignes de code par an.
 Et un développeur junior aspire à intégrer une entreprise qui emploie une équipe de plusieurs développeurs.
@@ -34,7 +34,7 @@ Voilà le contexte de travail d'un développeur professionnel.
 🔥 Il faut pouvoir prendre en main des centaines de milliers de lignes de code. 
 🔥 Il faut pouvoir travailler dans une équipe de plusieurs développeurs.
 
-😇 Si pour faire travailler un développeur, une entreprise consacre comme budget 50000 euros/an 
+😇 Imaginons que pour un poste de développeur, une entreprise consacre comme budget 50000 euros/an 
         et que le développeur produit 100000 lignes de code par an. 
         Cela donne un prix de 50 centimes la ligne de code ?! 
 
