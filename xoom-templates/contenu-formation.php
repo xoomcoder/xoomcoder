@@ -38,6 +38,9 @@ Voilà le contexte de travail d'un développeur professionnel.
 
 😇 Imaginons que pour un poste de développeur, une entreprise consacre comme budget 50000 euros/an et que le développeur produit 100000 lignes de code par an. 
 💰 Cela donne un prix de 50 centimes la ligne de code ?! 
+
+Actuellement, la plupart des équipes de développement se composent de 4 à 8 personnes.
+
         </pre>
     </article>
 
@@ -167,3 +170,5 @@ Et actuellement, la POO reste toujours le standard de développement pour des pr
         </pre>
     </article>
 </section>
+
+<?php require "section-contact.php" ?>
