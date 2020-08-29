@@ -85,9 +85,9 @@ Les entreprises vont préférer découper les projets en plusieurs applications 
 
 En conclusion, la Programmation Orienté-Objet (POO) est une technique de développement qui a fait ses preuves depuis des décennies.
 Et la POO reste toujours le standard de développement pour des projets en équipe.
-Si vous avez envie d'être embauché par une entreprise qui emploie une équipe de développeurs, la POO est une technique incontournable.
-C'est un des objectifs principaux pour une formation de développeur junior.
- 
+🔥 Si vous avez envie de travailler dans une équipe de développeurs, la POO est une technique incontournable.
+🔥 C'est un des objectifs principaux pour une formation de développeur junior.
+
     </pre>
     <article>
         <h2>Site Landing Page</h2>
