@@ -167,6 +167,7 @@ button {
     height: 100vmin;
 }
 
+
 .of-in {
     object-fit: contain;
 }
@@ -312,6 +313,9 @@ header .logo {
     section.x3col h1, section.x2col h2 {
         width:100%;
     }
+    section.x3col h1, section.x2col h2 {
+        width:100%;
+    }
 
     section article {
         width: calc(100% / 2);
@@ -368,11 +372,13 @@ header .logo {
     section.x3col > * {
         width: calc(100% / 3);
     }
-    section.x3col h1, section.x2col h2 {
-        width:100%;
-    }
 
 }
+
+.w100, section > .w100 {
+    width:100%;
+}
+
 
 /*********************/
 /* SPECIFIC PAGE CSS */
