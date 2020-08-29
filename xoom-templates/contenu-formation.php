@@ -4,7 +4,7 @@
     <article class="w50">
         <h2>Développeur Junior</h2>
         <pre>
-Vous êtes motivés par un poste de Développeur Junior ? 
+Vous êtes motivés par un emploi de Développeur Junior ? 
 Mais savez-vous ce qu'est le métier de développeur ?
 Un développeur passe sa journée de travail devant un écran d'ordinateur et écrit des lignes de code. 
 
