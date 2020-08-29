@@ -18,9 +18,9 @@ En réalité, avant d'écrire votre ligne de code, vous allez y réfléchir d'ab
 Et après avoir écrit la ligne de code, vous allez vérifier qu'elle fait ce que vous attendez.
 
 Voilà une journée typique de développeur: 
-🔥 Vous réfléchissez (...et vous cherchez beaucoup sur internet)
-🔥 Vous écrivez votre code
-🔥 Vous vérifiez que le programme fonctionne correctement
+🔥 Vous réfléchissez (...et vous cherchez beaucoup sur internet).
+🔥 Vous écrivez votre code.
+🔥 Vous vérifiez que le programme fonctionne correctement.
 
 La routine du quotidien passe... 
 🔥 En une semaine, on obtient 400x5, soit 2000 lignes de code ! 
@@ -36,7 +36,7 @@ Voilà le contexte de travail d'un développeur professionnel.
 🔥 Il faut pouvoir prendre en main des centaines de milliers de lignes de code. 
 🔥 Il faut pouvoir travailler dans une équipe de plusieurs développeurs.
 
-😇 Imaginons que pour un poste de développeur, une entreprise consacre comme budget 50000 euros/an et que le développeur produit 100000 lignes de code par an. 
+😇 Imaginons que pour un poste de développeur, une entreprise consacre comme budget 50000 euros par an et que le développeur produit 100000 lignes de code par an. 
 💰 Cela donne un prix de 50 centimes la ligne de code ?! 
 
 Actuellement, la plupart des équipes de développement se composent de 4 à 8 personnes.
@@ -54,7 +54,7 @@ Naturellement, pour pouvoir gérer des projets avec de tels volumes de code, il 
 C'est un principe ancien et connu des humains depuis des milliers d'années.
 🔥 En français: on pourrait traduire "Divide and Conquer" par "Séparer et ensuite Rassembler".
 
-Pour déplacer une montagne, on peut découper des blocs et ensuite déplacer ces blocs pour les rassembler ailleurs.
+Pour déplacer une montagne, on peut découper des blocs, et ensuite déplacer ces blocs pour les rassembler ailleurs.
 🌞 C'est comme ça que les égyptiens ont réussi à construire des pyramides qui existent toujours. Dans le monde informatique, on est heureusement dans du virtuel, ça pèse moins lourd que des blocs de pierre.
 
 On va appliquer le même principe: on découpe tout le programme en blocs.
@@ -64,7 +64,7 @@ On va appliquer le même principe: on découpe tout le programme en blocs.
 La fonction, c'est le premier bloc fondamental du développeur.
 Pour organiser votre code, vous allez regrouper des blocs de code dans des fonctions.
 
-Si on organise avec comme ordre de grandeur 100.
+Si on s'organise avec comme ordre de grandeur 100.
 100 lignes de code rangées dans 100 fonctions... 
 Cela donne 10000 lignes de code.
 On est encore loin du besoin des entreprises actuelles.
