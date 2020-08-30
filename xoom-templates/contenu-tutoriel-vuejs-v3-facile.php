@@ -65,7 +65,7 @@ var app = Vue.createApp(appConfig).mount('#app');
 </textarea>
 
 
-🔥 Modifier le code HTML pour insérer les code pour Vue JS.
+🔥 Modifier le code HTML pour insérer les codes pour Vue JS.
 
 🔥 Ensuite, si on veut afficher la valeur d'une variable, il suffit d'écrire {{ nomVariable }} dans le HTML.
 🔥 Il est possible de faire des calculs simple: par exemple {{ quantite * prixUnitaire }}.
