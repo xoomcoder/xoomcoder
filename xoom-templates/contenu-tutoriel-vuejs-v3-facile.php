@@ -68,7 +68,7 @@ var app = Vue.createApp(appConfig).mount('#app');
 🔥 Modifier le code HTML pour insérer les codes pour Vue JS.
 
 🔥 Ensuite, si on veut afficher la valeur d'une variable, il suffit d'écrire {{ nomVariable }} dans le HTML.
-🔥 Il est possible de faire des calculs simple: par exemple {{ quantite * prixUnitaire }}.
+🔥 Il est possible de faire des calculs simples: par exemple {{ quantite * prixUnitaire }}.
 
 🔥 Et si on veut ajouter un "event listener" sur le "click", il suffit d'ajouter un attribut @click dans le HTML.
 
