@@ -124,5 +124,9 @@ var app = Vue.createApp(appConfig).mount('#app');
             </article>
             <article>
                 <h2>Tuto Video</h2>
+                <p><a href="https://www.youtube.com/watch?v=xm4gcoVmTJs">Lien vers la video YouTube</a></p>
+                <script type="text/xoomcoder">
+                    <iframe title="tutoriels youtube" width="560" height="315" src="https://www.youtube.com/embed/xm4gcoVmTJs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </script>
             </article>
         </section>
