@@ -175,6 +175,9 @@ button {
     object-fit: cover;
 }
 
+textarea {
+    text-align:left;
+}
 
 /*********************/
 /* COLORS            */
