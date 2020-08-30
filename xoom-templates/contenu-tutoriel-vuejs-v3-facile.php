@@ -4,7 +4,7 @@
             <article>
                 <h2>Objectifs</h2>
                 <pre>
-Coder un panier d'achat simple qui calcule le prix total en fonction de la quantité choisie et du prix unitaire.
+Coder un panier d'achat simple, qui calcule le prix total, en fonction de la quantité choisie et du prix unitaire.
 
 🔥 Coder la page HTML.
 
