@@ -119,6 +119,7 @@ var app = Vue.createApp(appConfig).mount('#app');
                 <h2>Etapes importantes</h2>
                 <p><a href="https://github.com/xoomcoder/">Retrouvez le code sur GitHub</a></p>
                 <p>HTML, CSS, JS, Vue JS</p>
+                <iframe width="100%" height="50vh" src="https://xoomcoder.com/vuejs3-tuto-001" frameborder="0"></iframe>
             </article>
             <article>
                 <h2>Tuto Video</h2>
