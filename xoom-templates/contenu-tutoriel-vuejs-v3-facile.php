@@ -15,7 +15,7 @@ Dedans, on pourra créer les bases de notre panier d'achat.
 👞  nom du produit: chaussures xOOm.
 🏪  prix unitaire: 99 euros.
 🖱   bouton pour ajouter un produit.
-⁉   la quantité choisie par le client. 
+😇  la quantité choisie par le client. 
 💵  le prix total du panier. 
 
 <textarea cols="80" rows="10">
