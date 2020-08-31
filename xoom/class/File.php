@@ -36,4 +36,21 @@ class File
         $classCode = str_replace(array_keys($dicoas), array_values($dicoas), $code);
         File::create("xoom/class/$name.php", $classCode, false);
     }
+
+    /**
+     * warning: very dangerous
+     */
+    static function delete ($path, $read=false)
+    {
+        $content = "";
+        $to = Xoom::$rootdir . "/$path";
+
+        if ($read) {
+            $content = file_get_contents($to);
+        }
+
+        unlink($to);
+        return $content;
+
+    }
 }

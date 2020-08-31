@@ -150,14 +150,13 @@ class AdminCommand
             if ($request != "") {
                 $pdoStatement = Model::sendSql($request);
 
-                if (($read ?? false) && ($pdoStatement != null)) {
+                if ( ("" != ($json ?? "")) && ($pdoStatement != null) ) {
                     // https://www.php.net/manual/fr/pdostatement.fetchall.php
                     $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
-                    Form::addJson("commandDbRequest", $resultas);
+                    Form::addJson($json, $resultas);
                 }    
             }
         }
-
     }
 
     static function apiFileWrite ($paramas)
@@ -179,6 +178,17 @@ class AdminCommand
         if (($json ?? false) && ($filename ?? false)) {
             $code = File::content($filename);
             Form::addJson($json, $code);
+        }
+    }
+
+    static function apiFileDelete ($paramas)
+    {
+        extract($paramas);
+        if ($filename ?? false) {
+            $code = File::delete($filename, true);
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $code);
+            }
         }
     }
 
