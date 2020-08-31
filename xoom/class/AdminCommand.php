@@ -149,7 +149,7 @@ class AdminCommand
             if ($request != "") {
                 $pdoStatement = Model::sendSql($request);
 
-                if ($read ?? false) {
+                if (($read ?? false) && ($pdoStatement != null)) {
                     // https://www.php.net/manual/fr/pdostatement.fetchall.php
                     $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
                     Form::addJson("commandDbRequest", $resultas);
