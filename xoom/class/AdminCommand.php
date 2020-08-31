@@ -142,14 +142,18 @@ class AdminCommand
     static function apiDbrequest ($paramas)
     {
         extract($paramas);
-        if ($request ?? false) {
+        if ($bloc ?? false) {
 
-            $pdoStatement = Model::sendSql($request);
+            $request = AdminCommand::$blocas[$bloc] ?? "";
 
-            if ($read ?? false) {
-                // https://www.php.net/manual/fr/pdostatement.fetchall.php
-                $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
-                Form::addJson("commandDbRequest", $resultas);
+            if ($request != "") {
+                $pdoStatement = Model::sendSql($request);
+
+                if ($read ?? false) {
+                    // https://www.php.net/manual/fr/pdostatement.fetchall.php
+                    $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+                    Form::addJson("commandDbRequest", $resultas);
+                }    
             }
         }
 
