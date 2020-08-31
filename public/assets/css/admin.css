@@ -63,3 +63,11 @@ button {
     margin:0.25rem;
     width: calc(100% / 10 - 0.5rem);
 }
+
+table {
+    table-layout:fixed;
+}
+td {
+    border: 1px solid #cccccc;
+    padding:0.25rem;
+}

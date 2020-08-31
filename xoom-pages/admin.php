@@ -25,13 +25,13 @@
             </nav>
         </header>
 
-        <section class="page1" v-if="page==1">
+        <section class="page1" v-show="page==1">
             <h1>Tableau de Bord</h1>
 
             <h2>Panneau de Commande</h2>
-            <form action="api" @submit.prevent="sendAjax">
-                <textarea name="command" required cols="80" rows="10"></textarea>
-                <button type="submit">envoyer la commande</button>
+            <form id="batchform" action="api" @submit.prevent="sendAjax">
+                <textarea id="batchcode" name="command" required cols="80" rows="10"></textarea>
+                <button id="batchbutton" type="submit">envoyer la commande</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->
                 <input type="hidden" name="classApi" value="Admin">
@@ -55,6 +55,13 @@
 
         <section class="page2" v-if="page==2">
             <h1>CMS</h1>
+            <table>
+                <tbody>
+                    <tr v-for="user in users">
+                        <td :title="col" v-for="(val, col) in user">{{ val }}</td>
+                    </tr>
+                </tbody>
+            </table>
         </section>
 
         <section class="page3" v-if="page==3">
@@ -84,6 +91,7 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            users:            [],
             data64decode:     '',
             data64:           '',
             logs:             [],
@@ -156,10 +164,28 @@ xcb.login = function (ajaxpack) {
     if (! 'login' in ajaxpack.json) return;
 
     localStorage.setItem('apikey', app.apikey);
+
+    // launch initial request
+    if (batchcode.innerHTML == '') {
+        var code = 
+`
+DbRequest?json=users&bloc=sql2
+
+@bloc sql2
+SELECT * FROM user ORDER BY id DESC;
+@bloc
+`
+        batchcode.innerHTML = code;
+        batchbutton.click();
+    }
 };
 
 xcb.test = function (ajaxpack)  {
     console.log(ajaxpack);
+};
+
+xcb.users = function (ajaxpack) {
+    app.users = ajaxpack.json.users;
 };
 
     </script>
