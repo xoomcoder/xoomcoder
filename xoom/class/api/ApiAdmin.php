@@ -27,7 +27,7 @@ class ApiAdmin
             Form::addJson("login", date("Y-m-d H:i:s"));
 
             // FIXME: SQL should not be here (MVC...)
-            $sql = Model::getSql("user read");
+            $sql = Model::getSql("user.read");
 
             $command =
             <<<x
