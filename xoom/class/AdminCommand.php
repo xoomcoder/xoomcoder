@@ -87,4 +87,16 @@ class AdminCommand
             File::buildClass($name);
         }
     }
+
+    static function apiDbCreate ($paramas)
+    {
+        extract($paramas);
+        if ($dbname ?? false) {
+            $sql =
+            <<<x
+            create database $dbname;
+            x;
+            Model::sendSql($sql);
+        }
+    }
 }

@@ -107,4 +107,14 @@ class Xoom
             Xoom::$configas = $configas + Xoom::$configas;
         }
     }
+
+    static function getConfig($names)
+    {
+        $resultas = [];
+        $listnames = explode(",", $names);
+        foreach($listnames as $name) {
+            $resultas[$name] = Xoom::$configas[$name] ?? "";
+        }
+        return $resultas;
+    }
 }
