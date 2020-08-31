@@ -45,6 +45,7 @@ class Model
     {
         $sqlas = [
             "user.read" => "SELECT * FROM user ORDER BY id DESC;",
+            "db.create" => File::content("xoom/etc/sql-table-create.sql"),
         ];
 
         return $sqlas[$key] ?? "";

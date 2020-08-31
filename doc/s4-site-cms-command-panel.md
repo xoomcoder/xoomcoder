@@ -36,6 +36,23 @@ CREATE TABLE IF NOT EXISTS `manymany`
     PRIMARY KEY (`id`)
 ) CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `content`
+( 
+    `id`                INT NOT NULL AUTO_INCREMENT, 
+    `uri`               VARCHAR(160), 
+    `title`             VARCHAR(160), 
+    `code`              TEXT, 
+    `image`             VARCHAR(160), 
+    `priority`          INT, 
+    `category`          VARCHAR(160), 
+    `child`             TEXT, 
+    `json`              TEXT, 
+    `datePublication`   DATETIME,
+    `status`            VARCHAR(160), 
+    `author`            VARCHAR(160), 
+    PRIMARY KEY (`id`)
+) CHARSET=utf8mb4;
+
 INSERT INTO `user` 
 (`login`, `password`, `email`, `level`, `dateCreation`) 
 VALUES 
