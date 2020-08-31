@@ -27,6 +27,7 @@ class File
     {
         $code = File::content("xoom/etc/ex-Class.php");
         $dicoas = [
+            "MyClass"   => $name,
             "@AUTHOR"   => Config::$adminName       ?? "X",
             "@LICENCE"  => Config::$adminLicence    ?? "MIT",
             "@DATETIME" => date("Y-m-d H:i:s"),
