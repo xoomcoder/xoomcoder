@@ -11,8 +11,9 @@ class AdminCommand
 
         $bloccode  = "";
         $blocname  = "";
-        foreach($lines as $index => $line) {
-            $line = trim($line);
+        foreach($lines as $index => $line0) {
+
+            $line = trim($line0);
 
             if ($line) {
                 if ("@bloc" == substr($line, 0, 5)) {
@@ -26,7 +27,7 @@ class AdminCommand
                     }
                 }
                 else if ($blocname != "") {     // inside bloc
-                    $bloccode .= "$line\n";     // add newline back
+                    $bloccode .= "$line0\n";    // keep raw line and add newline back
                 }
                 else {
                     AdminCommand::$commands[] = $line;
@@ -159,5 +160,26 @@ class AdminCommand
 
     }
 
+    static function apiFileWrite ($paramas)
+    {
+        extract($paramas);
+        if (($bloc ?? false) && ($filename ?? false)) {
+
+            $code = AdminCommand::$blocas[$bloc] ?? "";
+
+            File::create($filename, $code);
+
+            Form::addJson("commandFileWrite", $filename);
+        }
+    }
+
+    static function apiFileRead ($paramas)
+    {
+        extract($paramas);
+        if (($json ?? false) && ($filename ?? false)) {
+            $code = File::content($filename);
+            Form::addJson($json, $code);
+        }
+    }
 
 }
