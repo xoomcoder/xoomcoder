@@ -13,7 +13,7 @@ class AdminCommand
         // https://www.php.net/manual/fr/function.is-callable
         if (is_callable($code)) {
             $paramsa = [];
-            parse_str($query, $paramsa);
+            parse_str($query ?? "", $paramsa);
             $code($paramsa);    
         }
 

@@ -35,10 +35,19 @@ class Xoom
     static function loadClass($classname)
     {
         // https://www.php.net/manual/fr/function.glob.php
-        $toFile = glob(__DIR__ . "/$classname.php");
+        $basedir = Xoom::$rootdir . "/xoom/class";
+        $toFile = glob("$basedir/$classname.php");
 
         // https://www.php.net/manual/fr/function.count.php
         $result = count($toFile) ? require $toFile[0] : 0;
+
+        // look also in subfolders
+        if ($result == 0) {
+            $toFile = glob("$basedir/*/$classname.php");
+
+            // https://www.php.net/manual/fr/function.count.php
+            $result = count($toFile) ? require $toFile[0] : 0;   
+        }
     }
 
     static function getRequest()
