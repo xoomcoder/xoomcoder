@@ -1,3 +1,19 @@
+
+<article class="">
+    <h2>Checkpoint: WebShell en https</h2>
+    <p>
+    Avec une connexion sécurisée en https, il est maintenant moins exposé de fournir une API de gestion de l'hébergement, directement dans l'administration d'un CMS.
+    Quand vous avez les compétences développeur, c'est régulièrement utile de pouvoir manipuler le code directement.
+    Un WebShell permet de gérer les dossiers et les fichiers de l'hébergement.
+    Et une console SQL permet de lancer des requêtes SQL sur la base de données.
+    Du côté back, cette API ajoute aussi un framework pratique pour composer des requêtes AJAX.
+    L'API ajax permet de choisir le nom de la propriété JSON qui va recevoir les informations demandées.
+    Cette architecture se rapproche de GraphQL car dans une seule requête, on peut envoyer plusieurs instructions au serveur.
+    Il est ainsi possible d'enchainer un "create" et plusieurs "read" en une seule requête.
+    Toutes ces possibilités forment un nouveau mini-langage de programmation ?! 
+    </p>
+</article>
+
 <article class="">
     <h2>Checkpoint: SEO avec YouTube</h2>
     <p>
