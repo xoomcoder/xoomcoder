@@ -100,12 +100,19 @@ class Form
 
         $logsa["post"]      = $filterPost;
     
-        $json = json_encode($logsa, JSON_PRETTY_PRINT);
-        $b64  = base64_encode($json);
+        $b64  = Form::encode64($logsa);
 
         // append to the log file
         $logfile = Xoom::$rootdir . "/xoom-data/my-api-$today.log";
         // https://www.php.net/manual/fr/function.file-put-contents.php
         file_put_contents($logfile, "$b64\n", FILE_APPEND);
     }
+
+    static function encode64 ($infosa)
+    {
+        $json = json_encode($infosa, JSON_PRETTY_PRINT);
+        $b64  = base64_encode($json);
+        return $b64;
+    }
+
 }

@@ -7,6 +7,7 @@ class Xoom
     static $template    = [];
     static $filename    = "";
     static $canonical   = "";
+    static $configas    = [];
 
     // static methods
 
@@ -20,6 +21,10 @@ class Xoom
 
         // https://www.php.net/manual/fr/function.spl-autoload-register.php
         spl_autoload_register("Xoom::loadClass");
+
+        Xoom::$configas["rootdir"] = Xoom::$rootdir;
+
+        Xoom::loadConfig();
 
         Xoom::getRequest();
 
@@ -78,5 +83,19 @@ class Xoom
     static function showBodyClass ()
     {
         echo Xoom::$filename;
+    }
+
+    static function loadConfig ()
+    {
+        $files = File::list("xoom-data/my-config-*.json");
+        foreach($files as $file) {
+            $json           = file_get_contents($file);
+            // https://www.php.net/manual/fr/function.json-decode.php
+            $configas       = json_decode($json, true);
+            // https://www.php.net/manual/fr/function.array-merge.php
+            // $result = array_merge(Xoom::$configas, $configas);
+            // warning: last values will prevail
+            Xoom::$configas = $configas + Xoom::$configas;
+        }
     }
 }
