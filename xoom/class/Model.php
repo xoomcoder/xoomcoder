@@ -23,18 +23,21 @@ class Model
                 Test::log('error: ' . $e->getMessage());
             }
         }
-        $pdoStatement = Model::$pdo->prepare($request);
-        $pdoStatement->execute($tokenas);
-
-        // https://www.php.net/manual/fr/function.ob-start.php
-        ob_start();
-        // https://www.php.net/manual/fr/pdostatement.debugdumpparams.php
-        $pdoStatement->debugDumpParams();
-        // https://www.php.net/manual/fr/function.ob-get-clean.php
-        $log = ob_get_clean();
         
-        Model::$logs[] = $log;
-
+        $pdoStatement = null;
+        if (Model::$pdo != null) {
+            $pdoStatement = Model::$pdo->prepare($request);
+            $pdoStatement->execute($tokenas);
+    
+            // https://www.php.net/manual/fr/function.ob-start.php
+            ob_start();
+            // https://www.php.net/manual/fr/pdostatement.debugdumpparams.php
+            $pdoStatement->debugDumpParams();
+            // https://www.php.net/manual/fr/function.ob-get-clean.php
+            $log = ob_get_clean();
+    
+            Model::$logs[] = $log;    
+        }
         return $pdoStatement;
     }
 
