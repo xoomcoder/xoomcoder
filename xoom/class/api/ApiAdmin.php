@@ -9,14 +9,7 @@ class ApiAdmin
 
             $command = Form::filterInput("command");
             // https://www.php.net/manual/fr/function.explode.php
-            $lines = explode("\n", $command);
-            foreach($lines as $index => $line) {
-                $line = trim($line);
-
-                if ($line) {
-                    AdminCommand::process($line);
-                }
-            }
+            AdminCommand::run($command);
 
             Form::setFeedback("...");
         }

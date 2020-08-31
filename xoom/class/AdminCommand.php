@@ -2,6 +2,45 @@
 
 class AdminCommand
 {
+    static $commands    = [];
+    static $blocas       = [];
+
+    static function run ($script)
+    {
+        $lines = explode("\n", $script);
+
+        $bloccode  = "";
+        $blocname  = "";
+        foreach($lines as $index => $line) {
+            $line = trim($line);
+
+            if ($line) {
+                if ("@bloc" == substr($line, 0, 5)) {
+                    if ($line != "@bloc") {  // start bloc
+                        $blocname = trim(str_replace("@bloc", "", $line));
+                    }
+                    else {  // end bloc
+                        AdminCommand::$blocas[$blocname] = $bloccode; // add new bloc
+                        $blocname = "";
+                        $bloccode = "";     // reset
+                    }
+                }
+                else if ($blocname != "") {     // inside bloc
+                    $bloccode .= "$line\n";     // add newline back
+                }
+                else {
+                    AdminCommand::$commands[] = $line;
+                }
+            }
+        }
+
+        Form::addJson("commandBlocas", AdminCommand::$blocas);
+
+        foreach(AdminCommand::$commands as $line) {
+            AdminCommand::process($line);
+        }
+    }
+
     static function process ($command)
     {
         static $index = 0;
@@ -99,4 +138,22 @@ class AdminCommand
             Model::sendSql($sql);
         }
     }
+
+    static function apiDbrequest ($paramas)
+    {
+        extract($paramas);
+        if ($request ?? false) {
+
+            $pdoStatement = Model::sendSql($request);
+
+            if ($read ?? false) {
+                // https://www.php.net/manual/fr/pdostatement.fetchall.php
+                $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+                Form::addJson("commandDbRequest", $resultas);
+            }
+        }
+
+    }
+
+
 }
