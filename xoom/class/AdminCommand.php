@@ -195,4 +195,37 @@ class AdminCommand
         }
     }
 
+    static function apiFileMove ($paramas)
+    {
+        extract($paramas);
+        if (($filename ?? false) && ($newname ?? false)) {
+            $code = File::move($filename, $newname, true);
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $code);
+            }
+        }
+    }
+
+    static function apiDirCreate ($paramas)
+    {
+        extract($paramas);
+        if ($dirname ?? false) {
+            $code = File::createDir($dirname, $recursive ?? true);
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $code);
+            }
+        }
+    }
+
+    static function apiDirDelete ($paramas)
+    {
+        extract($paramas);
+        if ($dirname ?? false) {
+            $code = File::deleteDir($dirname);
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $code);
+            }
+        }
+    }
+
 }

@@ -53,4 +53,43 @@ class File
         return $content;
 
     }
+
+    static function move ($path, $newpath, $read=false)
+    {
+        $content = "";
+        $from   = Xoom::$rootdir . "/$path";
+        $to     = Xoom::$rootdir . "/$newpath";
+
+        if ($read) {
+            $content = file_get_contents($to);
+        }
+
+        // https://www.php.net/manual/fr/function.rename.php
+        rename($from, $to);
+        return $content;
+
+    }
+
+    static function createDir ($dirname, $recursive=true)
+    {
+        $to = Xoom::$rootdir . "/$dirname";
+        
+        if (is_dir($to)) return;
+
+        mkdir($to, 0777, $recursive);
+    }
+
+    /**
+     * warning: very dangerous
+     * folder must be empty first
+     */
+    static function deleteDir ($dirname)
+    {
+        $to = Xoom::$rootdir . "/$dirname";
+        
+        if (!is_dir($to)) return;
+
+        rmdir($to);
+    }
+
 }
