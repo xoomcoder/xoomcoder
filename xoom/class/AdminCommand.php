@@ -79,4 +79,12 @@ class AdminCommand
         Form::addJson("commandConfigRead", Xoom::$configas);
 
     }
+
+    static function apiBuildClass ($paramas)
+    {
+        extract($paramas);
+        if ("" != ($name ?? "")) {
+            File::buildClass($name);
+        }
+    }
 }
