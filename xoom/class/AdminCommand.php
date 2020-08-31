@@ -140,7 +140,7 @@ class AdminCommand
         }
     }
 
-    static function apiDbrequest ($paramas)
+    static function apiDbRequest ($paramas)
     {
         extract($paramas);
         if ($bloc ?? false) {
