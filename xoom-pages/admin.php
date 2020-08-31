@@ -161,23 +161,9 @@ xcb.feedback = function (ajaxpack)  {
 };
 
 xcb.login = function (ajaxpack) {
-    if (! 'login' in ajaxpack.json) return;
+    if (! ('login' in ajaxpack.json)) return;
 
     localStorage.setItem('apikey', app.apikey);
-
-    // launch initial request
-    if (batchcode.innerHTML == '') {
-        var code = 
-`
-DbRequest?json=users&bloc=sql2
-
-@bloc sql2
-SELECT * FROM user ORDER BY id DESC;
-@bloc
-`
-        batchcode.innerHTML = code;
-        batchbutton.click();
-    }
 };
 
 xcb.test = function (ajaxpack)  {
@@ -185,9 +171,19 @@ xcb.test = function (ajaxpack)  {
 };
 
 xcb.users = function (ajaxpack) {
+    if (! ('users' in ajaxpack.json)) return;
+
     app.users = ajaxpack.json.users;
 };
 
+xcb.autorun = function (ajaxpack) {
+    if (! ('autorun' in ajaxpack.json)) return;
+
+    console.log(ajaxpack.json.autorun);
+    // launch initial request
+    batchcode.innerHTML = ajaxpack.json.autorun;
+    batchbutton.click();
+}
     </script>
 </body>
 </html>

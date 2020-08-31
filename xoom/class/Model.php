@@ -41,6 +41,13 @@ class Model
         return $pdoStatement;
     }
 
+    static function getSql ($key)
+    {
+        $sqlas = [
+            "user read" => "SELECT * FROM user ORDER BY id DESC;",
+        ];
 
+        return $sqlas[$key] ?? "";
+    }
     //@end
 }

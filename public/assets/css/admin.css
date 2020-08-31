@@ -70,4 +70,5 @@ table {
 td {
     border: 1px solid #cccccc;
     padding:0.25rem;
+    overflow-x:hidden;
 }
