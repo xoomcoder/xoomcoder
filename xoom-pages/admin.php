@@ -55,6 +55,26 @@
 
         <section class="page2" v-if="page==2">
             <h1>CMS</h1>
+
+            <h2>Content</h2>
+            <table>
+                <tbody>
+                    <tr v-for="item in contents">
+                        <td :title="col" v-for="(val, col) in item">{{ val }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>ManyMany</h2>
+            <table>
+                <tbody>
+                    <tr v-for="item in manymanys">
+                        <td :title="col" v-for="(val, col) in item">{{ val }}</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h2>User</h2>
             <table>
                 <tbody>
                     <tr v-for="user in users">
@@ -62,6 +82,7 @@
                     </tr>
                 </tbody>
             </table>
+
         </section>
 
         <section class="page3" v-if="page==3">
@@ -91,6 +112,8 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            manymanys:        [],
+            contents:         [],
             users:            [],
             data64decode:     '',
             data64:           '',
@@ -174,6 +197,16 @@ xcb.users = function (ajaxpack) {
     if (! ('users' in ajaxpack.json)) return;
 
     app.users = ajaxpack.json.users;
+};
+xcb.contents = function (ajaxpack) {
+    if (! ('contents' in ajaxpack.json)) return;
+
+    app.contents = ajaxpack.json.contents;
+};
+xcb.manymanys = function (ajaxpack) {
+    if (! ('manymanys' in ajaxpack.json)) return;
+
+    app.manymanys = ajaxpack.json.manymanys;
 };
 
 xcb.autorun = function (ajaxpack) {

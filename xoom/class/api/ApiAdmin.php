@@ -27,7 +27,11 @@ class ApiAdmin
             Form::addJson("login", date("Y-m-d H:i:s"));
 
             // fill response with more information
-            $command = "DbRequest?json=users&key=user.read";
+            $command = "
+            DbRequest?json=users&key=user.read
+            DbRequest?json=contents&key=content.read
+            DbRequest?json=manymanys&key=manymany.read
+            ";
             AdminCommand::run($command);
 
             Form::setFeedback("Welcome Admin");
