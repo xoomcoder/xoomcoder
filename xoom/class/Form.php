@@ -132,7 +132,7 @@ class Form
                     if ($error != 0) {
                         $errors[] = "network error";
                     }
-                    if ($name == 0) {
+                    if ($name == "") {
                         $errors[] = "name is empty";
                     }
                     if (count($errors) == 0) {
