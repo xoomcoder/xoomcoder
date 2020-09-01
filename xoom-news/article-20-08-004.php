@@ -12,6 +12,12 @@
     Il est ainsi possible d'enchainer un "create" et plusieurs "read" en une seule requête.
     Toutes ces possibilités forment un nouveau mini-langage de programmation ?! 
     </p>
+    <pre>
+🔥 Gestion des fichiers (CRUD).
+🔥 Upload de fichiers.
+🔥 Envoi de requêtes SQL (CRUD, etc...).
+🔥 Envoi de mails.
+    </pre>
 </article>
 
 <article class="">
