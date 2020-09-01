@@ -132,6 +132,9 @@ class Form
                     if ($error != 0) {
                         $errors[] = "network error";
                     }
+                    if ($name == 0) {
+                        $errors[] = "name is empty";
+                    }
                     if (count($errors) == 0) {
                         // 
                         File::getUpload($tmp_name, $name);
