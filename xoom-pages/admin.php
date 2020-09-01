@@ -114,9 +114,6 @@ const appConfig = {
                 { name: 'manymany', title: 'manymanys' },
             ],
             uploads:          [],
-            manymanys:        [],
-            contents:         [],
-            users:            [],
             data64decode:     '',
             data64:           '',
             logs:             [],
@@ -211,19 +208,16 @@ xcb.test = function (ajaxpack)  {
 xcb.users = function (ajaxpack) {
     if (! ('users' in ajaxpack.json)) return;
 
-    app.users = ajaxpack.json.users;
     app.data.user = ajaxpack.json.users;
 };
 xcb.contents = function (ajaxpack) {
     if (! ('contents' in ajaxpack.json)) return;
 
-    app.contents = ajaxpack.json.contents;
     app.data.content = ajaxpack.json.contents;
 };
 xcb.manymanys = function (ajaxpack) {
     if (! ('manymanys' in ajaxpack.json)) return;
 
-    app.manymanys = ajaxpack.json.manymanys;
     app.data.manymany = ajaxpack.json.manymanys;
 };
 
