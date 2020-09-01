@@ -13,7 +13,9 @@
     <link rel="canonical" href="https://xoomcoder.com/<?php echo Xoom::$canonical ?>">
     <!-- favicon -->
     <link rel="icon" href="assets/img/xoomcoder.svg">
-
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    
     <link rel="stylesheet" href="assets/css/site.css">
     <style>
 
