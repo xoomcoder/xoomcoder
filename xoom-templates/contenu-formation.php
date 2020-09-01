@@ -6,7 +6,7 @@
         <pre>
 <a class="cta w100" href="inscription" title="REJOIGNEZ LA COMMUNAUTE XOOMCODER">Rejoignez la communauté XoomCoder&nbsp;!</a>
 
-        Vous êtes motivés par un emploi de Développeur Junior ? 
+Vous êtes motivés par un emploi de Développeur Junior ? 
 Mais savez-vous ce qu'est le métier de développeur ?
 Un développeur passe sa journée de travail devant un écran d'ordinateur et écrit des lignes de code. 
 
