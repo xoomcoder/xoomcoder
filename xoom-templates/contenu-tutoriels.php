@@ -1,6 +1,7 @@
 <section class="x3col">
     <h1>Liste des tutoriels VueJS (version 3)</h1>
     <p class="w100">Pour démarrer avec les frameworks front comme React, Angular, VueJS...</p>
+    <a class="cta w100" href="inscription" title="REJOIGNEZ LA COMMUNAUTE XOOMCODER">Rejoignez la communauté XoomCoder&nbsp;!</a>
     <article>
         <a href="tutoriel-vuejs-v3-facile">
             <h2>Coder un panier d'achat avec VueJS en mode facile</h2>
@@ -12,6 +13,7 @@
 <section class="x3col">
     <h1>Liste des tutoriels Projets</h1>
     <p class="w100">Vous pouvez retrouver ici la liste des tutoriels pour les différents types de projets web.</p>
+    <a class="cta w100" href="inscription" title="REJOIGNEZ LA COMMUNAUTE XOOMCODER">Rejoignez la communauté XoomCoder&nbsp;!</a>
     <article>
         <a href="tutoriel-landing-page">
             <h2>Coder une Landing Page</h2>
