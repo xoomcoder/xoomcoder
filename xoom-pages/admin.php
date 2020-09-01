@@ -31,6 +31,8 @@
             <h2>Panneau de Commande</h2>
             <form id="batchform" action="api" @submit.prevent="sendAjax">
                 <textarea id="batchcode" name="command" required cols="80" rows="10"></textarea>
+                <button @click.prevent="addUpload">ajouter fichier</button>
+                <input type="file" v-for="u in uploads" :name="u.name">
                 <button id="batchbutton" type="submit">envoyer la commande</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->
@@ -58,6 +60,11 @@
 
             <h2>Content</h2>
             <table>
+                <thead>
+                    <tr v-if="contents.length > 0">
+                        <td v-for="(v, c) in contents[0]">{{ c }}</td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr v-for="item in contents">
                         <td :title="col" v-for="(val, col) in item">{{ val }}</td>
@@ -67,6 +74,11 @@
 
             <h2>ManyMany</h2>
             <table>
+                <thead>
+                    <tr v-if="manymanys.length > 0">
+                        <td v-for="(v, c) in manymanys[0]">{{ c }}</td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr v-for="item in manymanys">
                         <td :title="col" v-for="(val, col) in item">{{ val }}</td>
@@ -76,6 +88,11 @@
 
             <h2>User</h2>
             <table>
+                <thead>
+                    <tr v-if="users.length > 0">
+                        <td v-for="(v, c) in users[0]">{{ c }}</td>
+                    </tr>
+                </thead>
                 <tbody>
                     <tr v-for="user in users">
                         <td :title="col" v-for="(val, col) in user">{{ val }}</td>
@@ -112,6 +129,7 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            uploads:          [],
             manymanys:        [],
             contents:         [],
             users:            [],
@@ -133,6 +151,9 @@ const appConfig = {
             this.page = 3;
     },
     methods: {
+        addUpload() {
+            this.uploads.push({ name: 'upload' + this.uploads.length });
+        },
         decode64 () {
             this.data64decode = atob(this.data64);
         },

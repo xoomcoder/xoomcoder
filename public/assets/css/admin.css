@@ -67,6 +67,9 @@ button {
 table {
     table-layout:fixed;
 }
+thead td {
+    background-color:#cccccc;
+}
 td {
     border: 1px solid #cccccc;
     padding:0.25rem;

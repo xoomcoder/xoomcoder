@@ -92,4 +92,27 @@ class File
         rmdir($to);
     }
 
+    /**
+     * https://stackoverflow.com/questions/1017599/how-do-i-remove-accents-from-characters-in-a-php-string
+     */
+    static function removeAccents ($str, $charset='utf-8')
+    {
+        $str = htmlentities($str, ENT_NOQUOTES, $charset);
+
+        $str = preg_replace('#&([A-za-z])(?:acute|cedil|caron|circ|grave|orn|ring|slash|th|tilde|uml);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str); // pour les ligatures e.g. '&oelig;'
+        $str = preg_replace('#&[^;]+;#', '', $str); // supprime les autres caractères
+
+        return $str;   // or add this : mb_strtoupper($str); for uppercase :)
+    }
+
+    static function getUpload ($tmp_name, $name)
+    {
+        $nameOK = File::removeAccents($name);
+        $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9\.]/", "-", $nameOK));
+        $nameOK = preg_replace("/[-]{2+}/", "-", $nameOK);    
+        // https://www.php.net/manual/fr/function.move-uploaded-file.php
+        move_uploaded_file($tmp_name, Xoom::$rootdir . "/public/assets/media/" . $nameOK);
+
+    }
 }

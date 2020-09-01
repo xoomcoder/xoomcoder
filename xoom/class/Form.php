@@ -115,4 +115,29 @@ class Form
         return $b64;
     }
 
+    static function filterUpload ($nameStart)
+    {
+        if (!empty($_FILES)) {
+            Form::addJson("files", $_FILES);
+
+            File::createDir("public/assets/media");
+            File::create("public/assets/media/index.php", "", false);
+
+            foreach($_FILES as $nameInput => $upload) {
+                if (0 === strpos($nameInput, $nameStart)) {
+                    // https://www.php.net/manual/fr/features.file-upload.post-method.php
+                    extract($upload);
+                    // $tmp_name, $name, $error, $size, $type
+                    $errors = [];
+                    if ($error != 0) {
+                        $errors[] = "network error";
+                    }
+                    if (count($errors) == 0) {
+                        // 
+                        File::getUpload($tmp_name, $name);
+                    }
+                }
+            }
+        }
+    }
 }

@@ -228,4 +228,22 @@ class AdminCommand
         }
     }
 
+    static function apiFileUpload ($paramas)
+    {
+        extract($paramas);
+        if ($name ?? false) {
+            Form::filterUpload($name);
+        }
+    }
+
+    static function apiDirList ($paramas)
+    {
+        extract($paramas);
+        if ($name ?? false) {
+            $files = File::list($name);
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $files);
+            }
+        }
+    }
 }
