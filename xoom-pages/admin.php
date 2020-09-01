@@ -60,7 +60,7 @@
 
             <div v-for="table in tables">
                 <h2>{{ table.title }}</h2>
-                <table>
+                <table v-if="table.name in data">
                     <thead>
                         <tr v-if="data[table.name].length > 0">
                             <td v-for="(v, c) in data[table.name][0]">{{ c }}</td>
