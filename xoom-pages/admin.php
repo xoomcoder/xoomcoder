@@ -58,48 +58,26 @@
         <section class="page2" v-if="page==2">
             <h1>CMS</h1>
 
-            <h2>Content</h2>
-            <table>
-                <thead>
-                    <tr v-if="contents.length > 0">
-                        <td v-for="(v, c) in contents[0]">{{ c }}</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in contents">
-                        <td :title="col" v-for="(val, col) in item">{{ val }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>ManyMany</h2>
-            <table>
-                <thead>
-                    <tr v-if="manymanys.length > 0">
-                        <td v-for="(v, c) in manymanys[0]">{{ c }}</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="item in manymanys">
-                        <td :title="col" v-for="(val, col) in item">{{ val }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h2>User</h2>
-            <table>
-                <thead>
-                    <tr v-if="users.length > 0">
-                        <td v-for="(v, c) in users[0]">{{ c }}</td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="user in users">
-                        <td :title="col" v-for="(val, col) in user">{{ val }}</td>
-                    </tr>
-                </tbody>
-            </table>
-
+            <div v-for="table in tables">
+                <h2>{{ table.title }}</h2>
+                <table>
+                    <thead>
+                        <tr v-if="data[table.name].length > 0">
+                            <td v-for="(v, c) in data[table.name][0]">{{ c }}</td>
+                            <td>update</td>
+                            <td>delete</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="item in data[table.name]">
+                            <td :title="col" v-for="(val, col) in item">{{ val }}</td>
+                            <td><button>update</button></td>
+                            <td><button>delete</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
         </section>
 
         <section class="page3" v-if="page==3">
@@ -129,6 +107,12 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            data:             {},
+            tables:           [ 
+                { name: 'content', title: 'contents' },
+                { name: 'user', title: 'users' },
+                { name: 'manymany', title: 'manymanys' },
+            ],
             uploads:          [],
             manymanys:        [],
             contents:         [],
@@ -218,16 +202,19 @@ xcb.users = function (ajaxpack) {
     if (! ('users' in ajaxpack.json)) return;
 
     app.users = ajaxpack.json.users;
+    app.data.user = ajaxpack.json.users;
 };
 xcb.contents = function (ajaxpack) {
     if (! ('contents' in ajaxpack.json)) return;
 
     app.contents = ajaxpack.json.contents;
+    app.data.content = ajaxpack.json.contents;
 };
 xcb.manymanys = function (ajaxpack) {
     if (! ('manymanys' in ajaxpack.json)) return;
 
     app.manymanys = ajaxpack.json.manymanys;
+    app.data.manymany = ajaxpack.json.manymanys;
 };
 
 xcb.autorun = function (ajaxpack) {
