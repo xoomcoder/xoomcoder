@@ -274,7 +274,9 @@ header .logo {
     background-color:#eeeeee;
 }
 
-
+section a > *:after {
+    content: ' 🔗';
+}
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
 {
