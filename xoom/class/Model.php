@@ -53,5 +53,23 @@ class Model
 
         return $sqlas[$key] ?? "";
     }
+
+    static function insert ($table, $tokenas=[])
+    {
+        $cols = implode(",", array_keys($tokenas));
+        $tokens = implode(", :", array_keys($tokenas));
+
+        $sql = 
+        <<<x
+        INSERT INTO `$table`
+        ( $cols )
+        VALUES
+        ( :$tokens );
+
+        x;
+
+        Model::sendSql($sql, $tokenas);
+    }
+
     //@end
 }

@@ -15,6 +15,7 @@
     <pre>
 🔥 Gestion des fichiers (CRUD).
 🔥 Upload de fichiers.
+🔥 Générateur de code (Class builder).
 🔥 Envoi de requêtes SQL (CRUD, etc...).
 🔥 Envoi de mails.
     </pre>

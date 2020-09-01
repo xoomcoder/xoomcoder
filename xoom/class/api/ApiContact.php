@@ -8,15 +8,30 @@ class ApiContact
 
     static function message ()
     {
-        Form::$jsonsa["feedback"] = "Merci pour votre message";
+        $nom        = Form::filterText("nom");
+        $email      = Form::filterEmail("email");
+        $message    = Form::filterText("message");
 
-        $nom        = Form::filterInput("nom");
-        $email      = Form::filterInput("email");
-        $message    = Form::filterInput("message");
+        if (Form::isOK()) {
+            $now = date("Y-m-d H:i:s");
+            $ip  = $_SERVER["REMOTE_ADDR"];
 
-        if ("$nom$email$message" != "") {
+            $messageAdmin =
+            <<<x
+            nom: $nom
+            email: $email
+            date: $now
+            ip: $ip
+            message:
+            $message
+
+            x;
             // send a email
-            Email::send(Config::$adminEmail, "(contact) $nom / $email", $message);
+            Email::send(Config::$adminEmail, "(contact) $nom / $email", $messageAdmin);
+            Form::$jsonsa["feedback"] = "Merci pour votre message.";
+        }
+        else {
+            Form::$jsonsa["feedback"] = "Informations manquantes.";
         }
     }
 }

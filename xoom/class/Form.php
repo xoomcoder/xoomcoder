@@ -4,8 +4,15 @@ class Form
 {
     // static properties
     static $jsonsa = [];
+    static $errors = [];
 
     // static methods
+    static function isOK ()
+    {
+        // https://www.php.net/manual/fr/function.empty.php
+        return empty(Form::$errors);
+    }
+
     static function filterInput($name, $default="")
     {
         $result = $_REQUEST["$name"] ?? $default;
@@ -17,12 +24,53 @@ class Form
         return $result;
     }
 
+    static function filterText ($name, $default="")
+    {
+        $result = Form::filterInput($name, $default);
+
+        if ($result == "") {
+            Form::$errors[] = "texte vide";
+        }
+        return $result;
+    }
+
+    static function filterPassword ($name, $default="", $hash=true)
+    {
+        $result = Form::filterInput($name, $default);
+
+        if ($result == "") {
+            Form::$errors[] = "mot de passe vide";
+        }
+        // hash password
+        if ($hash) {
+            $result = password_hash($result, PASSWORD_DEFAULT);
+        }
+
+        return $result;
+    }
+
     static function filterLetter ($name, $default="")
     {
         $result = Form::filterInput($name, $default);
         // https://www.php.net/manual/fr/function.preg-replace.php
         $result = preg_replace("/[^a-zA-Z0-9]/", "", $result);
 
+        if ($result == "") {
+            Form::$errors[] = "texte vide";
+        }
+        return $result;
+    }
+
+    static function filterEmail ($name, $default="")
+    {
+        $result = Form::filterInput($name, $default);
+        // https://www.php.net/manual/fr/function.preg-replace.php
+        if ($result == "") {
+            Form::$errors[] = "texte vide";
+        }
+        if (($result != "") && (false === filter_var($result, FILTER_VALIDATE_EMAIL))) {
+            Form::$errors[] = "email incorrect";
+        }
         return $result;
     }
 
