@@ -1,3 +1,31 @@
+<article class="w67">
+    <h2>Level 4: CRUD avec VueJS pour un CMS</h2>
+    <p>
+    VueJS est un outil qui permet de réaliser des affichages de table SQL très facilement.
+    Avec Ajax et la fonction fetch en JS, on peut récupérer du serveur un tableau d'objets au format JSON.
+    Les boucles v-for de VueJS permettent alors rapidement de créer un affichage sous forme de table HTML.
+    </p>
+    <p>
+    En PHP, utiliser la méthode fetchAll produit les résultats d'une requête SQL dans un tableau de tableaux associatifs.
+    Ensuite, la fonction json_encode transforme les tableaux associatifs en texte au format JSON.
+    Cette chaine de production est très rapide à coder à PHP. 
+    Pas besoin de passer par l'étape de créer des classes "Entité" en Orienté-Objet.
+    avec PHP, ajouter un ORM (Object Relational Mapping) est une étape qui consomme beaucoup de ressources et devient inutile quand au bout, on produit du format JSON.
+    En effet, les objets JS dans JSON ne sont pas typés. Cela équivaut aux tableaux associatifs PHP, ce qui permet de créer un code PHP valable pour toutes les tables SQL, sans avoir besoin de créer une classe "Entity" PHP pour chaque nouvelle table SQL.
+    </p>
+    <p>
+    En comparaison, si on regarde un peu plus en détails un ORM comme Doctrine, on voit que la promesse de ne pas tenir compte de la BDD relationnelle est une illusion.
+    Il y a en pratique toujours plein de code relié à SQL car cela permet d'optimiser les performances.
+    Avec un ORM, On passerait d'un format SQL table avec lignes et colonnes à un objet "Entity", typé avec une classe PHP par table SQL, qui doit ensuite être retransformé en JSON... pour être finalement affiché sous la forme d'une table HTML avec des lignes et des colonnes ?! 
+    </p>
+    <p>
+    SQL est un langage très puissant, car on peut créer et modifier dynamiquement les tables SQL et aussi les colonnes.
+    L'approche ORM perd alors ce dynamisme, car il est préconisé de créer une classe par table SQL.
+    Les propriétés doivent alors être codées en dur dans chaque classe... Ce qui tue le dynamisme de SQL et alourdit le code applicatif.
+    C'est pour ces raisons que laisser le typage des classes PHP pour garder des tableaux associatifs permet de rester dans la dynamique de SQL.
+    Et surtout quand du côté front, JS préfère aussi, au final, des données non typées.
+    </p>
+</article>
 
 <article class="">
     <h2>Checkpoint: WebShell en https</h2>
