@@ -246,4 +246,18 @@ class AdminCommand
             }
         }
     }
+
+    static function apiMail ($paramas)
+    {
+        extract($paramas);
+        if (($bloc ?? false) && ($to ?? false)) {
+
+            $code = AdminCommand::$blocas[$bloc] ?? "";
+
+            Email::send($to, $subject ?? "", $code);
+
+            Form::addJson("mailcode", $code);
+        }
+
+    }
 }
