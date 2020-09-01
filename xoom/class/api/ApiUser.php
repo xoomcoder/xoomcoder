@@ -32,7 +32,7 @@ class ApiUser
             Hello,
 
             Un nouvel membre vient de rejoindre la communauté.
-            login: $login
+            identifiant: $login
             email: $email
             date: $now
             ip: $ip
@@ -44,13 +44,13 @@ class ApiUser
             // WELCOME MAIL
             $welcome = 
             <<<x
-            Bienvenue,
+            Bienvenue $login,
 
             Merci de votre inscription.
             Vous allez recevoir un autre avec un lien pour activer votre compte.
 
             Vos informations d'inscription:
-            login: $login
+            identifiant: $login
             email: $email
             date: $now
             ip: $ip
