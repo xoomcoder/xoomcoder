@@ -111,9 +111,9 @@ class Form
         $apikey = Form::filterInput("keyApi");
         if ($apikey != "") {
             $hash = base64_decode($apikey);
-        }
-        if (password_verify(Config::$adminPH, $hash)) {
-            $result = true;
+            if (password_verify(Config::$adminPH, $hash)) {
+                $result = true;
+            }
         }
         return $result;
     }
