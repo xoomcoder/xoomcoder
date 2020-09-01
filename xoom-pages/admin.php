@@ -139,7 +139,12 @@ const appConfig = {
             this.uploads.push({ name: 'upload' + this.uploads.length });
         },
         decode64 () {
-            this.data64decode = atob(this.data64);
+            try {
+                this.data64decode = atob(this.data64);
+            }
+            catch(e) {
+                console.log(e);
+            }
         },
         logout () {
             // reset api key
