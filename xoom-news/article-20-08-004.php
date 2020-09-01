@@ -21,7 +21,7 @@
     <p>
     SQL est un langage très puissant, car on peut créer et modifier dynamiquement les tables SQL et aussi les colonnes.
     L'approche ORM perd alors ce dynamisme, car il est préconisé de créer une classe par table SQL.
-    Les propriétés doivent alors être codées en dur dans chaque classe... Ce qui tue le dynamisme de SQL et alourdit le code applicatif.
+    Les propriétés, associées à chaque colonne SQL, doivent alors être codées en dur dans chaque classe... Ce qui tue le dynamisme de SQL et alourdit le code applicatif.
     C'est pour ces raisons que délaisser le typage par des classes PHP, et transporter les informations par des tableaux associatifs PHP, permet de rester dans la dynamique de SQL.
     Et surtout quand du côté front, JS préfère aussi, au final, des données non typées.
     </p>
