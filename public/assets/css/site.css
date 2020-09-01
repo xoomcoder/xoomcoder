@@ -286,10 +286,10 @@ header .logo {
         justify-content: stretch;
         row-gap: 0.5rem;;
         grid-template-rows: 4rem 3rem;
-        grid-template-columns: 2fr 6fr 1fr;
+        grid-template-columns: 2fr 6fr 1fr 1fr;
         grid-template-areas: 
-            "logo   slogan  ."
-            "title  menu  ."
+            "logo   slogan  . ."
+            "title  menu  menu ."
             ;
     }
 
@@ -357,10 +357,10 @@ header .logo {
         justify-content: stretch;
         row-gap: 0.5rem;;
         grid-template-rows: 4rem 3rem;
-        grid-template-columns: 2fr 6fr 6fr;
+        grid-template-columns: 2fr 6fr 3fr 3fr;
         grid-template-areas: 
-            "logo   slogan  ."
-            "title  menu  ."
+            "logo   slogan  slogan ."
+            "title  menu  menu ."
             ;
     }
 }
