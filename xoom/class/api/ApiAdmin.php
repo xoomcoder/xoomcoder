@@ -23,8 +23,6 @@ class ApiAdmin
     {
         if (Form::checkAdminApiKey())
         {
-            // setup login
-            Form::addJson("login", date("Y-m-d H:i:s"));
 
             // fill response with more information
             $command = "
@@ -33,6 +31,9 @@ class ApiAdmin
             DbRequest?json=manymanys&key=manymany.read
             ";
             AdminCommand::run($command);
+
+            // setup login with keyApi
+            Form::addJson("login", Form::filterInput("keyApi"));
 
             Form::setFeedback("Welcome Admin");
         }

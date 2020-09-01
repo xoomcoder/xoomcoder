@@ -77,13 +77,13 @@
                     </tbody>
                 </table>
             </div>
-            
+
         </section>
 
         <section class="page3" v-if="page==3">
             <h1>Login avec API Key</h1>
             <form action="api" @submit.prevent="sendAjax">
-                <input type="password" name="keyApi" required v-model="apikey">
+                <input type="password" name="keyApi" required>
                 <button type="submit">vérifier votre clé API</button>
                 <div class="feedback"></div>
                 <!-- partie technique -->
@@ -146,6 +146,9 @@ const appConfig = {
             this.apikey = '';
             this.page   = 3;
             localStorage.removeItem('apikey');
+
+            // reload page to reset JS
+            location.reload();
         },
         // add here your functions/methods
         sendAjax (event) {
@@ -191,7 +194,9 @@ xcb.feedback = function (ajaxpack)  {
 xcb.login = function (ajaxpack) {
     if (! ('login' in ajaxpack.json)) return;
 
-    localStorage.setItem('apikey', app.apikey);
+    // store the api key
+    localStorage.setItem('apikey', ajaxpack.json.login);
+    app.apikey = ajaxpack.json.login;
 };
 
 xcb.test = function (ajaxpack)  {
