@@ -1,7 +1,7 @@
 
-<section>
+<section id="register">
     <h1>Créez votre compte</h1>
-    <form action="api" method="POST">
+    <form action="" method="POST" @submit.prevent="actRegister">
         <!-- partie publique -->
         <label>
             <div>votre identifiant</div>
@@ -23,3 +23,42 @@
         <input type="hidden" name="methodApi" value="register">
     </form>
 </section>
+
+<script src="assets/js/md5.js"></script>
+<script src="https://unpkg.com/vue@next"></script>
+<script>
+// https://v3.vuejs.org/guide/introduction.html#getting-started
+const appConfig = {
+    data() {
+        return {
+            // add Here your JS properties to sync with HTML
+        }
+    },
+    methods: {
+        actRegister (event) {
+            console.log('actRegister');
+            var fd      = new FormData(event.target);
+            var pwd     = fd.get('password');
+            var email   = fd.get('email');
+            var pwdh    = md5(md5(email) + md5(pwd));
+            fd.set('password', pwdh);
+
+            fetch('api', {
+                method: 'POST',
+                body: fd
+            })
+            .then(function(response) {
+                response.json().then(function(json) {
+                    console.log(json);
+                    if ('feedback' in json) {
+                        var f = event.target.querySelector('.feedback');
+                        if (f) f.innerHTML = json.feedback;
+                    }
+                });
+            });
+        }
+    }
+};
+
+var app = Vue.createApp(appConfig).mount('#register');   // css selector to link with HTML
+</script>

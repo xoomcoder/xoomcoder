@@ -63,7 +63,7 @@ class ApiUser
 
             Email::send($email, "Inscription de $login sur XoomCoder.com", $welcome);
 
-            Form::setFeedback("Merci. Vous allez recevoir un mail d'activation. Votre compte est créé. Avant de vous connecter, il faut activer votre compte.");
+            Form::setFeedback("Merci. Votre compte est créé. Vous allez recevoir un mail d'activation. Avant de vous connecter, il faut activer votre compte.");
         }
 
     }

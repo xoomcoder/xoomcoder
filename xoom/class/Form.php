@@ -38,8 +38,9 @@ class Form
     {
         $result = Form::filterInput($name, $default);
 
-        if ($result == "") {
-            Form::$errors[] = "mot de passe vide";
+        // passwords are md5 (32 chars..)
+        if (mb_strlen($result) != 32) {
+            Form::$errors[] = "mot de passe incorrect";
         }
         // hash password
         if ($hash) {
@@ -77,7 +78,7 @@ class Form
     static function process ()
     {
         // debug
-        Form::$jsonsa["request"] = $_REQUEST;
+        Form::$jsonsa["debug_request"] = Form::hashConfidential($_REQUEST);
 
         $apiClass   = Form::filterInput("classApi");
         $apiMethod  = Form::filterInput("methodApi");
@@ -93,10 +94,17 @@ class Form
         {
             $callback();
         }
+
+        // debug
+        Form::addJson("debug_form_errors", Form::$errors);
     }
 
     static function sendJSON ()
     {
+        // sort the keys
+        // https://www.php.net/manual/fr/function.ksort.php
+        ksort(Form::$jsonsa);
+
         echo json_encode(Form::$jsonsa, JSON_PRETTY_PRINT);
     }
 
@@ -123,6 +131,29 @@ class Form
         Form::$jsonsa["$key"] = $value;
     }
 
+    static function appendJson ($key, $value)
+    {
+        Form::$jsonsa["$key"] = (Form::$jsonsa["$key"] ?? "") . $value;
+    }
+
+    /**
+     * no log or show of confidential data. 
+     * replace data with md5 for search and comparison on text.
+     */
+    static function hashConfidential ($datas)
+    {
+        // security: remove confidential data
+        $filterPost = $datas;
+        // https://www.php.net/manual/fr/function.unset.php
+        if (isset($filterPost['keyApi'])) {
+            $filterPost['keyApi'] = md5($filterPost['keyApi']);
+        }
+        if (isset($filterPost['password'])) {
+            $filterPost['password'] = md5($filterPost['password']);
+        }
+        return $filterPost;
+    }
+
     static function log ()
     {
         $logsa              = [];
@@ -139,14 +170,7 @@ class Form
         $logsa["from"]      = $_SERVER["HTTP_REFERER"];
         $logsa["ua"]        = $_SERVER["HTTP_USER_AGENT"];
 
-        // security: remove confidential data
-        $filterPost = $_POST;
-        // https://www.php.net/manual/fr/function.unset.php
-        if (isset($filterPost['keyApi'])) {
-            $filterPost['keyApi'] = md5($filterPost['keyApi']);
-        }
-
-        $logsa["post"]      = $filterPost;
+        $logsa["post"]      = Form::hashConfidential($_POST);
     
         $b64  = Form::encode64($logsa);
 
