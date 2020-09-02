@@ -11,7 +11,10 @@
     Le serveur garde ainsi la clé privée, qui lui permettra de vérifier que le contenu reçu permet de produire le hash associé, et donc garantir que le contenu n'a pas été corrompu. Le hash peut être publié publiquement aussi dans le token, car de toute façon, pour forger un nouveau hash correct, il faudrait la clé privée gardée par le serveur.   
     </p>
     <p>
-    (Pour renforcer la sécurité, la signature peut être produite avec 2 hashages successifs sur la clé publiqu et et la clé privée...)
+        https://jwt.io/
+    </p>
+    <p>
+    (Pour renforcer la sécurité, la signature peut être produite avec 2 hashages successifs sur la clé publique et et la clé privée...)
     </p>
     <p>
     Comme ce token peut être envoyé au serveur par de nombreuses manières différentes, cette technique permet de se libérer des cookies. On peut ainsi créer des tokens pour des applications clientes qui pourront agir sur une API serveur, en utilisant les droits d'un compte auparavant identifié et autorisé. Et sans avoir à fournir le mot de passe du compte.    
