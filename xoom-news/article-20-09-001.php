@@ -7,7 +7,7 @@
     </p>
     <p>
     La technique Json Web Token (JWT) permet au serveur de créer une clé API qui pourra être envoyée et stockée dans le navigateur. Ensuite le navigateur (ou application cliente) devra renvoyer ce token au serveur, pour chaque action qui nécessite une autorisation.
-    Mais comment garantir que le contenu du token n'est pas hackée pour usurper trop de droits ?
+    Mais comment garantir que le contenu du token n'est pas hacké pour usurper trop de droits ?
     Le token JWT contient plusieurs informations. Le contenu (payload) mais aussi un hashage (signature) obtenu avec la combinaison entre le contenu (clé publique) et un clé serveur (clé privée).
     Le serveur garde ainsi la clé privée, qui lui permettra de vérifier que le contenu reçu permet de produire le hash associé, et donc garantir que le contenu n'a pas été corrompu. Le hash peut être publié publiquement aussi dans le token, car de toute façon, pour forger un nouveau hash correct, il faudrait la clé privée gardée par le serveur.   
     </p>
