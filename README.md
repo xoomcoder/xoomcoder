@@ -9,6 +9,23 @@ En plusieurs étapes:
 * CMS (Content Management System)
 * MarketPlace
 
+## fonctionnalités de l'API Admin
+
+L'API Admin expose le maximum de possibilités, afin de faciliter le travail de l'administrateur.
+Avec une interface web, vous pouvez ainsi gérer votre hébergement ainsi que votre application très efficacement.
+
+Attention: certaines peuvent être très dangereuses pour votre hébergement.
+(Veillez bien à être en https et à protéger votre clé API Admin...)
+
+🔥 Gestion des fichiers (CRUD).
+🔥 Upload de fichiers.
+🔥 Générateur de code (Class builder).
+🔥 Envoi de requêtes SQL (CRUD, etc...).
+🔥 Envoi de mails.
+🔥 Exécution de code PHP avec la fonction eval.
+🔥 Exécution de code JS en callback Ajax avec eval.
+
+
 ## Création du dossier du projet
 
     Et ensuite, on peut ajouter git

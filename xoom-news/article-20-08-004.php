@@ -47,6 +47,7 @@
 🔥 Envoi de requêtes SQL (CRUD, etc...).
 🔥 Envoi de mails.
 🔥 Exécution de code PHP avec la fonction eval.
+🔥 Exécution de code JS en callback Ajax avec eval.
     </pre>
 </article>
 
