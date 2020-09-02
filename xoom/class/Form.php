@@ -3,14 +3,20 @@
 class Form
 {
     // static properties
-    static $jsonsa = [];
-    static $errors = [];
+    static $jsonsa      = [];
+    static $errors      = [];
+    static $formdatas   = [];
 
     // static methods
     static function isOK ()
     {
+        $nberrors = count(Form::$errors);
+        if ($nberrors > 0) {
+            $msgerrrors = implode("\n", Form::$errors);
+            Form::setFeedback("Votre formulaire contient $nberrors erreur(s). $msgerrrors");
+        }
         // https://www.php.net/manual/fr/function.empty.php
-        return empty(Form::$errors);
+        return (0 == $nberrors);
     }
 
     static function filterInput($name, $default="")
@@ -31,6 +37,9 @@ class Form
         if ($result == "") {
             Form::$errors[] = "texte vide";
         }
+        
+        Form::$formdatas[$name] = $result;
+
         return $result;
     }
 
@@ -47,6 +56,8 @@ class Form
             $result = password_hash($result, PASSWORD_DEFAULT);
         }
 
+        Form::$formdatas[$name] = $result;
+
         return $result;
     }
 
@@ -59,6 +70,7 @@ class Form
         if ($result == "") {
             Form::$errors[] = "texte vide";
         }
+        Form::$formdatas[$name] = $result;
         return $result;
     }
 
@@ -72,6 +84,7 @@ class Form
         if (($result != "") && (false === filter_var($result, FILTER_VALIDATE_EMAIL))) {
             Form::$errors[] = "email incorrect";
         }
+        Form::$formdatas[$name] = $result;
         return $result;
     }
 
@@ -214,5 +227,22 @@ class Form
                 }
             }
         }
+    }
+
+    static function checkUnique ($name, $table)
+    {
+        $result = false;
+        $value = Form::$formdatas[$name] ?? "";
+        if ($value != "") {
+            $lines = Model::read($table, $name, $value);
+            if (count($lines) < 2) {
+                $result = true;
+            }
+        }
+        if (!$result) {
+            Form::$errors[] = "$name indisponible ($value).";
+        }
+
+        return $result;
     }
 }

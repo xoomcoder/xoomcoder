@@ -16,6 +16,9 @@ class ApiUser
             "password"  => Form::filterPassword("password"),
         ];
 
+        Form::checkUnique("email", "user");
+        Form::checkUnique("login", "user");
+
         if (Form::isOK()) {
             extract($tokenas);
             // complete data
@@ -66,6 +69,9 @@ class ApiUser
             Email::send($email, "Inscription de $login sur XoomCoder.com", $welcome);
 
             Form::setFeedback("Merci. Votre compte est créé. Vous allez recevoir un mail d'activation. Avant de vous connecter, il faut activer votre compte.");
+
+            // debug
+            Form::addJson("debug_sql", Model::$logs);
         }
 
     }

@@ -68,7 +68,31 @@ class Model
 
         x;
 
-        Model::sendSql($sql, $tokenas);
+        $pdoStatement = Model::sendSql($sql, $tokenas);
+        return $pdoStatement;
+    }
+
+    static function read ($table, $column="", $search="", $sort="id DESC")
+    {
+        $tokenas    = [];
+        $whereline  = "";
+        $sortline   = "";
+        if ($sort != "") $sortline = "ORDER BY $sort";
+        if($column != "") {
+            $whereline = "WHERE $column = :$column";
+            $tokenas = [ $column => $search ];
+        }
+
+        $sql = 
+        <<<x
+        SELECT * FROM `$table`
+        $whereline
+        $sortline
+        ;
+        x;
+
+        $pdoStatement = Model::sendSql($sql, $tokenas);
+        return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
     }
 
     //@end
