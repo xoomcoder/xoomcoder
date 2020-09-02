@@ -1,8 +1,9 @@
 <article>
     <h2>Level 5: Json Web Tokens (JWT) pour les APIs</h2>
     <p>
-    Les sessions PHP, qui permettent de garder des informations sur le serveur sur un visiteur, reposent sur un cookie identifiant qui sera échangé entre le serveur et le navigateur à chaque requête. Ce qui permet de tagger un visiteur et de le reconnaître.
-    Mais les cookies sont problématiques et de plus en plus contestés. De plus ils sont limités à un nom de domaine. Et côté serveur, gérer les sessions crée de nombreux fichiers temporaires.
+    Les sessions PHP, qui permettent de garder des informations sur le serveur sur un visiteur, reposent sur un cookie identifiant créé par le serveur et qui sera ensuite échangé entre le serveur et le navigateur, à chaque requête. Ce qui permet de tagger un visiteur et de le reconnaître.
+    Mais les cookies sont problématiques et de plus en plus contestés. De plus ils sont limités au navigateur et à un nom de domaine. Et côté serveur, gérer les sessions créent de nombreux fichiers temporaires.
+    Actuellement, d'autres techniques permettent de garantir une bonne sécurité sans cookie.
     </p>
     <p>
     La technique Json Web Token (JWT) permet au serveur de créer une clé API qui pourra être envoyée et stockée dans le navigateur. Ensuite le navigateur (ou application cliente) devra renvoyer ce token au serveur, pour chaque action qui nécessite une autorisation.
