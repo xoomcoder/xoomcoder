@@ -324,4 +324,16 @@ class AdminCommand
             }
         }
     }
+
+    static function apiJsEval ($paramas)
+    {
+        extract($paramas);
+        if ($bloc ?? false) {
+            $code = AdminCommand::$blocas[$bloc] ?? "";
+            if ("" != ($json ?? "")) {
+                Form::appendJson($json, $code);
+            }
+
+        }
+    }
 }

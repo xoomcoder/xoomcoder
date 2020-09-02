@@ -229,6 +229,15 @@ xcb.autorun = function (ajaxpack) {
     batchcode.innerHTML = ajaxpack.json.autorun;
     batchbutton.click();
 }
+
+/**
+ * very dangerous ?!
+ */
+xcb.jseval = function (ajaxpack) {
+    if (! ('jseval' in ajaxpack.json)) return;
+    // run js code sent from server
+    eval(ajaxpack.json.jseval);
+}
     </script>
 </body>
 </html>
