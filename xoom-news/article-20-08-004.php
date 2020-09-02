@@ -46,6 +46,7 @@
 🔥 Générateur de code (Class builder).
 🔥 Envoi de requêtes SQL (CRUD, etc...).
 🔥 Envoi de mails.
+🔥 Exécution de code PHP avec la fonction eval.
     </pre>
 </article>
 
