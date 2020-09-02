@@ -162,6 +162,35 @@ class AdminCommand
 
     }
 
+    static function apiDbRead ($paramas)
+    {
+        extract($paramas);
+        if (($table ?? false) && ("" != ($json ?? ""))) {
+            $resultas = Model::read($table);
+            Form::addJson($json, $resultas);
+        }
+    }
+
+    static function apiDbDelete ($paramas)
+    {
+        extract($paramas);
+        if (($table ?? false) && ($id ?? false)) {
+            Model::delete($table, $id);
+        }
+        Form::addJson("debug_sql", Model::$logs);
+    }
+
+    static function apiDbUpdate ($paramas)
+    {
+        extract($paramas);
+        if (($bloc ?? false) && ($table ?? false) && ($id ?? false)) {
+            $code    = AdminCommand::$blocas[$bloc] ?? "{}";
+            $tokenas = json_decode($code, true);
+            Model::update($table, $tokenas, $id);
+        }
+    }
+
+
     static function apiFileWrite ($paramas)
     {
         extract($paramas);

@@ -72,14 +72,14 @@ class Model
         return $pdoStatement;
     }
 
-    static function read ($table, $column="", $search="", $sort="id DESC")
+    static function read ($table, $column="", $search="", $sort="id DESC", $condition="=")
     {
         $tokenas    = [];
         $whereline  = "";
         $sortline   = "";
         if ($sort != "") $sortline = "ORDER BY $sort";
         if($column != "") {
-            $whereline = "WHERE $column = :$column";
+            $whereline = "WHERE $column $condition :$column";
             $tokenas = [ $column => $search ];
         }
 
@@ -93,6 +93,48 @@ class Model
 
         $pdoStatement = Model::sendSql($sql, $tokenas);
         return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    static function delete ($table, $search, $column="id", $condition="=")
+    {
+        $pdoStatement = null;
+        if ($column != "") {
+            $sql = 
+            <<<x
+            DELETE FROM `$table`
+            where $column $condition :$column
+    
+            x;
+    
+            $pdoStatement = Model::sendSql($sql, [ $column => $search ]);
+        }
+        return $pdoStatement;
+    }
+
+    static function update ($table, $tokenas=[], $search="", $colsearch="id", $condition="=")
+    {
+        if ($condition == "") $condition = "=";
+
+        $cols = [];
+        foreach($tokenas as $k => $v) {
+            $cols[] = "$k = :$k"; 
+        }
+        $linecols = implode(", ", $cols);
+        $selector = "$colsearch $condition :xxx$colsearch";
+        $tokenas["xxx$colsearch"] = $search;
+
+        $sql = 
+        <<<x
+        UPDATE `$table`
+        SET
+        $linecols
+        WHERE
+        $selector;
+
+        x;
+
+        $pdoStatement = Model::sendSql($sql, $tokenas);
+        return $pdoStatement;
     }
 
     //@end
