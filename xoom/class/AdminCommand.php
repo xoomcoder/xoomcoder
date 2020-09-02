@@ -301,4 +301,27 @@ class AdminCommand
         }
 
     }
+
+    /**
+     * warning: very dangerous
+     */
+    static function apiPhpEval ($paramas)
+    {
+        extract($paramas);
+        if ($bloc ?? false) {
+
+            $code = AdminCommand::$blocas[$bloc] ?? "";
+
+            ob_start();
+
+            // https://www.php.net/manual/fr/function.eval.php
+            eval($code);
+
+            $output = ob_get_clean();
+
+            if ("" != ($json ?? "")) {
+                Form::addJson($json, $output);
+            }
+        }
+    }
 }
