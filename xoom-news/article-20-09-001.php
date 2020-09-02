@@ -6,7 +6,7 @@
     Le making-of est toujours un plaisir pour découvrir les techniques qui se composent pour créer une oeuvre multimedia.
     Le cinema mélange le réel avec des bricolages et des maquettes, des acteurs devant écrans verts jusqu'aux créations virtuelles en 3D gigantesques.
     Et la bande son envoûte les spectateurs et participe à l'expérience presque hypnotique, entre la danse et la transe.
-    L'univers de Blood Machines reprend l'ambiance d'un autre clip, intitulé Turbo Killer.
+    L'univers de Blood Machines reprend l'ambiance d'un autre clip, intitulé Turbo Killer, qui jouait plus sur les courses de bolides, à la Trackmania.
     </p>
 </article>
 <script type="text/xoomcoder">
