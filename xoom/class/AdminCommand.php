@@ -177,7 +177,16 @@ class AdminCommand
         if (($table ?? false) && ($id ?? false)) {
             Model::delete($table, $id);
         }
-        Form::addJson("debug_sql", Model::$logs);
+    }
+
+    static function apiDbInsert ($paramas)
+    {
+        extract($paramas);
+        if (($bloc ?? false) && ($table ?? false)) {
+            $code    = AdminCommand::$blocas[$bloc] ?? "{}";
+            $tokenas = json_decode($code, true);
+            Model::insert($table, $tokenas);
+        }
     }
 
     static function apiDbUpdate ($paramas)
@@ -189,7 +198,6 @@ class AdminCommand
             Model::update($table, $tokenas, $id);
         }
     }
-
 
     static function apiFileWrite ($paramas)
     {
