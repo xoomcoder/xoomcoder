@@ -47,7 +47,9 @@ class ApiUser
             Bienvenue $login,
 
             Merci de votre inscription.
-            Vous allez recevoir un autre avec un lien pour activer votre compte.
+
+            Vous allez recevoir un autre mail, avec un code d'activation.
+            Et il y aura aussi un lien vers la page pour activer votre compte.
 
             Vos informations d'inscription:
             identifiant: $login
