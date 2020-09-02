@@ -35,7 +35,7 @@ class AdminCommand
             }
         }
 
-        Form::addJson("commandBlocas", AdminCommand::$blocas);
+        Form::addJson("debug_commandBlocas", AdminCommand::$blocas);
 
         foreach(AdminCommand::$commands as $line) {
             AdminCommand::process($line);
@@ -47,23 +47,27 @@ class AdminCommand
         static $index = 0;
 
         // https://www.php.net/manual/fr/function.parse-url.php
-        extract(parse_url($command));
+        extract(parse_url("$command"));
+        extract(pathinfo("/" . ($path ?? ""))); // prepend / for dirname
 
-        $code = "AdminCommand::api$path";
+        $code = "AdminCommand::api$filename";
         // https://www.php.net/manual/fr/function.is-callable
         if (is_callable($code)) {
-            $paramsa = [];
-            parse_str($query ?? "", $paramsa);
-            $code($paramsa);    
+            $paramas = [];
+            parse_str($query ?? "", $paramas);
+            if ($dirname != "/") {
+                $paramas["json"] = trim($dirname, "/");
+            }
+            $code($paramas);    
         }
 
-        Form::addJson("line$index", $command);
+        Form::addJson("debug_line$index", "$dirname/$code/$command");
         $index++;
     }
 
     static function apiTime ()
     {
-        Form::addJson("commandTime", date("Y-m-d H:i:s"));
+        Form::addJson("debug_commandTime", date("Y-m-d H:i:s"));
     }
 
     static function apiLogRead ()
@@ -88,7 +92,7 @@ class AdminCommand
         foreach($logfiles as $index => $logfile) {
             // https://www.php.net/manual/fr/function.unlink.php
             unlink($logfile);
-            Form::addJson("commandLogReset-$index", $logfile);
+            Form::addJson("debug_commandLogReset-$index", $logfile);
         }
     }
 
@@ -108,7 +112,7 @@ class AdminCommand
                 return true;
             }, ARRAY_FILTER_USE_BOTH);
 
-            Form::addJson("commandConfigAdd", $filteras);
+            Form::addJson("debug_commandConfigAdd", $filteras);
             $json = json_encode($filteras, JSON_PRETTY_PRINT);
             File::create("xoom-data/my-config-$to.json", $json);               
         }
@@ -116,7 +120,7 @@ class AdminCommand
 
     static function apiConfigRead ()
     {
-        Form::addJson("commandConfigRead", Xoom::$configas);
+        Form::addJson("debug_commandConfigRead", Xoom::$configas);
 
     }
 
@@ -208,7 +212,7 @@ class AdminCommand
 
             File::create($filename, $code);
 
-            Form::addJson("commandFileWrite", $filename);
+            Form::addJson("debug_commandFileWrite", $filename);
         }
     }
 
@@ -293,7 +297,7 @@ class AdminCommand
 
             Email::send($to, $subject ?? "", $code);
 
-            Form::addJson("mailcode", $code);
+            Form::addJson("debug_mailcode", $code);
         }
 
     }
