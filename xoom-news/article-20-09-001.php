@@ -1,3 +1,22 @@
+<article>
+    <h2>Level 5: Json Web Tokens (JWT) pour les APIs</h2>
+    <p>
+    Les sessions PHP, qui permettent de garder des informations sur le serveur sur un visiteur, reposent sur un cookie identifiant qui sera échangé entre le serveur et le navigateur à chaque requête. Ce qui permet de tagger un visiteur et de le reconnaître.
+    Mais les cookies sont problématiques et de plus en plus contestés. De plus ils sont limités à un nom de domaine. Et côté serveur, gérer les sessions crée de nombreux fichiers temporaires.
+    </p>
+    <p>
+    La technique Json Web Token (JWT) permet au serveur de créer une clé API qui pourra être envoyée et stockée dans le navigateur. Ensuite le navigateur (ou application cliente) devra renvoyer ce token au serveur, pour chaque action qui nécessite une autorisation.
+    Mais comment garantir que le contenu du token n'est pas hackée pour usurper trop de droits ?
+    Le token JWT contient plusieurs informations. Le contenu (payload) mais aussi un hashage (signature) obtenu avec la combinaison entre le contenu (clé publique) et un clé serveur (clé privée).
+    Le serveur garde ainsi la clé privée, qui lui permettra de vérifier que le contenu reçu permet de produire le hash associé, et donc garantir que le contenu n'a pas été corrompu. Le hash peut être publié publiquement aussi dans le token, car de toute façon, pour forger un nouveau hash correct, il faudrait la clé privée gardée par le serveur.   
+    </p>
+    <p>
+    (Pour renforcer la sécurité, la signature peut être produite avec 2 hashages successifs sur la clé publiqu et et la clé privée...)
+    </p>
+    <p>
+    Comme ce token peut être envoyé au serveur par de nombreuses manières différentes, cette technique permet de se libérer des cookies. On peut ainsi créer des tokens pour des applications clientes qui pourront agir sur une API serveur, en utilisant les droits d'un compte auparavant identifié et autorisé. Et sans avoir à fournir le mot de passe du compte.    
+    </p>
+</article>
 <article class="w67">
     <h2>Level 5: Hashage en PHP et en JS du mot de passe</h2>
     <p>
