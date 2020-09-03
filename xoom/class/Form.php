@@ -128,6 +128,9 @@ class Form
 
     static function sendJSON ()
     {
+        // debug
+        Form::addJson("debug_errors_php", Xoom::$errors);
+
         // sort the keys
         // https://www.php.net/manual/fr/function.ksort.php
         ksort(Form::$jsonsa);

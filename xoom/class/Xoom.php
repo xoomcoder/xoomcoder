@@ -8,11 +8,14 @@ class Xoom
     static $filename    = "";
     static $canonical   = "";
     static $configas    = [];
+    static $errors      = [];
 
     // static methods
 
     static function start($rootdir)
     {
+        set_error_handler("Xoom::handleError");
+
         error_reporting(E_ALL);
         ini_set("error_display", "1");
 
@@ -30,6 +33,11 @@ class Xoom
 
         // build the page to the browser
         Xoom::sendResponse();
+    }
+
+    static function handleError ($errno, $errstr, $errfile, $errline)
+    {
+        Xoom::$errors[] = [$errno, $errstr, $errfile, $errline];
     }
 
     static function loadClass($classname)
