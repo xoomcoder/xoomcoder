@@ -4,7 +4,7 @@
     Les procédures pour une création de compte sont maintenant bien définis.
     Et la plupart des internautes sont habitués à ces différentes étapes.
     La création du compte doit ensuite être validée par un mail de validation qui contient une clé personnalisée.
-    Un hashage entre l'email et le password_hash stocké sur le serveur, fournit un token avec comme clé publique l'email et comme lé privée le password_hash. 
+    Un hashage entre l'email et le password_hash stocké sur le serveur, fournit un token avec comme clé publique l'email et comme clé privée le password_hash. 
     Un jeton par un hashage md5 donne 32 caractères.
     Du côté serveur, il faut bien vérifier le statut actuel du compte, pour ne pas activer les comptes dans n'importe quel statut. 
     (exemple: un membre banni qui tenterait de réactiver son compte...)
@@ -13,12 +13,12 @@
     Sur le même principe, le mot de passe oublié doit pouvoir être changé par le membre sans avoir à demander à un administrateur.
     Il faut ainsi produire une clé temporaire qui servira à changer le mot de passe.
     Pour sécuriser ces jetons temporaires, on peut leur ajouter une durée de vie de 24H.
-    De même, en créant un jeton, qui porte comme payload un timestamp, dont l'intégrité est liée à un hash avec le password_hash en clé privée.
+    De même, en créant un jeton, qui porte comme payload un timestamp, dont l'intégrité est liée à un hash avec le password_hash en clé privée. La longueur du token est plus longue si on encode le tout en base64.
     On pourra vérifier le timestamp côté serveur.
     2è effet "Kisscool", si la clé privée est liée au password_hash, dès que le mot de passe est modifé, le password_hash est aussi modifié. 
     Ainsi, le jeton temporaire devient immédiatement invalide et ne pourra pas être ré-utilisé.      
     </p>
-    <p>Plusieurs avantages de ces mécanismes qui s'appuient sur le passhword_hash en clé privée: chaque user a sa propre clé privée, et il n'y a pas besoin de stocker des clés dans une table SQL.</p>
+    <p>On peut noter plusieurs avantages de ces mécanismes qui s'appuient sur le passhword_hash en clé privée: chaque user a sa propre clé privée, et il n'y a pas besoin de stocker des clés dans une table SQL.</p>
 </article>
 
 <article>
