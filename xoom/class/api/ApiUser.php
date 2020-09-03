@@ -224,7 +224,7 @@ class ApiUser
                 list($payload, $signature) = explode(",", base64_decode($key));
                 if ( !empty($payload) && !empty($signature)
                         && password_verify("$payload$password", $signature) ) {
-                            
+
                     list($login0,$level0,$id0,$time0) = explode(",", $payload);
                     if (time() < intval($time0 ?? 0) + 3600 * 24) {
                         Model::update("user", ["password" => $passwordInput], $id);
@@ -250,6 +250,9 @@ class ApiUser
                     else {
                         Form::setFeedback("Désolé, le lien a expiré au bout de 24H.");
                     }
+                }
+                else {
+                    Form::setFeedback("Désolé, le code est incorrect.");
                 }
             }        
             if (empty($user)) {
