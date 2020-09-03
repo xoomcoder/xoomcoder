@@ -5,11 +5,11 @@
         <!-- partie publique -->
         <label>
             <div>votre email</div>
-            <input type="email" name="email" required placeholder="votre email" maxlength="160">
+            <input type="email" name="email" required placeholder="votre email" maxlength="160" value="<?php echo Form::filterEmail("email") ?>">
         </label>
         <label>
             <div>votre code d'activation</div>
-            <input type="text" name="activationKey" required placeholder="votre code d'activation" minlength="32" maxlength="32">
+            <input type="text" name="activationKey" required placeholder="votre code d'activation" minlength="32" maxlength="32" value="<?php echo Form::filterMd5("key") ?>">
         </label>
         <button type="submit">Activer votre compte</button>
         <div class="feedback"></div>

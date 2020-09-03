@@ -62,7 +62,7 @@ class ApiUser
             $activationKey
             
             Avec ce code, vous pouvez activer votre compte sur cette page
-            https://xoomcoder.com/activation
+            <a href="https://xoomcoder.com/activation?email=$email&key=$activationKey">https://xoomcoder.com/activation?email=$email&key=$activationKey</a>
 
             Vos informations d'inscription:
             identifiant: $login
