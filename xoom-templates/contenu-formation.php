@@ -2,9 +2,9 @@
 <section>
     <h1>Formation Fullstack / Développeur Web et Applications Mobiles</h1>
     <article class="w50">
+        <a class="cta w100" href="inscription" title="REJOIGNEZ LA COMMUNAUTE XOOMCODER">Rejoignez la communauté XoomCoder&nbsp;!</a>
         <h2>Développeur Junior</h2>
         <pre>
-<a class="cta w100" href="inscription" title="REJOIGNEZ LA COMMUNAUTE XOOMCODER">Rejoignez la communauté XoomCoder&nbsp;!</a>
 
 Vous êtes motivés par un emploi de Développeur Junior ? 
 Mais savez-vous ce qu'est le métier de développeur ?
@@ -47,8 +47,10 @@ Actuellement, la plupart des équipes de développement se composent de 4 à 8 p
     </article>
 
     <article class="w50">
+        <a class="cta w100" href="login" title="LOGIN">Connectez-vous à votre compte</a>
         <h2>Programmation Orienté-Objet</h2>
         <pre>
+
 Naturellement, pour pouvoir gérer des projets avec de tels volumes de code, il faut bien s'organiser. Une entreprise attendra donc des équipes de développeurs que leur code soit bien organisé. 
 
 🔥 Divide and Conquer.
