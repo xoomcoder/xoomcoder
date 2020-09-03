@@ -221,6 +221,7 @@ class ApiUser
             $users = Model::read("user", "email", $email);
             foreach($users as $user) {
                 extract($user);
+                // FIXME: manage errors
                 list($payload, $signature) = @explode(",", @base64_decode($key));
                 if ( !empty($payload) && !empty($signature)
                         && password_verify("$payload$password", $signature) ) {
