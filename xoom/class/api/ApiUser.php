@@ -111,5 +111,35 @@ class ApiUser
             }
         }
     }
+
+    static function login ()
+    {
+        Form::filterEmail("email");
+        $passwordInput = Form::filterPassword("password", "", false);
+
+        if (Form::isOK()) {
+            extract(Form::$formdatas);
+            $users = Model::read("user", "email", $email);
+            foreach($users as $user) {
+                extract($user);
+                if (password_verify($passwordInput, $password)) {
+                    Form::setFeedback("Bienvenue $login.");
+                    $now        = time();
+                    $payload    = "$login,$level,$id,$now";
+                    // FIXME: SQL read must get password each time to check signature...
+                    $signature  = password_hash("$payload$password", PASSWORD_DEFAULT);
+                    $loginToken = "$payload,$signature";
+                    Form::addJson("loginToken", $loginToken);
+                }
+                else {
+                    Form::setFeedback("Désolé. Identifiants incorrects...");
+                }
+            }
+            if (empty($user)) {
+                Form::setFeedback("Désolé votre email n'a pas été trouvé.");
+            }
+        }
+    }
+ 
     //@end
 }
