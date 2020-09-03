@@ -7,7 +7,7 @@
             <div>votre email</div>
             <input type="email" name="email" required placeholder="votre email" maxlength="160" value="<?php echo Form::filterEmail("email") ?>">
         </label>
-        <button type="submit">Envoyer par email une clé pour changer mon mot de passe</button>
+        <button type="submit">Envoyer par email un code pour changer mon mot de passe</button>
         <div class="feedback"></div>
         <p>Vous pourrez ensuite changer votre mot de passe.</p>
         <!-- partie technique -->
@@ -34,7 +34,7 @@
         </label>
         <button type="submit">Changer mon mot de passe</button>
         <div class="feedback"></div>
-        <p>Vous pourrez ensuite vous connecter avec votre nouveau mot de passe.</p>
+        <p>Vous pourrez ensuite <a href="login">vous connecter à votre compte</a> avec votre nouveau mot de passe.</p>
         <!-- partie technique -->
         <input type="hidden" name="classApi" value="User">
         <input type="hidden" name="methodApi" value="passwordChange">
