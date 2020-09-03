@@ -46,6 +46,8 @@ const appConfig = {
                     console.log(json);
                     if ('loginToken' in json) {
                         sessionStorage.setItem("loginToken", json.loginToken);
+                        // go to the studio
+                        location.replace('studio');
                     }
 
                     if ('feedback' in json) {
