@@ -13,6 +13,7 @@
     <link rel="icon" href="assets/img/xoomcoder.svg">
 
     <link rel="stylesheet" href="assets/css/admin.css">
+    <link rel="stylesheet" href="assets/css/studio.css">
 
 </head>
 <body>
