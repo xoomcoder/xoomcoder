@@ -101,6 +101,29 @@ class ApiUser
                 if (($md5 == $activationKey) && ($level == 0)) {
                     Model::update("user", ["level" => 10 ], $id);
                     Form::setFeedback("Votre compte est maintenant activé.");
+
+                    // WELCOME MAIL
+                    $welcome = 
+                    <<<x
+                    <pre>
+                    Merci $login,
+
+                    Votre compte est maintenant activé.
+                    Vous pouvez vous connecter sur cette page.
+                    <a href="https://xoomcoder.com/login">https://xoomcoder.com/login</a>
+
+                    Vos informations de compte:
+                    identifiant: $login
+                    email: $email
+
+                    A bientôt,
+                    Long Hai
+                    https://xoomcoder.com/contact
+                    </pre>
+                    x;
+
+                    Email::send($email, "Activation de $login sur XoomCoder.com", $welcome);
+
                 }
                 else {
                     Form::setFeedback("Désolé votre clé est incorrecte.");
