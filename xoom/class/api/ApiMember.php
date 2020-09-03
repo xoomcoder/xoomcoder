@@ -9,7 +9,8 @@ class ApiMember
 {
     static function run ()
     {
-        Form::setFeedback("Bienvenue...");
+        $now = date("Y-m-d H:i:s");
+        Form::setFeedback("Bienvenue... $now");
 
     }
     //@end
