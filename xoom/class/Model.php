@@ -92,7 +92,13 @@ class Model
         x;
 
         $pdoStatement = Model::sendSql($sql, $tokenas);
-        return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+        if ($pdoStatement) {
+            return $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+        }
+        else {
+            // FIXME: maybe should raise en error ?!
+            return [];
+        }
     }
 
     static function delete ($table, $search, $column="id", $condition="=")

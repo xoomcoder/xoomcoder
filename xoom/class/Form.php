@@ -43,6 +43,20 @@ class Form
         return $result;
     }
 
+    static function filterMd5 ($name, $default="")
+    {
+        $result = Form::filterInput($name, $default);
+
+        if (mb_strlen($result) != 32) {
+            Form::$errors[] = "longueur incorrecte";
+        }
+        // TODO: add hexa check
+        
+        Form::$formdatas[$name] = $result;
+
+        return $result;
+    }
+
     static function filterPassword ($name, $default="", $hash=true)
     {
         $result = Form::filterInput($name, $default);
