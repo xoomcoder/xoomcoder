@@ -18,10 +18,8 @@
 <body>
     <div id="app">
         <header>
-            <h1>BIENVENUE DANS VOTRE STUDIO ({{ username }})</h1>
-            <nav>
-                <a href="#logout" @click.prevent="actLogout">logout</a>
-            </nav>
+            <h1>BIENVENUE DANS VOTRE STUDIO </h1>
+            <h2>({{ username }}) <small><a href="#logout" @click.prevent="actLogout">logout</a></small></h2>
         </header>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
