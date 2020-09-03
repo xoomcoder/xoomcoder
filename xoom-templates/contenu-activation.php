@@ -13,7 +13,7 @@
         </label>
         <button type="submit">Activer votre compte</button>
         <div class="feedback"></div>
-        <p>Vous pourrez ensuite vous connecter à votre compte.</p>
+        <p>Vous pourrez ensuite <a href="login">vous connecter à votre compte</a>.</p>
         <!-- partie technique -->
         <input type="hidden" name="classApi" value="User">
         <input type="hidden" name="methodApi" value="activate">
