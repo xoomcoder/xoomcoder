@@ -3,12 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- IMPORTANT: NO INDEX -->
+    <meta name="robots" content="noindex">
+
     <title>XoomCoder Studio</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="assets/img/xoomcoder.svg">
+
+    <link rel="stylesheet" href="assets/css/admin.css">
+
 </head>
 <body>
     <div id="app">
         <header>
             <h1>BIENVENUE DANS VOTRE STUDIO ({{ username }})</h1>
+            <nav>
+                <a href="#logout" @click.prevent="actLogout">logout</a>
+            </nav>
         </header>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
@@ -19,6 +32,12 @@ const appConfig = {
         return {
             username: '',
             loginToken: ''
+        }
+    },
+    methods: {
+        actLogout() {
+            sessionStorage.setItem('loginToken', '');
+            location.replace('login');   
         }
     },
     mounted() {

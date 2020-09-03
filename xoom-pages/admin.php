@@ -8,6 +8,10 @@
     <meta name="robots" content="noindex">
 
     <title>XoomCoder Admin</title>
+
+    <!-- favicon -->
+    <link rel="icon" href="assets/img/xoomcoder.svg">
+
     <link rel="stylesheet" href="assets/css/admin.css">
 </head>
 <body>
