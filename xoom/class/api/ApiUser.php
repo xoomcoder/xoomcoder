@@ -32,6 +32,7 @@ class ApiUser
             // send a email
             $message = 
             <<<x
+            <pre>
             Hello,
 
             Un nouvel membre vient de rejoindre la communauté.
@@ -39,7 +40,7 @@ class ApiUser
             email: $email
             date: $now
             ip: $ip
-
+            </pre>
             x;
 
             Email::send(Config::$adminEmail, "(register) $login / $email", $message);
