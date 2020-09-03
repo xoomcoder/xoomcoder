@@ -22,6 +22,9 @@ class Email
 
     static function send ($to, $subject, $message)
     {
+        // remove html tags
+        $messagePlain = strip_tags($message);
+
         $mail = new PHPMailer();
         // FIXME: add config 
         $mail->setFrom(Config::$adminEmail ?? "no-reply@xoomcoder.com", "XoomCoder.com");
@@ -32,7 +35,7 @@ class Email
         $mail->isHTML(true);                                  // Set email format to HTML
         $mail->Subject = $subject;
         $mail->Body    = $message;
-        $mail->AltBody = $message;
+        $mail->AltBody = $messagePlain;
         
         $mail->send();
         

@@ -47,6 +47,7 @@ class ApiUser
             // WELCOME MAIL
             $welcome = 
             <<<x
+            <pre>
             Bienvenue $login,
 
             Merci de votre inscription.
@@ -63,7 +64,7 @@ class ApiUser
             A bientôt,
             Long Hai
             https://xoomcoder.com/contact
-            
+            </pre>
             x;
 
             Email::send($email, "Inscription de $login sur XoomCoder.com", $welcome);

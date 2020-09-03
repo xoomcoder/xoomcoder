@@ -325,7 +325,7 @@ class AdminCommand
         }
     }
 
-    static function apiJsEval ($paramas)
+    static function apiAdd ($paramas)
     {
         extract($paramas);
         if ($bloc ?? false) {
