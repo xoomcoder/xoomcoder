@@ -1,4 +1,27 @@
 <article>
+    <h2>Level 5: Gestion des comptes utilisateurs</h2>
+    <p>
+    Les procédures pour une création de compte sont maintenant bien définis.
+    Et la plupart des internautes sont habitués à ces différentes étapes.
+    La création du compte doit ensuite être validée par un mail de validation qui contient une clé personnalisée.
+    Un hashage entre l'email et le password_hash stocké sur le serveur, fournit un token avec comme clé publique l'email et comme lé privée le password_hash. 
+    Un jeton par un hashage md5 donne 32 caractères.
+    Du côté serveur, il faut bien vérifier le statut actuel du compte, pour ne pas activer les comptes dans n'importe quel statut. 
+    (exemple: un membre banni qui tenterait de réactiver son compte...)
+    </p>
+    <p>
+    Sur le même principe, le mot de passe oublié doit pouvoir être changé par le membre sans avoir à demander à un administrateur.
+    Il faut ainsi produire une clé temporaire qui servira à changer le mot de passe.
+    Pour sécuriser ces jetons temporaires, on peut leur ajouter une durée de vie de 24H.
+    De même, en créant un jeton, qui porte comme payload un timestamp, dont l'intégrité est liée à un hash avec le password_hash en clé privée.
+    On pourra vérifier le timestamp côté serveur.
+    2è effet "Kisscool", si la clé privée est liée au password_hash, dès que le mot de passe est modifé, le password_hash est aussi modifié. 
+    Ainsi, le jeton temporaire devient immédiatement invalide et ne pourra pas être ré-utilisé.      
+    </p>
+    <p>Plusieurs avantages de ces mécanismes qui s'appuient sur le passhword_hash en clé privée: chaque user a sa propre clé privée, et il n'y a pas besoin de stocker des clés dans une table SQL.</p>
+</article>
+
+<article>
     <h2>Level 5: Json Web Tokens (JWT) pour les APIs</h2>
     <p>
     Les sessions PHP, qui permettent de garder des informations sur le serveur sur un visiteur, reposent sur un cookie identifiant créé par le serveur et qui sera ensuite échangé entre le serveur et le navigateur, à chaque requête. Ce qui permet de tagger un visiteur et de le reconnaître.
@@ -21,6 +44,7 @@
     Comme ce token peut être envoyé au serveur par de nombreuses manières différentes, cette technique permet de se libérer des cookies. On peut ainsi créer des tokens pour des applications clientes qui pourront agir sur une API serveur, en utilisant les droits d'un compte auparavant identifié et autorisé. Et sans avoir à fournir le mot de passe du compte.    
     </p>
 </article>
+
 <article class="w67">
     <h2>Level 5: Hashage en PHP et en JS du mot de passe</h2>
     <p>
