@@ -223,8 +223,8 @@ class ApiUser
                 extract($user);
                 // FIXME: manage errors
                 @list($payload, $signature) = @explode(",", @base64_decode($key));
-                Form::addJson("debug_pwd", $payload);
-                Form::addJson("debug_pwd2", $signature);
+                Form::addJson("debug_pwd", $payload ?? "x");
+                Form::addJson("debug_pwd2", $signature ?? "x");
 
                 if ( !empty($payload) && !empty($signature)
                         && password_verify("$payload$password", $signature) ) {
