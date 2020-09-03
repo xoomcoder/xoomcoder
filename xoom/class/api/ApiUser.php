@@ -178,7 +178,7 @@ class ApiUser
                 $payload    = "$login,$level,$id,$now";
                 // FIXME: SQL read must get password each time to check signature...
                 $signature  = password_hash("$payload$password", PASSWORD_DEFAULT);
-                $loginToken = base64_encode("$payload,$signature");
+                $loginToken = base64_encode("$payload?$signature");
 
                 Form::setFeedback("Consultez votre boite email pour obtenir votre code.");
                 // WELCOME MAIL
@@ -222,14 +222,14 @@ class ApiUser
             foreach($users as $user) {
                 extract($user);
                 // FIXME: manage errors
-                @list($payload, $signature) = @explode(",", @base64_decode($key));
+                @list($payload, $signature) = @explode("?", @base64_decode($key));
                 Form::addJson("debug_pwd", $payload ?? "x");
                 Form::addJson("debug_pwd2", $signature ?? "x");
 
                 if ( !empty($payload) && !empty($signature)
                         && password_verify("$payload$password", $signature) ) {
 
-                    list($login0,$level0,$id0,$time0) = explode(",", $payload);
+                    @list($login0,$level0,$id0,$time0) = @explode(",", $payload);
                     if (time() < intval($time0 ?? 0) + 3600 * 24) {
                         Model::update("user", ["password" => $passwordInput], $id);
                         Form::setFeedback("Votre nouveau mot de passe est activé.");
