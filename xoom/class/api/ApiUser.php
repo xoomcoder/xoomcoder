@@ -164,5 +164,99 @@ class ApiUser
         }
     }
  
+    static function passwordLost ()
+    {
+        Form::filterEmail("email");
+
+        if (Form::isOK()) {
+            extract(Form::$formdatas);
+            $users = Model::read("user", "email", $email);
+            foreach($users as $user) {
+                extract($user);
+ 
+                $now        = time();
+                $payload    = "$login,$level,$id,$now";
+                // FIXME: SQL read must get password each time to check signature...
+                $signature  = password_hash("$payload$password", PASSWORD_DEFAULT);
+                $loginToken = base64_encode("$payload,$signature");
+
+                Form::setFeedback("Consultez votre boite email pour obtenir votre code.");
+                // WELCOME MAIL
+                $welcome = 
+                <<<x
+                <pre>
+                Hello $login,
+
+                Voici votre code pour changer le mot de passe de votre compte:
+                $loginToken
+                
+                Avec ce code, vous pouvez changer votre mot de passe sur cette page
+                <a href="https://xoomcoder.com/mdp-oublie?email=$email&key=$loginToken#mdp-change">https://xoomcoder.com/mdp-oublie?email=$email&key=$loginToken#mdp-change</a>
+
+                A bientôt,
+                Long Hai
+                https://xoomcoder.com/contact
+                </pre>
+                x;
+
+                Email::send($email, "Demande de changement de mot de passe sur XoomCoder.com", $welcome);
+
+            }
+            if (empty($user)) {
+                Form::setFeedback("Désolé, votre email n'a pas été trouvé.");
+            }
+        }
+
+    }
+
+    static function passwordChange ()
+    {
+        Form::filterEmail("email");
+        Form::filterPassword("password");
+        Form::filterText("key");
+
+        if (Form::isOK()) {
+            extract(Form::$formdatas);
+            $passwordInput = $password; // keep it for later
+            $users = Model::read("user", "email", $email);
+            foreach($users as $user) {
+                extract($user);
+                list($payload, $signature) = explode(",", base64_decode($key));
+                if ( !empty($payload) && !empty($signature)
+                        && password_verify("$payload$password", $signature) ) {
+                            
+                    list($login0,$level0,$id0,$time0) = explode(",", $payload);
+                    if (time() < intval($time0 ?? 0) + 3600 * 24) {
+                        Model::update("user", ["password" => $passwordInput], $id);
+                        Form::setFeedback("Votre nouveau mot de passe est activé.");
+
+                        // WELCOME MAIL
+                        $welcome = 
+                        <<<x
+                        <pre>
+                        Hello $login,
+
+                        Votre nouveau mot de passe est maintenant activé.
+                        <a href="https://xoomcoder.com/login">https://xoomcoder.com/login</a>
+
+                        A bientôt,
+                        Long Hai
+                        https://xoomcoder.com/contact
+                        </pre>
+                        x;
+
+                        Email::send($email, "Demande de changement de mot de passe sur XoomCoder.com", $welcome);
+                    }
+                    else {
+                        Form::setFeedback("Désolé, le lien a expiré au bout de 24H.");
+                    }
+                }
+            }        
+            if (empty($user)) {
+                Form::setFeedback("Désolé, votre email n'a pas été trouvé.");
+            }
+        }
+    }
+
     //@end
 }

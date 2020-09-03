@@ -18,6 +18,9 @@
         <input type="hidden" name="methodApi" value="login">
     </form>
 </section>
+<section>
+    <h2><a href="mdp-oublie">Vous avez oublié votre mot de passe ?</a></h2>
+</section>
 
 <script src="assets/js/md5.js"></script>
 <script src="https://unpkg.com/vue@next"></script>

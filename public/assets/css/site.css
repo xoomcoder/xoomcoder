@@ -108,6 +108,7 @@ form {
     justify-content: center;
     align-items: center;
     padding:1rem;
+    margin-bottom:1rem;
     border:1px solid #cccccc;
 }
 
