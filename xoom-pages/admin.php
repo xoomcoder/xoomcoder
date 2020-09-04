@@ -116,6 +116,7 @@ const appConfig = {
                 { name: 'content', title: 'contents' },
                 { name: 'user', title: 'users' },
                 { name: 'manymany', title: 'manymanys' },
+                { name: 'blocnote', title: 'notes' },
             ],
             uploads:          [],
             data64decode:     '',
@@ -209,20 +210,13 @@ xcb.test = function (ajaxpack)  {
     console.log(ajaxpack);
 };
 
-xcb.users = function (ajaxpack) {
-    if (! ('users' in ajaxpack.json)) return;
+xcb.data = function (ajaxpack) {
+    if (! ('data' in ajaxpack.json)) return;
 
-    app.data.user = ajaxpack.json.users;
-};
-xcb.contents = function (ajaxpack) {
-    if (! ('contents' in ajaxpack.json)) return;
-
-    app.data.content = ajaxpack.json.contents;
-};
-xcb.manymanys = function (ajaxpack) {
-    if (! ('manymanys' in ajaxpack.json)) return;
-
-    app.data.manymany = ajaxpack.json.manymanys;
+    // update tables in data from response
+    for(table in ajaxpack.json.data) {
+        app.data[table] = ajaxpack.json.data[table];
+    }
 };
 
 xcb.autorun = function (ajaxpack) {

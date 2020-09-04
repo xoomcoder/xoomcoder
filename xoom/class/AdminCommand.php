@@ -7,6 +7,8 @@ class AdminCommand
 
     static function run ($script)
     {
+        AdminCommand::save($script);
+
         $lines = explode("\n", $script);
 
         $bloccode  = "";
@@ -39,6 +41,29 @@ class AdminCommand
 
         foreach(AdminCommand::$commands as $line) {
             AdminCommand::process($line);
+        }
+    }
+
+    static function save ($script)
+    {
+        $script = trim($script);
+        $md5 = md5($script);
+        $blocnotes = Model::read("blocnote", "md5", $md5);
+        $now = date("Y-m-d H:i:s");
+        foreach($blocnotes as $bn) {
+            extract($bn);
+            Model::update("blocnote", 
+                [   "nbrun"         => 1+intval($nbrun), 
+                    "dateLastRun"   => $now ], 
+                $id);
+        }
+        if (empty($bn)) {
+            Model::insert("blocnote", 
+                [   "code"              => $script, 
+                    "md5"               => $md5, 
+                    "datePublication"   => $now, 
+                    "dateLastRun"       => $now, 
+                    "nbRun"             => 1 ]);
         }
     }
 
@@ -152,16 +177,37 @@ class AdminCommand
         }
         if ($key ?? false) {
             $request = Model::getSql($key);
+            if ($request != "") {
+                $pdoStatement = Model::sendSql($request);
+    
+                if ( ("" != ($json ?? "")) && ($pdoStatement != null) ) {
+                    // https://www.php.net/manual/fr/pdostatement.fetchall.php
+                    $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+                    Form::addJson($json, $resultas);
+                }    
+            }
         }
 
-        if ($request != "") {
-            $pdoStatement = Model::sendSql($request);
-
-            if ( ("" != ($json ?? "")) && ($pdoStatement != null) ) {
-                // https://www.php.net/manual/fr/pdostatement.fetchall.php
-                $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
-                Form::addJson($json, $resultas);
-            }    
+        if ($keys ?? false) {
+            Form::addJson("debug_0", $keys);
+            $keylist = explode(",", $keys);
+            if (!empty($keylist)) {
+                $results = [];
+                foreach($keylist as $k) {
+                    $request = Model::getSql($k);
+                    if ($request != "") {
+                        $pdoStatement = Model::sendSql($request);
+            
+                        if ( ("" != ($json ?? "")) && ($pdoStatement != null) ) {
+                            // https://www.php.net/manual/fr/pdostatement.fetchall.php
+                            extract(pathinfo($k));
+                            $results[$filename ?? $k] = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+                        }    
+                    }
+                }
+                // build an array
+                Form::addJson($json, $results);
+            }
         }
 
     }

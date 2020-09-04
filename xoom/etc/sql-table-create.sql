@@ -38,3 +38,24 @@ CREATE TABLE IF NOT EXISTS `content`
     PRIMARY KEY (`id`)
 ) CHARSET=utf8mb4;
 
+CREATE TABLE IF NOT EXISTS `blocnote`
+( 
+    `id`                INT NOT NULL AUTO_INCREMENT, 
+    `id_user`           INT, 
+    `username`          VARCHAR(160),
+    `uri`               VARCHAR(160), 
+    `title`             VARCHAR(160), 
+    `md5`               VARCHAR(160), 
+    `code`              TEXT, 
+    `nbrun`             INT, 
+    `dateLastRun`       DATETIME,
+    `image`             VARCHAR(160), 
+    `priority`          INT, 
+    `category`          VARCHAR(160), 
+    `child`             TEXT, 
+    `json`              TEXT, 
+    `datePublication`   DATETIME,
+    `status`            VARCHAR(160),    
+    PRIMARY KEY (`id`)
+) CHARSET=utf8mb4;
+

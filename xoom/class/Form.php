@@ -130,6 +130,7 @@ class Form
     {
         // debug
         Form::addJson("debug_errors_php", Xoom::$errors);
+        Form::addJson("debug_sql", Model::$logs);
 
         // sort the keys
         // https://www.php.net/manual/fr/function.ksort.php

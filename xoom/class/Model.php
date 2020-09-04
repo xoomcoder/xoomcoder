@@ -48,6 +48,7 @@ class Model
             "user.read"     => "SELECT * FROM user ORDER BY id DESC;",
             "content.read"  => "SELECT * FROM content ORDER BY datePublication DESC;",
             "manymany.read" => "SELECT * FROM manymany ORDER BY id DESC;",
+            "blocnote.read" => "SELECT * FROM blocnote ORDER BY id DESC;",
             "db.create"     => File::content("xoom/etc/sql-table-create.sql"),
         ];
 

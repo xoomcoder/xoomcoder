@@ -26,9 +26,7 @@ class ApiAdmin
 
             // fill response with more information
             $command = "
-            DbRequest?json=users&key=user.read
-            DbRequest?json=contents&key=content.read
-            DbRequest?json=manymanys&key=manymany.read
+            data/DbRequest?keys=user.read,content.read,manymany.read,blocnote.read
             ";
             AdminCommand::run($command);
 
