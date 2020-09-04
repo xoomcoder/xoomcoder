@@ -54,7 +54,7 @@
 
             <section v-if="content.blocnote">
                 <h2>Votre liste de notes ({{ content.blocnote.length }})</h2>
-                <strong>afficher à partir de la note {{ 1 + 1 * start }}/{{ content.blocnote.length }}</strong><input type="range" min="0" :max="content.blocnote.length" v-model="start">
+                <strong v-show="content.blocnote.length > 1">afficher à partir de la note {{ 1 + 1 * start }}/{{ content.blocnote.length }}</strong><input type="range" min="0" :max="content.blocnote.length" v-model="start">
                 <div class="rowflex x3col" v-if="content.blocnote">
                    <template v-for="(bn, index) in content.blocnote" :key="bn.id">
                     <article class="rowflex" v-show="start <= index">
