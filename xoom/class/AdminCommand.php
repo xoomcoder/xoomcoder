@@ -174,7 +174,17 @@ class AdminCommand
         extract($paramas);
         if ($bloc ?? false) {
             $request = AdminCommand::$blocas[$bloc] ?? "";
+            if ($request != "") {
+                $pdoStatement = Model::sendSql($request);
+    
+                if ( ("" != ($json ?? "")) && ($pdoStatement != null) ) {
+                    // https://www.php.net/manual/fr/pdostatement.fetchall.php
+                    $resultas = $pdoStatement->fetchAll(PDO::FETCH_ASSOC);
+                    Form::addJson($json, $resultas);
+                }    
+            }
         }
+        
         if ($key ?? false) {
             $request = Model::getSql($key);
             if ($request != "") {
