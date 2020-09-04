@@ -19,6 +19,12 @@
     En ajoutant le choix entre un statut public ou privé pour les notes, cela donnerait un site comme twitter.
     Chaque membre pourrait publier des notes et une page publique "bloc-notes" les afficherait. 
     </p>
+    <p>
+    Enfin, VueJS v3 permet de créer des Single Page Applications (SPA) rapidement et assez facilement.
+    Il y a assez vite des scenarios un peu tordus et quelques bugs étranges, mais rien de bloquant pour le moment.
+    Et c'est assez rare pour le mettre en avant, la documentation aide bien quand on rencontre des situations limites.
+    C'est toujours une bonne surprise de trouver que votre scenario à problème est déjà connu et qu'une solution est recommandée.    
+    </p>
 </article>
 <article>
     <h2>Level 5: Gestion des comptes utilisateurs</h2>
