@@ -11,7 +11,7 @@ class ApiAdmin
             $command2   = Form::filterInput("command2");
             // https://www.php.net/manual/fr/function.explode.php
             AdminCommand::run($command);
-            AdminCommand::run($command2, false);
+            AdminCommand::run($command2, false, true);
 
             $now = date("Y-m-d H:i:s");
             Form::setFeedback("($now)...");

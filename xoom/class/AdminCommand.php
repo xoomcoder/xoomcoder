@@ -2,11 +2,14 @@
 
 class AdminCommand
 {
-    static $commands    = [];
+    static $commands     = [];
     static $blocas       = [];
 
-    static function run ($script, $save=true)
+    static function run ($script, $save=true, $reset=false)
     {
+        if ($reset)
+            AdminCommand::$commands = [];
+            
         if ($save)
             AdminCommand::save($script);
 
@@ -39,6 +42,7 @@ class AdminCommand
         }
 
         Form::addJson("debug_commandBlocas", AdminCommand::$blocas);
+        Form::addJson("debug_commands", AdminCommand::$commands);
 
         foreach(AdminCommand::$commands as $line) {
             AdminCommand::process($line);
