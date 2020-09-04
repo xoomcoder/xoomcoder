@@ -40,6 +40,8 @@ class AdminCommand
                 }
             }
         }
+        // FIXME: case of non terminated bloc with @bloc ?
+        // should it be ignored ? as comment ?
 
         Form::addJson("debug_commandBlocas", AdminCommand::$blocas);
         Form::addJson("debug_commands", AdminCommand::$commands);

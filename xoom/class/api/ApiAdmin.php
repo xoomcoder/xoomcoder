@@ -31,7 +31,7 @@ class ApiAdmin
             $command = "
             data/DbRequest?keys=user.read,content.read,manymany.read,blocnote.read
             ";
-            AdminCommand::run($command);
+            AdminCommand::run($command, false, true); // don't log and reset
 
             // setup login with keyApi
             Form::addJson("login", Form::filterInput("keyApi"));

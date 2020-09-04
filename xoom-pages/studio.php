@@ -36,10 +36,13 @@
 
             <section>
 
-                <h2>Panneau de Commande</h2>
-                <form action="" @submit.prevent="sendAjax">
-                    <textarea id="batchcode" name="command" required cols="80" rows="10"></textarea>
-                    <button id="batchbutton" type="submit">envoyer la commande</button>
+                <h2>Bloc-Notes</h2>
+                <form action="" @submit.prevent="saveNote">
+                    <input type="text" name="title" placeholder="entrez un titre" v-model="title">
+                    <textarea id="batchcode" name="note" cols="80" rows="10" placeholder="prenez des notes" v-model="code"></textarea>
+                    <textarea class="hidden" name="note2" cols="80" rows="10">
+                    </textarea>
+                    <button id="batchbutton" type="submit">enregistrer votre note</button>
                     <div class="feedback"></div>
                     <!-- partie technique -->
                     <input type="hidden" name="classApi" value="Member">
@@ -49,6 +52,19 @@
 
             </section>
 
+            <section v-if="content.blocnote">
+                <h2>Votre liste de notes ({{ content.blocnote.length }})</h2>
+                <div class="rowflex x3col" v-if="content.blocnote">
+                    <article class="rowflex" v-for="bn in content.blocnote" :key="bn.id">
+                        <button class="w50" @click="actCopy(bn)">copier</button>
+                        <button class="w50" @click="actDelete(bn)">supprimer</button>
+                        <h3 v-if="bn.title">{{ bn.title }}</h3>
+                        <pre v-if="bn.code">{{ bn.code }}</pre>
+                        <small>{{ bn.dateLastRun }}</small>
+                    </article>
+                </div>
+
+            </section>
         </main>
     </div>
     <script src="https://unpkg.com/vue@next"></script>
@@ -57,6 +73,9 @@
 const appConfig = {    
     data() {
         return {
+            title: '',
+            code: '',
+            content: {},
             todos: [
                 { id: 0, text: 'Level 1: Landing Page' },
                 { id: 1, text: 'Level 2: Site Vitrine' },
@@ -69,8 +88,32 @@ const appConfig = {
         }
     },
     methods: {        // add here your functions/methods
+        actCopy (bn) {
+            this.title = bn.title;
+            this.code = bn.code;
+        },
+        actDelete (bn) {
+            console.log(bn);
+            let fd = new FormData;
+            fd.append('classApi', 'Member');
+            fd.append('methodApi', 'run');
+            fd.append('loginToken', this.loginToken);
+            let note2 = `
+            DbDelete?table=blocnote&id=${bn.id}
+            `;
+            fd.append('note2', note2);
+            this.sendAjax({ 'formdata' : fd });
+        },
+        saveNote (event) {
+            this.sendAjax(event);
+            this.title = '';
+            this.code  = '';
+        },
         sendAjax (event) {
-            var fd = new FormData(event.target);
+            let myapp = this;   // ?? hack
+            var fd = {};
+            if ('target' in event) fd = new FormData(event.target);
+            else if ('formdata' in event) fd = event.formdata;
             fetch('api', {
                 method: 'POST',
                 body: fd
@@ -80,6 +123,7 @@ const appConfig = {
                     .json()
                     .then((json) => {
                         var ajaxpack = {
+                            'app': myapp,
                             'event': event,
                             'fd' : fd,
                             'response': response,
@@ -107,9 +151,11 @@ const appConfig = {
         else {
             location.replace('login');
         }
+
+        this.actDelete({id: 0});
     }
 };
-var app = Vue.createApp(appConfig);
+const app = Vue.createApp(appConfig);
 
 app.component('todo-item', {
   props: ['todo'],
@@ -124,12 +170,22 @@ var xcb = {};
 // add callbacks to activate on ajax response
 xcb.feedback = function (ajaxpack)  {
     if ('feedback' in ajaxpack.json) {
-        var f = ajaxpack.event.target.querySelector('.feedback');
-        if (f) f.innerHTML = ajaxpack.json.feedback;
+        if ('target' in ajaxpack.event) {
+            var f = ajaxpack.event.target.querySelector('.feedback');
+            if (f) f.innerHTML = ajaxpack.json.feedback;
+        }
     }
-
 };
 
+xcb.data = function (ajaxpack) {
+    if('data' in ajaxpack.json) {
+        for (table in ajaxpack.json.data) {
+            console.log(ajaxpack.json.data[table]);
+            console.log(ajaxpack.app);
+            ajaxpack.app.content[table] = ajaxpack.json.data[table];
+        }
+    }
+}
     </script>
 </body>
 </html>

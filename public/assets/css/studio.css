@@ -2,3 +2,23 @@ body {
     background: url('../img/xoomcoder.svg') no-repeat fixed center 80vmin;
     background-size: 10vmin;
 }
+
+.hidden {
+    display: none;
+}
+
+article {
+    border:1px solid #dddddd;
+}
+
+article > * {
+    padding:0.5rem;
+}
+
+.w50 {
+    width:50%;
+}
+
+pre {
+    white-space: pre-wrap;
+}
