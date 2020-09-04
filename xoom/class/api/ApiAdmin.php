@@ -6,12 +6,15 @@ class ApiAdmin
     {
         if (Form::checkAdminApiKey())
         {
-
-            $command = Form::filterInput("command");
+            // security: no filter as may contain plenty of different code
+            $command    = Form::filterInput("command");
+            $command2   = Form::filterInput("command2");
             // https://www.php.net/manual/fr/function.explode.php
             AdminCommand::run($command);
+            AdminCommand::run($command2, false);
 
-            Form::setFeedback("...");
+            $now = date("Y-m-d H:i:s");
+            Form::setFeedback("($now)...");
         }
         else
         {

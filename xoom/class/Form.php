@@ -167,6 +167,12 @@ class Form
         Form::$jsonsa["$key"] = (Form::$jsonsa["$key"] ?? "") . $value;
     }
 
+    static function mergeJson ($key, $value)
+    {
+        // $value will overwrite old values if already present
+        Form::$jsonsa["$key"] = $value + (Form::$jsonsa["$key"] ?? []);
+    }
+
     /**
      * no log or show of confidential data. 
      * replace data with md5 for search and comparison on text.

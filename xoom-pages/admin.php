@@ -20,21 +20,26 @@
         <header>
             <h1>Admin</h1>
             <nav>
-                <a href="#page1" @click.prevent="page=1">Admin</a>
+                <a href="#page1" v-else @click.prevent="page=1">Login</a>
                 <a href="#page2" @click.prevent="page=2">CMS</a>
+                <a href="#page3" @click.prevent="page=3">Admin</a>
                 <a href="./">Site</a>
-
                 <a href="#logout" v-if="apikey" @click.prevent="logout">Logout</a>
-                <a href="#page3" v-else @click.prevent="page=3">Login</a>
+                <a href="#page4" v-else @click.prevent="page=4">base64</a>
             </nav>
         </header>
 
-        <section class="page1" v-show="page==1">
+        <section class="page3" v-show="page==3">
             <h1>Tableau de Bord</h1>
 
-            <h2>Panneau de Commande</h2>
+            <h2>Bloc Notes</h2>
             <form id="batchform" action="api" @submit.prevent="sendAjax">
-                <textarea id="batchcode" name="command" required cols="80" rows="10"></textarea>
+                <h3>keep</h3>
+                <textarea id="batchcode" name="command" required cols="80" rows="10" v-model="note"></textarea>
+                <h3>forget</h3>
+                <textarea name="command2" required cols="80" rows="10">
+data/DbRequest?keys=blocnote.read
+                </textarea>
                 <button @click.prevent="addUpload">ajouter fichier</button>
                 <input type="file" v-for="u in uploads" :name="u.name">
                 <button id="batchbutton" type="submit">envoyer la commande</button>
@@ -44,7 +49,18 @@
                 <input type="hidden" name="methodApi" value="doCommand">
                 <input type="hidden" name="keyApi" v-model="apikey">
             </form>
-
+            <div v-if="data.blocnote">
+                <h2>Bloc Notes</h2>
+                <div class="rowflex x10col">
+                    <article v-for="a in data.blocnote" :key="a.id">
+                        <button :title="a.code" @click="actNoteCopy(a)">copy</button>
+                        <button :title="a.id" @click="actNoteDelete(a)">delete</button>
+                        <h3>{{ a.id }} (x{{ a.nbrun }})</h3>
+                    </article>
+                </div>
+            </div>
+        </section>
+        <section v-if="page==4">
             <h2>Décodeur B64</h2>
             <div class="rowflex x10col">
                 <div v-for="(log, index) in logs">
@@ -84,7 +100,7 @@
 
         </section>
 
-        <section class="page3" v-if="page==3">
+        <section class="page1" v-if="page==1">
             <h1>Login avec API Key</h1>
             <form action="api" @submit.prevent="sendAjax">
                 <input type="password" name="keyApi" required>
@@ -111,6 +127,7 @@ const appConfig = {
     data() {
         return {
             // add Here your JS properties to sync with HTML
+            note:             '',
             data:             {},
             tables:           [ 
                 { name: 'content', title: 'contents' },
@@ -134,9 +151,26 @@ const appConfig = {
         if (apikey)
             this.apikey = apikey;
         else
-            this.page = 3;
+            this.page = 1;
     },
     methods: {
+        actNoteDelete (a) {
+            this.note = a.code;
+            let fd = new FormData;
+            fd.append('classApi', 'Admin');
+            fd.append('methodApi', 'doCommand');
+            fd.append('keyApi', this.apikey);
+            let command = `
+            DbDelete?table=blocnote&id=${a.id}
+            data/DbRequest?keys=blocnote.read
+            `;
+            fd.append('command2', command);
+            console.log(fd);
+            this.sendAjax({ 'formdata' : fd });
+        },
+        actNoteCopy (a) {
+            this.note = a.code;
+        },
         addUpload() {
             this.uploads.push({ name: 'upload' + this.uploads.length });
         },
@@ -151,7 +185,7 @@ const appConfig = {
         logout () {
             // reset api key
             this.apikey = '';
-            this.page   = 3;
+            this.page   = 1;
             localStorage.removeItem('apikey');
 
             // reload page to reset JS
@@ -159,7 +193,14 @@ const appConfig = {
         },
         // add here your functions/methods
         sendAjax (event) {
-            var fd = new FormData(event.target);
+            let fd = null;
+            if (event.target) 
+                // user action
+                fd = new FormData(event.target);
+            else if (event.formdata) 
+                // dev action
+                fd = event.formdata;
+
             fetch('api', {
                 method: 'POST',
                 body: fd
@@ -168,7 +209,7 @@ const appConfig = {
                 response
                     .json()
                     .then((json) => {
-                        var ajaxpack = {
+                        let ajaxpack = {
                             'event': event,
                             'fd' : fd,
                             'response': response,
@@ -188,8 +229,10 @@ var xcb = {};
 // add callbacks to activate on ajax response
 xcb.feedback = function (ajaxpack)  {
     if ('feedback' in ajaxpack.json) {
-        var f = ajaxpack.event.target.querySelector('.feedback');
-        if (f) f.innerHTML = ajaxpack.json.feedback;
+        if ('target' in ajaxpack.event) {
+            var f = ajaxpack.event.target.querySelector('.feedback');
+            if (f) f.innerHTML = ajaxpack.json.feedback;
+        }
     }
 
     if ('commandLogRead' in ajaxpack.json) {

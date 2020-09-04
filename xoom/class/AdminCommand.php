@@ -5,9 +5,10 @@ class AdminCommand
     static $commands    = [];
     static $blocas       = [];
 
-    static function run ($script)
+    static function run ($script, $save=true)
     {
-        AdminCommand::save($script);
+        if ($save)
+            AdminCommand::save($script);
 
         $lines = explode("\n", $script);
 
@@ -47,23 +48,25 @@ class AdminCommand
     static function save ($script)
     {
         $script = trim($script);
-        $md5 = md5($script);
-        $blocnotes = Model::read("blocnote", "md5", $md5);
-        $now = date("Y-m-d H:i:s");
-        foreach($blocnotes as $bn) {
-            extract($bn);
-            Model::update("blocnote", 
-                [   "nbrun"         => 1+intval($nbrun), 
-                    "dateLastRun"   => $now ], 
-                $id);
-        }
-        if (empty($bn)) {
-            Model::insert("blocnote", 
-                [   "code"              => $script, 
-                    "md5"               => $md5, 
-                    "datePublication"   => $now, 
-                    "dateLastRun"       => $now, 
-                    "nbRun"             => 1 ]);
+        if($script != "") {
+            $md5 = md5($script);
+            $blocnotes = Model::read("blocnote", "md5", $md5);
+            $now = date("Y-m-d H:i:s");
+            foreach($blocnotes as $bn) {
+                extract($bn);
+                Model::update("blocnote", 
+                    [   "nbrun"         => 1+intval($nbrun), 
+                        "dateLastRun"   => $now ], 
+                    $id);
+            }
+            if (empty($bn)) {
+                Model::insert("blocnote", 
+                    [   "code"              => $script, 
+                        "md5"               => $md5, 
+                        "datePublication"   => $now, 
+                        "dateLastRun"       => $now, 
+                        "nbRun"             => 1 ]);
+            }    
         }
     }
 
@@ -184,7 +187,7 @@ class AdminCommand
                 }    
             }
         }
-        
+
         if ($key ?? false) {
             $request = Model::getSql($key);
             if ($request != "") {
@@ -216,7 +219,7 @@ class AdminCommand
                     }
                 }
                 // build an array
-                Form::addJson($json, $results);
+                Form::mergeJson($json, $results);
             }
         }
 

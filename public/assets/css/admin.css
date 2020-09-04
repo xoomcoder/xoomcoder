@@ -59,9 +59,25 @@ button {
     display: flex;
     flex-wrap: wrap;
 }
+.rowflex article {
+    overflow:hidden;
+    background-color:#dddddd;
+}
 .x10col > * {
     margin:0.25rem;
     width: calc(100% / 10 - 0.5rem);
+}
+.x5col > * {
+    margin:0.25rem;
+    width: calc(100% / 5 - 0.5rem);
+}
+.x4col > * {
+    margin:0.25rem;
+    width: calc(100% / 4 - 0.5rem);
+}
+.x3col > * {
+    margin:0.25rem;
+    width: calc(100% / 3 - 0.5rem);
 }
 
 table {
