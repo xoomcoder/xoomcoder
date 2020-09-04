@@ -26,18 +26,25 @@
             <section>
                 <h1>Tableau de Bord</h1>
                 
-                <h2>TODO</h2>
+                <h2>
+                    <input type="checkbox" v-model="showtodo">
+                    TODO
+                </h2>
                 <todo-item
+                    v-show="showtodo"
                     v-for="item in todos"
-                    v-bind:todo="item"
-                    v-bind:key="item.id"
+                    :todo="item"
+                    :key="item.id"
                 ></todo-item>
             </section>
 
             <section>
 
-                <h2>Bloc-Notes</h2>
-                <form action="" @submit.prevent="saveNote">
+                <h2>
+                    <input type="checkbox" v-model="showform">
+                    Bloc-Notes
+                </h2>
+                <form v-show="showform" action="" @submit.prevent="saveNote">
                     <input type="text" name="title" placeholder="entrez un titre" v-model="title">
                     <textarea id="batchcode" name="note" cols="80" rows="10" placeholder="prenez des notes" v-model="code"></textarea>
                     <textarea class="hidden" name="note2" cols="80" rows="10">
@@ -53,17 +60,24 @@
             </section>
 
             <section v-if="content.blocnote">
-                <h2>Votre liste de notes ({{ content.blocnote.length }})</h2>
-                <div v-show="content.blocnote.length > 1">
+                <h2>
+                    <input type="checkbox" v-model="shownotes">
+                    Votre liste de notes ({{ content.blocnote.length }})
+                </h2>
+                <div v-show="shownotes && (content.blocnote.length > 1)">
+                    <button @click="actRefresh">rafraichir la liste</button>
                     <strong>afficher à partir de la note {{ 1 + 1 * start }}/{{ content.blocnote.length }}</strong>
-                    <input type="range" min="0" :max="content.blocnote.length" v-model="start">
+                    <input type="range" min="0" :max="content.blocnote.length -1" v-model="start">
                 </div>
-                <div class="rowflex x3col" v-if="content.blocnote">
+                <div class="rowflex x3col" v-if="shownotes">
                    <template v-for="(bn, index) in content.blocnote" :key="bn.id">
-                    <article class="rowflex" v-show="start <= index">
+                    <article class="rowflex" v-if="(bn.status != true)" v-show="(start <= index)">
                         <h3 v-if="bn.title">{{ bn.title }}</h3>
                         <pre v-if="bn.code">{{ bn.code }}</pre>
-                        <small>{{ 1 + index }}/{{ content.blocnote.length }} - {{ bn.dateLastRun }}</small>
+                        <small>
+                            <input type="checkbox" @click="inverse(bn)" checked>
+                            {{ 1 + index }}/{{ content.blocnote.length }} - {{ bn.dateLastRun }}
+                        </small>
                         <button class="w50" @click="actCopy(bn)">copier</button>
                         <button class="w50" @click="actDelete(bn)">supprimer</button>
                     </article>
@@ -79,6 +93,9 @@
 const appConfig = {    
     data() {
         return {
+            showtodo: true,
+            showform: true,
+            shownotes: true,
             start: 0,
             title: '',
             code: '',
@@ -94,7 +111,16 @@ const appConfig = {
             loginToken: ''
         }
     },
-    methods: {        // add here your functions/methods
+    computed: {
+    },
+    methods: {
+        // add here your functions/methods    
+        actRefresh() {
+            this.actDelete({ id: 0 });
+        },   
+        inverse(bn) {
+            bn.status = !bn.status;
+        },
         actCopy (bn) {
             this.title = bn.title;
             this.code = bn.code;
