@@ -1,4 +1,26 @@
 <article>
+    <h2>Level 5: Espace Membre</h2>
+    <p>
+    Une fois la partie authentification en place, on peut maintenant créer plusieurs espaces séparés. 
+    Un espace public ouvert à tous, un espace membre pour les visiteurs identifiés et un espace administrateur.
+    L'espace administrateur est le plus simple car déjà protégé par l'authentification. 
+    Une fois identifié, l'administrateur peut faire beaucoup de choses, même dangereuses.
+    L'espace membre est assez délicat à restreindre car chaque membre ne doit pouvoir agir que sur ces propres contenus.
+    Et sans entrer en conflit avec d'autres contenus existants, auparavant créés par d'autres membres.
+    </p>
+    <p>
+    Dans Xoomcoder, l'espace membre s'appelle le Studio.
+    Et vous pouvez sauvegarder des notes avec un titre et un contenu.
+    Vous pouvez les supprimer si ces notes ne sont plus utiles.
+    Et si vous voulez gérer une sélection temporaire, il est aussi possible de cacher une note.
+    Ce qui peut vous aider pour une liste de courses par exemple.
+    </p>
+    <p>
+    En ajoutant le choix entre un statut public ou privé pour les notes, cela donnerait un site comme twitter.
+    Chaque membre pourrait publier des notes et une page publique "bloc-notes" les afficherait. 
+    </p>
+</article>
+<article>
     <h2>Level 5: Gestion des comptes utilisateurs</h2>
     <p>
     Les procédures pour une création de compte sont maintenant bien définis.
