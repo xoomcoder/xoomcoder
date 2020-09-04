@@ -16,7 +16,7 @@ class Model
             extract(Xoom::getConfig("dbhost,dbport,dbname,dbuser,dbpassword"));
             // FIXME: $dbname must exists
             $dsn = "mysql:host=$dbhost;port=$dbport;dbname=$dbname;charset=utf8";
-            Test::log($dsn);
+            // Test::log($dsn);
             try {
                 Model::$pdo = new PDO($dsn, $dbuser, $dbpassword);
             } catch (PDOException $e) {
