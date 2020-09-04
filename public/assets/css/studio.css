@@ -9,6 +9,7 @@ body {
 
 article {
     border:1px solid #dddddd;
+    min-width:240px;
 }
 
 article > * {
