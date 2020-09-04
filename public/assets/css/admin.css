@@ -58,6 +58,8 @@ button {
 .rowflex {
     display: flex;
     flex-wrap: wrap;
+    align-items:center;
+    justify-content: center;
 }
 .rowflex article {
     overflow:hidden;
