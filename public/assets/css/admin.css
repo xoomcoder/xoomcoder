@@ -67,7 +67,7 @@ button {
 }
 .rowflex article {
     overflow:hidden;
-    background-color:#dddddd;
+    background-color:#cccccc;
 }
 .x10col > * {
     margin:0.25rem;

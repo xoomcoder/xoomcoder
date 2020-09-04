@@ -1,6 +1,12 @@
 body {
-    background: url('../img/xoomcoder.svg') no-repeat fixed center 80vmin;
-    background-size: 10vmin;
+    background: url('../img/xoomcoder.svg') no-repeat fixed center center;
+    background-size: 80vmin;
+}
+main {
+    background-color:rgba(222, 222, 222, 0.95);
+}
+section {
+    padding: 0.5rem;
 }
 
 .hidden {
