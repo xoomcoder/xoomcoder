@@ -45,7 +45,7 @@
                     Bloc-Notes
                 </h2>
                 <form v-show="showform" action="" @submit.prevent="saveNote">
-                    <input type="text" name="title" placeholder="entrez un titre" v-model="title">
+                    <input id="notetitle" type="text" name="title" placeholder="entrez un titre" v-model="title">
                     <textarea id="batchcode" name="note" cols="80" rows="10" placeholder="prenez des notes" v-model="code"></textarea>
                     <textarea class="hidden" name="note2" cols="80" rows="10">
                     </textarea>
@@ -138,6 +138,8 @@ const appConfig = {
             this.sendAjax({ 'formdata' : fd });
         },
         saveNote (event) {
+            notetitle.focus(); // send the focus back to the title to keep on taking notes
+            
             this.sendAjax(event);
             this.title = '';
             this.code  = '';
