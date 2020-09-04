@@ -49,7 +49,7 @@
                     <textarea id="batchcode" name="note" cols="80" rows="10" placeholder="prenez des notes" v-model="code"></textarea>
                     <textarea class="hidden" name="note2" cols="80" rows="10">
                     </textarea>
-                    <button id="batchbutton" type="submit">enregistrer votre note</button>
+                    <button id="batchbutton" type="submit">sauvegarder</button>
                     <div class="feedback"></div>
                     <!-- partie technique -->
                     <input type="hidden" name="classApi" value="Member">
