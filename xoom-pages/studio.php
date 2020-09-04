@@ -28,7 +28,7 @@
                 
                 <h2>
                     <input type="checkbox" v-model="showtodo">
-                    TODO
+                    Vos Projets
                 </h2>
                 <todo-item
                     v-show="showtodo"
