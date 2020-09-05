@@ -1,5 +1,5 @@
 <article>
-    <h2>Symfony: the fast track</h2>
+    <h2>Symfony 5: the fast track</h2>
     <p>
     La documentation de Symfony a connu depuis 10 ans une évolution assez étrange.
     Sur le site, les traductions en plusieurs langues ont un jour disparu, car les contributeurs pour garder à jour les traductions n'étaient pas assez nombreux. C'est une problématique générale aux projets open-source. Mais supprimer les anciennes traductions alors qu'une bonne partie était toujours d'actualité enlevait une aide précieuse pour les débutants.
