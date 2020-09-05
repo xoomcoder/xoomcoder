@@ -37,6 +37,7 @@
     </p>
     <p>
     Dans SQL, on ne va pas créer un jeu de tables pour chaque membre. Les membres partageront le même jeu de tables pour stocker leurs contenus. Une solution simple pour savoir l'auteur de chaque ligne est de rajouter, dans chaque table SQL, une colonne id_user, clé étrangère vers la table user.
+    Entre la table user et les tables SQL des membres, on aura ainsi une relation "One to Many".
     Ensuite, toutes les requêtes d'un membre seront avec une clause Where qui filtrera les lignes sélectionnées avec cette clé étrangère id_user.    
     </p>
     <p>
