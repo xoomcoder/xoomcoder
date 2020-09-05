@@ -9,7 +9,7 @@
     Il ne reste que les "Best Practices" en ligne, mais le téléchargement en PDF n'est plus disponible.
     </p>
     <p>
-    ( https://symfony.com/doc/current/best_practices.html )
+    https://symfony.com/doc/current/best_practices.html
     </p>
     <p>
     Fin 2019, Fabien Potencier ouvre une campagne kickstarter pour financer l'écriture d'un nouveau livre sur Symfony 5, la version stable actuelle. En premier lieu, c'est assez étonnant, quand on gère une entreprise de formation et consulting sur Symfony depuis plusieurs années, de se faire financer en crowdfunding l'écriture de la documentation ?! Et grâce aux contributeurs, le livre devait être mis à disposition gratuitement à toute la communauté. 
@@ -19,7 +19,7 @@
     Enfin début Septembre, la version originale (anglais et français) sont enfin mis à disposition gratuitement pour la communauté. Par contre, si vous préférez la version PDF, elle est payante.
     </p>
     <p>
-    ( https://symfony.com/book )
+    https://symfony.com/book
     </p>
 </article>
 
