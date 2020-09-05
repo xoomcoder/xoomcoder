@@ -1,4 +1,27 @@
 <article>
+    <h2>Symfony: the fast track</h2>
+    <p>
+    La documentation de Symfony a connu depuis 10 ans une évolution assez étrange.
+    Sur le site, les traductions en plusieurs langues ont un jour disparu, car les contributeurs pour garder à jour les traductions n'étaient pas assez nombreux. C'est une problématique générale aux projets open-source. Mais supprimer les anciennes traductions alors qu'une bonne partie était toujours d'actualité enlevait une aide précieuse pour les débutants.
+    </p>
+    <p>
+    En plus de la documentation technique, il y avait plusieurs autres manuels, de la prise en main aux meilleures pratiques. Ces manuels ont aussi disparu du site il y a quelques années.
+    Il ne reste que les "Best Practices" en ligne, mais le téléchargement en PDF n'est plus disponible.
+    https://symfony.com/doc/current/best_practices.html
+    </p>
+    <p>
+    Fin 2019, Fabien Potencier ouvre une campagne kickstarter pour financer l'écriture d'un nouveau livre sur Symfony 5, la version stable actuelle. En premier lieu, c'est assez étonnant, quand on gère une entreprise de formation et consulting sur Symfony depuis plusieurs années, de se faire financer en crowdfunding l'écriture de la documentation ?! Et grâce aux contributeurs, le livre devait être mis à disposition gratuitement à toute la communauté. 
+    Quelques mois plus tard, le livre est enfin disponible, en anglais et en français, mais pour la communauté, il est payant ?! Alors que les objectifs de la campagne ont été largement dépassés (plus de 50000 euros réunis).
+    Et ce seront aussi des contributeurs qui vont assurer bénévolement les traductions.
+    Et quelques mois plus tard, les traductions seront progressivement mises en ligne, mais la version anglaise et française restent encore payantes ! 
+    Enfin début Septembre, la version originale (anglais et français) sont enfin mis à disposition gratuitement pour la communauté. Par contre, si vous préférez la version PDF, elle est payante.
+    </p>
+    <p>
+    https://symfony.com/book
+    </p>
+</article>
+
+<article>
     <h2>Level 5: Espace Membre</h2>
     <p>
     Une fois la partie authentification en place, on peut maintenant créer plusieurs espaces séparés. 
