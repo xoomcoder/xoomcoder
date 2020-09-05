@@ -36,6 +36,10 @@
     Et sans entrer en conflit avec d'autres contenus existants, auparavant créés par d'autres membres.
     </p>
     <p>
+    Dans SQL, on ne va pas créer un jeu de tables pour chaque membre. Les membres partageront le même jeu de tables pour stocker leurs contenus. Une solution simple pour savoir l'auteur de chaque ligne est de rajouter, dans chaque table SQL, une colonne id_user, clé étrangère vers la table user.
+    Ensuite, toutes les requêtes d'un membre seront avec une clause Where qui filtrera les lignes sélectionnées avec cette clé étrangère id_user.    
+    </p>
+    <p>
     Dans Xoomcoder, l'espace membre s'appelle le Studio.
     Et vous pouvez sauvegarder des notes avec un titre et un contenu.
     Vous pouvez les supprimer si ces notes ne sont plus utiles.
