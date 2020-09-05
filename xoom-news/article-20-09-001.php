@@ -16,7 +16,9 @@
     Quelques mois plus tard, le livre est enfin disponible, en anglais et en français, mais pour la communauté, il est payant ?! Alors que les objectifs de la campagne ont été largement dépassés (plus de 50000 euros réunis).
     Et ce seront aussi des contributeurs qui vont assurer bénévolement les traductions.
     Et quelques mois plus tard, les traductions seront progressivement mises en ligne, mais la version anglaise et française restent encore payantes ! 
-    Enfin début Septembre, la version originale (anglais et français) sont enfin mis à disposition gratuitement pour la communauté. Par contre, si vous préférez la version PDF, elle est payante.
+    </p>
+    <p>
+    Enfin début Septembre 2020, la version originale (anglais et français) sont enfin mis à disposition gratuitement pour la communauté. Par contre, si vous préférez la version PDF, elle est payante.
     </p>
     <p>
     https://symfony.com/book
