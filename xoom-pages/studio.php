@@ -104,6 +104,9 @@
                 </div>
             </section>
 
+            <footer>
+                <p>tous droits réservés</p>
+            </footer>
         </main>
 
     </div>
@@ -120,7 +123,7 @@ function initMap () {
     mymap = document.querySelector("#mymap");
     if (mymap) {
         mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
-        mymap.style.height = Math.round(1.0 * document.body.clientHeight) + 'px';
+        mymap.style.height = Math.round(0.8 * document.body.clientHeight) + 'px';
     }
     map = L.map('mymap').fitWorld();
 
@@ -142,7 +145,7 @@ function initMap () {
 
     window.addEventListener('resize', function(event) {
         mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
-        mymap.style.height = Math.round(1.0 * document.body.clientHeight) + 'px';
+        mymap.style.height = Math.round(0.8 * document.body.clientHeight) + 'px';
         map.invalidateSize();
     });
 

@@ -8,6 +8,10 @@ body {
 main {
     background-color:rgba(222, 222, 222, 0.95);
 }
+header, footer {
+    text-align: center;
+    padding-bottom:1rem;
+}
 section {
     padding: 1rem;
 }
