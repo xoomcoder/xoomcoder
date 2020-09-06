@@ -1,0 +1,16 @@
+{
+    "name": "xoomcoder/app",
+    "description": "XoomCoder.com MarketPlace",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "LH XoomCoder",
+            "email": "github@xoomcoder.com"
+        }
+    ],
+    "require": {
+        "php": "^7.4",
+        "phpmailer/phpmailer": "^6.1"
+    }
+}
