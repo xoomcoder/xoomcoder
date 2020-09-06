@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "85e07ea1e3620c3da1942492052d7d21",
+    "content-hash": "199c07dc0167af27f1a8a5dd01b284f6",
     "packages": [
         {
             "name": "phpmailer/phpmailer",
@@ -67,6 +67,38 @@
             ],
             "description": "PHPMailer is a full-featured email creation and transfer class for PHP",
             "time": "2020-07-14T18:50:27+00:00"
+        },
+        {
+            "name": "xoomcoder/app",
+            "version": "v0.0.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/xoomcoder/app.git",
+                "reference": "76f5274d6dbc6c9dd8ea9f0ee5bd0030f975085b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/xoomcoder/app/zipball/76f5274d6dbc6c9dd8ea9f0ee5bd0030f975085b",
+                "reference": "76f5274d6dbc6c9dd8ea9f0ee5bd0030f975085b",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.4",
+                "phpmailer/phpmailer": "^6.1"
+            },
+            "type": "project",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "LH XoomCoder",
+                    "email": "github@xoomcoder.com"
+                }
+            ],
+            "description": "XoomCoder.com MarketPlace",
+            "time": "2020-09-06T12:16:15+00:00"
         }
     ],
     "packages-dev": [],
