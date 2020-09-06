@@ -20,12 +20,12 @@
 
 
 
-<div id="mapid" style="width: 600px; height: 400px;"></div>
+<div id="mymap" style="width: 600px; height: 400px;"></div>
 <script>
-    mapid.style.width = Math.round(0.8 *screen.availWidth) + 'px';
-    mapid.style.height = Math.round(0.8 * screen.availHeight) + 'px';
+    mymap.style.width = Math.round(0.8 *screen.availWidth) + 'px';
+    mymap.style.height = Math.round(0.8 * screen.availHeight) + 'px';
 
-	var mymap = L.map('mapid').setView([51.505, -0.09], 13);
+	var map = L.map('mymap').fitWorld();
 
 	L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
 		maxZoom: 18,
@@ -35,27 +35,25 @@
 		id: 'mapbox/streets-v11',
 		tileSize: 512,
 		zoomOffset: -1
-	}).addTo(mymap);
+	}).addTo(map);
 
-	L.marker([51.5, -0.09], {draggable: true}).addTo(mymap)
-		.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
+	function onLocationFound(e) {
+		var radius = e.accuracy / 2;
 
-	L.circle([51.508, -0.11], 500, {
-		color: 'red',
-		fillColor: '#f03',
-		fillOpacity: 0.5
-	}).addTo(mymap).bindPopup("I am a circle.");
+		L.marker(e.latlng,{draggable: true}).addTo(map)
+			.bindPopup("You are within " + radius + " meters from this point").openPopup();
 
-	L.polygon([
-		[51.509, -0.08],
-		[51.503, -0.06],
-		[51.51, -0.047]
-	]).addTo(mymap).bindPopup("I am a polygon.");
+		L.circle(e.latlng, radius).addTo(map);
+	}
 
+	function onLocationError(e) {
+		alert(e.message);
+	}
 
-	var popup = L.popup();
+	map.on('locationfound', onLocationFound);
+	map.on('locationerror', onLocationError);
 
-</script>
+	map.locate({setView: true, maxZoom: 16});</script>
 
 
 
