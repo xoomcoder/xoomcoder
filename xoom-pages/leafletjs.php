@@ -3,15 +3,15 @@
 <html>
 <head>
 	
-	<title>Quick Start - Leaflet</title>
+	<title>Xoom Map</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	
 	<link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
 
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+    <link rel="stylesheet" href="assets/leaflet/leaflet.css">
+    <script src="assets/leaflet/leaflet.js"></script>
 
 
 	<style>
@@ -27,10 +27,8 @@ html, body {
 
 
 
-<div id="mymap" style="width: 600px; height: 400px;"></div>
+<div id="mymap" style="width: 100%; height: 100%;"></div>
 <script>
-    mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
-    mymap.style.height = Math.round(1.0 * document.body.clientHeight) + 'px';
 
 	var map = L.map('mymap').fitWorld();
 
@@ -62,8 +60,15 @@ html, body {
 	map.on('locationfound', onLocationFound);
 	map.on('locationerror', onLocationError);
 
-	map.locate({setView: true, maxZoom: 16});</script>
+    map.locate({setView: true, maxZoom: 16});
 
+    window.addEventListener('resize', function(event) {
+        mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
+        mymap.style.height = Math.round(1.0 * document.body.clientHeight) + 'px';
+        map.invalidateSize();
+    });
+
+    </script>
 
 
 </body>
