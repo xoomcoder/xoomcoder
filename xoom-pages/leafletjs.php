@@ -14,7 +14,14 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
 
 
-	
+	<style>
+html, body {
+    width:100%;
+    height:100%;
+    padding:0;
+    margin:0;
+}        
+    </style>
 </head>
 <body>
 
@@ -22,8 +29,8 @@
 
 <div id="mymap" style="width: 600px; height: 400px;"></div>
 <script>
-    mymap.style.width = Math.round(0.8 *screen.availWidth) + 'px';
-    mymap.style.height = Math.round(0.8 * screen.availHeight) + 'px';
+    mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
+    mymap.style.height = Math.round(1.0 * document.body.clientHeight) + 'px';
 
 	var map = L.map('mymap').fitWorld();
 
@@ -40,8 +47,10 @@
 	function onLocationFound(e) {
 		var radius = e.accuracy / 2;
 
-		L.marker(e.latlng,{draggable: true}).addTo(map)
-			.bindPopup("You are within " + radius + " meters from this point").openPopup();
+		L.marker(e.latlng,).addTo(map)
+			.bindPopup("You are within " + radius + " meters from this point. Move the marker to change your location.").openPopup();
+        L.marker(e.latlng,{draggable: true}).addTo(map)
+            .bindPopup("choose your location");
 
 		L.circle(e.latlng, radius).addTo(map);
 	}
