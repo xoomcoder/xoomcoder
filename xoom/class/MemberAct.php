@@ -64,25 +64,33 @@ class MemberAct
             $blocnotes = Model::read("blocnote", "md5", $md5);
             $now = date("Y-m-d H:i:s");
             foreach($blocnotes as $bn) {
+                $titleInput = $title; // keep it safe
                 extract($bn);
+                
                 Model::update("blocnote", 
                     [   "nbrun"         => 1+intval($nbrun), 
-                        "title"         => $title, 
+                        "title"         => $titleInput, 
                         "dateLastRun"   => $now,
                     ], 
                     $id);
             }
             if (empty($bn)) {
+                // hack
+                $lat = Form::filterText("lat");
+                $lng = Form::filterText("lng");
+                $json = json_encode([ "lat" => $lat, "lng" => $lng ], JSON_PRETTY_PRINT);
+                $code = "$script";
                 extract(Controller::$user);
                 Model::insert("blocnote", 
-                    [   "code"              => $script, 
+                    [   "code"              => $code, 
                         "md5"               => $md5, 
                         "title"             => $title, 
                         "datePublication"   => $now, 
                         "dateLastRun"       => $now, 
                         "nbRun"             => 1,
                         "id_user"           => $id ?? null,
-                        "username"          => $login ?? null, 
+                        "username"          => $login ?? null,
+                        "json"              => $json, 
                     ]);
             }    
         }
