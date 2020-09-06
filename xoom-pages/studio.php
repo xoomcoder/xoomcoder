@@ -231,7 +231,7 @@ const appConfig = {
             map.locate({setView: true, maxZoom: 13});
         },
         resetPosition () {
-            map.panTo(position0);
+            map.flyTo(position0, 10);
             userMarker.setLatLng(position0);
         },
         setPosition () {
@@ -433,7 +433,7 @@ xcb.data = function (ajaxpack) {
                 userMarker.addTo(map);
             }
             if (markernotes.length >0)
-                map.panTo(markernotes[0].getLatLng());
+                map.flyTo(markernotes[0].getLatLng(), 10);
                 markernotes[0].openPopup();
         }
 
