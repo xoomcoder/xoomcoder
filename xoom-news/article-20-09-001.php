@@ -14,6 +14,10 @@
     <p>
     Le code actuel va se retrouver réparti dans plusieurs repository github. Le contenu sera séparé pour moins polluer l'historique du code. Et le code des classes PHP sera aussi séparé dans un repository pour le rendre réutilisable pour d'autres projets PHP ou pour un plugin WordPress.
     </p>
+    <p>
+    Github propose une API publique pour obtenir la dernière release d'un repo:
+    https://api.github.com/repos/xoomcoder/xoom-express/releases/latest    
+    </p>
 </article>
 <article>
     <h2>Symfony 5: the fast track</h2>
