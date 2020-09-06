@@ -344,6 +344,17 @@ xcb.feedback = function (ajaxpack)  {
     }
 };
 
+let greenIcon = L.icon({
+    iconUrl: 'assets/img/leaf-red.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+let markernotes = [];
 xcb.data = function (ajaxpack) {
     if('data' in ajaxpack.json) {
         for (table in ajaxpack.json.data) {
@@ -351,7 +362,45 @@ xcb.data = function (ajaxpack) {
             console.log(ajaxpack.app);
             ajaxpack.app.content[table] = ajaxpack.json.data[table];
         }
+
+        // hack pour la liste de blocnote
+        if ('blocnote' in ajaxpack.json.data) {
+            // reset
+            for(let m=0; m<markernotes.length; m++) {
+                let marker = markernotes[m];
+                map.removeLayer(marker);
+            }
+            markernotes = [];
+
+            let bnotes = ajaxpack.json.data.blocnote;
+            for(let n=0; n<bnotes.length; n++) {
+                let note = bnotes[n];
+                if (note.json) {
+                    let info = JSON.parse(note.json);
+                    if ((info != null) && ('lat' in info) && ('lng' in info)) {
+                        console.log(info.lat + '/' + info.lng);
+                        let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: greenIcon, draggable: true});
+                        let nhtml = `
+                        <h3>${note.title} (${note.id})</h3>
+                        <pre>${note.code}</pre>   
+                        `;
+                        nmark
+                            .addTo(map)
+                            .bindPopup(nhtml).openPopup();
+
+                        markernotes.push(nmark);
+                    }
+                }
+            }
+            if (userMarker) {
+                // bring to front ?!
+                map.removeLayer(userMarker);
+                userMarker.addTo(map);
+            }
+        }
+
     }
+
 }
     </script>
 
