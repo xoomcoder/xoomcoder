@@ -50,8 +50,8 @@
                     <textarea id="batchcode" name="note" cols="80" rows="10" placeholder="prenez des notes" v-model="code"></textarea>
                     <textarea class="hidden" name="note2" cols="80" rows="10">
                     </textarea>
-                    <input type="hidden" name="lat" v-model="userlat">
-                    <input type="hidden" name="lng" v-model="userlng">
+                    <input id="inlat" type="hidden" name="lat" v-model="userlat">
+                    <input id="inlng" type="hidden" name="lng" v-model="userlng">
                     <h3>{{ '(latitude:' + userlat + ', longitude:' + userlng + ')' }}</h3>
                     <button id="batchbutton" type="submit">sauvegarder</button>
                     <div class="feedback"></div>
@@ -76,12 +76,12 @@
                 <div class="rowflex x3col" v-if="shownotes">
                    <template v-for="(bn, index) in content.blocnote" :key="bn.id">
                     <article class="rowflex" v-if="(bn.status != true)" v-show="(start <= index)">
-                        <h3 v-if="bn.title">{{ bn.title }}</h3>
+                        <h3 v-if="bn.title" :title="bn.id">{{ bn.title }}</h3>
                         <pre v-if="bn.code">{{ bn.code }}</pre>
                         <pre v-if="bn.json">{{ bn.json }}</pre>
                         <small>
                             <input type="checkbox" @click="inverse(bn)" checked>
-                            {{ 1 + index }}/{{ content.blocnote.length }} - {{ bn.dateLastRun }}
+                            {{ 1 + index }}/{{ content.blocnote.length }} - {{ bn.dateLastRun }} ({{ bn.id }}) 
                         </small>
                         <button class="w50" @click="actCopy(bn)">copier</button>
                         <button class="w50" @click="actDelete(bn)">supprimer</button>
@@ -99,6 +99,8 @@
                 <button id="copos" @click="setPosition">set position</button>
                 <button @click="updatePosition">refresh position</button>
                 <button @click="resetPosition">reset position</button>
+                <input type="range" min="0" max="10" v-model="randradius">
+                <span>{{ randradius }}</span>
                 <div v-show="showmap" style="width: 100%; height: 100%;">
                     <div id="mymap" style="width: 100%; height: 100%;"></div>
                 </div>
@@ -200,6 +202,7 @@ function onLocationError(e) {
 const appConfig = {    
     data() {
         return {
+            randradius: 1,
             userlng: 0,
             userlat: 0,
             showmap: true,
@@ -268,11 +271,20 @@ const appConfig = {
             this.sendAjax({ 'formdata' : fd });
         },
         saveNote (event) {
+            let oldlat = this.userlat;
+            let oldlng = this.userlng;
+
+            // add some random
+            document.querySelector('#inlat').value = parseFloat(document.querySelector('#inlat').value) + (0.5 - Math.random()) * this.randradius * 0.5;
+            document.querySelector('#inlng').value = parseFloat(document.querySelector('#inlng').value) + (0.5 - Math.random()) * this.randradius * 0.5;
+
             notetitle.focus(); // send the focus back to the title to keep on taking notes
             
             this.sendAjax(event);
             this.title = '';
             this.code  = '';
+            this.userlat = oldlat;
+            this.userlng = oldlng;
         },
         sendAjax (event) {
             let myapp = this;   // ?? hack
@@ -345,6 +357,26 @@ xcb.feedback = function (ajaxpack)  {
 };
 
 let greenIcon = L.icon({
+    iconUrl: 'assets/img/leaf-green.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+let orangeIcon = L.icon({
+    iconUrl: 'assets/img/leaf-orange.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+let redIcon = L.icon({
     iconUrl: 'assets/img/leaf-red.png',
     shadowUrl: 'assets/img/leaf-shadow.png',
 
@@ -378,15 +410,18 @@ xcb.data = function (ajaxpack) {
                 if (note.json) {
                     let info = JSON.parse(note.json);
                     if ((info != null) && ('lat' in info) && ('lng' in info)) {
+                        
+                        iIcon = (n == 0) ? redIcon : orangeIcon;
+
                         console.log(info.lat + '/' + info.lng);
-                        let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: greenIcon, draggable: true});
+                        let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: iIcon, draggable: true});
                         let nhtml = `
                         <h3>${note.title} (${note.id})</h3>
                         <pre>${note.code}</pre>   
                         `;
                         nmark
                             .addTo(map)
-                            .bindPopup(nhtml).openPopup();
+                            .bindPopup(nhtml);
 
                         markernotes.push(nmark);
                     }
@@ -397,6 +432,9 @@ xcb.data = function (ajaxpack) {
                 map.removeLayer(userMarker);
                 userMarker.addTo(map);
             }
+            if (markernotes.length >0)
+                map.panTo(markernotes[0].getLatLng());
+                markernotes[0].openPopup();
         }
 
     }
