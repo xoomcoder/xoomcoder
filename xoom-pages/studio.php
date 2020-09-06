@@ -97,8 +97,9 @@
                     City Map
                 </h2>
                 <button id="copos" @click="setPosition">set position</button>
-                <button @click="updatePosition">refresh position</button>
-                <button @click="resetPosition">reset position</button>
+                <button @click="updatePosition">refresh my geolocation</button>
+                <button @click="resetPosition">reset my position</button>
+                <button @click="flytoPosition">fly to marker</button>
                 <input type="range" min="0" max="10" v-model="randradius">
                 <span>{{ randradius }}</span>
                 <div v-show="showmap" style="width: 100%; height: 100%;">
@@ -143,7 +144,8 @@ function initMap () {
     map.on('locationfound', onLocationFound);
     map.on('locationerror', onLocationError);
 
-    map.locate({setView: true, maxZoom: 10});
+    //map.locate({setView: true, maxZoom: 10});
+    map.locate();
 
     window.addEventListener('resize', function(event) {
         mymap.style.width = Math.round(1.0 * document.body.clientWidth) + 'px';
@@ -181,6 +183,8 @@ function onLocationFound(e) {
     position0 = e.latlng;
     userlat = e.latlng.lat;
     userlng = e.latlng.lng;
+
+    map.flyTo(position0, 10);
 
     setTimeout(function(){
         // bricolage
@@ -227,8 +231,12 @@ const appConfig = {
     computed: {
     },
     methods: {
+        flytoPosition () {
+            map.flyTo(userMarker.getLatLng(), 10);
+        },
         updatePosition () {
-            map.locate({setView: true, maxZoom: 13});
+            // map.locate({setView: true, maxZoom: 10});
+            map.locate();
         },
         resetPosition () {
             map.flyTo(position0, 10);
