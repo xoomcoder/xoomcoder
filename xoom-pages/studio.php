@@ -52,7 +52,7 @@
                     </textarea>
                     <input id="inlat" type="hidden" name="lat" v-model="userlat">
                     <input id="inlng" type="hidden" name="lng" v-model="userlng">
-                    <h3>{{ '(latitude:' + userlat + ', longitude:' + userlng + ')' }}</h3>
+                    <h6>{{ '(latitude:' + userlat + ', longitude:' + userlng + ')' }}</h6>
                     <button id="batchbutton" type="submit">sauvegarder</button>
                     <div class="feedback"></div>
                     <!-- partie technique -->
@@ -101,7 +101,9 @@
                 <button @click="resetPosition">reset my position</button>
                 <button @click="flytoPosition">fly to marker</button>
                 <input type="range" min="0" max="10" v-model="randradius">
-                <span>{{ randradius }}</span>
+                <button @click="randradius++">{{ randradius }}</button>
+                <input type="range" min="0" :max="nbmarker-1" v-model="curmarker" @change="changeMarker">
+                <button @click="curmarker++; changeMarker()">{{ 1+ 1* curmarker }} / {{ curTitle() }}</button>
                 <div v-show="showmap" style="width: 100%; height: 100%;">
                     <div id="mymap" style="width: 100%; height: 100%;"></div>
                 </div>
@@ -169,10 +171,10 @@ function onLocationFound(e) {
         userMarker = L.marker(e.latlng,{draggable: true})
         .on('move', userMove)
         .addTo(map)
-        .bindPopup("Vous avez été géolocailsé à " + radius + " mètres de ce point. Vous pouvez ajuster la position en déplaçant le marqueur.").openPopup();
+        .bindPopup("Vous avez été géolocalisé à " + radius + " mètres de ce point. Vous pouvez ajuster la position en déplaçant le marqueur.").openPopup();
 
         L.circle(e.latlng, 1000, { color: 'red'}).addTo(map);
-        L.circle(e.latlng, radius).addTo(map);
+        // L.circle(e.latlng, radius).addTo(map);
 
     }
     else {
@@ -206,6 +208,8 @@ function onLocationError(e) {
 const appConfig = {    
     data() {
         return {
+            nbmarker: 0,
+            curmarker: 0,
             randradius: 1,
             userlng: 0,
             userlat: 0,
@@ -231,6 +235,19 @@ const appConfig = {
     computed: {
     },
     methods: {
+        curTitle () {
+            res = '';
+            if (this.content.blocnote) {
+                res = this.content.blocnote[this.curmarker].title;
+                res += ' / ' + this.content.blocnote[this.curmarker].dateLastRun;
+            }
+            return res;
+        },
+        changeMarker () {
+            let xMarker = markernotes[this.curmarker];
+            map.flyTo(xMarker.getLatLng(), 10, { duration: 0.8 });
+            xMarker.openPopup();
+        },
         flytoPosition () {
             map.flyTo(userMarker.getLatLng(), 10);
         },
@@ -248,11 +265,11 @@ const appConfig = {
             this.userlng = userlng;
         },
         userlng2 () {
-            console.log(this.userlng);
+            //console.log(this.userlng);
             return this.userlng;
         },
         userlat2 () {
-            console.log(this.userlat);
+            //console.log(this.userlat);
             return this.userlat;
         },
         // add here your functions/methods    
@@ -267,7 +284,7 @@ const appConfig = {
             this.code = bn.code;
         },
         actDelete (bn) {
-            console.log(bn);
+            //console.log(bn);
             let fd = new FormData;
             fd.append('classApi', 'Member');
             fd.append('methodApi', 'run');
@@ -329,7 +346,7 @@ const appConfig = {
         let loginToken = sessionStorage.getItem('loginToken');
         if (loginToken) {
             let infos = loginToken.split(',');
-            console.log(infos);
+            // console.log(infos);
             this.loginToken = loginToken;
             this.username = infos[0];
         }
@@ -398,13 +415,16 @@ let markernotes = [];
 xcb.data = function (ajaxpack) {
     if('data' in ajaxpack.json) {
         for (table in ajaxpack.json.data) {
-            console.log(ajaxpack.json.data[table]);
-            console.log(ajaxpack.app);
+            // console.log(ajaxpack.json.data[table]);
+            // console.log(ajaxpack.app);
             ajaxpack.app.content[table] = ajaxpack.json.data[table];
         }
 
         // hack pour la liste de blocnote
         if ('blocnote' in ajaxpack.json.data) {
+            let bnotes = ajaxpack.json.data.blocnote;
+            ajaxpack.app.nbmarker = bnotes.length;
+
             // reset
             for(let m=0; m<markernotes.length; m++) {
                 let marker = markernotes[m];
@@ -412,7 +432,6 @@ xcb.data = function (ajaxpack) {
             }
             markernotes = [];
 
-            let bnotes = ajaxpack.json.data.blocnote;
             for(let n=0; n<bnotes.length; n++) {
                 let note = bnotes[n];
                 if (note.json) {
@@ -421,11 +440,12 @@ xcb.data = function (ajaxpack) {
                         
                         iIcon = (n == 0) ? redIcon : orangeIcon;
 
-                        console.log(info.lat + '/' + info.lng);
+                        // console.log(info.lat + '/' + info.lng);
                         let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: iIcon, draggable: true});
                         let nhtml = `
                         <h3>${note.title} (${note.id})</h3>
-                        <pre>${note.code}</pre>   
+                        <pre>${note.code}</pre> 
+                        <h6>${note.dateLastRun}</h6>  
                         `;
                         nmark
                             .addTo(map)
