@@ -1,4 +1,21 @@
 <article>
+    <h2>Composer, Packagist et GitHub</h2>
+    <p>
+    Le projet XoomCoder avance bien en termes de code. Le nombre de classes augmente régulièrement. Pour permettre une meilleur réutilisation des classes, le système avec composer et packagist est très répandu dans le monde PHP.
+    En pratique, il faut créer un repository sur github.com, avec un fichier composer.json bien formatté. La commande en ligne "composer init" permet de créer ce fichier rapidement. Ensuite, il faut créer un compte sur le site https://packagist.org, et enfin créer un nouveau package qui sera associé au repository sur https://github.com.
+    </p>
+    <p>
+    En ajoutant un webhook du repo github vers le package packagist, les mises à jour du repo vont déclencher la mise à jour sur packagist. Il suffit de créer des releases sur le repo github et la commande composer ira chercher les bons fichiers en passant par packagist, qui est synchronisé avec le repo github.    
+    </p>
+    <p>
+    Pour la mise en prod sur ionos, le plus simple est d'envoyer aussi les fichiers des librairies. Il faut alors ne pas ajouter le dossier vendor/ dans .gitignore. 
+    Généralement le dossier vendor/ est inclus dans le .gitignore car c'est inutile de garder des codes de librairies vu qu'un développeur ne va jamais les modifier mais seulement les utiliser. Cela peut beaucoup surcharger le repo git car les librairies peuvent contenir des milliers de fichiers... C'est généralement la mauvaise surprise quand on regarde un plus en détail les sous-dossiers dans vendor/, beaucoup de packages comprennent l'ensemble du repo github du package... Et il y a plein de fichiers inutiles.
+    </p>
+    <p>
+    Le code actuel va se retrouver réparti dans plusieurs repository github. Le contenu sera séparé pour moins polluer l'historique du code. Et le code des classes PHP sera aussi séparé dans un repository pour le rendre réutilisable pour d'autres projets PHP ou pour un plugin WordPress.
+    </p>
+</article>
+<article>
     <h2>Symfony 5: the fast track</h2>
     <p>
     La documentation de Symfony a connu depuis 10 ans une évolution assez étrange.
