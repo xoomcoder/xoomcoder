@@ -13,7 +13,8 @@ foreach($localfiles as $lf) {
 }
 
 // add composer modules
-require "vendor/autoload.php";
+$composerAutoloader = __DIR__ . "/vendor/autoload.php";
+if (is_file($composerAutoloader)) require $composerAutoloader;
 
 // Start Object Oriented Programming 
 // with class Xoom
