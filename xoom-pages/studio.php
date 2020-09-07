@@ -23,7 +23,6 @@ html, body {
 * {
     box-sizing: border-box;
     width:100%;
-    max-width:100%;
     transition: all 0.5s ease-out;
 }
 a {
@@ -49,6 +48,9 @@ label > span {
 }
 input[type=checkbox] {
     width:2rem;
+}
+button {
+    padding:0.5rem;
 }
 
 /* Small devices (landscape phones, 576px and up) */
@@ -118,17 +120,20 @@ img.action {
 }
 
 .xmap {
-    min-height:50vmin;
+    min-height:80vmin;
+}
+
+.xmap * {
+    width: auto;
+    transition:none;
 }
 
 #mapid {
     width:100%;
     height:100%;
-    min-height:50vmin;
+    min-height:80vmin;
 }
-#mapid * {
-    width: auto;
-}
+
     </style>
 </head>
 <body>
@@ -219,11 +224,33 @@ const appconf = {
 }
 
 let app = Vue.createApp(appconf);
+let mymap = null;
+let userpos = null;
+let usermarker = null;
+let usercircle = null;
 
 app.component('xmap', {
+    destroyed () {
+        // // reset map
+        // if (mymap) {
+        //     mymap.eachLayer(function(layer){
+        //         layer.remove();
+        //     });
+        //     mymap.remove();
+        //     // reset map
+        //     let lastmap = document.querySelector('#mapid');
+        //     lastmap.innerHTML = '';
+        //     lastmap.className='';
+        // }
+        mymap = null;
+        userpos = null;
+        usermarker = null;
+        usercircle = null;
+    },
     mounted () {
+
         console.log('xmap mounted');
-        var mymap = L.map('mapid').setView([51.505, -0.09], 10);
+        mymap = L.map('mapid').setView([45, 1], 5);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
             maxZoom: 10,
@@ -235,6 +262,38 @@ app.component('xmap', {
             zoomOffset: -1
         }).addTo(mymap);
 
+        function onLocationFound(e) {
+
+            var radius = e.accuracy / 2;
+
+            if (usermarker == null) {
+                usermarker = L.marker(e.latlng, { draggable: true }).addTo(mymap)
+                .bindPopup("estimation de " + radius + " metres autour du centre.").openPopup();
+                usercircle = L.circle(e.latlng, radius).addTo(mymap);
+            }
+            else {
+                usermarker.remove();
+                usercircle.remove();
+
+                usermarker.bindPopup("estimation de " + radius + " metres autour du centre.").openPopup();
+                usermarker.setLatLng(e.latlng);
+                usercircle.setLatLng(e.latlng);
+
+                usermarker.addTo(mymap);
+                usercircle.addTo(mymap);
+            }
+            userpos = e;
+            mymap.flyTo(userpos.latlng, 10);
+        }
+
+        function onLocationError(e) {
+            console.log(e.message);
+        }
+
+        mymap.on('locationfound', onLocationFound);
+        mymap.on('locationerror', onLocationError);
+
+    
     },
     data() {
         return {
@@ -244,6 +303,7 @@ app.component('xmap', {
     methods: {
         actGeolocate() {
             console.log('geolocate');
+            mymap.locate();
         }
     },
     template: `
