@@ -49,10 +49,11 @@ const appConfig = {
                     console.log(json);
                     if ('loginToken' in json) {
                         sessionStorage.setItem("loginToken", json.loginToken);
-                        // go to the studio
-                        location.replace('studio');
                     }
-
+                    if ('redirect' in json) {
+                        // go to the studio
+                        location.replace(json.redirect);
+                    }
                     if ('feedback' in json) {
                         var f = event.target.querySelector('.feedback');
                         if (f) f.innerHTML = json.feedback;

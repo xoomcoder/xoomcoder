@@ -153,6 +153,12 @@ class ApiUser
                     $signature  = password_hash("$payload$password", PASSWORD_DEFAULT);
                     $loginToken = "$payload,$signature";
                     Form::addJson("loginToken", $loginToken);
+
+                    $redirect  = "";
+                    if ($level == 10)       $redirect = "studio";
+                    if ($level == 100)      $redirect = "studio100";
+                    if ($redirect != "")    Form::addJson("redirect", $redirect);
+                    
                 }
                 else {
                     Form::setFeedback("Désolé. Identifiants incorrects...");
