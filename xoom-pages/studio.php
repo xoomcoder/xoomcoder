@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, , maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <!-- IMPORTANT: NO INDEX -->
     <meta name="robots" content="noindex">
     <!-- favicon -->
@@ -10,6 +10,7 @@
 
     <title>XoomCoder Studio</title>
 
+    <link rel="stylesheet" href="assets/leaflet/leaflet.css">
     <style>
 html, body {
     width:100%;
@@ -93,7 +94,7 @@ img.action {
     position:fixed;
     top:2rem;
     right:2rem;
-    z-index:999;
+    z-index:99999;
 }
 .options {
     position:fixed;
@@ -102,6 +103,7 @@ img.action {
     background-color: rgba(0,0,0,.9);
     height:100%;
     padding:1rem;
+    z-index:9999;
 }
 .options.active {
     top:0;
@@ -113,6 +115,19 @@ img.action {
 
 .s1, .s3 {
     background-color: #dddddd;
+}
+
+.xmap {
+    min-height:50vmin;
+}
+
+#mapid {
+    width:100%;
+    height:100%;
+    min-height:50vmin;
+}
+#mapid * {
+    width: auto;
 }
     </style>
 </head>
@@ -155,6 +170,7 @@ img.action {
     <script type="module">
 // load Vue from module        
 import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-browser.js';
+import * as L from './assets/leaflet/leaflet-src.esm.js';
 
 const mymethods = {
     switchOptions () {
@@ -205,32 +221,56 @@ const appconf = {
 let app = Vue.createApp(appconf);
 
 app.component('xmap', {
-  data() {
-    return {
-      count: 0
-    }
-  },
-  template: `
-    <button @click="count++">{{ count }}</button>
+    mounted () {
+        console.log('xmap mounted');
+        var mymap = L.map('mapid').setView([51.505, -0.09], 10);
+
+        L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+            maxZoom: 10,
+            attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+            id: 'mapbox/streets-v11',
+            tileSize: 512,
+            zoomOffset: -1
+        }).addTo(mymap);
+
+    },
+    data() {
+        return {
+        count: 0
+        }
+    },
+    methods: {
+        actGeolocate() {
+            console.log('geolocate');
+        }
+    },
+    template: `
+    <div class="xmap">
+        <button @click="actGeolocate">me geolocaliser</button>
+        <div id="mapid"></div>
+    </div>
     `
 });
+
 app.component('xform', {
-  data() {
-    return {
-      count: 0
-    }
-  },
-  template: `
+    data() {
+        return {
+            count: 0
+        }
+    },
+    template: `
     <button @click="count++">{{ count }}</button>
     `
 });
 app.component('xlist', {
-  data() {
-    return {
-      count: 0
-    }
-  },
-  template: `
+    data() {
+        return {
+            count: 0
+        }
+    },
+    template: `
     <button @click="count++">{{ count }}</button>
     `
 });
