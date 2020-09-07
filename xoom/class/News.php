@@ -5,8 +5,8 @@ class News {
     // static methods
     static function show ()
     {
-
-        $articles = glob(Xoom::$rootdir . "/xoom-news/*.php");
+        // FIXME: PUT DIR IN CONFIG
+        $articles = glob(Xoom::$rootdir . "/../xoomcoder-website/news/*.php");
         // https://www.php.net/manual/fr/function.array-reverse
         // get the last articles first
         $articles = array_reverse($articles);
