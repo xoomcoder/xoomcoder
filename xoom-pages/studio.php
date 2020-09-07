@@ -129,6 +129,7 @@ img.action {
                     <article v-for="article in section.articles">
                         <h3>{{ article.title }}</h3>
                         <p>{{ article.content }}</p>
+                        <component v-if="article.compo" :is="article.compo"></component>
                     </article>
                 </section>
             </template>
@@ -146,7 +147,7 @@ img.action {
             <div class="toolbar">
                 <img @click="switchOptions" class="action settings" src="assets/img/settings.svg" alt="settings">
             </div>
-            <p>all rights reserved - © 2020 - {{ debug }}</p>
+            <p>tous droits réservés - © 2020 - {{ debug }}</p>
         </footer>
 
     </div><!--/.page-->
@@ -167,7 +168,7 @@ const appconf = {
         return {
             hide: { options: true },
             sections: [
-                { title: 'projets', class: 's1', articles: [
+                { title: 'Projets', class: 's1', articles: [
                     { title: 'landing page', content: 'level 1' },
                     { title: 'site vitrine', content: 'level 2' },
                     { title: 'blog', content: 'level 3' },
@@ -175,7 +176,7 @@ const appconf = {
                     { title: 'marketplace', content: 'level 5' },
                     { title: 'projet en équipe', content: 'teamwork' },
                 ] },
-                { title: 'formation', class: 's2', articles: [
+                { title: 'Formation', class: 's2', articles: [
                     { title: 'HTML' },
                     { title: 'CSS' },
                     { title: 'JS' },
@@ -185,11 +186,16 @@ const appconf = {
                     { title: 'Laravel' },
                     { title: 'WordPress' },
                 ]},
-                { title: 'bloc-notes', class: 's3', articles: [
+                { title: 'Bloc-Notes', class: 's3', articles: [
                     { title: 'city 1' },
                     { title: 'city 2' },
                     { title: 'city 3' },
-                ] }
+                ]},
+                { title: 'CodeMap', class: 's4', articles: [
+                    { title: 'carte', compo: 'xmap'},
+                    { title: 'liste', compo: 'xlist' },
+                    { title: 'formulaire', compo: 'xform' },
+                ]},
             ],
             debug: 'xoomcoder.com'
         }
@@ -197,6 +203,37 @@ const appconf = {
 }
 
 let app = Vue.createApp(appconf);
+
+app.component('xmap', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  template: `
+    <button @click="count++">{{ count }}</button>
+    `
+});
+app.component('xform', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  template: `
+    <button @click="count++">{{ count }}</button>
+    `
+});
+app.component('xlist', {
+  data() {
+    return {
+      count: 0
+    }
+  },
+  template: `
+    <button @click="count++">{{ count }}</button>
+    `
+});
 
 app.mount('.page');
 
