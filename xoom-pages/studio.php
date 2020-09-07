@@ -40,6 +40,16 @@ section {
     align-items: stretch;
 }
 
+label {
+    padding:0.5rem;
+}
+label > span {
+    width:200px;
+}
+input[type=checkbox] {
+    width:2rem;
+}
+
 /* Small devices (landscape phones, 576px and up) */
 @media (min-width: 576px) { 
     section article {
@@ -50,7 +60,9 @@ section {
 
 /* Medium devices (tablets, 768px and up) */
 @media (min-width: 768px) { 
-
+    main {
+        font-size: 14px;
+    }
 }
 
 /* Large devices (desktops, 992px and up) */
@@ -81,6 +93,7 @@ img.action {
     position:fixed;
     top:2rem;
     right:2rem;
+    z-index:999;
 }
 .options {
     position:fixed;
@@ -97,6 +110,10 @@ img.action {
     background-color: #dddddd;
     padding:1rem;
 }
+
+.s1, .s3 {
+    background-color: #dddddd;
+}
     </style>
 </head>
 <body>
@@ -106,17 +123,23 @@ img.action {
             <h6><a href="./">revenir sur le site</a></h6>
         </header>
         <main>
-            <section v-for="section in sections">
-                <h2>{{ section.title }}</h2>
-                <article v-for="article in section.articles">
-                    <h3>{{ article.title }}</h3>
-                    <p>{{ article.content }}</p>
-                </article>
-            </section>
+            <template v-for="section in sections" :key="section.id">
+                <section :class="section.class" v-if="!hide[section.class]">
+                    <h2>{{ section.title }}</h2>
+                    <article v-for="article in section.articles">
+                        <h3>{{ article.title }}</h3>
+                        <p>{{ article.content }}</p>
+                    </article>
+                </section>
+            </template>
         </main>
-        <div :class="{ 'options': true, 'active': show.options }">
+        <div :class="{ 'options': true, 'active': !hide.options }">
             <div class="panel">
                 <h2>options</h2>
+                <label  v-for="section in sections">
+                    <span>{{ section.title }}</span>
+                    <input type="checkbox" checked @click="hide[section.class] = !hide[section.class]">
+                </label>
             </div>
         </div>
         <footer>
@@ -134,7 +157,7 @@ import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-b
 
 const mymethods = {
     switchOptions () {
-        this.show.options = !this.show.options;
+        this.hide.options = !this.hide.options;
     }
 };
 
@@ -142,25 +165,30 @@ const appconf = {
     methods: mymethods,
     data() {
         return {
-            show: { options: false },
+            hide: { options: true },
             sections: [
-                { title: 'section1', articles: [
-                    { title: 'article1', content: 'contenu1' },
-                    { title: 'article2', content: 'contenu2' },
-                    { title: 'article3', content: 'contenu3' },
-                    { title: 'article4', content: 'contenu4' },
-                    { title: 'article5', content: 'contenu5' },
-                    { title: 'article6', content: 'contenu6' },
+                { title: 'projets', class: 's1', articles: [
+                    { title: 'landing page', content: 'level 1' },
+                    { title: 'site vitrine', content: 'level 2' },
+                    { title: 'blog', content: 'level 3' },
+                    { title: 'cms', content: 'level 4' },
+                    { title: 'marketplace', content: 'level 5' },
+                    { title: 'projet en équipe', content: 'teamwork' },
                 ] },
-                { title: 'section2', articles: [
-                    { title: 'article1' },
-                    { title: 'article2' },
-                    { title: 'article3' },
+                { title: 'formation', class: 's2', articles: [
+                    { title: 'HTML' },
+                    { title: 'CSS' },
+                    { title: 'JS' },
+                    { title: 'PHP' },
+                    { title: 'SQL' },
+                    { title: 'VueJs' },
+                    { title: 'Laravel' },
+                    { title: 'WordPress' },
                 ]},
-                { title: 'section3', articles: [
-                    { title: 'article1' },
-                    { title: 'article2' },
-                    { title: 'article3' },
+                { title: 'bloc-notes', class: 's3', articles: [
+                    { title: 'city 1' },
+                    { title: 'city 2' },
+                    { title: 'city 3' },
                 ] }
             ],
             debug: 'xoomcoder.com'
