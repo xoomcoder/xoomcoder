@@ -76,6 +76,7 @@ class Xoom
         // store filename
         Xoom::$filename = $filename;
         
+        // FIXME: add folders in config files
         // if there's a page
         $pages = [
             Xoom::$rootdir . "/../xoomcoder-website/templates/pages/$filename.php",
