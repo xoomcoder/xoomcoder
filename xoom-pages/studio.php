@@ -247,7 +247,7 @@ app.component('xmap', {
     mounted () {
 
         console.log('xmap mounted');
-        mymap = L.map('mapid').setView([45, 1], 5);
+        mymap = L.map('mapid').setView([46, 3], 5);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
             maxZoom: 10,
@@ -287,6 +287,7 @@ app.component('xmap', {
 
         function onLocationError(e) {
             console.log(e.message);
+            onLocationFound({ accuracy : 10000, latlng : { lat: 46, lng: 3 }});
         }
 
         mymap.on('locationfound', onLocationFound);
