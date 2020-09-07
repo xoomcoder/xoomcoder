@@ -82,9 +82,20 @@ class Xoom
             // special template
             include $pagefile;
         } else {
-            // default template
-            $contentfile = Xoom::$rootdir . "/xoom-templates/contenu-$filename.php";
-            if (is_file($contentfile)) Xoom::$template = [ "header", "contenu-$filename", "footer" ];
+            $contents = [
+                Xoom::$rootdir . "/../xoomcoder-website/templates/content/$filename.php",  
+                Xoom::$rootdir . "/xoom-templates/contenu-$filename.php",
+            ];
+            foreach($contents as $contentfile) {
+                if (is_file($contentfile)) {
+                    Xoom::$template = [ 
+                        Xoom::$rootdir . "/xoom-templates/header.php", 
+                        $contentfile, 
+                        Xoom::$rootdir . "/xoom-templates/footer.php", 
+                    ];
+                    break; // only the first
+                }
+            }
         }
     }
 
@@ -93,7 +104,7 @@ class Xoom
         // https://www.php.net/manual/fr/control-structures.foreach.php
         foreach (Xoom::$template as $file) {
             // https://www.php.net/manual/fr/function.require-once.php
-            require_once Xoom::$rootdir . "/xoom-templates/$file.php";
+            require_once $file;
         }
     }
 
