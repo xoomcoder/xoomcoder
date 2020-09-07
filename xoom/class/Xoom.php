@@ -77,11 +77,20 @@ class Xoom
         Xoom::$filename = $filename;
         
         // if there's a page
-        $pagefile = Xoom::$rootdir . "/xoom-pages/$filename.php";
-        if (is_file($pagefile)) {
-            // special template
-            include $pagefile;
-        } else {
+        $pages = [
+            Xoom::$rootdir . "/../xoomcoder-website/templates/pages/$filename.php",
+            Xoom::$rootdir . "/xoom-pages/$filename.php",
+        ];
+        $foundpage = false;
+        foreach($pages as $pagefile) {
+            if (is_file($pagefile)) {
+                // special template
+                include $pagefile;
+                $foundpage = true;
+                break; // only the first
+            }            
+        }
+        if (!$foundpage) {
             // FIXME: add folders in config files
             $contents = [
                 Xoom::$rootdir . "/../xoomcoder-website/templates/content/$filename.php",  
