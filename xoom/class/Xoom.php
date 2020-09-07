@@ -82,6 +82,7 @@ class Xoom
             // special template
             include $pagefile;
         } else {
+            // FIXME: add folders in config files
             $contents = [
                 Xoom::$rootdir . "/../xoomcoder-website/templates/content/$filename.php",  
                 Xoom::$rootdir . "/xoom-templates/contenu-$filename.php",
