@@ -427,3 +427,6 @@ article.annonce h3 {
     width: auto;
     transition:none;
 }
+.xmap pre {
+    padding:0;
+}
