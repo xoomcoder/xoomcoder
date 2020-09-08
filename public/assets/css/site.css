@@ -413,3 +413,17 @@ body.news article p {
 body.news article h2:before {
     content: '🔥 ';
 }
+
+article.annonce h3 {
+    text-align:left;
+    padding:1rem;
+}
+
+.xmap {
+    min-height:80vmin;
+}
+
+.xmap * {
+    width: auto;
+    transition:none;
+}

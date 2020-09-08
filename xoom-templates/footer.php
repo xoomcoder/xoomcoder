@@ -23,5 +23,12 @@
     gtag('config', 'UA-176412221-1');
     </script>
 
+    <script type="text/xoomcoder">
+    <pre>
+<?php 
+// print_r(Model::$logs);
+?>        
+    </pre>
+    </script>
 </body>
 </html>
