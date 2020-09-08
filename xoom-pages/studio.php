@@ -169,9 +169,20 @@ img.action {
         <div :class="{ 'options': true, 'active': !hide.options }">
             <div class="panel">
                 <h2>options</h2>
+                <h2>sections</h2>
                 <label  v-for="section in sections">
                     <span>{{ section.title }}</span>
                     <input type="checkbox" checked @click="hide[section.class] = !hide[section.class]">
+                </label>
+                <h2>forms</h2>
+                <label>
+                    <span>reset form</span>
+                    <input type="checkbox" checked @click="hide.resetForm = !hide.resetForm">
+                </label>
+                <h2>maps</h2>
+                <label>
+                    <span>move position after new note</span>
+                    <input type="checkbox" checked @click="hide.movePos = !hide.movePos">
                 </label>
             </div>
         </div>
@@ -191,13 +202,16 @@ import * as L from './assets/leaflet/leaflet-src.esm.js';
 
 const mymethods = {
     async doSignal1 (event) {
-        console.log('signal1');
-        console.log(event.target);
+        // console.log('signal1');
+        // console.log(event.target);
         let json = await sendAjaxForm(event, this);
-        console.log(json);
+        // console.log(json);
+
+        if (this.hide.resetForm)
+            event.target.reset();
     },
     setModel (model) {
-        console.log(model);
+        // console.log(model);
     },
     switchOptions () {
         this.hide.options = !this.hide.options;
@@ -218,7 +232,7 @@ const mydata = {
                     ],
                 }
             },
-            hide: { options: true },
+            hide: { options: true, resetForm: true, movePos: true },
             sections: [
                 { title: 'Projets', class: 's1', articles: [
                     { title: 'landing page', content: 'level 1' },
@@ -280,10 +294,15 @@ let usercircle = null;
 
 
 function userMove (e) {
-    userpos = e;
-    usermarker
-    .bindPopup('<pre>lat: ' + e.latlng.lat + '\nlng: ' +e.latlng.lng + '</pre>' )
-    .openPopup();
+    if (e != null) {
+        // console.log(e);
+        userpos = e;
+        if(e.latlng) {
+            usermarker
+            .bindPopup('<pre>lat: ' + e.latlng.lat + '\nlng: ' +e.latlng.lng + '</pre>' )
+            .openPopup();
+        }
+    }
 }
 
 app.component('xmap', {
@@ -294,8 +313,6 @@ app.component('xmap', {
         usercircle = null;
     },
     mounted () {
-
-        console.log('xmap mounted');
         mymap = L.map('mapid').setView([46, 3], 5);
 
         L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
@@ -351,7 +368,7 @@ app.component('xmap', {
     },
     methods: {
         actGeolocate() {
-            console.log('geolocate');
+            // console.log('geolocate');
             mymap.locate();
         }
     },
@@ -366,7 +383,7 @@ app.component('xmap', {
 app.component('xform', {
     methods: {
         doSubmit (event) {
-            // UX set the focus on first input 
+            // UX set the focus on first input
             event.target.querySelector('[required]').focus();
             this.$emit('signal1', event);
         }
@@ -396,7 +413,7 @@ app.component('xform', {
 app.component('xlist', {
     methods: {
         debug() {
-            console.log(this.modelValue);
+            // console.log(this.modelValue);
         }
     },
     data() {
@@ -455,13 +472,13 @@ async function sendAjaxForm(event, theapp)
         if ('blocnote' in json.data) {
             theapp.model.blocnote = json.data.blocnote;
 
-            maprefresh(mymap, json.data.blocnote);
+            maprefresh(mymap, json.data.blocnote, theapp.hide.movePos);
         }
     } 
 }
 
 let markernotes = [];
-function maprefresh (map, bnotes)
+function maprefresh (map, bnotes, movePos)
 {
     // reset
     for(let m=0; m<markernotes.length; m++) {
@@ -491,6 +508,33 @@ function maprefresh (map, bnotes)
                 markernotes.push(nmark);
             }
         }
+    }
+    if (usermarker) {
+        map.removeLayer(usermarker);
+
+        // move the marker
+        if (movePos) {
+            let curpos = usermarker.getLatLng();
+            // console.log(curpos);
+            let lat2 = curpos.lat + (Math.random() -0.5);
+            let lng2 = curpos.lng + (Math.random() -0.5);
+            usermarker.setLatLng({ 'lat': lat2, 'lng': lng2});
+        }
+
+        // bring to front ?!
+        usermarker.addTo(map);        
+    }
+    if (markernotes.length >0) {
+        markernotes[0].openPopup();
+
+        if (usermarker) {
+            let bounds = L.latLngBounds(markernotes[0].getLatLng(), usermarker.getLatLng());
+            map.fitBounds(bounds, { animate: true, padding: [ 100, 100 ]});
+        }
+        else {
+            map.flyTo(markernotes[0].getLatLng(), 10);
+        }
+
     }
 
 }
