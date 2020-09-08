@@ -156,7 +156,6 @@ class ApiUser
 
                     $redirect  = "";
                     if ($level == 10)       $redirect = "studio";
-                    if ($level == 100)      $redirect = "studio100";
                     if ($redirect != "")    Form::addJson("redirect", $redirect);
                     
                 }
