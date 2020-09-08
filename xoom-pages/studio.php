@@ -388,6 +388,13 @@ app.component('xmap', {
         }
     },
     methods: {
+        cursorText () {
+            if (this.params.maxrange < this.index) {
+                this.index = this.params.maxrange;  // warning: not updated now ?!
+            }
+            let res = this.index + ' / ' + this.params.maxrange;
+            return res;
+        },
         centerUserMarker () {
             if (usermarker) {
                 mymap.flyTo(usermarker.getLatLng(), 10);
@@ -415,7 +422,7 @@ app.component('xmap', {
         <button @click="actGeolocate">me geolocaliser</button>
         <button @click="centerUserMarker()"><img src="assets/leaflet/images/marker-icon.png"></button>
         <template v-if="params.maxrange > 0">
-            <button :title="notetitle" @click="changeMarker(++index)">{{ index }} / {{ params.maxrange }}</button>
+            <button :title="notetitle" @click="changeMarker(++index)">{{ cursorText() }}</button>
             <input @change="changeMarker" type="range" min="1" :max="params.maxrange" v-model="index">
         </template>
         <div id="mapid"></div>
