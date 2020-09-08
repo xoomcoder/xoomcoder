@@ -141,6 +141,10 @@ img.action {
     margin: 0.5rem 0;
 }
 
+.xmap button img {
+    height: 1rem;
+}
+
     </style>
 </head>
 <body>
@@ -157,10 +161,13 @@ img.action {
                         <h3 v-if="article.title">{{ article.title }}</h3>
                         <p v-if="article.content">{{ article.content }}</p>
                         <template v-if="article.compo == 'xlist'">
-                            <component v-on:delete-bn="deleteBn" v-if="article.compo" :is="article.compo" :name="article.name" v-model="model"></component>
+                            <component v-on:delete-bn="deleteBn" :is="article.compo" :name="article.name" v-model="model"></component>
+                        </template>
+                        <template v-else-if="article.compo == 'xmap'">
+                            <component :params="xmapparams" :is="article.compo" :name="article.name"></component>
                         </template>
                         <template v-else>
-                            <component v-on:signal1="doSignal1" v-if="article.compo" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
+                            <component v-on:signal1="doSignal1" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
                         </template>
                     </article>
                 </section>
@@ -222,6 +229,7 @@ const mymethods = {
 };
 
 const mydata = {
+            xmapparams: {maxrange: 0},
             logs: [ "test1" ],
             model: {}, 
             loginToken: '',
@@ -294,6 +302,7 @@ let mymap = null;
 let userpos = null;
 let usermarker = null;
 let usercircle = null;
+let markernotes = [];
 
 
 function userMove (e) {
@@ -369,18 +378,37 @@ app.component('xmap', {
     },
     data() {
         return {
-        count: 0
+            notetitle: '',
+            index:1,
         }
     },
     methods: {
+        centerUserMarker () {
+            if (usermarker) {
+                mymap.flyTo(usermarker.getLatLng(), 10);
+            }
+        },
+        changeMarker() {
+            if (this.index > markernotes.length) this.index = 0;
+            let marker = markernotes[this.index-1];
+            if (marker) {
+                mymap.flyTo(marker.getLatLng(), 10);
+                marker.openPopup();
+                this.notetitle = marker.mynote.title;
+            } 
+        },
         actGeolocate() {
             // console.log('geolocate');
             mymap.locate();
         }
     },
+    props: [ 'params' ],
     template: `
     <div class="xmap">
         <button @click="actGeolocate">me geolocaliser</button>
+        <button @click="centerUserMarker()"><img src="assets/leaflet/images/marker-icon.png"></button>
+        <button :title="notetitle" @click="changeMarker(++index)">{{ index }}</button>
+        <input @change="changeMarker" type="range" min="1" :max="params.maxrange" v-model="index">
         <div id="mapid"></div>
     </div>
     `
@@ -491,11 +519,12 @@ async function sendAjaxForm(event, theapp)
             theapp.model.blocnote = json.data.blocnote;
 
             maprefresh(mymap, json.data.blocnote, theapp.hide.movePos);
+            // update the number of markers
+            theapp.xmapparams.maxrange = markernotes.length;
         }
     } 
 }
 
-let markernotes = [];
 function maprefresh (map, bnotes, movePos)
 {
     // reset
@@ -515,15 +544,17 @@ function maprefresh (map, bnotes, movePos)
                 // console.log(info.lat + '/' + info.lng);
                 let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: iIcon, draggable: true});
                 let nhtml = `
-                <h3>${note.title} (${note.id})</h3>
+                <h3>${note.title}</h3>
                 <pre>${note.code}</pre> 
-                <h6>${note.dateLastRun}</h6>  
+                <h6>(${note.id}) ${note.dateLastRun}</h6>  
                 `;
                 nmark
                     .addTo(map)
                     .bindPopup(nhtml);
 
                 markernotes.push(nmark);
+                // hack to link marker with note
+                nmark.mynote = note;
             }
         }
     }
