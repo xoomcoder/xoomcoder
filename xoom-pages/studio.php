@@ -45,6 +45,8 @@ label {
 }
 label > span {
     width:200px;
+    display:inline-block;
+    padding:0.5rem;
 }
 input[type=checkbox] {
     width:2rem;
@@ -143,6 +145,47 @@ img.action {
 
 .xmap button img {
     height: 1rem;
+}
+@media (min-width: 960px)
+{
+    .xmap button {
+        margin:1rem;
+    }
+    .s4 {
+        padding: 1rem;
+        display: grid;
+        align-items: stretch;
+        justify-items: stretch;
+        justify-content: stretch;
+        row-gap: 0.5rem;;
+        grid-template-rows: 2vmin 30vmin 55vmin;
+        grid-template-columns: 2fr 2fr;
+        grid-template-areas: 
+            "title  title"
+            "xform  xmap"
+            "xlist  xmap"
+            ;
+        min-height:100vmax;
+    }
+    .s4 h2 {
+        grid-area: title;
+    }
+    .s4 article {
+        width:100%;
+        padding:1rem;
+    }
+    .s4 .xform {
+        grid-area: xform;
+        padding:0;
+    }
+    .s4 .xlist {
+        grid-area: xlist;
+        overflow-y:auto;
+    }
+    .s4 .xmap {
+        grid-area: xmap;
+    }
+
 }
 
     </style>
@@ -275,8 +318,8 @@ const mydata = {
                 ]},
                 { title: 'CodeMap', class: 's4', articles: [
                     { compo: 'xform', name: 'test' },
-                    { compo: 'xmap'},
                     { compo: 'xlist' },
+                    { compo: 'xmap'},
                 ]},
             ],
             debug: 'xoomcoder.com'
@@ -479,7 +522,7 @@ app.component('xlist', {
     props: [ 'name', 'modelValue' ],
     template: `
     <template v-if="modelValue.blocnote != null">
-        <button>({{ modelValue.blocnote.length }} bloc-notes)</button> 
+        <h3>bloc-notes ({{ modelValue.blocnote.length }})</h3> 
         <div class="note" v-for="bn in modelValue.blocnote" :key="bn.id">
             <h4>{{ bn.title }}</h4>
             <pre>{{ bn.code}}</pre>
