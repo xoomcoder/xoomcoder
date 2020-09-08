@@ -157,7 +157,7 @@ img.action {
                         <h3 v-if="article.title">{{ article.title }}</h3>
                         <p v-if="article.content">{{ article.content }}</p>
                         <template v-if="article.compo == 'xlist'">
-                            <component v-if="article.compo" :is="article.compo" :name="article.name" v-model="model"></component>
+                            <component v-on:delete-bn="deleteBn" v-if="article.compo" :is="article.compo" :name="article.name" v-model="model"></component>
                         </template>
                         <template v-else>
                             <component v-on:signal1="doSignal1" v-if="article.compo" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
@@ -201,12 +201,15 @@ import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-b
 import * as L from './assets/leaflet/leaflet-src.esm.js';
 
 const mymethods = {
-    async doSignal1 (event) {
-        // console.log('signal1');
-        // console.log(event.target);
+    async deleteBn (id) {
+        console.log(id);
+        let event = {};
+        event.extrafd = { note2: `DbDelete?table=blocnote&id=${id}` };
         let json = await sendAjaxForm(event, this);
-        // console.log(json);
-
+    },
+    async doSignal1 (event) {
+        let json = await sendAjaxForm(event, this);
+        // UX
         if (this.hide.resetForm)
             event.target.reset();
     },
@@ -359,6 +362,9 @@ app.component('xmap', {
         mymap.on('locationfound', onLocationFound);
         mymap.on('locationerror', onLocationError);
 
+        // geolocate
+        mymap.locate();
+
     
     },
     data() {
@@ -381,6 +387,7 @@ app.component('xmap', {
 });
 
 app.component('xform', {
+    emits: ['signal1'],
     methods: {
         doSubmit (event) {
             // UX set the focus on first input
@@ -411,7 +418,11 @@ app.component('xform', {
     `
 });
 app.component('xlist', {
+    emits: ['delete-bn'],
     methods: {
+        doDelete (id) {
+            this.$emit('delete-bn', id);
+        },
         debug() {
             // console.log(this.modelValue);
         }
@@ -424,11 +435,13 @@ app.component('xlist', {
     props: [ 'name', 'modelValue' ],
     template: `
     <template v-if="modelValue.blocnote != null">
+        <button>({{ modelValue.blocnote.length }} bloc-notes)</button> 
         <div class="note" v-for="bn in modelValue.blocnote" :key="bn.id">
             <h4>{{ bn.title }}</h4>
             <pre>{{ bn.code}}</pre>
-            <h6>{{ bn.dateLastRun }}</h6>
+            <h6>({{ bn.id }}) {{ bn.dateLastRun }}</h6>
             <h6>{{ bn.json }}</h6>
+            <button @click="doDelete(bn.id)">supprimer</button>  
         </div> 
     </template>
     <h3 v-else>la liste est vide</h3>
@@ -449,6 +462,11 @@ async function sendAjaxForm(event, theapp)
         fd = new FormData;
         fd.append('classApi', 'Member');
         fd.append('methodApi', 'run');
+        if (event.extrafd) {
+            for(let k in event.extrafd) {
+                fd.append(k, event.extrafd[k]);
+            }
+        }
     }
 
     // add geoloc
