@@ -149,7 +149,12 @@ img.action {
                     <article v-for="article in section.articles">
                         <h3>{{ article.title }}</h3>
                         <p>{{ article.content }}</p>
-                        <component v-if="article.compo" :is="article.compo"></component>
+                        <template v-if="article.compo == 'xlist'">
+                            <component v-if="article.compo" :is="article.compo" :name="article.name" v-model="model"></component>
+                        </template>
+                        <template v-else>
+                            <component v-on:signal1="doSignal1" v-if="article.compo" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
+                        </template>
                     </article>
                 </section>
             </template>
@@ -178,15 +183,35 @@ import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-b
 import * as L from './assets/leaflet/leaflet-src.esm.js';
 
 const mymethods = {
+    async doSignal1 (event) {
+        console.log('signal1');
+        console.log(event.target);
+        let json = await sendAjaxForm(event, this);
+        console.log(json);
+    },
+    setModel (model) {
+        console.log(model);
+    },
     switchOptions () {
         this.hide.options = !this.hide.options;
     }
 };
 
-const appconf = {
-    methods: mymethods,
-    data() {
-        return {
+const mydata = {
+            logs: [ "test1" ],
+            model: {}, 
+            loginToken: '',
+            username: '',
+            forms: {
+                test: {
+                    title: 'ajouter un bloc-note',
+                    fields: [
+                        { label: 'titre', name: 'title' },
+                        { label: 'contenu', name: 'note', type: 'textarea' },
+                    ],
+                    submit: sendAjaxForm
+                }
+            },
             hide: { options: true },
             sections: [
                 { title: 'Projets', class: 's1', articles: [
@@ -215,15 +240,33 @@ const appconf = {
                 { title: 'CodeMap', class: 's4', articles: [
                     { title: 'carte', compo: 'xmap'},
                     { title: 'liste', compo: 'xlist' },
-                    { title: 'formulaire', compo: 'xform' },
+                    { title: 'formulaire', compo: 'xform', name: 'test' },
                 ]},
             ],
             debug: 'xoomcoder.com'
+        };
+
+const appconf = {
+    mounted () {
+        let loginToken = sessionStorage.getItem('loginToken');
+        if (loginToken) {
+            let infos = loginToken.split(',');
+            // console.log(infos);
+            this.loginToken = loginToken;
+            this.username = infos[0];
         }
-  }
+        else {
+            // location.replace('login');
+        }
+        sendAjaxForm({}, this);
+    },
+    methods: mymethods,
+    data() {
+        return mydata;
+    }
 }
 
-let app = Vue.createApp(appconf);
+const app = Vue.createApp(appconf);
 let mymap = null;
 let userpos = null;
 let usermarker = null;
@@ -315,27 +358,88 @@ app.component('xmap', {
 });
 
 app.component('xform', {
+    methods: {
+        doSubmit (event) {
+            this.$emit('signal1', event);
+            // this.modelValue.submit(event);
+        }
+    },
     data() {
         return {
             count: 0
         }
     },
+    props: [ 'name', 'modelValue' ],
     template: `
-    <button @click="count++">{{ count }}</button>
+    <form @submit.prevent="doSubmit"> 
+        <h4>{{ modelValue.title }}</h4>
+        <template v-for="field in modelValue.fields">
+            <label>
+                <span>{{ field.label }}</span>
+                <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>
+                <input v-else type="text" :name="field.name" required>
+            </label>
+        </template>   
+        <input type="hidden" name="classApi" value="Member">
+        <input type="hidden" name="methodApi" value="run">
+        <button type="submit">publier</button>
+    </form>
     `
 });
 app.component('xlist', {
+    methods: {
+        debug() {
+            console.log(this.modelValue);
+        }
+    },
     data() {
         return {
             count: 0
         }
     },
+    props: [ 'name', 'modelValue' ],
     template: `
-    <button @click="count++">{{ count }}</button>
+    <template v-if="modelValue.blocnote != null">
+        <div v-for="bn in modelValue.blocnote" :key="bn.id">
+            <h4>{{ bn.title }}</h4>
+        </div> 
+    </template>
+    <h3 v-else>la liste est vide</h3>
     `
 });
 
 app.mount('.page');
+
+
+// custom functions
+async function sendAjaxForm(event, theapp)
+{
+    let fd = null;
+    if (event.target) {
+        fd          = new FormData(event.target);
+    }
+    else {
+        fd = new FormData;
+        fd.append('classApi', 'Member');
+        fd.append('methodApi', 'run');
+    }
+
+    let loginToken  = sessionStorage.getItem('loginToken');
+    fd.append('loginToken', loginToken);
+
+    let response = await fetch('api', {
+        method: 'POST',
+        body: fd
+    });
+    let json     = await response.json();
+
+    console.log(json);
+    if (json.data && theapp) {
+        // app.setModel(json.data);
+        // warning: keep data for vuejs components...
+        if ('blocnote' in json.data) theapp.model.blocnote = json.data.blocnote;
+    } 
+}
 
     </script>
 </body>
