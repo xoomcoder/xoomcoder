@@ -158,7 +158,7 @@ img.action {
         justify-items: stretch;
         justify-content: stretch;
         row-gap: 0.5rem;;
-        grid-template-rows: 2vmin 30vmin 55vmin;
+        grid-template-rows: 2vmin 30rem 55vmin;
         grid-template-columns: 2fr 2fr;
         grid-template-areas: 
             "title  title"
