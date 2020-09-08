@@ -134,6 +134,13 @@ img.action {
     min-height:80vmin;
 }
 
+.xlist .note {
+    border: 1px solid #666666;
+    text-align: left;
+    padding: 0 1rem;
+    margin: 0.5rem 0;
+}
+
     </style>
 </head>
 <body>
@@ -146,9 +153,9 @@ img.action {
             <template v-for="section in sections" :key="section.id">
                 <section :class="section.class" v-if="!hide[section.class]">
                     <h2>{{ section.title }}</h2>
-                    <article v-for="article in section.articles">
-                        <h3>{{ article.title }}</h3>
-                        <p>{{ article.content }}</p>
+                    <article :class="article.compo" v-for="article in section.articles">
+                        <h3 v-if="article.title">{{ article.title }}</h3>
+                        <p v-if="article.content">{{ article.content }}</p>
                         <template v-if="article.compo == 'xlist'">
                             <component v-if="article.compo" :is="article.compo" :name="article.name" v-model="model"></component>
                         </template>
@@ -209,7 +216,6 @@ const mydata = {
                         { label: 'titre', name: 'title' },
                         { label: 'contenu', name: 'note', type: 'textarea' },
                     ],
-                    submit: sendAjaxForm
                 }
             },
             hide: { options: true },
@@ -238,9 +244,9 @@ const mydata = {
                     { title: 'city 3' },
                 ]},
                 { title: 'CodeMap', class: 's4', articles: [
-                    { title: 'carte', compo: 'xmap'},
-                    { title: 'liste', compo: 'xlist' },
-                    { title: 'formulaire', compo: 'xform', name: 'test' },
+                    { compo: 'xform', name: 'test' },
+                    { compo: 'xmap'},
+                    { compo: 'xlist' },
                 ]},
             ],
             debug: 'xoomcoder.com'
@@ -360,8 +366,9 @@ app.component('xmap', {
 app.component('xform', {
     methods: {
         doSubmit (event) {
+            // UX set the focus on first input 
+            event.target.querySelector('[required]').focus();
             this.$emit('signal1', event);
-            // this.modelValue.submit(event);
         }
     },
     data() {
@@ -400,8 +407,11 @@ app.component('xlist', {
     props: [ 'name', 'modelValue' ],
     template: `
     <template v-if="modelValue.blocnote != null">
-        <div v-for="bn in modelValue.blocnote" :key="bn.id">
+        <div class="note" v-for="bn in modelValue.blocnote" :key="bn.id">
             <h4>{{ bn.title }}</h4>
+            <pre>{{ bn.code}}</pre>
+            <h6>{{ bn.dateLastRun }}</h6>
+            <h6>{{ bn.json }}</h6>
         </div> 
     </template>
     <h3 v-else>la liste est vide</h3>
@@ -424,6 +434,11 @@ async function sendAjaxForm(event, theapp)
         fd.append('methodApi', 'run');
     }
 
+    // add geoloc
+    if (userpos) {
+        fd.append('lat', userpos.latlng.lat);
+        fd.append('lng', userpos.latlng.lng);
+    }
     let loginToken  = sessionStorage.getItem('loginToken');
     fd.append('loginToken', loginToken);
 
@@ -437,9 +452,79 @@ async function sendAjaxForm(event, theapp)
     if (json.data && theapp) {
         // app.setModel(json.data);
         // warning: keep data for vuejs components...
-        if ('blocnote' in json.data) theapp.model.blocnote = json.data.blocnote;
+        if ('blocnote' in json.data) {
+            theapp.model.blocnote = json.data.blocnote;
+
+            maprefresh(mymap, json.data.blocnote);
+        }
     } 
 }
+
+let markernotes = [];
+function maprefresh (map, bnotes)
+{
+    // reset
+    for(let m=0; m<markernotes.length; m++) {
+        let marker = markernotes[m];
+        map.removeLayer(marker);
+    }
+    markernotes = [];
+    for(let n=0; n<bnotes.length; n++) {
+        let note = bnotes[n];
+        if (note.json) {
+            let info = JSON.parse(note.json);
+            if ((info != null) && ('lat' in info) && ('lng' in info)) {
+                
+                let iIcon = (n == 0) ? redIcon : orangeIcon;
+
+                // console.log(info.lat + '/' + info.lng);
+                let nmark = L.marker({ 'lat': info.lat, 'lng': info.lng },{icon: iIcon, draggable: true});
+                let nhtml = `
+                <h3>${note.title} (${note.id})</h3>
+                <pre>${note.code}</pre> 
+                <h6>${note.dateLastRun}</h6>  
+                `;
+                nmark
+                    .addTo(map)
+                    .bindPopup(nhtml);
+
+                markernotes.push(nmark);
+            }
+        }
+    }
+
+}
+
+let greenIcon = L.icon({
+    iconUrl: 'assets/img/leaf-green.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+let orangeIcon = L.icon({
+    iconUrl: 'assets/img/leaf-orange.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+let redIcon = L.icon({
+    iconUrl: 'assets/img/leaf-red.png',
+    shadowUrl: 'assets/img/leaf-shadow.png',
+
+    iconSize:     [20, 50], // size of the icon
+    shadowSize:   [20, 30], // size of the shadow
+    iconAnchor:   [10, 50], // point of the icon which will correspond to marker's location
+    shadowAnchor: [2, 30],  // the same for the shadow
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
 
     </script>
 </body>
