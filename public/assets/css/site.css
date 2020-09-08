@@ -383,6 +383,9 @@ section a > *:after {
             "title  menu  menu menu"
             ;
     }
+    nav {
+        justify-content: start;
+    }
 }
 
 @media (min-width: 960px)
