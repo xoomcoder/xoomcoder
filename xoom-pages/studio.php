@@ -146,7 +146,7 @@ img.action {
 .xmap button img {
     height: 1rem;
 }
-@media (min-width: 960px)
+@media (min-width: 640px)
 {
     .xmap button {
         margin:1rem;
