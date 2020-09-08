@@ -33,7 +33,7 @@ class View
         echo 
         <<<x
 
-        <script type="module">
+        <script>
         let annonces = $json;
         </script>
 
