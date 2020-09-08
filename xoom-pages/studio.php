@@ -151,6 +151,7 @@ img.action {
     <div class="page">
         <header>
             <h1><a href="">XoomCoder Studio</a></h1>
+            <h2>bienvenue {{ username }} <small><a href="#logout" @click.prevent="actLogout">(logout)</a></small></h2>
             <h6><a href="./">revenir sur le site</a></h6>
         </header>
         <main>
@@ -208,6 +209,10 @@ import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-b
 import * as L from './assets/leaflet/leaflet-src.esm.js';
 
 const mymethods = {
+    actLogout() {
+            sessionStorage.setItem('loginToken', '');
+            location.replace('login');   
+    },
     async deleteBn (id) {
         console.log(id);
         let event = {};
