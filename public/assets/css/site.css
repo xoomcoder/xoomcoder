@@ -239,7 +239,7 @@ header {
     align-items: stretch;
     justify-content: stretch;
     row-gap: 0.5rem;;
-    grid-template-rows: 3rem 1rem 4rem;
+    grid-template-rows: 3rem 1rem 6rem;
     grid-template-columns: 2fr 8fr;
     grid-template-areas: 
         "logo   title"
