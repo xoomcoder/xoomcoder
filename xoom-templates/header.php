@@ -34,6 +34,7 @@
             <a href="news">news</a>
             <a href="tutoriels">tutoriels</a>
             <a href="formation">formation</a>
+            <a href="emploi">offres d'emploi</a>
             <a href="contact">contact</a>
         </nav>
     </header>
