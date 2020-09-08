@@ -389,7 +389,9 @@ app.component('xmap', {
             }
         },
         changeMarker() {
-            if (this.index > markernotes.length) this.index = 0;
+            if (this.index > markernotes.length) this.index = 1;
+            if (this.index <1) this.index=1;
+
             let marker = markernotes[this.index-1];
             if (marker) {
                 mymap.flyTo(marker.getLatLng(), 10);
@@ -407,8 +409,10 @@ app.component('xmap', {
     <div class="xmap">
         <button @click="actGeolocate">me geolocaliser</button>
         <button @click="centerUserMarker()"><img src="assets/leaflet/images/marker-icon.png"></button>
-        <button :title="notetitle" @click="changeMarker(++index)">{{ index }}</button>
-        <input @change="changeMarker" type="range" min="1" :max="params.maxrange" v-model="index">
+        <template v-if="params.maxrange > 0">
+            <button :title="notetitle" @click="changeMarker(++index)">{{ index }} / {{ params.maxrange }}</button>
+            <input @change="changeMarker" type="range" min="1" :max="params.maxrange" v-model="index">
+        </template>
         <div id="mapid"></div>
     </div>
     `
@@ -505,6 +509,11 @@ async function sendAjaxForm(event, theapp)
     let loginToken  = sessionStorage.getItem('loginToken');
     fd.append('loginToken', loginToken);
 
+    let movePos = false;
+    if (fd.get('note') && theapp.hide.movePos) {
+        movePos = true;
+    }
+
     let response = await fetch('api', {
         method: 'POST',
         body: fd
@@ -518,7 +527,7 @@ async function sendAjaxForm(event, theapp)
         if ('blocnote' in json.data) {
             theapp.model.blocnote = json.data.blocnote;
 
-            maprefresh(mymap, json.data.blocnote, theapp.hide.movePos);
+            maprefresh(mymap, json.data.blocnote, movePos);
             // update the number of markers
             theapp.xmapparams.maxrange = markernotes.length;
         }
