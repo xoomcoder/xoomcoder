@@ -36,6 +36,9 @@ main {
 header, main, footer {
     max-width: 1366px;
 }
+section {
+    padding:1rem 0 0 0;
+}
 
 p {
     padding:0 1rem;
@@ -51,9 +54,6 @@ pre {
     font-family: 'Roboto', sans-serif;
 }
 
-section {
-    padding:2rem 0 0 0;
-}
 
 h1, main section > h1 {
     font-size:1.2rem;
