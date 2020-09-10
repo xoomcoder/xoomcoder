@@ -286,7 +286,7 @@ section a > *:after {
     }
     
     section:first-of-type img {
-        max-height: 25vmax;
+        height: 25vmax;
     }
     
 }
