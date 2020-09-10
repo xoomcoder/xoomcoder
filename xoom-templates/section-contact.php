@@ -1,7 +1,7 @@
 
 <section class="">
     <h1>Formulaire de contact</h1>
-    <pre>Si vous avez des questions, des suggestions, des idées... N'hésitez pas à nous envoyer un message.</pre>
+    <p>Si vous avez des questions, des suggestions, des idées... N'hésitez pas à nous envoyer un message.</p>
     <form action="api" method="POST">
         <!-- partie publique -->
         <label>
