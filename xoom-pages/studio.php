@@ -163,10 +163,10 @@ img.action {
     width:100%;
 }
 
-ul {
+ul, ol {
     text-align:left;
 }
-ul li {
+ul li, ol li {
     cursor: pointer;
 }
 @media (min-width: 640px)
@@ -428,13 +428,14 @@ app.component('xfiles', {
     },
     template: `
     <h3>vos fichiers</h3>
-    <ul>
+    <ol>
+        <li>readme.md</li>
         <li>index.html</li>
         <li>page.css</li>
         <li>page.js</li>
-    </ul>
+    </ol>
     <form>
-        <input type="text" name="filename" value="index.html"> 
+        <input type="text" name="filename" value="readme.md"> 
         <button @click.prevent="actSaveFile()">enregistrer</button>  
     </form>
     `
@@ -461,8 +462,9 @@ app.component('xmonaco', {
             });
             
             let htmlModel = monaco.editor.createModel("", "html");
-                
-            editor.setModel(htmlModel);
+            let mdModel   = monaco.editor.createModel("", "markdown");
+            editor.setModel(mdModel);
+            editor.setModelLanguage(mdModel, "markdown");
 
             // resize
             window.addEventListener('resize', function(){
@@ -472,7 +474,7 @@ app.component('xmonaco', {
 
     },
     template: `
-    <h3>index.html</h3>
+    <h3>readme.md</h3>
     <div class="editor"></div>
     `
 });
