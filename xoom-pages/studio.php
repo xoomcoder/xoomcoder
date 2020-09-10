@@ -146,12 +146,16 @@ img.action {
 .xmap button img {
     height: 1rem;
 }
+
+.w100 {
+    width:100%;
+}
 @media (min-width: 640px)
 {
     .xmap button {
         margin:1rem;
     }
-    .s4 {
+    .s5 {
         padding: 1rem;
         display: grid;
         align-items: stretch;
@@ -167,22 +171,22 @@ img.action {
             ;
         min-height:100vmax;
     }
-    .s4 h2 {
+    .s5 h2 {
         grid-area: title;
     }
-    .s4 article {
+    .s5 article {
         width:100%;
         padding:1rem;
     }
-    .s4 .xform {
+    .s5 .xform {
         grid-area: xform;
         padding:0;
     }
-    .s4 .xlist {
+    .s5 .xlist {
         grid-area: xlist;
         overflow-y:auto;
     }
-    .s4 .xmap {
+    .s5 .xmap {
         grid-area: xmap;
     }
 
@@ -209,7 +213,7 @@ img.action {
             <template v-for="section in sections" :key="section.id">
                 <section :class="section.class" v-if="!hide[section.class]">
                     <h2>{{ section.title }}</h2>
-                    <article :class="article.compo" v-for="article in section.articles">
+                    <article :class="article.class || article.compo" v-for="article in section.articles">
                         <h3 v-if="article.title">{{ article.title }}</h3>
                         <p v-if="article.content">{{ article.content }}</p>
                         <template v-if="article.compo == 'xlist'">
@@ -217,6 +221,9 @@ img.action {
                         </template>
                         <template v-else-if="article.compo == 'xmap'">
                             <component :params="xmapparams" :is="article.compo" :name="article.name"></component>
+                        </template>
+                        <template v-else-if="article.compo == 'xmonaco'">
+                            <component :is="article.compo" :class="article.class"></component>
                         </template>
                         <template v-else>
                             <component v-on:signal1="doSignal1" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
@@ -322,18 +329,18 @@ const mydata = {
                     { title: 'Laravel' },
                     { title: 'WordPress' },
                 ]},
-                { title: 'Bloc-Notes', class: 's3', articles: [
+                { title: 'Code Editor', class: 's3', articles: [
+                    { compo: 'xmonaco', name: 'test', class: 'xmonaco w100' },
+                ]},
+                { title: 'Bloc-Notes', class: 's4', articles: [
                     { title: 'city 1' },
                     { title: 'city 2' },
                     { title: 'city 3' },
                 ]},
-                { title: 'CodeMap', class: 's4', articles: [
+                { title: 'CodeMap', class: 's5', articles: [
                     { compo: 'xform', name: 'test' },
                     { compo: 'xlist' },
                     { compo: 'xmap'},
-                ]},
-                { title: 'Monaco', class: 's5', articles: [
-                    { compo: 'xmonaco', name: 'test' },
                 ]},
             ],
             debug: 'xoomcoder.com'
@@ -410,7 +417,6 @@ app.component('xmonaco', {
 
     },
     template: `
-    <h1>MONACO</h1>
     <div class="editor"></div>
     `
 });
