@@ -109,7 +109,7 @@ form label > div {
 
 form * {
     display: block;
-    margin: 0.20rem 0;
+    margin: 0.10rem 0;
     padding: 0.25rem;
     text-align: left;
     /* font-family: monospace; */
