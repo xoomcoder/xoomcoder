@@ -219,6 +219,7 @@ a {
 
 header nav {
     padding: 1rem;
+    padding-bottom: 0.5rem;
     display: grid;
     align-items: stretch;
     justify-content: stretch;
