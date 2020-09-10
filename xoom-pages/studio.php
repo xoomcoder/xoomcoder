@@ -51,6 +51,9 @@ label > span {
 input[type=checkbox] {
     width:2rem;
 }
+input {
+    padding:0.5rem;
+}
 button {
     padding:0.5rem;
 }
@@ -147,11 +150,55 @@ img.action {
     height: 1rem;
 }
 
+.w20 {
+    width:calc(20% - 0.5rem);
+}
+.w50 {
+    width:calc(50% - 0.5rem);
+}
+.w80 {
+    width:calc(80% - 0.5rem);
+}
 .w100 {
     width:100%;
 }
+
+ul {
+    text-align:left;
+}
+ul li {
+    cursor: pointer;
+}
 @media (min-width: 640px)
 {
+    section h2 {
+        grid-area: title;
+    }
+    .s3 {
+        padding: 1rem;
+        display: grid;
+        align-items: stretch;
+        justify-items: stretch;
+        justify-content: stretch;
+        row-gap: 0.5rem;;
+        grid-template-rows: 4rem 80vmin 2rem;
+        grid-template-columns: 70% 30%;
+        grid-template-areas: 
+            "title  title"
+            "xmonaco xfiles"
+            ".  ."
+            ;
+        min-height:50vmax;
+    }
+
+    .xfiles {
+        grid-area: xfiles;
+        width:100%;
+    }
+    .xmonaco {
+        grid-area: xmonaco;
+        width:100%;
+    }
     .xmap button {
         margin:1rem;
     }
@@ -224,6 +271,9 @@ img.action {
                         </template>
                         <template v-else-if="article.compo == 'xmonaco'">
                             <component :is="article.compo" :class="article.class"></component>
+                        </template>
+                        <template v-else-if="article.compo == 'xfiles'">
+                            <component :is="article.compo"></component>
                         </template>
                         <template v-else>
                             <component v-on:signal1="doSignal1" :is="article.compo" :name="article.name" v-model="forms[article.name]"></component>
@@ -330,7 +380,8 @@ const mydata = {
                     { title: 'WordPress' },
                 ]},
                 { title: 'Code Editor', class: 's3', articles: [
-                    { compo: 'xmonaco', name: 'test', class: 'xmonaco w100' },
+                    { compo: 'xmonaco', name: 'editor' },
+                    { compo: 'xfiles', name: 'files' },
                 ]},
                 { title: 'Bloc-Notes', class: 's4', articles: [
                     { title: 'city 1' },
@@ -367,24 +418,28 @@ const appconf = {
 }
 
 const app = Vue.createApp(appconf);
-let mymap = null;
-let userpos = null;
-let usermarker = null;
-let usercircle = null;
-let markernotes = [];
 
 
-function userMove (e) {
-    if (e != null) {
-        // console.log(e);
-        userpos = e;
-        if(e.latlng) {
-            usermarker
-            .bindPopup('<pre>lat: ' + e.latlng.lat + '\nlng: ' +e.latlng.lng + '</pre>' )
-            .openPopup();
+app.component('xfiles', {
+    methods: {
+        actSaveFile() {
+            console.log('savefile');
         }
-    }
-}
+    },
+    template: `
+    <h3>vos fichiers</h3>
+    <ul>
+        <li>index.html</li>
+        <li>page.css</li>
+        <li>page.js</li>
+    </ul>
+    <form>
+        <input type="text" name="filename" value="index.html"> 
+        <button @click.prevent="actSaveFile()">enregistrer</button>  
+    </form>
+    `
+});
+
 app.component('xmonaco', {
     mounted () {
         // https://github.com/Microsoft/monaco-editor-samples/blob/master/sample-editor/index.html
@@ -417,9 +472,32 @@ app.component('xmonaco', {
 
     },
     template: `
+    <h3>index.html</h3>
     <div class="editor"></div>
     `
 });
+
+/* maps */
+let mymap = null;
+let userpos = null;
+let usermarker = null;
+let usercircle = null;
+let markernotes = [];
+
+
+function userMove (e) {
+    if (e != null) {
+        // console.log(e);
+        userpos = e;
+        if(e.latlng) {
+            usermarker
+            .bindPopup('<pre>lat: ' + e.latlng.lat + '\nlng: ' +e.latlng.lng + '</pre>' )
+            .openPopup();
+        }
+    }
+}
+
+
 
 app.component('xmap', {
     destroyed () {
