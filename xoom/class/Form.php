@@ -203,9 +203,9 @@ class Form
         // https://www.php.net/manual/fr/reserved.variables.server.php
         $logsa["timestamp"] = $now;
         $logsa["datetime"]  = date("Y-m-d H:i:s", $now);
-        $logsa["ip"]        = $_SERVER["REMOTE_ADDR"];
-        $logsa["from"]      = $_SERVER["HTTP_REFERER"];
-        $logsa["ua"]        = $_SERVER["HTTP_USER_AGENT"];
+        $logsa["ip"]        = $_SERVER["REMOTE_ADDR"] ?? "";
+        $logsa["from"]      = $_SERVER["HTTP_REFERER"] ?? "";
+        $logsa["ua"]        = $_SERVER["HTTP_USER_AGENT"] ?? "";
 
         $logsa["post"]      = Form::hashConfidential($_POST);
     
