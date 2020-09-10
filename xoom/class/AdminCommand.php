@@ -5,6 +5,11 @@ class AdminCommand
     static $commands     = [];
     static $blocas       = [];
 
+    static function getBloc($name, $default="")
+    {
+        return AdminCommand::$blocas[$name] ?? $default;
+    }
+
     static function run ($script, $save=true, $reset=false)
     {
         if ($reset)
@@ -21,23 +26,22 @@ class AdminCommand
 
             $line = trim($line0);
 
-            if ($line) {
-                if ("@bloc" == substr($line, 0, 5)) {
-                    if ($line != "@bloc") {  // start bloc
-                        $blocname = trim(str_replace("@bloc", "", $line));
-                    }
-                    else {  // end bloc
-                        AdminCommand::$blocas[$blocname] = $bloccode; // add new bloc
-                        $blocname = "";
-                        $bloccode = "";     // reset
-                    }
+            if ("@bloc" == substr($line, 0, 5)) {
+                if ($line != "@bloc") {  // start bloc
+                    $blocname = trim(str_replace("@bloc", "", $line));
                 }
-                else if ($blocname != "") {     // inside bloc
-                    $bloccode .= "$line0\n";    // keep raw line and add newline back
+                else {  // end bloc
+                    AdminCommand::$blocas[$blocname] = $bloccode; // add new bloc
+                    $blocname = "";
+                    $bloccode = "";     // reset
                 }
-                else {
-                    AdminCommand::$commands[] = $line;
-                }
+            }
+            else if ($blocname != "") {     // inside bloc
+                // keep empty lines for markdown syntax
+                $bloccode .= "$line0\n";    // keep raw line and add newline back
+            }
+            else if ($line) {
+                AdminCommand::$commands[] = $line;
             }
         }
         // FIXME: case of non terminated bloc with @bloc ?

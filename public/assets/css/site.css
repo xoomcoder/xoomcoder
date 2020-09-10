@@ -283,6 +283,13 @@ section a > *:after {
 ul li, ol li {
     text-align:left;
 }
+
+article img[alt~='cover'] {
+    object-fit: cover;
+    width:100%;
+    height:30vmin;
+}
+
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
 {

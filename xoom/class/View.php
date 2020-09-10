@@ -50,7 +50,26 @@ class View
 
             echo $Parsedown->text($code); # prints: <p>Hello <em>Parsedown</em>!</p>    
         }
-        
     }
+
+    // run xoom commands
+    static function showBlocMD ($filename)
+    {
+        $out = [];
+        // FIXME: add path in config...
+        $file = Xoom::$rootdir . "/../xoomcoder-website/markdown/$filename.md";
+        if (($file!= "") && is_file($file)) {
+            $cmd = file_get_contents($file);
+            AdminCommand::run($cmd, false, true);
+            $meta = json_decode(AdminCommand::getBloc("meta", "{}"), true);
+            $out["meta"] = $meta;
+
+            $code = AdminCommand::getBloc("markdown");
+            $Parsedown = new Parsedown();
+            $out["result"] = $Parsedown->text($code); # prints: <p>Hello <em>Parsedown</em>!</p>    
+        }
+        return $out;
+    }
+
     //@end
 }
