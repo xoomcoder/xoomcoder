@@ -27,15 +27,15 @@
             <h1 class="">
                 <a href="./">XoomCoder</a>
             </h1>
-            <a href="./">
-                <img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com">
+            <a class="logo" href="./">
+                <img src="assets/img/xoomcoder.svg" alt="xoomcoder.com">
             </a>
             <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
-            <a href="news">news</a>
-            <a href="tutoriels">tutoriels</a>
-            <a href="formation">formation</a>
-            <a href="emploi">offres d'emploi</a>
-            <a href="contact">contact</a>
+            <a class="menu news" href="news">news</a>
+            <a class="menu tutoriels" href="tutoriels">tutoriels</a>
+            <a class="menu formation" href="formation">formation</a>
+            <a class="menu emploi" href="emploi">offres d'emploi</a>
+            <a class="menu contact" href="contact">contact</a>
         </nav>
     </header>
     <main>
