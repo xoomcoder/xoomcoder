@@ -2,8 +2,10 @@
 
 class News 
 {
-    static function getPhotos ($tag)
+    static function getPhotos ($tag, $debug=false)
     {
+        ob_start();
+
         $mediafile = Xoom::$rootdir . "/public/assets/square/$tag.jpg";
         if (is_file($mediafile)) return;
 
@@ -41,6 +43,8 @@ class News
                 }
             }
         }
+        $log = ob_get_clean();
+        if ($debug) echo $log;
     }
 
     // static methods
