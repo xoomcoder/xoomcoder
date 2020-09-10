@@ -39,5 +39,18 @@ class View
 
         x;
     }
+
+    static function showMD ($filename)
+    {
+        // FIXME: add path in config...
+        $file = Xoom::$rootdir . "/../xoomcoder-website/markdown/$filename.md";
+        if (($file!= "") && is_file($file)) {
+            $code = file_get_contents($file);
+            $Parsedown = new Parsedown();
+
+            echo $Parsedown->text($code); # prints: <p>Hello <em>Parsedown</em>!</p>    
+        }
+        
+    }
     //@end
 }
