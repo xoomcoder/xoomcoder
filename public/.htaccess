@@ -1,3 +1,5 @@
+SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+
 # BEGIN WordPress
 # https://wordpress.org/support/article/htaccess/
 
@@ -9,3 +11,4 @@ RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule . /index.php [L]
 
 # END WordPress
+
