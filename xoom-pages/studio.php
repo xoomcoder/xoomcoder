@@ -23,7 +23,7 @@ html, body {
 * {
     box-sizing: border-box;
     width:100%;
-    transition: all 0.5s ease-out;
+    /* transition: all 0.5s ease-out; */ /* TOO BIG */
 }
 a {
     text-decoration: none;
@@ -188,6 +188,14 @@ img.action {
 
 }
 
+/* MONACO EDITOR */
+.editor {
+    height: 50vmin;
+}
+.editor * {
+    text-align: left;
+    transition: all none;
+}
     </style>
 </head>
 <body>
@@ -245,6 +253,9 @@ img.action {
         </footer>
 
     </div><!--/.page-->
+
+    <!-- FIXME: load only if needed -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs/loader.js"></script>
 
     <script type="module">
 // load Vue from module        
@@ -321,6 +332,9 @@ const mydata = {
                     { compo: 'xlist' },
                     { compo: 'xmap'},
                 ]},
+                { title: 'Monaco', class: 's5', articles: [
+                    { compo: 'xmonaco', name: 'test' },
+                ]},
             ],
             debug: 'xoomcoder.com'
         };
@@ -364,6 +378,42 @@ function userMove (e) {
         }
     }
 }
+app.component('xmonaco', {
+    mounted () {
+        // https://github.com/Microsoft/monaco-editor-samples/blob/master/sample-editor/index.html
+        require.config({ paths: { 'vs': 'https://cdnjs.cloudflare.com/ajax/libs/monaco-editor/0.20.0/min/vs' }});
+        // Before loading vs/editor/editor.main, define a global MonacoEnvironment that overwrites
+        // the default worker url location (used when creating WebWorkers). The problem here is that
+        // HTML5 does not allow cross-domain web workers, so we need to proxy the instantiation of
+        // a web worker through a same-domain script
+        window.MonacoEnvironment = {
+            getWorkerUrl: function(workerId, label) {
+                return '/monaco-editor-worker-loader-proxy';
+            }
+        };
+
+        require(['vs/editor/editor.main'], function() {
+            let htmleditor = document.querySelector(".editor");
+            let editor = monaco.editor.create(htmleditor, {
+                theme: "vs-dark"
+            });
+            
+            let htmlModel = monaco.editor.createModel("", "html");
+                
+            editor.setModel(htmlModel);
+
+            // resize
+            window.addEventListener('resize', function(){
+            editor.layout(); 
+            });
+        });
+
+    },
+    template: `
+    <h1>MONACO</h1>
+    <div class="editor"></div>
+    `
+});
 
 app.component('xmap', {
     destroyed () {
