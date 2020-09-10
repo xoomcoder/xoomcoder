@@ -294,7 +294,7 @@ article .date {
     display:inline-block;
     padding:1rem;
     width:100%;
-    text-align: left;
+    text-align: right;
     background-color:#dddddd;
     margin-top:1rem;
 }
