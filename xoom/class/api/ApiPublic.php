@@ -11,11 +11,13 @@ class ApiPublic
     static function photoRemove ()
     {
         $tag = Form::filterLetter("tag");
-        extract(pathinfo($tag));
-        $mediafile = Xoom::$rootdir . "/public/assets/square/$filename.jpg";
-        if (is_file($mediafile)) {
-            // warning: delete file
-            unlink($mediafile);
+        if (Form::isOK()) {
+            extract(pathinfo($tag));
+            $mediafile = Xoom::$rootdir . "/public/assets/square/$filename.jpg";
+            if (is_file($mediafile)) {
+                // warning: delete file
+                unlink($mediafile);
+            }    
         }
     } 
     //@end
