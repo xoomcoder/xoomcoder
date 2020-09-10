@@ -6,6 +6,10 @@ class News {
     static function showBloc ()
     {
         $articles = glob(Xoom::$rootdir . "/../xoomcoder-website/markdown/article-*.md");
+        usort($articles, function ($a, $b) {
+            // https://www.php.net/manual/fr/function.filemtime
+            return filemtime($a) < filemtime($b);
+        });
         $html = "";
         foreach($articles as $article) {
             extract(pathinfo($article));
@@ -13,10 +17,12 @@ class News {
             // $result and $meta
             $class = $meta["class"] ?? "";
 
+            $time = date("d/m/Y", filemtime($article));
             $html .= 
             <<<x
             <article class="$class">
                 $result
+                <small class="date">publié le: $time</small>
             </article>
             x;
         }

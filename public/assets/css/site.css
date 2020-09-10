@@ -290,6 +290,17 @@ article img[alt~='cover'] {
     height:30vmin;
 }
 
+article .date {
+    display:inline-block;
+    padding:1rem;
+    width:100%;
+    text-align: left;
+    background-color:#dddddd;
+    margin-top:1rem;
+}
+code {
+    margin:1rem;
+}
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
 {
