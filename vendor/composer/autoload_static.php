@@ -31,6 +31,10 @@ class ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901
     public static $prefixesPsr0 = array (
         'P' => 
         array (
+            'ParsedownExtra' => 
+            array (
+                0 => __DIR__ . '/..' . '/erusev/parsedown-extra',
+            ),
             'Parsedown' => 
             array (
                 0 => __DIR__ . '/..' . '/erusev/parsedown',
