@@ -23,14 +23,14 @@
 </head>
 <body class="<?php Xoom::showBodyClass() ?>">
     <header>
-        <h1 class="">
-            <a href="./">XoomCoder</a>
-        </h1>
-        <a href="./">
-            <img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com">
-        </a>
-        <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
         <nav>
+            <h1 class="">
+                <a href="./">XoomCoder</a>
+            </h1>
+            <a href="./">
+                <img class="logo" src="assets/img/xoomcoder.svg" alt="xoomcoder.com">
+            </a>
+            <strong>Formation Développeur Fullstack à&nbsp;Distance</strong>
             <a href="news">news</a>
             <a href="tutoriels">tutoriels</a>
             <a href="formation">formation</a>
