@@ -6,6 +6,7 @@
         <p>&copy;2020</p>
         <p>Ce site est géré et publié par <a href="https://www.linkedin.com/in/applh">Long Hai LH</a> et le code est hébergé sur ionos.fr</p>
         <p>Des informations statistiques sur les visites sont stockées par l'hébergement et aussi par Google Analytics.</p>
+        <p>Un grand merci à <a rel="nofollow,noindex" href="https://pexels.com">pexels.com</a></p>
     </footer>
 
     <script type="module" src="assets/js/site.js"></script>

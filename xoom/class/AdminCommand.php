@@ -405,4 +405,12 @@ class AdminCommand
 
         }
     }
+
+    static function apiPhotoLoad ($paramas)
+    {
+        extract($paramas);
+        if ($tag ?? false) {
+            News::getPhotos($tag);
+        }
+    }
 }

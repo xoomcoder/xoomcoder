@@ -2,3 +2,4 @@
 *.log
 my-*
 public/assets/media/*
+public/assets/square/*
