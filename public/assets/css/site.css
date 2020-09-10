@@ -433,3 +433,11 @@ article.annonce h3 {
 .xmap pre {
     padding:0;
 }
+
+.emploi section {
+    justify-content: start;
+}
+
+.emploi article {
+    padding-bottom:2rem;
+}
