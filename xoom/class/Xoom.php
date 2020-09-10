@@ -70,8 +70,8 @@ class Xoom
         // https://www.php.net/manual/fr/function.in-array
         if (in_array($filename, ["/", ""])) $filename = "index";
 
-        // SEO: help google agaisnt duplicate content
-        Xoom::$canonical = ($filename == "index") ? "/" : $filename;
+        // SEO: help google against duplicate content
+        Xoom::$canonical = ($filename == "index") ? "" : $filename;
 
         // store filename
         Xoom::$filename = $filename;
