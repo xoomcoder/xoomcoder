@@ -24,15 +24,23 @@ CREATE TABLE IF NOT EXISTS `manymany`
 CREATE TABLE IF NOT EXISTS `content`
 ( 
     `id`                INT NOT NULL AUTO_INCREMENT, 
+    `id_user`           INT, 
+    `username`          VARCHAR(160),
     `uri`               VARCHAR(160), 
     `title`             VARCHAR(160), 
     `code`              TEXT, 
+    `latitude`          DECIMAL(10,6),    
+    `longitude`         DECIMAL(10,6),    
+    `altitude`          DECIMAL(10,2),    
     `image`             VARCHAR(160), 
     `priority`          INT, 
     `category`          VARCHAR(160), 
     `child`             TEXT, 
     `json`              TEXT, 
+    `nbrun`             INT, 
+    `dateLastRun`       DATETIME,
     `datePublication`   DATETIME,
+    `dateEnd`           DATETIME,
     `status`            VARCHAR(160), 
     `author`            VARCHAR(160), 
     PRIMARY KEY (`id`)
@@ -47,6 +55,9 @@ CREATE TABLE IF NOT EXISTS `blocnote`
     `title`             VARCHAR(160), 
     `md5`               VARCHAR(160), 
     `code`              TEXT, 
+    `latitude`          DECIMAL(10,6),    
+    `longitude`         DECIMAL(10,6),    
+    `altitude`          DECIMAL(10,2),    
     `nbrun`             INT, 
     `dateLastRun`       DATETIME,
     `image`             VARCHAR(160), 
@@ -55,6 +66,7 @@ CREATE TABLE IF NOT EXISTS `blocnote`
     `child`             TEXT, 
     `json`              TEXT, 
     `datePublication`   DATETIME,
+    `dateEnd`           DATETIME,
     `status`            VARCHAR(160),    
     PRIMARY KEY (`id`)
 ) CHARSET=utf8mb4;
