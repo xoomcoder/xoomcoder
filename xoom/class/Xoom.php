@@ -104,9 +104,9 @@ class Xoom
             foreach($contents as $contentfile) {
                 if (is_file($contentfile)) {
                     Xoom::$template = [ 
-                        Xoom::$rootdir . "/xoom-templates/header.php", 
+                        "$rootdir/xoom-templates/header.php", 
                         $contentfile, 
-                        Xoom::$rootdir . "/xoom-templates/footer.php", 
+                        "$rootdir/xoom-templates/footer.php", 
                     ];
                     break; // only the first
                 }
