@@ -116,4 +116,14 @@ class File
         move_uploaded_file($tmp_name, Xoom::$rootdir . "/public/assets/media/" . $nameOK);
 
     }
+
+    static function filterName ($name)
+    {
+        $nameOK = $name;
+        $nameOK = rawurldecode($nameOK);    // accents from URLs...
+        $nameOK = File::removeAccents($nameOK);
+        $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9\.]/", "-", $nameOK));
+        $nameOK = preg_replace("/[-]{2+}/", "-", $nameOK);    
+        return $nameOK;
+    }
 }

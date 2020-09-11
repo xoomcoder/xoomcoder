@@ -5,7 +5,7 @@ class News
     static function getPhotos ($tag, $debug=false)
     {
         ob_start();
-
+        $tag = File::filterName($tag);
         $mediafile = Xoom::$rootdir . "/public/assets/square/$tag.jpg";
         if (is_file($mediafile)) return $mediafile;
 
