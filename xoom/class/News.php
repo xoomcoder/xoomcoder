@@ -18,7 +18,7 @@ class News
             ));
             // https://www.php.net/manual/fr/function.http-build-query.php
             $query= http_build_query([
-                "per_page" => 10, 
+                "per_page" => 100, 
                 "query" => $tag,
                 ]);
             $url = "$url0?$query"; 
