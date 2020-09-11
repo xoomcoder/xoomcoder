@@ -7,7 +7,7 @@ class News
         ob_start();
 
         $mediafile = Xoom::$rootdir . "/public/assets/square/$tag.jpg";
-        if (is_file($mediafile)) return;
+        if (is_file($mediafile)) return $mediafile;
 
         $api    =  Config::$mediaAPI ?? "";
         $url0   = Config::$mediaURL ?? "";
@@ -45,6 +45,8 @@ class News
         }
         $log = ob_get_clean();
         if ($debug) echo $log;
+
+        return $mediafile;
     }
 
     // static methods

@@ -33,9 +33,8 @@ class Xoom
         Xoom::completeConfig();
 
         if ($mode == "web") {
-            Xoom::getRequest();
-            // build the page to the browser
-            Xoom::sendResponse();    
+            Request::parse();
+            Response::send();
         }
         elseif ($mode == "xterm") {
             Terminal::runTerminal();
@@ -67,58 +66,6 @@ class Xoom
         }
     }
 
-    static function getRequest()
-    {
-        $uri = $_SERVER["REQUEST_URI"];
-        // https://www.php.net/manual/fr/function.parse-url.php
-        // https://www.php.net/manual/fr/function.extract.php
-        extract(parse_url($uri));
-        // https://www.php.net/manual/fr/function.pathinfo.php
-        extract(pathinfo($path));
-
-        // https://www.php.net/manual/fr/function.in-array
-        if (in_array($filename, ["/", ""])) $filename = "index";
-
-        // SEO: help google against duplicate content
-        Xoom::$canonical = ($filename == "index") ? "" : $filename;
-
-        // store filename
-        Xoom::$filename = $filename;
-        
-        // if there's a page
-        extract(Xoom::getConfig("rootdir,contentdir"));
-        $pages = [
-            "$contentdir/templates/pages/$filename.php",
-            "$rootdir/xoom-pages/$filename.php",
-        ];
-        $foundpage = false;
-        foreach($pages as $pagefile) {
-            if (is_file($pagefile)) {
-                // special template
-                include $pagefile;
-                $foundpage = true;
-                break; // only the first
-            }            
-        }
-        if (!$foundpage) {
-            extract(Xoom::getConfig("rootdir,contentdir"));
-            // FIXME: add folders in config files
-            $contents = [
-                "$contentdir/templates/content/$filename.php",  
-                "$rootdir/xoom-templates/contenu-$filename.php",
-            ];
-            foreach($contents as $contentfile) {
-                if (is_file($contentfile)) {
-                    Xoom::$template = [ 
-                        "$rootdir/xoom-templates/header.php", 
-                        $contentfile, 
-                        "$rootdir/xoom-templates/footer.php", 
-                    ];
-                    break; // only the first
-                }
-            }
-        }
-    }
 
     static function sendResponse()
     {
