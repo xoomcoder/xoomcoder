@@ -14,6 +14,13 @@ class Response
             // build the page to the browser
             Xoom::sendResponse();        
         }
+        elseif (Request::$extension == "vjs") {
+            header("Content-Type: application/javascript");
+
+            Request::findTemplate();
+            // build the page to the browser
+            Xoom::sendResponse();        
+        }
         elseif (is_file(Xoom::$rootdir . "/public" .Request::$path)) {
             // FIXME: better code to manage local mode
             // local mode where php is main router
