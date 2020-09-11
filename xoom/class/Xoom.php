@@ -79,11 +79,11 @@ class Xoom
         // store filename
         Xoom::$filename = $filename;
         
-        // FIXME: add folders in config files
         // if there's a page
+        extract(Xoom::getConfig("rootdir,contentdir"));
         $pages = [
-            Xoom::$rootdir . "/../xoomcoder-website/templates/pages/$filename.php",
-            Xoom::$rootdir . "/xoom-pages/$filename.php",
+            "$contentdir/templates/pages/$filename.php",
+            "$rootdir/xoom-pages/$filename.php",
         ];
         $foundpage = false;
         foreach($pages as $pagefile) {
@@ -95,10 +95,11 @@ class Xoom
             }            
         }
         if (!$foundpage) {
+            extract(Xoom::getConfig("rootdir,contentdir"));
             // FIXME: add folders in config files
             $contents = [
-                Xoom::$rootdir . "/../xoomcoder-website/templates/content/$filename.php",  
-                Xoom::$rootdir . "/xoom-templates/contenu-$filename.php",
+                "$contentdir/templates/content/$filename.php",  
+                "$rootdir/xoom-templates/contenu-$filename.php",
             ];
             foreach($contents as $contentfile) {
                 if (is_file($contentfile)) {

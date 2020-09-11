@@ -78,8 +78,8 @@ class News
 
     static function show ()
     {
-        // FIXME: PUT DIR IN CONFIG
-        $articles = glob(Xoom::$rootdir . "/../xoomcoder-website/news/*.php");
+        extract(Xoom::getConfig("contentdir"));
+        $articles = glob("$contentdir/news/*.php");
         // https://www.php.net/manual/fr/function.array-reverse
         // get the last articles first
         $articles = array_reverse($articles);

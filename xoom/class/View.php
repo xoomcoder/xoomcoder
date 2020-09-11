@@ -43,7 +43,8 @@ class View
     static function showMD ($filename)
     {
         // FIXME: add path in config...
-        $file = Xoom::$rootdir . "/../xoomcoder-website/markdown/$filename.md";
+        extract(Xoom::getConfig("contentdir"));
+        $file = "$contentdir/markdown/$filename.md";
         if (($file!= "") && is_file($file)) {
             $code = file_get_contents($file);
             $Parsedown = new Parsedown();
@@ -56,8 +57,8 @@ class View
     static function showBlocMD ($filename)
     {
         $out = [];
-        // FIXME: add path in config...
-        $file = Xoom::$rootdir . "/../xoomcoder-website/markdown/$filename.md";
+        extract(Xoom::getConfig("contentdir"));
+        $file = "$contentdir/markdown/$filename.md";
         if (($file!= "") && is_file($file)) {
             $cmd = file_get_contents($file);
             AdminCommand::run($cmd, false, true);
