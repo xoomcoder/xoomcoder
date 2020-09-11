@@ -35,7 +35,7 @@ class Request
         
         Xoom::setConfig("path", $path);
         Xoom::setConfig("filename", $filename);
-        Xoom::setConfig("extension", $extension);
+        Xoom::setConfig("extension", Request::$extension);
     }
 
     static function findTemplate()
