@@ -85,7 +85,18 @@ class News
         $articles = array_reverse($articles);
         foreach($articles as $article)
         {
+            ob_start();
             include $article;
+            $content = ob_get_clean();
+            // add timestamp
+            $time = date("d/m/Y", filemtime($article));
+            $rep =
+            <<<x
+                <small class="date">mis à jour le: $time</small>
+            </article>
+            x;
+            $content = str_replace("</article>", $rep, $content);
+            echo $content;
         }
     }
 }
