@@ -38,42 +38,5 @@ class Request
         Xoom::setConfig("extension", Request::$extension);
     }
 
-    static function findTemplate()
-    {
-        // if there's a page
-        extract(Xoom::getConfig("rootdir,contentdir,filename"));
-        $pages = [
-            "$contentdir/templates/pages/$filename.php",
-            "$rootdir/xoom-pages/$filename.php",
-        ];
-        $foundpage = false;
-        foreach($pages as $pagefile) {
-            if (is_file($pagefile)) {
-                // special template
-                include $pagefile;
-                $foundpage = true;
-                break; // only the first
-            }            
-        }
-        if (!$foundpage) {
-            extract(Xoom::getConfig("rootdir,contentdir"));
-            // FIXME: add folders in config files
-            $contents = [
-                "$contentdir/templates/content/$filename.php",  
-                "$rootdir/xoom-templates/contenu-$filename.php",
-            ];
-            foreach($contents as $contentfile) {
-                if (is_file($contentfile)) {
-                    Xoom::$template = [ 
-                        "$rootdir/xoom-templates/header.php", 
-                        $contentfile, 
-                        "$rootdir/xoom-templates/footer.php", 
-                    ];
-                    break; // only the first
-                }
-            }
-        }
-
-    }
     //@end
 }

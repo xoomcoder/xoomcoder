@@ -7,17 +7,55 @@
 
 class Response
 {
+    static function findTemplate()
+    {
+        // if there's a page
+        extract(Xoom::getConfig("rootdir,contentdir,filename"));
+        $pages = [
+            "$contentdir/templates/pages/$filename.php",
+            "$rootdir/xoom-pages/$filename.php",
+        ];
+        $foundpage = false;
+        foreach($pages as $pagefile) {
+            if (is_file($pagefile)) {
+                // special template
+                include $pagefile;
+                $foundpage = true;
+                break; // only the first
+            }            
+        }
+        if (!$foundpage) {
+            extract(Xoom::getConfig("rootdir,contentdir"));
+            // FIXME: add folders in config files
+            $contents = [
+                "$contentdir/templates/content/$filename.php",  
+                "$rootdir/xoom-templates/contenu-$filename.php",
+            ];
+            foreach($contents as $contentfile) {
+                if (is_file($contentfile)) {
+                    Xoom::$template = [ 
+                        "$rootdir/xoom-templates/header.php", 
+                        $contentfile, 
+                        "$rootdir/xoom-templates/footer.php", 
+                    ];
+                    break; // only the first
+                }
+            }
+        }
+
+    }
+
     static function send ()
     {
         if (Request::$extension == "html") {
-            Request::findTemplate();
+            Response::findTemplate();
             // build the page to the browser
             Xoom::sendResponse();        
         }
         elseif (Request::$extension == "vjs") {
             header("Content-Type: application/javascript");
 
-            Request::findTemplate();
+            Response::findTemplate();
             // build the page to the browser
             Xoom::sendResponse();        
         }
@@ -51,7 +89,7 @@ class Response
         else {
             // https://www.php.net/manual/fr/function.header.php
             header("HTTP/1.1 404 Not Found");
-            echo Xoom::$rootdir . "/public". Request::$path;
+            echo Request::$path;
         }
 
     }
