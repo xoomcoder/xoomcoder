@@ -63,6 +63,10 @@ class News
             extract(pathinfo($article));
             extract(View::showBlocMD($filename));
             // $result and $meta
+            $filters = [
+                "<img " => '<img loading="lazy" ',
+            ];
+            $result = str_replace(array_keys($filters), array_values($filters), $result);
             $class = $meta["class"] ?? "";
 
             $time = date("d/m/Y", filemtime($article));
