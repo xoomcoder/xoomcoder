@@ -50,7 +50,8 @@ class News
     // static methods
     static function showBloc ()
     {
-        $articles = glob(Xoom::$rootdir . "/../xoomcoder-website/markdown/article-*.md");
+        extract(Xoom::getConfig("contentdir"));
+        $articles = glob("$contentdir/markdown/article-*.md");
         usort($articles, function ($a, $b) {
             // https://www.php.net/manual/fr/function.filemtime
             return filemtime($a) < filemtime($b);

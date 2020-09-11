@@ -9,6 +9,7 @@ class Xoom
     static $canonical   = "";
     static $configas    = [];
     static $errors      = [];
+    static $sitedirs    = [];
 
     // static methods
 
@@ -26,8 +27,10 @@ class Xoom
         spl_autoload_register("Xoom::loadClass");
 
         Xoom::$configas["rootdir"] = Xoom::$rootdir;
-
+        // load all .json files
         Xoom::loadConfig();
+        // complete config
+        Xoom::completeConfig();
 
         Xoom::getRequest();
 
@@ -143,8 +146,25 @@ class Xoom
         $resultas = [];
         $listnames = explode(",", $names);
         foreach($listnames as $name) {
+            $name = trim($name);
             $resultas[$name] = Xoom::$configas[$name] ?? "";
         }
         return $resultas;
+    }
+
+    static function setConfig($key, $value)
+    {
+        Xoom::$configas[$key] = $value;
+    }
+
+    static function completeConfig ()
+    {
+        // FIXME: code should be more general
+        extract(Xoom::getConfig("rootdir,sitedir"));
+        // https://www.php.net/manual/fr/function.realpath.php
+        $contentdir = realpath("$rootdir/$sitedir");
+        if ($contentdir !== false) {
+            Xoom::setConfig("contentdir", $contentdir);
+        }
     }
 }
