@@ -26,10 +26,11 @@ class File
     static function buildClass ($name)
     {
         $code = File::content("xoom/etc/ex-Class.php");
+        extract(Xoom::getConfig("adminName,adminLicence"));
         $dicoas = [
             "MyClass"   => $name,
-            "@AUTHOR"   => Config::$adminName       ?? "X",
-            "@LICENCE"  => Config::$adminLicence    ?? "MIT",
+            "@AUTHOR"   => $adminName       ?? "X",
+            "@LICENCE"  => $adminLicence    ?? "MIT",
             "@DATETIME" => date("Y-m-d H:i:s"),
         ];
 

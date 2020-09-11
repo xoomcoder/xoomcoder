@@ -13,7 +13,7 @@ class Xoom
 
     // static methods
 
-    static function start($rootdir)
+    static function start($rootdir, $mode="web")
     {
         set_error_handler("Xoom::handleError");
 
@@ -32,11 +32,17 @@ class Xoom
         // complete config
         Xoom::completeConfig();
 
-        Xoom::getRequest();
+        if ($mode == "web") {
+            Xoom::getRequest();
+            // build the page to the browser
+            Xoom::sendResponse();    
+        }
+        elseif ($mode == "xterm") {
+            Terminal::runTerminal();
+        }
 
-        // build the page to the browser
-        Xoom::sendResponse();
     }
+
 
     static function handleError ($errno, $errstr, $errfile, $errline)
     {
