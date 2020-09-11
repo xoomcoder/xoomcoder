@@ -23,13 +23,14 @@ class Response
                 "js"    => "application/javascript",
                 "json"  => "application/json",
                 "css"   => "text/css",
+                "svg"   => "image/svg+xml",
             ];
             $mimetype = $mimes[Request::$extension] ?? mime_content_type($file);
 
             // router can help fix some bad urls 
             // but don't index bad urls
             header("X-Robots-Tag: noindex");
-            
+
             header("Content-Type: $mimetype");
             readfile($file);
         }
