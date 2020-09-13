@@ -301,6 +301,11 @@ article .date {
 code {
     margin:1rem;
 }
+pre.xcode {
+    background-color: #dddddd;
+    padding: 1rem;
+}
+
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
 {

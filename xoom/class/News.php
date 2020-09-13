@@ -63,9 +63,11 @@ class News
             extract(pathinfo($article));
             extract(View::showBlocMD($filename));
             // $result and $meta
+            // custom html upgrade
             $filters = [
                 "<img " => '<img loading="lazy" ',
                 "<a "   => '<a rel="nofollow" ',
+                "<pre><code "   => '<pre class="xcode"><code  ',
             ];
             $result = str_replace(array_keys($filters), array_values($filters), $result);
             $class = $meta["class"] ?? "";
