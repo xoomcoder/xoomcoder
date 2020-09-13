@@ -65,6 +65,7 @@ class News
             // $result and $meta
             $filters = [
                 "<img " => '<img loading="lazy" ',
+                "<a "   => '<a rel="nofollow" '
             ];
             $result = str_replace(array_keys($filters), array_values($filters), $result);
             $class = $meta["class"] ?? "";
