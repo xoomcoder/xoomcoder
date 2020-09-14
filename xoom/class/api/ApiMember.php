@@ -49,7 +49,13 @@ class ApiMember
                     Form::addJson($compoName, $compoCode);  
                 }
                 if ($compoName == "mypage") {
-                    Form::addJson("xcompo", [ "xform" => "xform.vue"]);
+                    Form::addJson("xcompo", [ 
+                        "xform" => "xform.vue",
+                        "xmap" => "xmap.vue",
+                        "xlist" => "xlist.vue",
+                        "xedit" => "xedit.vue",
+                        "xfiles" => "xfiles.vue",
+                    ]);
                 }
             }
         }

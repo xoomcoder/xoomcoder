@@ -62,6 +62,10 @@ class VueComponent
         ];
         $articles3 = [
             [ "id" => 15, "title" => "Publier une note", "code" => "", "compo" => "xform" ],
+            [ "id" => 16, "title" => "Vos Notes", "code" => "", "compo" => "xlist" ],
+            [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
+            [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
+            [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
         ];
 
 
@@ -100,6 +104,114 @@ class VueComponent
         $template = 
         <<<x
             <h4>Formulaire</h4>
+        x;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xlist ()
+    {
+        $template = 
+        <<<x
+            <h4>Vos Notes</h4>
+        x;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xmap ()
+    {
+        $template = 
+        <<<x
+            <h4>Carte</h4>
+        x;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xfiles ()
+    {
+        $template = 
+        <<<x
+            <h4>Explorateur de fichiers</h4>
+        x;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xedit ()
+    {
+        $template = 
+        <<<x
+            <h4>Editeur de Code</h4>
         x;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
