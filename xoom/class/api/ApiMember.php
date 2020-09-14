@@ -61,5 +61,25 @@ class ApiMember
         }
     }
 
+    static function geocms ()
+    {
+        if (Controller::checkMemberToken())
+        {
+            Form::filterText("title");
+            Form::filterText("code");
+            if (Form::isOK()) {
+                extract(Controller::$user);
+                Form::add("id_user", $id);
+                Form::add("username", $login);
+
+                Model::insert("geocms", Form::$formdatas);
+                $geocms = Model::read("geocms", "id_user", $id);
+                Form::mergeJson("data", [ "geocms" => $geocms]);
+
+                Form::setFeedback("publication OK...");
+            }
+
+        }
+    }
     //@end
 }

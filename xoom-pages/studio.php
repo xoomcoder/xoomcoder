@@ -58,6 +58,22 @@ article:hover {
 .options.active {
     top:0;
 }
+
+form {
+    padding:1rem;
+}
+form label {
+    margin:0.5rem 0;
+    display: inline-block;
+}
+input, textarea, button {
+    padding:0.5rem;
+}
+.feedback {
+    padding:1rem;
+    font-weight:700;
+}
+
 @media (min-width: 480px)
 {
     section {

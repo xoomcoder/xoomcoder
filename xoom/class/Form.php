@@ -19,6 +19,9 @@ class Form
         return (0 == $nberrors);
     }
 
+    static function add ($key, $value) {
+        Form::$formdatas[$key] = $value;
+    }
     static function filterInput($name, $default="")
     {
         $result = $_REQUEST["$name"] ?? $default;

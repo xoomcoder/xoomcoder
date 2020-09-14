@@ -27,10 +27,10 @@ class VueComponent
                     <section v-if="!hide[section.class]">
                         <h2>{{ section.title }}</h2>
                         <article v-for="article in section.articles" :key="article.id">
-                            <h3>{{ article.title }}</h3>
-                            <pre>{{ article.code }}</pre>
+                            <h3 v-if="article.title">{{ article.title }}</h3>
+                            <pre v-if="article.code">{{ article.code }}</pre>
                             <template v-if="article.compo">
-                                <component :is="article.compo">
+                                <component v-on:ajaxform="actAjaxForm" :is="article.compo" :params="article.params">
                                 </component>
                             </template>
                         </article>
@@ -71,8 +71,17 @@ class VueComponent
             [ "id" => 13, "title" => "VueJS", "code" => "" ],
             [ "id" => 14, "title" => "Laravel", "code" => "" ],
         ];
+
+        $xformParams = [
+            "title"     => "Publier une note",
+            "fields"    => [
+                [ "name" => "title", "type" => "text", "label" => "titre"],
+                [ "name" => "code", "type" => "textarea", "label" => "code"],
+            ], 
+        ];
+
         $articles3 = [
-            [ "id" => 15, "title" => "Publier une note", "code" => "", "compo" => "xform" ],
+            [ "id" => 15, "compo" => "xform", "params" => $xformParams ],
             [ "id" => 16, "title" => "Vos Notes", "code" => "", "compo" => "xlist" ],
             [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
             [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
@@ -106,6 +115,25 @@ class VueComponent
                 },
                 switchOptions () {
                     this.hide.options = !this.hide.options;
+                },
+                async actAjaxForm (event) {
+                    let fd = new FormData(event.target);
+                    // add login token
+                    let loginToken  = sessionStorage.getItem('loginToken');
+                    fd.append('loginToken', loginToken);
+
+                    let response = await fetch('api', {
+                        method: 'POST',
+                        body: fd
+                    });
+                    let json = await response.json();
+
+                    console.log(json);
+                    // show feedback
+                    if ('feedback' in json) {
+                        let feedback = event.target.querySelector('.feedback');
+                        if (feedback) feedback.innerHTML = json.feedback;
+                    }
                 }
             }
         }
@@ -118,10 +146,32 @@ class VueComponent
     {
         $template = 
         <<<x
-            <h4>Formulaire</h4>
+        <form @submit.prevent="doSubmit"> 
+            <h4>{{ params.title }}</h4>
+            <template v-for="field in params.fields">
+                <label>
+                    <span>{{ field.label }}</span>
+                    <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>
+                    <input v-else type="text" :name="field.name" required>
+                </label>
+            </template>   
+            <input type="hidden" name="classApi" value="Member">
+            <input type="hidden" name="methodApi" value="geocms">
+            <button type="submit">publier</button>
+            <div class="feedback"></div> 
+        </form>
         x;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $methods =
+        <<<'x'
+        doSubmit(event) {
+            // UX set the focus on first input
+            event.target.querySelector('[required]').focus();
+            this.$emit('ajaxform', event);        
+        }
+        x;
 
         $compoCode  =
         <<<x
@@ -129,10 +179,13 @@ class VueComponent
             template:`
             $template
             `,
+            emits: [ 'ajaxform' ],
+            props: [ 'params' ],
             data() {
                 return $jsonData;
             }, 
             methods: {
+                $methods
             }
         }
         x;
