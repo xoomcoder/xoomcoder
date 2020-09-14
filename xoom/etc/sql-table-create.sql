@@ -18,10 +18,11 @@ CREATE TABLE IF NOT EXISTS `manymany`
     `table2`        VARCHAR(160), 
     `quality`       VARCHAR(160), 
     `quantity`      DECIMAL(10,2), 
+    `id_user`       INT, 
     PRIMARY KEY (`id`)
 ) CHARSET=utf8mb4;
 
-CREATE TABLE IF NOT EXISTS `content`
+CREATE TABLE IF NOT EXISTS `geocms`
 ( 
     `id`                INT NOT NULL AUTO_INCREMENT, 
     `id_user`           INT, 
@@ -31,7 +32,9 @@ CREATE TABLE IF NOT EXISTS `content`
     `code`              TEXT, 
     `latitude`          DECIMAL(10,6),    
     `longitude`         DECIMAL(10,6),    
-    `altitude`          DECIMAL(10,2),    
+    `altitude`          DECIMAL(10,2),
+    `timestart`         DATETIME,
+    `timesend`          DATETIME,
     `image`             VARCHAR(160), 
     `priority`          INT, 
     `category`          VARCHAR(160), 

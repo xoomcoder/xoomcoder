@@ -36,5 +36,22 @@ class ApiMember
         }
 
     }
+
+    static function runVue ()
+    {
+        $name = Form::filterText("compoName");
+        if (Form::isOK()) {
+            $codeCompo =
+            <<<x
+            {
+                template:'<h1>$name</h1>'
+            }
+            x;
+
+            Form::addJson($name, $codeCompo);
+
+        }
+    }
+
     //@end
 }
