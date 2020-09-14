@@ -100,19 +100,22 @@ class VueComponent
         $articles3 = [
             [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
             [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
+        ];
+
+        $articles4 = [
             [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
             [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
             [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
         ];
-
 
         $jsonData   = [];
         $jsonData["sections"] = [
             [ "id" => 1, "class" => "projets", "title" => "Projets", "articles" => $articles1 ],
             [ "id" => 2, "class" => "technologies", "title" => "Technologies", "articles" => $articles2 ],
             [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ],
+            [ "id" => 4, "class" => "outils", "title" => "Outils", "articles" => $articles4 ],
         ];
-        $jsonData["hide"] = [ "options" => true ];
+        $jsonData["hide"] = [ "options" => true, "outils" => true ];
         $jsonData["data"] = [ 
             "geocms" => Model::read("geocms", "id_user", $id), 
         ];
