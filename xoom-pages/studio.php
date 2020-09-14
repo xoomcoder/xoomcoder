@@ -78,6 +78,9 @@ input, textarea, button {
     font-weight:700;
 }
 
+.w50 {
+    width:50%;
+}
 .w100 {
     width:100%;
 }
@@ -94,6 +97,7 @@ td {
     border: 1px solid #dddddd;
     padding:0.25rem;
     overflow-x:hidden;
+    text-align:left;
 }
 
 @media (min-width: 480px)
@@ -132,6 +136,14 @@ td {
     }
 }
 
+
+/* SPECIFIC CODE */
+td.code {
+    width:50vmin;
+}
+td.code pre {
+    overflow-x: auto;
+}
     </style>
 </head>
 <body>

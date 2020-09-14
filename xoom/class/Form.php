@@ -33,6 +33,24 @@ class Form
         return $result;
     }
 
+    /**
+     * dangerous: keep raw input with potential dangerous code
+     */
+    static function filterNone ($name, $default="")
+    {
+        $result = $_REQUEST["$name"] ?? $default;
+        // https://www.php.net/manual/fr/function.trim.php
+        $result = trim($result);
+
+        if ($result == "") {
+            Form::$errors[] = "texte vide";
+        }
+        
+        Form::$formdatas[$name] = $result;
+
+        return $result;
+    }
+
     static function filterText ($name, $default="")
     {
         $result = Form::filterInput($name, $default);

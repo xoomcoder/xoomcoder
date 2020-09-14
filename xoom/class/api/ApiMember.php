@@ -65,12 +65,18 @@ class ApiMember
     {
         if (Controller::checkMemberToken())
         {
+            extract(Controller::$user);
+
             Form::filterText("title");
             Form::filterText("category");
-            Form::filterText("code");
+            if ($level >= "100") {
+                Form::filterNone("code");
+            }
+            else {
+                Form::filterText("code");
+            }
             if (Form::isOK()) {
                 $now = date("Y-m-d H:i:s");
-                extract(Controller::$user);
                 Form::add("id_user", $id);
                 Form::add("username", $login);
                 Form::add("datePublication", $now);

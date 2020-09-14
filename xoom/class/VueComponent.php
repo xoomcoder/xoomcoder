@@ -237,19 +237,19 @@ class VueComponent
     {
         $template = 
         <<<x
-            <h4>{{ params.title }}</h4>
+            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ mydata[params.model].length }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
                         <tr>
-                            <td v-for="(colv, coln) in params.cols">{{ colv }}</td>
+                            <td v-for="(colv, coln) in params.cols" :class="coln">{{ colv }}</td>
                             <td>supprimer</td>  
                         </tr>
                     </thead>
                     <tbody>
                         <tr class="w100" v-for="line in mydata[params.model]" :key="line.id">
                             <td v-for="(colv, coln) in params.cols">
-                                {{ line[coln]}}
+                                <pre>{{ line[coln]}}</pre>
                             </td>
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
