@@ -16,8 +16,7 @@ class VueComponent
         <div class="mypage">
             <header>
                 <nav>
-                    <h1>XoomCoder Studio</h1>
-                    <h2>Bienvenue $login</h2>
+                    <h1>XoomCoder Studio / Bienvenue $login</h1>
                     <a class="home" href="/">retourner sur le site</a>
                     <a class="logout" href="#logout" @click="actLogout">déconnexion</a>
                 </nav>
@@ -76,12 +75,20 @@ class VueComponent
             "title"     => "Publier une note",
             "fields"    => [
                 [ "name" => "title", "type" => "text", "label" => "titre"],
+                [ "name" => "category", "type" => "text", "label" => "catégorie"],
                 [ "name" => "code", "type" => "textarea", "label" => "code"],
             ], 
         ];
         $xlistParams = [
             "title"     => "Vos Notes",
             "model"     => "geocms",
+            "cols"      => [
+                "id" => "id", 
+                "title" => "titre", 
+                "category" => "catégorie", 
+                "code" => "code", 
+                "datePublication" => "date Publication", 
+            ],
         ];
 
         $articles3 = [
@@ -233,12 +240,20 @@ class VueComponent
             <h4>{{ params.title }}</h4>
             <div v-if="mydata">
                 <table>
-                    <tr class="w100" v-for="line in mydata[params.model]" :key="line.id">
-                        <td>{{ line.title }}</td>
-                        <td>{{ line.code }}</td>
-                        <td>{{ line.datePublication }}</td> 
-                        <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
-                    </tr>
+                    <thead>
+                        <tr>
+                            <td v-for="(colv, coln) in params.cols">{{ colv }}</td>
+                            <td>supprimer</td>  
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="w100" v-for="line in mydata[params.model]" :key="line.id">
+                            <td v-for="(colv, coln) in params.cols">
+                                {{ line[coln]}}
+                            </td>
+                            <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
+                        </tr>
+                    </tbody>
                 </table>
             </div>  
         x;

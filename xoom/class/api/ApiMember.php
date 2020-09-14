@@ -66,6 +66,7 @@ class ApiMember
         if (Controller::checkMemberToken())
         {
             Form::filterText("title");
+            Form::filterText("category");
             Form::filterText("code");
             if (Form::isOK()) {
                 $now = date("Y-m-d H:i:s");
@@ -73,7 +74,7 @@ class ApiMember
                 Form::add("id_user", $id);
                 Form::add("username", $login);
                 Form::add("datePublication", $now);
-                
+
                 Model::insert("geocms", Form::$formdatas);
                 $geocms = Model::read("geocms", "id_user", $id);
                 Form::mergeJson("data", [ "geocms" => $geocms]);
