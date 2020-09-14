@@ -74,27 +74,32 @@ class ApiMember
                 x;
 
                 $articles1 = [
-                    [ "id" => 1, "title" => "article 1", "code" => "code1"],
-                    [ "id" => 2, "title" => "article 2", "code" => "code2" ],
-                    [ "id" => 3, "title" => "article 3", "code" => "code3" ],
+                    [ "id" => 1, "title" => "landing page", "code" => "level1"],
+                    [ "id" => 2, "title" => "site vitrine", "code" => "level2" ],
+                    [ "id" => 3, "title" => "blog", "code" => "level3" ],
+                    [ "id" => 4, "title" => "cms", "code" => "level4" ],
+                    [ "id" => 5, "title" => "marketplace", "code" => "level5" ],
+                    [ "id" => 6, "title" => "teamwork", "code" => "level6" ],
                 ];
                 $articles2 = [
-                    [ "id" => 4, "title" => "article 4", "code" => "code4" ],
-                    [ "id" => 5, "title" => "article 5", "code" => "code5" ],
-                    [ "id" => 6, "title" => "article 6", "code" => "code6" ],
+                    [ "id" => 7, "title" => "html", "code" => "" ],
+                    [ "id" => 8, "title" => "css", "code" => "" ],
+                    [ "id" => 9, "title" => "js", "code" => "" ],
+                    [ "id" => 10, "title" => "php", "code" => "" ],
+                    [ "id" => 11, "title" => "sql", "code" => "" ],
+                    [ "id" => 12, "title" => "WordPress", "code" => "" ],
+                    [ "id" => 13, "title" => "VueJS", "code" => "" ],
+                    [ "id" => 14, "title" => "Laravel", "code" => "" ],
                 ];
                 $articles3 = [
-                    [ "id" => 7, "title" => "article 7", "code" => "code7" ],
-                    [ "id" => 8, "title" => "article 8", "code" => "code8" ],
-                    [ "id" => 9, "title" => "article 9", "code" => "code9" ],
                 ];
 
 
                 $jsonData   = [];
                 $jsonData["sections"] = [
-                    [ "id" => 1, "title" => "section 1", "articles" => $articles1 ],
-                    [ "id" => 2, "title" => "section 2", "articles" => $articles2 ],
-                    [ "id" => 3, "title" => "section 3", "articles" => $articles3 ],
+                    [ "id" => 1, "title" => "Projets", "articles" => $articles1 ],
+                    [ "id" => 2, "title" => "Technologies", "articles" => $articles2 ],
+                    [ "id" => 3, "title" => "Bloc-notes", "articles" => $articles3 ],
                 ];
                 $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
                 $compoCode  =
