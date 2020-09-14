@@ -29,7 +29,7 @@ class VueComponent
                             <h3 v-if="article.title">{{ article.title }}</h3>
                             <pre v-if="article.code">{{ article.code }}</pre>
                             <template v-if="article.compo">
-                                <component v-on:ajaxform="actAjaxForm" :is="article.compo" :params="article.params">
+                                <component :is="article.compo" :params="article.params" v-on:ajaxform="actAjaxForm" v-on:sms="actSms">
                                 </component>
                             </template>
                         </article>
@@ -110,6 +110,7 @@ class VueComponent
         $jsonData["data"] = [ 
             "geocms" => Model::read("geocms", "id_user", $id), 
         ];
+        $jsonData["sms"] = [ "event" => null ];
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
         
@@ -124,6 +125,7 @@ class VueComponent
             }, 
             provide () {
                 return {
+                    sms: this.sms,
                     mydata: this.data
                 };
             },
@@ -167,12 +169,17 @@ class VueComponent
                             let feedback = event.target.querySelector('.feedback');
                             if (feedback) feedback.innerHTML = json.feedback;
                         }
+
                     }
 
                     if (('data' in json) && ('geocms' in json.data)) {
                         this.data.geocms = json.data.geocms;
                         console.log(this.data);
                     }
+                },
+                actSms (event) {
+                    console.log(event);
+                    this.sms.event = event;
                 }
             }
         }
@@ -186,30 +193,55 @@ class VueComponent
         $template = 
         <<<x
         <h4>{{ params.title }}</h4>
-        <form @submit.prevent="doSubmit"> 
-            <template v-for="field in params.fields">
-                <label>
-                    <span>{{ field.label }}</span>
-                    <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>
-                    <input v-else type="text" :name="field.name" required>
-                </label>
-            </template>   
-            <input type="hidden" name="classApi" value="Member">
-            <input type="hidden" name="methodApi" value="geocms">
-            <button type="submit">publier</button>
-            <div class="feedback"></div> 
-        </form>
+        <template v-if="sms.event && sms.event.action=='update'">
+            <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
+            <form @submit.prevent="doSubmitUpdate"> 
+                <template v-for="field in params.fields">
+                    <label>
+                        <span>{{ field.label }}</span>
+                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10" v-model="sms.event.line[field.name]"></textarea>
+                        <input v-else type="text" :name="field.name" required v-model="sms.event.line[field.name]">
+                    </label>
+                </template>   
+                <input type="hidden" name="id" :value="sms.event.line.id">
+                <input type="hidden" name="classApi" value="Member">
+                <input type="hidden" name="methodApi" value="geocmsUpdate">
+                <button type="submit">modifier</button>
+                <div class="feedback"></div> 
+            </form>
+        </template>
+        <template v-else>
+            <form @submit.prevent="doSubmitCreate"> 
+                <template v-for="field in params.fields">
+                    <label>
+                        <span>{{ field.label }}</span>
+                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>
+                        <input v-else type="text" :name="field.name" required>
+                    </label>
+                </template>   
+                <input type="hidden" name="classApi" value="Member">
+                <input type="hidden" name="methodApi" value="geocms">
+                <button type="submit">publier</button>
+                <div class="feedback"></div> 
+            </form>
+        </template>
         x;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
         <<<'x'
-        doSubmit(event) {
+        doSubmitCreate(event) {
+            // UX set the focus on first input
+            event.target.querySelector('[required]').focus();
+            this.$emit('ajaxform', event);        
+        },
+        doSubmitUpdate(event) {
             // UX set the focus on first input
             event.target.querySelector('[required]').focus();
             this.$emit('ajaxform', event);        
         }
+
         x;
 
         $compoCode  =
@@ -218,7 +250,8 @@ class VueComponent
             template:`
             $template
             `,
-            emits: [ 'ajaxform' ],
+            inject: [ 'mydata', 'sms' ],
+            emits: [ 'ajaxform', 'sms' ],
             props: [ 'params' ],
             data() {
                 return $jsonData;
@@ -243,6 +276,7 @@ class VueComponent
                     <thead>
                         <tr>
                             <td v-for="(colv, coln) in params.cols" :class="coln">{{ colv }}</td>
+                            <td>modifier</td>  
                             <td>supprimer</td>  
                         </tr>
                     </thead>
@@ -251,6 +285,7 @@ class VueComponent
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
+                            <td><button @click.prevent="doUpdate(line)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
                     </tbody>
@@ -263,6 +298,14 @@ class VueComponent
 
         $methods =
         <<<'x'
+        doUpdate(line) {
+            let event = { 
+                line: Object.assign({}, line), 
+                table: this.params.model, 
+                action: 'update'
+            };
+            this.$emit('sms', event);        
+        },
         doDelete(id) {
             let event = {};
             event.extrafd = { 
@@ -283,7 +326,7 @@ class VueComponent
             $template
             `,
             inject: [ 'mydata' ],
-            emits: [ 'ajaxform' ],
+            emits: [ 'ajaxform', 'sms' ],
             props: [ 'params' ],
             data() {
                 return $jsonData;

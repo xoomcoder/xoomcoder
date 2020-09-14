@@ -90,5 +90,38 @@ class ApiMember
 
         }
     }
+    static function geocmsUpdate ()
+    {
+        if (Controller::checkMemberToken())
+        {
+            extract(Controller::$user, EXTR_PREFIX_ALL, "user");
+
+            Form::filterText("title");
+            Form::filterText("category");
+            if ($level >= "100") {
+                Form::filterNone("code");
+            }
+            else {
+                Form::filterText("code");
+            }
+            if (Form::isOK()) {
+                $id = intval(Form::filterInput("id"));
+                $found = Model::read("geocms", "id", $id);
+                foreach($found as $line) {
+                    extract($line);
+                    if ($id_user == $user_id) {
+                        Model::update("geocms", Form::$formdatas, $id);
+                    }
+                }
+
+                $geocms = Model::read("geocms", "id_user", $user_id);
+                Form::mergeJson("data", [ "geocms" => $geocms]);
+
+                Form::setFeedback("modification OK...");
+            }
+
+        }
+    }
+
     //@end
 }
