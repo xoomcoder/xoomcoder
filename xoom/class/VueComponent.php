@@ -73,9 +73,15 @@ class VueComponent
 
         $xformParams = [
             "title"     => "Publier une note",
-            "fields"    => [
+            "fieldsCreate"    => [
                 [ "name" => "title", "type" => "text", "label" => "titre"],
                 [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                [ "name" => "code", "type" => "textarea", "label" => "code"],
+            ], 
+            "fieldsUpdate"    => [
+                [ "name" => "title", "type" => "text", "label" => "titre"],
+                [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                 [ "name" => "code", "type" => "textarea", "label" => "code"],
             ], 
         ];
@@ -196,7 +202,7 @@ class VueComponent
         <template v-if="sms.event && sms.event.action=='update'">
             <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
             <form @submit.prevent="doSubmitUpdate"> 
-                <template v-for="field in params.fields">
+                <template v-for="field in params.fieldsUpdate">
                     <label>
                         <span>{{ field.label }}</span>
                         <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10" v-model="sms.event.line[field.name]"></textarea>
@@ -212,7 +218,7 @@ class VueComponent
         </template>
         <template v-else>
             <form @submit.prevent="doSubmitCreate"> 
-                <template v-for="field in params.fields">
+                <template v-for="field in params.fieldsCreate">
                     <label>
                         <span>{{ field.label }}</span>
                         <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>

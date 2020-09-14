@@ -98,6 +98,7 @@ class ApiMember
 
             Form::filterText("title");
             Form::filterText("category");
+            Form::filterDatetime("datePublication");
             if ($level >= "100") {
                 Form::filterNone("code");
             }

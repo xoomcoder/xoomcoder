@@ -123,6 +123,20 @@ class Form
         return $result;
     }
 
+    static function filterDatetime ($name, $default="")
+    {
+        $result = Form::filterInput($name, $default);
+        // https://www.php.net/manual/fr/function.preg-replace.php
+        if ($result == "") {
+            Form::$errors[] = "date vide";
+        }
+        if ($result != "") {
+            $result = date("Y-m-d H:i:s", strtotime($result));
+        }
+        Form::$formdatas[$name] = $result;
+        return $result;
+    }
+
     static function process ()
     {
         // debug
