@@ -92,15 +92,16 @@ let myloader = function (name, url)
             );
             `;
             let compocode = eval(code);
-
-            // // add new components
-            // if (json.xcompo) {
-            //     for(let c in json.xcompo) {
-            //         myloader(c, json.xcompo[c]);
-            //     }
-            // }
-
             resolve(compocode);
+
+            // FIXME: VueJS SHOULD ADD A DEFAULT COMPONENT LOAADER CALLBACK (AS IN PHP...) 
+            // register new sub-components needed
+            if (json.xcompo) {
+                for(let c in json.xcompo) {
+                    myloader(c, json.xcompo[c]);
+                }
+            }
+
         }
     }
     let asyncComp = Vue.defineAsyncComponent(() => new Promise(interload));
