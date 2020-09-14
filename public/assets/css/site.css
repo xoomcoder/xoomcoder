@@ -313,6 +313,9 @@ main nav a {
     padding:1rem;
     background-color: #eeeeee;
 }
+main article {
+    line-height: 1.2rem;
+}
 
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
@@ -403,17 +406,13 @@ main nav a {
 
 @media (min-width: 960px)
 {
-    
     section article {
         width: calc(100% / 4);
     }
-
     section.x3col > * {
         width: calc(100% / 3);
     }
-
 }
-
 .w100, section > .w100 {
     width:100%;
 }
@@ -422,7 +421,6 @@ main nav a {
 /*********************/
 /* SPECIFIC PAGE CSS */
 /*********************/
-
 body.news article p {
     text-align:left;
     white-space: pre-line;
@@ -431,16 +429,13 @@ body.news article p {
 body.news article h2:before {
     content: '🔥 ';
 }
-
 article.annonce h3 {
     text-align:left;
     padding:1rem;
 }
-
 .xmap {
     min-height:80vmin;
 }
-
 .xmap * {
     width: auto;
     transition:none;
@@ -448,11 +443,9 @@ article.annonce h3 {
 .xmap pre {
     padding:0;
 }
-
 .emploi section {
     justify-content: start;
 }
-
 .emploi article {
     padding-bottom:2rem;
 }
