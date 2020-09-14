@@ -66,12 +66,34 @@ form label {
     margin:0.5rem 0;
     display: inline-block;
 }
+form label span {
+    display: inline-block;
+    padding: 0.5rem;
+}
 input, textarea, button {
     padding:0.5rem;
 }
 .feedback {
     padding:1rem;
     font-weight:700;
+}
+
+.w100 {
+    width:100%;
+}
+
+/* TABLES */
+table {
+    table-layout:fixed;
+    padding:1rem;
+}
+thead td {
+    background-color:#cccccc;
+}
+td {
+    border: 1px solid #dddddd;
+    padding:0.25rem;
+    overflow-x:hidden;
 }
 
 @media (min-width: 480px)

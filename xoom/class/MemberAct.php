@@ -128,7 +128,7 @@ class MemberAct
 
         extract($paramas);
         if (($table ?? false) && ($id ?? false)) {
-            $notes = Model::read("blocnote", "id", $id);
+            $notes = Model::read($table, "id", $id);
             foreach($notes as $note) {
                 extract($note);
                 $iduser = intval($id_user ?? 0);
@@ -137,6 +137,17 @@ class MemberAct
                     Model::delete($table, $id);
                 }
             }
+        }
+    }
+
+    static function apiDbRead ($paramas)
+    {
+        extract($paramas);
+        if (($table ?? false) && ("" != ($json ?? ""))) {
+            // filter on id_user
+            extract(Controller::$user);
+            $resultas = Model::read($table, "id_user", $id);
+            Form::mergeJson($json, [$table => $resultas]);
         }
     }
 

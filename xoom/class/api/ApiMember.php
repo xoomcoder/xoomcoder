@@ -23,9 +23,9 @@ class ApiMember
                 MemberAct::run($note2, false, true);
             }
             
-            extract(Controller::$user);
-            $blocnotes = Model::read("blocnote", "id_user", $id);
-            Form::mergeJson("data", [ "blocnote" => $blocnotes]);
+            // extract(Controller::$user);
+            //$blocnotes = Model::read("blocnote", "id_user", $id);
+            //Form::mergeJson("data", [ "blocnote" => $blocnotes]);
 
             $now = date("Y-m-d H:i:s");
             Form::setFeedback("($now)...");
@@ -68,10 +68,12 @@ class ApiMember
             Form::filterText("title");
             Form::filterText("code");
             if (Form::isOK()) {
+                $now = date("Y-m-d H:i:s");
                 extract(Controller::$user);
                 Form::add("id_user", $id);
                 Form::add("username", $login);
-
+                Form::add("datePublication", $now);
+                
                 Model::insert("geocms", Form::$formdatas);
                 $geocms = Model::read("geocms", "id_user", $id);
                 Form::mergeJson("data", [ "geocms" => $geocms]);

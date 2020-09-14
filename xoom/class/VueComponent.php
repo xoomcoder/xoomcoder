@@ -26,7 +26,7 @@ class VueComponent
                 <template v-for="section in sections" :key="section.id">
                     <section v-if="!hide[section.class]">
                         <h2>{{ section.title }}</h2>
-                        <article v-for="article in section.articles" :key="article.id">
+                        <article v-for="article in section.articles" :key="article.id" :class="article.class">
                             <h3 v-if="article.title">{{ article.title }}</h3>
                             <pre v-if="article.code">{{ article.code }}</pre>
                             <template v-if="article.compo">
@@ -85,8 +85,8 @@ class VueComponent
         ];
 
         $articles3 = [
-            [ "id" => 15, "compo" => "xform", "params" => $xformParams ],
-            [ "id" => 16, "compo" => "xlist", "params" => $xlistParams ],
+            [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
+            [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
             [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
             [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
             [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
@@ -129,7 +129,20 @@ class VueComponent
                     this.hide.options = !this.hide.options;
                 },
                 async actAjaxForm (event) {
-                    let fd = new FormData(event.target);
+                    let fd = null;
+                    if ('target' in event) {
+                        fd = new FormData(event.target);
+                        // reset
+                        event.target.reset();
+                    }
+                    else {
+                        fd = new FormData;
+                    }
+                    if('extrafd' in event) {
+                        for(let k in event.extrafd) {
+                            fd.append(k, event.extrafd[k]);
+                        }            
+                    }
                     // add login token
                     let loginToken  = sessionStorage.getItem('loginToken');
                     fd.append('loginToken', loginToken);
@@ -143,12 +156,15 @@ class VueComponent
                     console.log(json);
                     // show feedback
                     if ('feedback' in json) {
-                        let feedback = event.target.querySelector('.feedback');
-                        if (feedback) feedback.innerHTML = json.feedback;
+                        if ('target' in event){
+                            let feedback = event.target.querySelector('.feedback');
+                            if (feedback) feedback.innerHTML = json.feedback;
+                        }
                     }
 
-                    if ('geocms' in json.data) {
+                    if (('data' in json) && ('geocms' in json.data)) {
                         this.data.geocms = json.data.geocms;
+                        console.log(this.data);
                     }
                 }
             }
@@ -215,14 +231,35 @@ class VueComponent
         $template = 
         <<<x
             <h4>{{ params.title }}</h4>
-            <ol v-if="mydata">
-                <li v-for="line in mydata[params.model]" :key="line.id">
-                    {{ line.title }}
-                </li>
-            </ol>  
+            <div v-if="mydata">
+                <table>
+                    <tr class="w100" v-for="line in mydata[params.model]" :key="line.id">
+                        <td>{{ line.title }}</td>
+                        <td>{{ line.code }}</td>
+                        <td>{{ line.datePublication }}</td> 
+                        <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
+                    </tr>
+                </table>
+            </div>  
         x;
 
+
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $methods =
+        <<<'x'
+        doDelete(id) {
+            let event = {};
+            event.extrafd = { 
+                classApi: 'Member',
+                methodApi: 'run',
+                note2: `
+                    DbDelete?table=${this.params.model}&id=${id}
+                    data/DbRead?table=geocms
+                    ` };    
+            this.$emit('ajaxform', event);        
+        }
+        x;
 
         $compoCode  =
         <<<x
@@ -237,6 +274,7 @@ class VueComponent
                 return $jsonData;
             }, 
             methods: {
+                $methods
             }
         }
         x;
