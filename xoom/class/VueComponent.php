@@ -24,7 +24,7 @@ class VueComponent
             </header>
             <main>
                 <template v-for="section in sections" :key="section.id">
-                    <section>
+                    <section v-if="!hide[section.class]">
                         <h2>{{ section.title }}</h2>
                         <article v-for="article in section.articles" :key="article.id">
                             <h3>{{ article.title }}</h3>
@@ -39,7 +39,18 @@ class VueComponent
             </main> 
             <footer>
                 <p>XoomCoder Studio * tous droits réservés</p>
-            </footer>  
+            </footer>
+            <div class="toolbar">
+                <img @click="switchOptions" class="action settings" src="assets/img/settings.svg" alt="settings">
+            </div>  
+            <div :class="{ 'options': true, 'active': !hide.options }">
+                <h2>Options</h2>
+                <h2>sections</h2>
+                <label  v-for="section in sections">
+                    <span>{{ section.title }}</span>
+                    <input type="checkbox" checked @click="hide[section.class] = !hide[section.class]">
+                </label>
+            </div>  
         </div> 
         x;
         $articles1 = [
@@ -71,10 +82,11 @@ class VueComponent
 
         $jsonData   = [];
         $jsonData["sections"] = [
-            [ "id" => 1, "title" => "Projets", "articles" => $articles1 ],
-            [ "id" => 2, "title" => "Technologies", "articles" => $articles2 ],
-            [ "id" => 3, "title" => "Bloc-notes", "articles" => $articles3 ],
+            [ "id" => 1, "class" => "projets", "title" => "Projets", "articles" => $articles1 ],
+            [ "id" => 2, "class" => "technologies", "title" => "Technologies", "articles" => $articles2 ],
+            [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ],
         ];
+        $jsonData["hide"] = [ "options" => true ];
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
         
@@ -91,6 +103,9 @@ class VueComponent
                 actLogout() {
                     sessionStorage.setItem('loginToken', '');
                     location.replace('login');   
+                },
+                switchOptions () {
+                    this.hide.options = !this.hide.options;
                 }
             }
         }

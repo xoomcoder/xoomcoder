@@ -23,10 +23,42 @@ html, body {
     width:100%;
     /* transition: all 0.5s ease-out; */ /* TOO BIG */
 }
+h2 {
+    border: 1px solid #cccccc;
+    background-color: #eeeeee;
+    padding: 1rem;
+}
 header nav a {
     display: inline-block;
 }
-@media (min-width: 640px)
+article:hover {
+    background-color: #eeeeee;
+    cursor:pointer;
+}
+
+.toolbar {
+    position:fixed;
+    top:2rem;
+    right:2rem;
+    width:4vmin;
+    height:4vmin;
+    z-index:9999;
+    cursor:pointer;
+}
+.options {
+    position:fixed;
+    top:100%;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index:999;
+    transition: all 0.5s ease-out;
+    background-color: rgba(200,200,200,0.9);
+}
+.options.active {
+    top:0;
+}
+@media (min-width: 480px)
 {
     section {
         display:flex;
@@ -34,14 +66,31 @@ header nav a {
     }
     section article {
         margin:0.25rem;
+        width: calc(100% / 2 - 0.5rem);
+    }
+}
+@media (min-width: 640px)
+{
+    section article {
+        width: calc(100% / 3 - 0.5rem);
+    }
+}
+@media (min-width: 720px)
+{
+    section article {
         width: calc(100% / 4 - 0.5rem);
     }
 }
-
 @media (min-width: 960px)
 {
     section article {
         width: calc(100% / 5 - 0.5rem);
+    }
+}
+@media (min-width: 1200px)
+{
+    section article {
+        width: calc(100% / 6 - 0.5rem);
     }
 }
 
