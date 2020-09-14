@@ -61,16 +61,21 @@ class View
         $file = "$contentdir/markdown/$filename.md";
         if (($file!= "") && is_file($file)) {
             $cmd = file_get_contents($file);
-            AdminCommand::run($cmd, false, true);
-            $meta = json_decode(AdminCommand::getBloc("meta", "{}"), true);
-            $out["meta"] = $meta;
-
-            $code = AdminCommand::getBloc("markdown");
-            $Parsedown = new Parsedown();
-            $out["result"] = $Parsedown->text($code); # prints: <p>Hello <em>Parsedown</em>!</p>    
+            $out = View::parseBlocMD($cmd);
         }
         return $out;
     }
 
+    static function parseBlocMD ($cmd)
+    {
+        AdminCommand::run($cmd, false, true);
+        $meta = json_decode(AdminCommand::getBloc("meta", "{}"), true);
+        $out["meta"] = $meta;
+
+        $code = AdminCommand::getBloc("markdown");
+        $Parsedown = new Parsedown();
+        $out["result"] = $Parsedown->text($code); # prints: <p>Hello <em>Parsedown</em>!</p>    
+        return $out;
+    }
     //@end
 }

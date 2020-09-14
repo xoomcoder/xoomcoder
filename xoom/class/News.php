@@ -49,7 +49,60 @@ class News
         return $mediafile;
     }
 
-    // static methods
+    static function showCms ()
+    {
+        $users = Model::read("user", "level", 100);
+        foreach($users as $user) {
+            extract($user, EXTR_PREFIX_ALL, "user");
+            // $notes = Model::read("geocms", "id_user", $user_id);
+            $sql =
+            <<<x
+            SELECT * FROM geocms
+            WHERE 
+            id_user = :id_user
+            AND 
+            category = :category
+            ORDER BY datePublication DESC
+
+            x;
+
+            $tokens = [
+                "id_user"   => $user_id,
+                "category"  => "news",
+            ];
+            $notes = Model::sendSql($sql, $tokens);
+
+            $html = "";
+            foreach($notes as $note) {
+                extract($note);
+                // => $code
+                extract(View::parseBlocMD($code));
+                // $result and $meta
+                // custom html upgrade
+                $filters = [
+                    "<img " => '<img loading="lazy" ',
+                    "<a "   => '<a rel="nofollow" ',
+                    "<pre><code "   => '<pre class="xcode"><code  ',
+                ];
+                $result = str_replace(array_keys($filters), array_values($filters), $result);
+                $class = $meta["class"] ?? "";
+    
+                $time = date("d/m/Y", strtotime($datePublication));
+                $html .= 
+                <<<x
+                <article class="$class">
+                    $result
+                    <small class="date">publié le: $time</small>
+                </article>
+                x;
+                    
+            }
+
+            echo $html;
+
+        }
+            
+    }
     static function showBloc ()
     {
         extract(Xoom::getConfig("contentdir"));
