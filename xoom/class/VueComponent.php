@@ -79,10 +79,14 @@ class VueComponent
                 [ "name" => "code", "type" => "textarea", "label" => "code"],
             ], 
         ];
+        $xlistParams = [
+            "title"     => "Vos Notes",
+            "model"     => "geocms",
+        ];
 
         $articles3 = [
             [ "id" => 15, "compo" => "xform", "params" => $xformParams ],
-            [ "id" => 16, "title" => "Vos Notes", "code" => "", "compo" => "xlist" ],
+            [ "id" => 16, "compo" => "xlist", "params" => $xlistParams ],
             [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
             [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
             [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
@@ -96,6 +100,9 @@ class VueComponent
             [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ],
         ];
         $jsonData["hide"] = [ "options" => true ];
+        $jsonData["data"] = [ 
+            "geocms" => Model::read("geocms", "id_user", $id), 
+        ];
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
         
@@ -108,6 +115,11 @@ class VueComponent
             data() {
                 return $jsonData;
             }, 
+            provide () {
+                return {
+                    mydata: this.data
+                };
+            },
             methods: {
                 actLogout() {
                     sessionStorage.setItem('loginToken', '');
@@ -134,6 +146,10 @@ class VueComponent
                         let feedback = event.target.querySelector('.feedback');
                         if (feedback) feedback.innerHTML = json.feedback;
                     }
+
+                    if ('geocms' in json.data) {
+                        this.data.geocms = json.data.geocms;
+                    }
                 }
             }
         }
@@ -146,8 +162,8 @@ class VueComponent
     {
         $template = 
         <<<x
+        <h4>{{ params.title }}</h4>
         <form @submit.prevent="doSubmit"> 
-            <h4>{{ params.title }}</h4>
             <template v-for="field in params.fields">
                 <label>
                     <span>{{ field.label }}</span>
@@ -198,7 +214,12 @@ class VueComponent
     {
         $template = 
         <<<x
-            <h4>Vos Notes</h4>
+            <h4>{{ params.title }}</h4>
+            <ol v-if="mydata">
+                <li v-for="line in mydata[params.model]" :key="line.id">
+                    {{ line.title }}
+                </li>
+            </ol>  
         x;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
@@ -209,6 +230,9 @@ class VueComponent
             template:`
             $template
             `,
+            inject: [ 'mydata' ],
+            emits: [ 'ajaxform' ],
+            props: [ 'params' ],
             data() {
                 return $jsonData;
             }, 
