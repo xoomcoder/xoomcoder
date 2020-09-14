@@ -310,8 +310,10 @@ main nav {
     padding:1rem;
 }
 main nav a {
-    padding:1rem;
+    padding: 1rem;
     background-color: #eeeeee;
+    display: inline-block;
+    width: auto;
 }
 main article {
     line-height: 1.5rem;
