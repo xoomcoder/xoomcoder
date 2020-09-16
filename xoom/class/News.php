@@ -111,6 +111,7 @@ class News
             // make summary to avoid duplicate content
             $result = strip_tags($result);
             $result = substr($result, 0, 300);
+
             $result = 
             <<<x
             <h2><a href="/$seouri--$bid">$title</a></h2>
@@ -119,6 +120,15 @@ class News
             x;
         }
 
+        // add cover image
+        $cover  = $meta["cover"] ?? "";
+        if ($cover) {
+            $result = 
+            <<<x
+            <img src="/assets/square/$cover.jpg" alt="$cover cover">
+            $result
+            x;
+        }
         $class = $meta["class"] ?? "";
 
         $time = date("d/m/Y", strtotime($datePublication));
