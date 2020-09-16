@@ -82,7 +82,7 @@ class News
             
     }
 
-    static function buildHtml ($geocms)
+    static function buildHtml ($geocms, $summary=true)
     {
         extract($geocms);
         // $code
@@ -107,7 +107,7 @@ class News
         }
         $result = str_replace(array_keys($filters), array_values($filters), $result);
 
-        if ($codelength >= 2000) {
+        if ($summary && ($codelength >= 2000)) {
             // make summary to avoid duplicate content
             $result = strip_tags($result);
             $result = substr($result, 0, 300);

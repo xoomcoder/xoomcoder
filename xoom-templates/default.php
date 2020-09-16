@@ -5,7 +5,7 @@ extract($geocms);
 
 include __DIR__ . "/header.php";
 
-$article = News::buildHtml($geocms);       
+$article = News::buildHtml($geocms, false);       
 echo 
 <<<x
     <section class="single">
