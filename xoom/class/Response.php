@@ -157,13 +157,8 @@ class Response
 
     static function Htmlheader ()
     {
-        $uri = "https://xoomcoder.com/" . Xoom::$canonical;
-        $res = 
-        <<<x
-        <meta name="description" content="$uri - XoomCoder - Formation Développeur Fullstack à Distance">
-        <title>$uri - XoomCoder * Formation Développeur Fullstack à Distance</title>
-        <link rel="canonical" href="$uri">
-        x;
+        $canonical = Xoom::$canonical;
+        $uri = "https://xoomcoder.com/$canonical";        
 
         $geocms = Response::$contents["dbline"] ?? []; 
         if (!empty($geocms)) {
@@ -177,6 +172,15 @@ class Response
             <link rel="canonical" href="$uri--$bid">
             x;
     
+        }
+        else {
+            if ($canonical == "index") $canonical = "Accueil";
+            $res = 
+            <<<x
+            <meta name="description" content="$canonical - XoomCoder - Formation Développeur Fullstack à Distance">
+            <title>$canonical - XoomCoder * Formation Développeur Fullstack à Distance</title>
+            <link rel="canonical" href="$uri">
+            x;
         }
 
         echo $res;
