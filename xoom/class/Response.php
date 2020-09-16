@@ -174,7 +174,7 @@ class Response
     
         }
         else {
-            if ($canonical == "index") $canonical = "Accueil";
+            if ($canonical == "") $canonical = "Accueil";
             $res = 
             <<<x
             <meta name="description" content="$canonical - XoomCoder - Formation Développeur Fullstack à Distance">
