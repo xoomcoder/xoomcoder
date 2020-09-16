@@ -112,7 +112,7 @@ class News
             $titlelength = mb_strlen($title);
             $result = strip_tags($result);
             // remove title
-            $result = substr($result, $titlelength, 1000);
+            $result = trim(substr($result, $titlelength, 1000));
 
             $result = 
             <<<x
