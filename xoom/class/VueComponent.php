@@ -90,6 +90,7 @@ class VueComponent
             "model"     => "geocms",
             "cols"      => [
                 "id" => "id", 
+                "uri" => "URI", 
                 "title" => "titre", 
                 "category" => "catégorie", 
                 "code" => "code", 
