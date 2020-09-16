@@ -165,10 +165,10 @@ class Response
             extract($geocms);
             $bid    = Response::id2name($id);
 
-            $noindex = '<meta name="robots" content="noindex">';
+            $noindex = '<meta name="robots" content="index">';
             $codelength = mb_strlen($code);
             if ($codelength > 2000) {
-                $noindex = "";  // index content as big enough
+                // $noindex = "";  // index content as big enough
             }
 
             $res = 
