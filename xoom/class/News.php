@@ -123,9 +123,11 @@ class News
         // add cover image
         $cover  = $meta["cover"] ?? "";
         if ($cover) {
+            // FIXME
+            // p tags is to conform with markdown...
             $result = 
             <<<x
-            <img src="/assets/square/$cover.jpg" alt="$cover cover">
+            <p><img src="/assets/square/$cover.jpg" alt="$cover cover"></p>
             $result
             x;
         }
