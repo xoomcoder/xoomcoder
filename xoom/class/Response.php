@@ -160,8 +160,8 @@ class Response
         $uri = "https://xoomcoder.com/" . Xoom::$canonical;
         $res = 
         <<<x
-        <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
-        <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
+        <meta name="description" content="$uri - XoomCoder - Formation Développeur Fullstack à Distance">
+        <title>$uri - XoomCoder * Formation Développeur Fullstack à Distance</title>
         <link rel="canonical" href="$uri">
         x;
 
