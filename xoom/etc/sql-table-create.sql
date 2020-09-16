@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `geocms`
     `uri`               VARCHAR(160), 
     `title`             VARCHAR(160), 
     `code`              TEXT, 
+    `template`          VARCHAR(160), 
     `latitude`          DECIMAL(10,6),    
     `longitude`         DECIMAL(10,6),    
     `altitude`          DECIMAL(10,2),

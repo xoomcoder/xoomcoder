@@ -7,10 +7,12 @@
 
 class Response
 {
+    static $contents = [];
+
     static function findTemplate()
     {
         // if there's a page
-        extract(Xoom::getConfig("rootdir,contentdir,filename"));
+        extract(Xoom::getConfig("rootdir,contentdir,filename,bid"));
         $pages = [
             "$contentdir/templates/pages/$filename.php",
             "$rootdir/xoom-pages/$filename.php",
@@ -38,11 +40,45 @@ class Response
                         $contentfile, 
                         "$rootdir/xoom-templates/footer.php", 
                     ];
+                    $foundpage = true;
                     break; // only the first
                 }
             }
         }
+        if (!$foundpage) {
+            $geocms_id = Response::name2id($bid);
+            $lines = Model::read("geocms", "id", $geocms_id);
+            foreach($lines as $line) {
+                Response::$contents["dbline"] = $line;
 
+                Xoom::$template = [ 
+                    "$rootdir/xoom-templates/default.php", 
+                ];
+        }
+        }
+    }
+
+    static function name2id ($bid) 
+    {
+        $res = 0;
+        $letters =[
+            "bcdfghjklmnpqrstvxz",
+            "aeiou",
+        ];
+        $step   = 0;
+        $factor = 1;
+        foreach(str_split($bid) as $letter) {
+            $pos = strpos($letters[$step], $letter);
+            if ($pos !== false) {
+                $res += $pos * $factor;
+            }
+            $step = ($step + 1) % 2;
+            if ($step%2 == 1)
+                $factor = $factor * 20;
+            else
+                $factor = $factor * 5;
+        }
+        return $res;
     }
 
     static function send ()

@@ -10,6 +10,7 @@ class Request
     static $path      = "";
     static $filename  = "";
     static $extension = "html";
+    static $bid  = "";
 
     static function parse()
     {
@@ -23,6 +24,12 @@ class Request
         // https://www.php.net/manual/fr/function.in-array
         if (in_array($filename, ["/", ""])) $filename = "index";
 
+        // parse url to extract -- suffix
+        // https://www.php.net/manual/fr/function.explode.php
+        $urlparts           = explode("--", $filename);
+        $filename           = $urlparts[0];
+        Request::$bid       = $urlparts[1] ?? "";
+
         // SEO: help google against duplicate content
         Xoom::$canonical = ($filename == "index") ? "" : $filename;
 
@@ -33,9 +40,10 @@ class Request
         Request::$filename  = $filename;
         Request::$extension = $extension ?? "html";
         
-        Xoom::setConfig("path", $path);
-        Xoom::setConfig("filename", $filename);
-        Xoom::setConfig("extension", Request::$extension);
+        Xoom::setConfig("path",         $path);
+        Xoom::setConfig("filename",     $filename);
+        Xoom::setConfig("extension",    Request::$extension);
+        Xoom::setConfig("bid",          Request::$bid);
     }
 
     //@end
