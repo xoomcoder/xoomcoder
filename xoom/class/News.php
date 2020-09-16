@@ -74,8 +74,7 @@ class News
 
             $html = "";
             foreach($notes as $note) {
-                extract($note);
-                $html .= News::buildHtml($code);       
+                $html .= News::buildHtml($note);       
             }
             echo $html;
 
@@ -83,8 +82,11 @@ class News
             
     }
 
-    static function buildHtml ($code)
+    static function buildHtml ($geocms)
     {
+        extract($geocms);
+        // $code
+        
         $html = "";
         extract(View::parseBlocMD($code));
         // $result and $meta
@@ -99,9 +101,9 @@ class News
 
         $time = date("d/m/Y", strtotime($datePublication));
 
-        $bid = Response::id2name($id);
+        $bid    = Response::id2name($id);
         $seouri = File::filterName($title);
-        $html .= 
+        $html  .= 
         <<<x
         <article class="$class id-$id bid-$bid">
             $result
@@ -112,6 +114,7 @@ class News
         
         return $html;
     }
+
     static function showBloc ()
     {
         extract(Xoom::getConfig("contentdir"));
