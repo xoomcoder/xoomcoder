@@ -1,7 +1,11 @@
 <?php
 
-extract(Response::$contents["dbline"] ?? []);
+include __DIR__ . "/header.php";
 
-echo "($id,$title)";
+extract(Response::$contents["dbline"] ?? []);
+$section = News::buildHtml($code);       
+echo $section;
+
+include __DIR__ . "/footer.php";
 
 ?>
