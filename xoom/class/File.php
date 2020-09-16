@@ -119,7 +119,7 @@ class File
 
     static function filterName ($name)
     {
-        $nameOK = $name;
+        $nameOK = trim($name);
         $nameOK = rawurldecode($nameOK);    // accents from URLs...
         $nameOK = File::removeAccents($nameOK);
         $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9\.]/", "-", $nameOK));
