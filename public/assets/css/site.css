@@ -280,7 +280,7 @@ section a > *:after {
     content: ' 🔗';
 }
 
-ul li, ol li {
+li, li * {
     text-align:left;
 }
 
