@@ -7,7 +7,7 @@ extract($geocms);
 $article = News::buildHtml($geocms);       
 echo 
 <<<x
-    <section>
+    <section class="single">
     $article
     </section>
 x;
