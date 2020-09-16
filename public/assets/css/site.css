@@ -293,12 +293,12 @@ article p {
     text-align: left;
 }
 article .date {
-    display:inline-block;
-    padding:1rem;
-    width:100%;
+    display: block;
+    padding: 0.2rem 1rem;
+    width: calc(100% - 2rem);
     text-align: right;
-    background-color:#dddddd;
-    margin-top:1rem;
+    background-color: #dddddd;
+    margin: 1rem;
 }
 code {
     margin:1rem;
