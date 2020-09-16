@@ -117,7 +117,7 @@ class News
             $result = 
             <<<x
             <h2><a href="/$seouri--$bid">$title</a></h2>
-            $result... 
+            <p>$result...</p> 
             <a href="/$seouri--$bid">lire la suite</a>
             x;
         }
