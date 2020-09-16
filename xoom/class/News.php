@@ -86,6 +86,8 @@ class News
     {
         extract($geocms);
         // $code
+        $bid    = Response::id2name($id);
+        $seouri = File::filterName($title);
         
         $html = "";
         extract(View::parseBlocMD($code));
@@ -95,20 +97,20 @@ class News
             "<img " => '<img loading="lazy" ',
             "<a "   => '<a rel="nofollow" ',
             "<pre><code "   => '<pre class="xcode"><code  ',
+            "<h2>"  => '<h2><a href="/' . "$seouri-$bid" .'"',
+            "</h2>" => '</a></h2>',
         ];
         $result = str_replace(array_keys($filters), array_values($filters), $result);
         $class = $meta["class"] ?? "";
 
         $time = date("d/m/Y", strtotime($datePublication));
 
-        $bid    = Response::id2name($id);
-        $seouri = File::filterName($title);
         $html  .= 
         <<<x
         <article class="$class id-$id bid-$bid">
             $result
+            <small><a href="/$seouri--$bid">lien vers l'article</a></small>
             <small class="date">publié le: $time</small>
-            <small><a href="/$seouri--$bid">lien</a></small>
         </article>
         x;
         
