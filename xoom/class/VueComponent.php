@@ -93,7 +93,7 @@ class VueComponent
                 "uri" => "URI", 
                 "title" => "titre", 
                 "category" => "catégorie", 
-                "code" => "code", 
+                // "code" => "code", 
                 "datePublication" => "date Publication", 
             ],
         ];
@@ -209,7 +209,7 @@ class VueComponent
                 <template v-for="field in params.fieldsUpdate">
                     <label>
                         <span>{{ field.label }}</span>
-                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10" v-model="sms.event.line[field.name]"></textarea>
+                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="60" v-model="sms.event.line[field.name]"></textarea>
                         <input v-else type="text" :name="field.name" required v-model="sms.event.line[field.name]">
                     </label>
                 </template>   
