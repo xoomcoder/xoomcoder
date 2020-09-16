@@ -97,7 +97,7 @@ class News
             "<img " => '<img loading="lazy" ',
             "<a "   => '<a rel="nofollow" ',
             "<pre><code "   => '<pre class="xcode"><code  ',
-            "<h2>"  => '<h2><a href="/' . "$seouri-$bid" .'"',
+            "<h2>"  => '<h2><a href="/' . "$seouri-$bid" .'">',
             "</h2>" => '</a></h2>',
         ];
         $result = str_replace(array_keys($filters), array_values($filters), $result);
