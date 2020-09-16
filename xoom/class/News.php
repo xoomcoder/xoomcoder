@@ -110,8 +110,13 @@ class News
         if ($codelength >= 2000) {
             // make summary to avoid duplicate content
             $result = strip_tags($result);
-            $result = substr($result, 300);
-            $result .= '... <a href="/$seouri--$bid">lire la suite</a>';
+            $result = substr($result, 0, 300);
+            $result = 
+            <<<x
+            <h2><a href="/$seouri--$bid">$title</a></h2>
+            $result... 
+            <a href="/$seouri--$bid">lire la suite</a>
+            x;
         }
 
         $class = $meta["class"] ?? "";
