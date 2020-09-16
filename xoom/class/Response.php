@@ -165,8 +165,15 @@ class Response
             extract($geocms);
             $bid    = Response::id2name($id);
 
+            $noindex = '<meta name="robots" content="noindex">';
+            $codelength = mb_strlen($code);
+            if ($codelength > 2000) {
+                $noindex = "";  // index content as big enough
+            }
+
             $res = 
             <<<x
+            $noindex
             <meta name="description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
             <title>$title - XoomCoder Formation</title>
             <link rel="canonical" href="$uri--$bid">

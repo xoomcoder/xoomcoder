@@ -98,13 +98,22 @@ class News
             "<img " => '<img loading="lazy" ',
             "<a "   => '<a rel="nofollow" ',
             "<pre><code "   => '<pre class="xcode"><code  ',
+            "<h2>"   => '<h2><a href="/' . "$seouri--$bid" .'">',
+            "</h2>"   => '</a></h2>',
         ];
-        if ($codelength > 1000) {
-            $filters["<h2>"]  = '<h2><a href="/' . "$seouri--$bid" .'">';
-            $filters["</h2>"] = '</a></h2>';              
+        if ($codelength < 2000) {
+            // save seo crawl time and duplicate content
+            $filters["<h2>"]  = '<h2><a href="/' . "$seouri--$bid" .'" rel="nofollow">';
+        }
+        $result = str_replace(array_keys($filters), array_values($filters), $result);
+
+        if ($codelength >= 2000) {
+            // make summary to avoid duplicate content
+            $result = strip_tags($result);
+            $result = substr($result, 300);
+            $result .= '... <a href="/$seouri--$bid">lire la suite</a>';
         }
 
-        $result = str_replace(array_keys($filters), array_values($filters), $result);
         $class = $meta["class"] ?? "";
 
         $time = date("d/m/Y", strtotime($datePublication));
