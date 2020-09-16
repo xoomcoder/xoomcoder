@@ -109,8 +109,10 @@ class News
 
         if ($summary && ($codelength >= 2000)) {
             // make summary to avoid duplicate content
+            $titlelength = mb_strlen($title);
             $result = strip_tags($result);
-            $result = substr($result, 0, 300);
+            // remove title
+            $result = substr($result, $titlelength, 1000);
 
             $result = 
             <<<x
