@@ -174,6 +174,15 @@ class Response
             $res = 
             <<<x
             $noindex
+
+            <meta property="og:title" content="$title">
+            <meta property="og:description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <meta property="og:url" content="$uri">
+            <meta property="og:image" content="$uri.jpg">
+            <meta property="og:image:alt" content="$title">
+            <meta property="og:type" content="website">
+            <meta property="og:site_name" content="XoomCoder">
+
             <meta name="description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
             <title>$title - XoomCoder Formation</title>
             <link rel="canonical" href="$uri--$bid">
@@ -184,6 +193,15 @@ class Response
             if ($canonical == "") $canonical = "Accueil";
             $res = 
             <<<x
+
+            <meta property="og:title" content="$title">
+            <meta property="og:description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <meta property="og:url" content="$uri">
+            <meta property="og:image" content="$uri.jpg">
+            <meta property="og:image:alt" content="$title">
+            <meta property="og:type" content="website">
+            <meta property="og:site_name" content="XoomCoder">
+
             <meta name="description" content="$canonical - XoomCoder - Formation Développeur Fullstack à Distance">
             <title>$canonical - XoomCoder * Formation Développeur Fullstack à Distance</title>
             <link rel="canonical" href="$uri">
