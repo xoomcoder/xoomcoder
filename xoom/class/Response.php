@@ -46,8 +46,13 @@ class Response
             }
         }
         if (!$foundpage) {
-            $geocms_id = Response::name2id($bid);
-            $lines = Model::read("geocms", "id", $geocms_id);
+            if ($bid != "") {
+                $geocms_id = Response::name2id($bid);
+                $lines = Model::read("geocms", "id", $geocms_id);
+            }
+            else {
+                $lines = Model::read("geocms", "uri", $filename);
+            }
             foreach($lines as $line) {
                 Response::$contents["dbline"] = $line;
 

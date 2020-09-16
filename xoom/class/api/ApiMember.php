@@ -67,7 +67,7 @@ class ApiMember
         {
             extract(Controller::$user);
 
-            Form::filterText("title");
+            $title = Form::filterText("title");
             Form::filterText("category");
             if ($level >= "100") {
                 Form::filterNone("code");
@@ -76,10 +76,12 @@ class ApiMember
                 Form::filterText("code");
             }
             if (Form::isOK()) {
+                // complete columns
                 $now = date("Y-m-d H:i:s");
                 Form::add("id_user", $id);
                 Form::add("username", $login);
                 Form::add("datePublication", $now);
+                Form::add("uri", File::filterName($title));
 
                 Model::insert("geocms", Form::$formdatas);
                 $geocms = Model::read("geocms", "id_user", $id);
@@ -96,7 +98,7 @@ class ApiMember
         {
             extract(Controller::$user, EXTR_PREFIX_ALL, "user");
 
-            Form::filterText("title");
+            $titleInput = Form::filterText("title");
             Form::filterText("category");
             Form::filterDatetime("datePublication");
             if ($level >= "100") {
@@ -111,6 +113,9 @@ class ApiMember
                 foreach($found as $line) {
                     extract($line);
                     if ($id_user == $user_id) {
+                        // update colmuns
+                        Form::add("uri", File::filterName($titleInput));
+                        
                         Model::update("geocms", Form::$formdatas, $id);
                     }
                 }
