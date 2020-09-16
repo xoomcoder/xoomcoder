@@ -96,6 +96,7 @@ class News
                 <article class="$class id-$id bid-$bid">
                     $result
                     <small class="date">publié le: $time</small>
+                    <small><a href="/xoomcoder--$bid">lien</a></small>
                 </article>
                 x;
                     
