@@ -76,11 +76,13 @@ class VueComponent
             "fieldsCreate"    => [
                 [ "name" => "title", "type" => "text", "label" => "titre"],
                 [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                [ "name" => "template", "type" => "text", "label" => "template"],
                 [ "name" => "code", "type" => "textarea", "label" => "code"],
             ], 
             "fieldsUpdate"    => [
                 [ "name" => "title", "type" => "text", "label" => "titre"],
                 [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                [ "name" => "template", "type" => "text", "label" => "template"],
                 [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                 [ "name" => "code", "type" => "textarea", "label" => "code"],
             ], 
@@ -93,6 +95,7 @@ class VueComponent
                 "uri" => "URI", 
                 "title" => "titre", 
                 "category" => "catégorie", 
+                "template" => "template", 
                 // "code" => "code", 
                 "datePublication" => "date Publication", 
             ],

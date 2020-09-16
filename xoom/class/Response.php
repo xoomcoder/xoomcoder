@@ -191,6 +191,9 @@ class Response
         }
         else {
             if ($canonical == "") $canonical = "Accueil";
+
+            $title = $canonical;
+
             $res = 
             <<<x
 
