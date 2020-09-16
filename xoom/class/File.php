@@ -123,7 +123,7 @@ class File
         $nameOK = rawurldecode($nameOK);    // accents from URLs...
         $nameOK = File::removeAccents($nameOK);
         $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9\.]/", "-", $nameOK));
-        $nameOK = preg_replace("/-{2+}/", "-", $nameOK);    
+        $nameOK = preg_replace("/[-]+/", "-", $nameOK);    
         return $nameOK;
     }
 }
