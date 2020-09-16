@@ -90,13 +90,13 @@ class News
                 $time = date("d/m/Y", strtotime($datePublication));
 
                 $bid = Response::id2name($id);
-
+                $seouri = File::filterName($title);
                 $html .= 
                 <<<x
                 <article class="$class id-$id bid-$bid">
                     $result
                     <small class="date">publié le: $time</small>
-                    <small><a href="/xoomcoder--$bid">lien</a></small>
+                    <small><a href="/$seouri--$bid">lien</a></small>
                 </article>
                 x;
                     
