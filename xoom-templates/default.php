@@ -1,9 +1,10 @@
 <?php
 
-include __DIR__ . "/header.php";
-
 $geocms = Response::$contents["dbline"] ?? []; 
 extract($geocms);
+
+include __DIR__ . "/header.php";
+
 $article = News::buildHtml($geocms);       
 echo 
 <<<x

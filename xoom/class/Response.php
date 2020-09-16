@@ -154,5 +154,32 @@ class Response
         }
 
     }
+
+    static function Htmlheader ()
+    {
+        $uri = "https://xoomcoder.com/" . Xoom::$canonical;
+        $res = 
+        <<<x
+        <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
+        <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
+        <link rel="canonical" href="$uri">
+        x;
+
+        $geocms = Response::$contents["dbline"] ?? []; 
+        if (!empty($geocms)) {
+            extract($geocms);
+            $bid    = Response::id2name($id);
+
+            $res = 
+            <<<x
+            <meta name="description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <title>$title - XoomCoder Formation</title>
+            <link rel="canonical" href="$uri--$bid">
+            x;
+    
+        }
+
+        echo $res;
+    }
     //@end
 }

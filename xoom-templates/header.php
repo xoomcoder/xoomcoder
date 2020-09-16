@@ -6,11 +6,7 @@
     <!-- important pour rendre la page responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-
-    <meta name="description" content="XoomCoder - Formation Développeur Fullstack à Distance">
-    <title>XoomCoder * Formation Développeur Fullstack à Distance</title>
-
-    <link rel="canonical" href="https://xoomcoder.com/<?php echo Xoom::$canonical ?>">
+    <?php Response::Htmlheader() ?>
     <!-- favicon -->
     <link rel="icon" href="assets/img/xoomcoder.svg">
     <!-- google fonts -->
