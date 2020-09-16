@@ -88,9 +88,12 @@ class News
                 $class = $meta["class"] ?? "";
     
                 $time = date("d/m/Y", strtotime($datePublication));
+
+                $bid = Response::id2name($id);
+
                 $html .= 
                 <<<x
-                <article class="$class">
+                <article class="$class id-$id bid-$bid">
                     $result
                     <small class="date">publié le: $time</small>
                 </article>

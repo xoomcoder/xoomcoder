@@ -81,6 +81,26 @@ class Response
         return $res;
     }
 
+
+    static function id2name ($id)
+    {
+        $res = "";
+        $current = intval($id);
+        $consons = str_split("bcdfghjklmnpqrstvxz");
+        $voyels = str_split("aeiou");
+        while($current > 0) {
+            $mod = $current % 100;
+            $c = $mod % 20;
+            $conson = $consons[$c];
+            $voyel  = $voyels[($mod - $c) / 20];
+
+            $res .= "$conson$voyel";
+
+            $current = ($current - $mod) / 100 ;
+        }
+        return $res;
+    }
+
     static function send ()
     {
         if (Request::$extension == "html") {
