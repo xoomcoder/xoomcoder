@@ -16,7 +16,7 @@ class VueComponent
         <div class="mypage">
             <header>
                 <nav>
-                    <h1>XoomCoder Studio / Bienvenue $login</h1>
+                    <h1>XoomCoder Studio / Bienvenue $login (level: $level)</h1>
                     <a class="home" href="/">retourner sur le site</a>
                     <a class="logout" href="#logout" @click="actLogout">déconnexion</a>
                 </nav>
@@ -25,14 +25,16 @@ class VueComponent
                 <template v-for="section in sections" :key="section.id">
                     <section v-if="!hide[section.class]">
                         <h2>{{ section.title }}</h2>
-                        <article v-for="article in section.articles" :key="article.id" :class="article.class">
-                            <h3 v-if="article.title">{{ article.title }}</h3>
-                            <pre v-if="article.code">{{ article.code }}</pre>
-                            <template v-if="article.compo">
-                                <component :is="article.compo" :params="article.params" v-on:ajaxform="actAjaxForm" v-on:sms="actSms">
-                                </component>
-                            </template>
-                        </article>
+                        <template v-if="section.articles.length > 0">
+                            <article v-for="article in section.articles" :key="article.id" :class="article.class">
+                                <h3 v-if="article.title">{{ article.title }}</h3>
+                                <pre v-if="article.code">{{ article.code }}</pre>
+                                <template v-if="article.compo">
+                                    <component :is="article.compo" :params="article.params" v-on:ajaxform="actAjaxForm" v-on:sms="actSms">
+                                    </component>
+                                </template>
+                            </article>
+                        </template>
                     </section>
                 </template>
             </main> 
@@ -45,80 +47,95 @@ class VueComponent
             <div :class="{ 'options': true, 'active': !hide.options }">
                 <h2>Options</h2>
                 <h2>sections</h2>
-                <label  v-for="section in sections">
+                <label v-for="section in sections">
                     <span>{{ section.title }}</span>
                     <input type="checkbox" checked @click="hide[section.class] = !hide[section.class]">
                 </label>
             </div>  
         </div> 
         x;
-        $articles1 = [
-            [ "id" => 1, "title" => "landing page", "code" => "level1"],
-            [ "id" => 2, "title" => "site vitrine", "code" => "level2" ],
-            [ "id" => 3, "title" => "blog", "code" => "level3" ],
-            [ "id" => 4, "title" => "cms", "code" => "level4" ],
-            [ "id" => 5, "title" => "marketplace", "code" => "level5" ],
-            [ "id" => 6, "title" => "teamwork", "code" => "level6" ],
-        ];
-        $articles2 = [
-            [ "id" => 7, "title" => "html", "code" => "" ],
-            [ "id" => 8, "title" => "css", "code" => "" ],
-            [ "id" => 9, "title" => "js", "code" => "" ],
-            [ "id" => 10, "title" => "php", "code" => "" ],
-            [ "id" => 11, "title" => "sql", "code" => "" ],
-            [ "id" => 12, "title" => "WordPress", "code" => "" ],
-            [ "id" => 13, "title" => "VueJS", "code" => "" ],
-            [ "id" => 14, "title" => "Laravel", "code" => "" ],
-        ];
-
-        $xformParams = [
-            "title"     => "Publier une note",
-            "fieldsCreate"    => [
-                [ "name" => "title", "type" => "text", "label" => "titre"],
-                [ "name" => "category", "type" => "text", "label" => "catégorie"],
-                [ "name" => "template", "type" => "text", "label" => "template"],
-                [ "name" => "code", "type" => "textarea", "label" => "code"],
-            ], 
-            "fieldsUpdate"    => [
-                [ "name" => "title", "type" => "text", "label" => "titre"],
-                [ "name" => "category", "type" => "text", "label" => "catégorie"],
-                [ "name" => "template", "type" => "text", "label" => "template"],
-                [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
-                [ "name" => "code", "type" => "textarea", "label" => "code"],
-            ], 
-        ];
-        $xlistParams = [
-            "title"     => "Vos Notes",
-            "model"     => "geocms",
-            "cols"      => [
-                "id" => "id", 
-                "uri" => "URI", 
-                "title" => "titre", 
-                "category" => "catégorie", 
-                "template" => "template", 
-                // "code" => "code", 
-                "datePublication" => "date Publication", 
-            ],
-        ];
-
-        $articles3 = [
-            [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
-            [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
-        ];
-
-        $articles4 = [
-            [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
-            [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
-            [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
-        ];
 
         $jsonData   = [];
-        $jsonData["sections"] = [
-            [ "id" => 1, "class" => "projets", "title" => "Projets", "articles" => $articles1 ],
-            [ "id" => 2, "class" => "technologies", "title" => "Technologies", "articles" => $articles2 ],
-            [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ],
-            [ "id" => 4, "class" => "outils", "title" => "Outils", "articles" => $articles4 ],
-        ];
+
+        if (($level < 100) && ($level >= 10)) {
+            // MEMBER
+            $articles1 = [
+                [ "id" => 1, "title" => "landing page", "code" => "level1"],
+                [ "id" => 2, "title" => "site vitrine", "code" => "level2" ],
+                [ "id" => 3, "title" => "blog", "code" => "level3" ],
+                [ "id" => 4, "title" => "cms", "code" => "level4" ],
+                [ "id" => 5, "title" => "marketplace", "code" => "level5" ],
+                [ "id" => 6, "title" => "teamwork", "code" => "level6" ],
+            ];
+            $articles2 = [
+                [ "id" => 7, "title" => "html", "code" => "" ],
+                [ "id" => 8, "title" => "css", "code" => "" ],
+                [ "id" => 9, "title" => "js", "code" => "" ],
+                [ "id" => 10, "title" => "php", "code" => "" ],
+                [ "id" => 11, "title" => "sql", "code" => "" ],
+                [ "id" => 12, "title" => "WordPress", "code" => "" ],
+                [ "id" => 13, "title" => "VueJS", "code" => "" ],
+                [ "id" => 14, "title" => "Laravel", "code" => "" ],
+            ];
+
+            $jsonData["sections"] = [
+                [ "id" => 1, "class" => "projets", "title" => "Projets", "articles" => $articles1 ?? [] ],
+                [ "id" => 2, "class" => "technologies", "title" => "Technologies", "articles" => $articles2 ?? [] ],
+            ];
+        
+        }
+
+
+        if ($level == 100) {
+            $xformParams = [
+                "title"     => "Publier une note",
+                "fieldsCreate"    => [
+                    [ "name" => "title", "type" => "text", "label" => "titre"],
+                    [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                    [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
+                    [ "name" => "code", "type" => "textarea", "label" => "code"],
+                ], 
+                "fieldsUpdate"    => [
+                    [ "name" => "title", "type" => "text", "label" => "titre"],
+                    [ "name" => "category", "type" => "text", "label" => "catégorie"],
+                    [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
+                    [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
+                    [ "name" => "code", "type" => "textarea", "label" => "code"],
+                ], 
+            ];
+            $xlistParams = [
+                "title"     => "Vos Notes",
+                "model"     => "geocms",
+                "cols"      => [
+                    "id" => "id", 
+                    "uri" => "URI", 
+                    "title" => "titre", 
+                    "category" => "catégorie", 
+                    "template" => "template", 
+                    // "code" => "code", 
+                    "datePublication" => "date Publication", 
+                ],
+            ];
+            // WEBMASTER
+            $articles3 = [
+                [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
+                [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
+            ];
+    
+            $articles4 = [
+                [ "id" => 17, "title" => "Mind Mapping", "code" => "", "compo" => "xmap" ],
+                [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
+                [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
+            ];
+            $jsonData["sections"] = [
+                [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
+                [ "id" => 4, "class" => "outils", "title" => "Outils", "articles" => $articles4 ?? [] ],
+            ];
+        }
+
+
+
+
         $jsonData["hide"] = [ "options" => true, "outils" => true ];
         $jsonData["data"] = [ 
             "geocms" => Model::read("geocms", "id_user", $id), 
@@ -205,38 +222,40 @@ class VueComponent
     {
         $template = 
         <<<x
-        <h4>{{ params.title }}</h4>
-        <template v-if="sms.event && sms.event.action=='update'">
-            <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
-            <form @submit.prevent="doSubmitUpdate"> 
-                <template v-for="field in params.fieldsUpdate">
-                    <label>
-                        <span>{{ field.label }}</span>
-                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="60" v-model="sms.event.line[field.name]"></textarea>
-                        <input v-else type="text" :name="field.name" required v-model="sms.event.line[field.name]">
-                    </label>
-                </template>   
-                <input type="hidden" name="id" :value="sms.event.line.id">
-                <input type="hidden" name="classApi" value="Member">
-                <input type="hidden" name="methodApi" value="geocmsUpdate">
-                <button type="submit">modifier</button>
-                <div class="feedback"></div> 
-            </form>
-        </template>
-        <template v-else>
-            <form @submit.prevent="doSubmitCreate"> 
-                <template v-for="field in params.fieldsCreate">
-                    <label>
-                        <span>{{ field.label }}</span>
-                        <textarea v-if="field.type=='textarea'" :name="field.name" required cols="60" rows="10"></textarea>
-                        <input v-else type="text" :name="field.name" required>
-                    </label>
-                </template>   
-                <input type="hidden" name="classApi" value="Member">
-                <input type="hidden" name="methodApi" value="geocms">
-                <button type="submit">publier</button>
-                <div class="feedback"></div> 
-            </form>
+        <template v-if="params">
+            <h4 v-if="params.title">{{ params.title }}</h4>
+            <template v-if="sms.event && sms.event.action=='update'">
+                <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
+                <form @submit.prevent="doSubmitUpdate"> 
+                    <template v-for="field in params.fieldsUpdate">
+                        <label>
+                            <span>{{ field.label }}</span>
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]"></textarea>
+                            <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]">
+                        </label>
+                    </template>   
+                    <input type="hidden" name="id" :value="sms.event.line.id">
+                    <input type="hidden" name="classApi" value="Member">
+                    <input type="hidden" name="methodApi" value="geocmsUpdate">
+                    <button type="submit">modifier</button>
+                    <div class="feedback"></div> 
+                </form>
+            </template>
+            <template v-else>
+                <form @submit.prevent="doSubmitCreate"> 
+                    <template v-for="field in params.fieldsCreate">
+                        <label>
+                            <span>{{ field.label }}</span>
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="10"></textarea>
+                            <input v-else type="text" :name="field.name" :required="!field.optional">
+                        </label>
+                    </template>   
+                    <input type="hidden" name="classApi" value="Member">
+                    <input type="hidden" name="methodApi" value="geocms">
+                    <button type="submit">publier</button>
+                    <div class="feedback"></div> 
+                </form>
+            </template>
         </template>
         x;
 
@@ -246,12 +265,16 @@ class VueComponent
         <<<'x'
         doSubmitCreate(event) {
             // UX set the focus on first input
-            event.target.querySelector('[required]').focus();
+            let fc = event.target.querySelector('[required]');
+            if (fc) fc.focus();
+            
             this.$emit('ajaxform', event);        
         },
         doSubmitUpdate(event) {
             // UX set the focus on first input
-            event.target.querySelector('[required]').focus();
+            let fc = event.target.querySelector('[required]');
+            if (fc) fc.focus();
+
             this.$emit('ajaxform', event);        
         }
 
@@ -283,6 +306,7 @@ class VueComponent
     {
         $template = 
         <<<x
+        <template v-if="params">
             <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ mydata[params.model].length }})</span></h4>
             <div v-if="mydata">
                 <table>
@@ -304,6 +328,7 @@ class VueComponent
                     </tbody>
                 </table>
             </div>  
+        </template>
         x;
 
 

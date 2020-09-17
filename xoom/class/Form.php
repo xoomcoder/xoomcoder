@@ -51,11 +51,15 @@ class Form
         return $result;
     }
 
-    static function filterText ($name, $default="")
+    static function filterText ($name, $default="", $params="")
     {
+        $options = [];
+        parse_str($params, $options);
+        extract($options);
+
         $result = Form::filterInput($name, $default);
 
-        if ($result == "") {
+        if (($result == "") && !($optional ?? false)) {
             Form::$errors[] = "texte vide";
         }
         

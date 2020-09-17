@@ -66,66 +66,25 @@ class ApiMember
         if (Controller::checkMemberToken())
         {
             extract(Controller::$user);
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::geocms";
+            if ($level >= 100)
+                $action = "Action100::geocms";
 
-            $title = Form::filterText("title");
-            Form::filterText("category");
-            if ($level >= "100") {
-                Form::filterNone("code");
-            }
-            else {
-                Form::filterText("code");
-            }
-            if (Form::isOK()) {
-                // complete columns
-                $now = date("Y-m-d H:i:s");
-                Form::add("id_user", $id);
-                Form::add("username", $login);
-                Form::add("datePublication", $now);
-                Form::add("uri", File::filterName($title));
-
-                Model::insert("geocms", Form::$formdatas);
-                $geocms = Model::read("geocms", "id_user", $id);
-                Form::mergeJson("data", [ "geocms" => $geocms]);
-
-                Form::setFeedback("publication OK...");
-            }
-
+            if (is_callable($action ?? "")) $action();
         }
     }
     static function geocmsUpdate ()
     {
         if (Controller::checkMemberToken())
         {
-            extract(Controller::$user, EXTR_PREFIX_ALL, "user");
-
-            $titleInput = Form::filterText("title");
-            Form::filterText("category");
-            Form::filterDatetime("datePublication");
-            if ($level >= "100") {
-                Form::filterNone("code");
-            }
-            else {
-                Form::filterText("code");
-            }
-            if (Form::isOK()) {
-                $id = intval(Form::filterInput("id"));
-                $found = Model::read("geocms", "id", $id);
-                foreach($found as $line) {
-                    extract($line);
-                    if ($id_user == $user_id) {
-                        // update colmuns
-                        Form::add("uri", File::filterName($titleInput));
-                        
-                        Model::update("geocms", Form::$formdatas, $id);
-                    }
-                }
-
-                $geocms = Model::read("geocms", "id_user", $user_id);
-                Form::mergeJson("data", [ "geocms" => $geocms]);
-
-                Form::setFeedback("modification OK...");
-            }
-
+            extract(Controller::$user);
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::geocmsUpdate";
+            if ($level >= 100)
+                $action = "Action100::geocmsUpdate";
+                
+            if (is_callable($action ?? "")) $action();
         }
     }
 
