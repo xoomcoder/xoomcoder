@@ -382,7 +382,7 @@ class VueComponent
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
-                            <td class="view"><a target="blank" :href="'/--' + line.uri">voir</a></td>  
+                            <td class="view"><a target="blank" :href="'/' + line.uri">voir</a></td>  
                             <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
