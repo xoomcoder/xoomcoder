@@ -122,8 +122,10 @@ class Response
     {
         // https://www.php.net/manual/fr/control-structures.foreach.php
         foreach (Response::$template as $file) {
-            // https://www.php.net/manual/fr/function.require-once.php
-            require_once $file;
+            if (is_file($file)) {
+                // https://www.php.net/manual/fr/function.require-once.php
+                include $file;
+            }
         }
     }
 
