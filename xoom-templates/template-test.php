@@ -10,11 +10,11 @@ $debug = json_encode($geocms, JSON_PRETTY_PRINT);
 
 echo 
 <<<x
+    <section class="single">
     <h1>TEST</h1>
     <pre>
     $debug
     </pre>
-    <section class="single">
     $article
     </section>
 x;

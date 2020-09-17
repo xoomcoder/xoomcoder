@@ -59,15 +59,15 @@ class Response
             }
             foreach($lines as $line) {
                 Response::$contents["dbline"] = $line;
-                
+
                 extract($line);
                 // $template
                 if ($template ?? false) {
-                    $template = "default";
-                }
-                else {
                     // add some security
                     $template = pathinfo($template, PATHINFO_FILENAME);
+                }
+                else {
+                    $template = "default";
                 }
 
                 Response::$template = [ 
