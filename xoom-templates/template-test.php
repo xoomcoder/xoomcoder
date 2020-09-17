@@ -1,24 +1,36 @@
 <?php
 
+// @bloc php
+
+extract(Xoom::getConfig("rootdir"));
+
 $geocms = Response::$contents["dbline"] ?? []; 
 extract($geocms);
+//print_r($geocms);
+include "$rootdir/xoom-templates/header.php";
 
-include __DIR__ . "/header.php";
-
-$article = News::buildHtml($geocms, false); 
-$debug = json_encode($geocms, JSON_PRETTY_PRINT);
-
+$article = News::buildHtml($geocms, false);       
 echo 
 <<<x
-    <section class="single">
-    <h1>TEST</h1>
-    <pre>
-    $debug
-    </pre>
+
+<section>
+    <h2>AVANT</h2>
+</section>
+    
+<section class="single">
     $article
-    </section>
+</section>
+
+<section>
+    <h2>APRES</h2>
+</section>
+
 x;
 
-include __DIR__ . "/footer.php";
+include "$rootdir/xoom-templates/footer.php";
+
+// @bloc
+
+// PhpEval?bloc=php&echo=true
 
 ?>
