@@ -57,6 +57,7 @@ article:hover {
 }
 .options.active {
     top:0;
+    overflow-y:auto;
 }
 
 form {
@@ -145,10 +146,17 @@ td.update, td.delete {
     width:80px;
 }
 td.code {
-    width:50vmin;
+    width:40vmin;
 }
 td.code pre {
     overflow-x: auto;
+}
+td.datePublication {
+    width:160px;
+}
+
+form label span {
+    display:none;
 }
     </style>
 </head>

@@ -89,6 +89,7 @@ class VueComponent
         if ($level == 100) {
             $xformParams = [
                 "title"     => "Publier une note",
+                "model"     => "geocms",
                 "fieldsCreate"    => [
                     [ "name" => "title", "type" => "text", "label" => "titre"],
                     [ "name" => "category", "type" => "text", "label" => "catégorie"],
@@ -230,12 +231,14 @@ class VueComponent
             <h4 v-if="params.title">{{ params.title }}</h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
+                <button @click="doUpdateLine(-1)">PRECEDENT</button>
+                <button @click="doUpdateLine(1)">SUIVANT</button>
                 <form @submit.prevent="doSubmitUpdate"> 
                     <template v-for="field in params.fieldsUpdate">
                         <label>
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]"></textarea>
-                            <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]">
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
                         </label>
                     </template>   
                     <input type="hidden" name="id" :value="sms.event.line.id">
@@ -250,8 +253,8 @@ class VueComponent
                     <template v-for="field in params.fieldsCreate">
                         <label>
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="10"></textarea>
-                            <input v-else type="text" :name="field.name" :required="!field.optional">
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="10" :placeholder="field.label"></textarea>
+                            <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label">
                         </label>
                     </template>   
                     <input type="hidden" name="classApi" value="Member">
@@ -267,6 +270,23 @@ class VueComponent
 
         $methods =
         <<<'x'
+        doUpdateLine(step) {
+            let curdata = this.mydata[this.params.model];
+
+            let index2 = (this.sms.event.index + step) % curdata.length;
+            if (index2 < 0) index2 = curdata.length -1; // loop
+
+            let line2  = curdata[index2];
+
+            console.log(line2);
+            let event = { 
+                line: Object.assign({}, line2), 
+                table: this.params.model, 
+                action: 'update',
+                index: index2
+            };
+            this.$emit('sms', event);        
+        },
         doSubmitCreate(event) {
             // UX set the focus on first input
             let fc = event.target.querySelector('[required]');
@@ -325,11 +345,11 @@ class VueComponent
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="w100" v-for="line in mydata[params.model]" :key="line.id">
+                        <tr class="w100" v-for="(line, index) in mydata[params.model]" :key="line.id">
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
-                            <td><button @click.prevent="doUpdate(line)">modifier</button></td>  
+                            <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
                     </tbody>
@@ -343,11 +363,12 @@ class VueComponent
 
         $methods =
         <<<'x'
-        doUpdate(line) {
+        doUpdate(line, index) {
             let event = { 
                 line: Object.assign({}, line), 
                 table: this.params.model, 
-                action: 'update'
+                action: 'update',
+                index: index
             };
             this.$emit('sms', event);        
         },
