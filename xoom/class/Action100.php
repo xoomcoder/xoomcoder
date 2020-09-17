@@ -16,6 +16,7 @@ class Action100
             $title = Form::filterText("title");
             Form::filterText("category");
             Form::filterText("template", "", "optional=true");
+            Form::filterInt("priority", $level);
             Form::filterNone("code");
             if (Form::isOK()) {
                 // complete columns
@@ -42,6 +43,7 @@ class Action100
 
             $titleInput = Form::filterText("title");
             Form::filterText("category");
+            Form::filterInt("priority", $level);
             Form::filterDatetime("datePublication");
             Form::filterText("template", "", "optional=true");
             Form::filterNone("code");

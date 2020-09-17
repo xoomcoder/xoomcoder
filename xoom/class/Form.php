@@ -68,6 +68,34 @@ class Form
         return $result;
     }
 
+    static function filterInt ($name, $default="", $params="")
+    {
+        $options = [];
+        parse_str($params, $options);
+        extract($options);
+
+        $result = Form::filterInput($name, $default);
+        $result = intval($result);
+        
+        Form::$formdatas[$name] = $result;
+
+        return $result;
+    }
+
+    static function filterFloat ($name, $default="", $params="")
+    {
+        $options = [];
+        parse_str($params, $options);
+        extract($options);
+
+        $result = Form::filterInput($name, $default);
+        $result = floatval($result);
+        
+        Form::$formdatas[$name] = $result;
+
+        return $result;
+    }
+
     static function filterMd5 ($name, $default="")
     {
         $result = Form::filterInput($name, $default);

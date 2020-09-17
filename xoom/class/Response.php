@@ -48,12 +48,13 @@ class Response
             }
         }
         if (!$foundpage) {
+            // WARNING: SHOULD FILTER MEMBER CONTENT
             if ($bid != "") {
                 $geocms_id = Response::name2id($bid);
-                $lines = Model::read("geocms", "id", $geocms_id);
+                $lines = Model::read("geocms", "id", $geocms_id, "priority DESC");
             }
             else {
-                $lines = Model::read("geocms", "uri", $filename);
+                $lines = Model::read("geocms", "uri", $filename, "priority DESC");
             }
             foreach($lines as $line) {
                 Response::$contents["dbline"] = $line;
@@ -61,6 +62,7 @@ class Response
                 Xoom::$template = [ 
                     "$rootdir/xoom-templates/default.php", 
                 ];
+                break;  // only one
             }
         }
     }
