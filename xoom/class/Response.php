@@ -21,7 +21,9 @@ class Response
         foreach($pages as $pagefile) {
             if (is_file($pagefile)) {
                 // special template
-                include $pagefile;
+                Xoom::$template = [ 
+                    "$pagefile", 
+                ];
                 $foundpage = true;
                 break; // only the first
             }            
@@ -59,7 +61,7 @@ class Response
                 Xoom::$template = [ 
                     "$rootdir/xoom-templates/default.php", 
                 ];
-        }
+            }
         }
     }
 
