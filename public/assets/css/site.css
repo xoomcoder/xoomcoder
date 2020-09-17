@@ -409,6 +409,13 @@ section.single article {
             ".    . emploi     emploi . "
             ;
     }
+    section.single article {
+        column-count: 2;
+    }
+
+    section.single article.colc3 {
+        column-count: 3;
+    }
 }
 
 @media (min-width: 960px)
