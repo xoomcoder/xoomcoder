@@ -87,6 +87,22 @@ class VueComponent
 
 
         if ($level == 100) {
+            $codeDefault = 
+            <<<x
+            @bloc meta
+            { 
+                "class" : "",
+                "cover" : "" 
+            }
+            @bloc      
+
+            @bloc markdown
+
+            ## titre 2
+
+            @bloc
+            x;
+
             $xformParams = [
                 "title"     => "Publier une note",
                 "model"     => "geocms",
@@ -94,7 +110,7 @@ class VueComponent
                     [ "name" => "title", "type" => "text", "label" => "titre"],
                     [ "name" => "category", "type" => "text", "label" => "catégorie"],
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
-                    [ "name" => "code", "type" => "textarea", "label" => "code"],
+                    [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
                 ], 
                 "fieldsUpdate"    => [
                     [ "name" => "title", "type" => "text", "label" => "titre"],
@@ -253,8 +269,8 @@ class VueComponent
                     <template v-for="field in params.fieldsCreate">
                         <label>
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="10" :placeholder="field.label"></textarea>
-                            <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label">
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
                     </template>   
                     <input type="hidden" name="classApi" value="Member">
@@ -266,6 +282,8 @@ class VueComponent
         </template>
         x;
 
+        $jsonData   = [];
+        $jsonData["current"] = [ "id" => null ];
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
@@ -291,6 +309,9 @@ class VueComponent
             // UX set the focus on first input
             let fc = event.target.querySelector('[required]');
             if (fc) fc.focus();
+
+            // add extra option
+            event.keepInput = true;
 
             this.$emit('ajaxform', event);        
         },
@@ -321,6 +342,17 @@ class VueComponent
             }, 
             methods: {
                 $methods
+            },
+            created () {
+                console.log(this.params.fieldsCreate);
+                if (this.params.fieldsCreate) {
+                    for(let f=0; f<this.params.fieldsCreate.length; f++) {
+                        let field = this.params.fieldsCreate[f];
+                        if (field.default) {
+                            this.current[field.name] = field.default;
+                        }
+                    }
+                }
             }
         }
         x;
@@ -340,6 +372,7 @@ class VueComponent
                     <thead>
                         <tr>
                             <td v-for="(colv, coln) in params.cols" :class="coln">{{ colv }}</td>
+                            <td class="view">voir</td>  
                             <td class="update">modifier</td>  
                             <td class="delete">supprimer</td>  
                         </tr>
@@ -349,6 +382,7 @@ class VueComponent
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
+                            <td class="view"><a target="blank" :href="'/--' + line.uri">voir</a></td>  
                             <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>

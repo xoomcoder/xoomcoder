@@ -142,7 +142,7 @@ td {
 td.id {
     width:40px;
 }
-td.update, td.delete {
+td.view, td.update, td.delete {
     width:80px;
 }
 td.code {

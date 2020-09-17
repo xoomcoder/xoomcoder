@@ -16,12 +16,7 @@ class Action100
             $title = Form::filterText("title");
             Form::filterText("category");
             Form::filterText("template", "", "optional=true");
-            if ($level >= "100") {
-                Form::filterNone("code");
-            }
-            else {
-                Form::filterText("code");
-            }
+            Form::filterNone("code");
             if (Form::isOK()) {
                 // complete columns
                 $now = date("Y-m-d H:i:s");
@@ -34,7 +29,7 @@ class Action100
                 $geocms = Model::read("geocms", "id_user", $id);
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
-                Form::setFeedback("publication OK...");
+                Form::setFeedback("Publication OK ($now) $title");
             }
 
         }
