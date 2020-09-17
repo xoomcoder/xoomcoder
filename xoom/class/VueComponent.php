@@ -388,7 +388,7 @@ class VueComponent
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
-                            <td class="view"><a v-if="line.uri" target="blank" :href="'/' + line.uri">voir</a></td>  
+                            <td class="view"><a v-if="line.uri" target="blank" :href="'/' + line.uri + '--' + n2t(line.id)">voir</a></td>  
                             <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
@@ -403,6 +403,23 @@ class VueComponent
 
         $methods =
         <<<'x'
+        n2t(n) {
+            let res= '';
+            let c = "bcdfghjklmnpqrstvxz";
+            let v = "aeiou";
+            let cur = n;
+            while(cur >0) {
+                let p = cur % 100;
+                
+                let pc = p % 20;
+                let curc = c[pc];
+                let curv = v[(p-pc)/20];
+                res += curc + curv; 
+
+                cur = (cur -p) / 100;
+            }
+            return res;
+        },
         doUpdate(line, index) {
             let event = { 
                 line: Object.assign({}, line), 
