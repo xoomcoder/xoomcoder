@@ -27,7 +27,7 @@ class Action100
                 Form::add("uri", Controller::filterFilename($title));
 
                 Model::insert("geocms", Form::$formdatas);
-                $geocms = Model::read("geocms", "id_user", $id);
+                $geocms = Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC");
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
                 Form::setFeedback("Publication OK ($now) $title");
