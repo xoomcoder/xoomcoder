@@ -125,13 +125,11 @@ class Response
     {
         // https://www.php.net/manual/fr/control-structures.foreach.php
         foreach (Response::$template as $file) {
-            echo "<h1>$file</h1>";
             if (is_file($file)) {
                 // https://www.php.net/manual/fr/function.require-once.php
                 include $file;
             }
             else {
-
                 $filename = pathinfo($file, PATHINFO_FILENAME);
                 // look in geocms if there's a template
                 $lines = Model::read("geocms", "template", $filename, "priority DESC");
