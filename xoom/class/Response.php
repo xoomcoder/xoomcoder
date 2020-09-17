@@ -59,6 +59,9 @@ class Response
             }
             foreach($lines as $line) {
                 Response::$contents["dbline"] = $line;
+                
+                extract($line);
+                // $template
                 if ($template ?? false) {
                     $template = "default";
                 }
