@@ -101,6 +101,8 @@ class News
             "<h2>"   => '<h2><a href="/' . "$seouri--$bid" .'">',
             "</h2>"   => '</a></h2>',
         ];
+        $class = $meta["class"] ?? "";
+
         if ($codelength < 2000) {
             // save seo crawl time and duplicate content
             $filters["<h2>"]  = '<h2><a href="/' . "$seouri--$bid" .'" rel="nofollow">';
@@ -120,6 +122,8 @@ class News
             <p>$result... <a href="/$seouri--$bid">lire la suite</a></p> 
             
             x;
+
+            $class .= " summary";
         }
 
         // add cover image
@@ -133,13 +137,12 @@ class News
             $result
             x;
         }
-        $class = $meta["class"] ?? "";
 
         $time = date("d/m/Y", strtotime($datePublication));
 
         $html  .= 
         <<<x
-        <article class="$class id-$id bid-$bid">
+        <article class="id-$id bid-$bid $class">
             $result
             <small class="date">publié le: $time</small>
         </article>
