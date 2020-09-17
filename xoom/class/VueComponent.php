@@ -172,7 +172,8 @@ class VueComponent
                     if ('target' in event) {
                         fd = new FormData(event.target);
                         // reset
-                        event.target.reset();
+                        if (!event.keepInput)
+                            event.target.reset();
                     }
                     else {
                         fd = new FormData;
@@ -186,6 +187,10 @@ class VueComponent
                     let loginToken  = sessionStorage.getItem('loginToken');
                     fd.append('loginToken', loginToken);
 
+                    // waiting...
+                    let feedback = event.target.querySelector('.feedback');
+                    if (feedback) feedback.innerHTML = "...";
+
                     let response = await fetch('api', {
                         method: 'POST',
                         body: fd
@@ -196,7 +201,6 @@ class VueComponent
                     // show feedback
                     if ('feedback' in json) {
                         if ('target' in event){
-                            let feedback = event.target.querySelector('.feedback');
                             if (feedback) feedback.innerHTML = json.feedback;
                         }
 
@@ -224,7 +228,7 @@ class VueComponent
         <<<x
         <template v-if="params">
             <h4 v-if="params.title">{{ params.title }}</h4>
-            <template v-if="sms.event && sms.event.action=='update'">
+            <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
                 <form @submit.prevent="doSubmitUpdate"> 
                     <template v-for="field in params.fieldsUpdate">
@@ -240,7 +244,7 @@ class VueComponent
                     <button type="submit">modifier</button>
                     <div class="feedback"></div> 
                 </form>
-            </template>
+            </div>
             <template v-else>
                 <form @submit.prevent="doSubmitCreate"> 
                     <template v-for="field in params.fieldsCreate">
@@ -267,13 +271,16 @@ class VueComponent
             // UX set the focus on first input
             let fc = event.target.querySelector('[required]');
             if (fc) fc.focus();
-            
+
             this.$emit('ajaxform', event);        
         },
         doSubmitUpdate(event) {
             // UX set the focus on first input
             let fc = event.target.querySelector('[required]');
             if (fc) fc.focus();
+
+            // add extra option
+            event.keepInput = true;
 
             this.$emit('ajaxform', event);        
         }
@@ -313,8 +320,8 @@ class VueComponent
                     <thead>
                         <tr>
                             <td v-for="(colv, coln) in params.cols" :class="coln">{{ colv }}</td>
-                            <td>modifier</td>  
-                            <td>supprimer</td>  
+                            <td class="update">modifier</td>  
+                            <td class="delete">supprimer</td>  
                         </tr>
                     </thead>
                     <tbody>

@@ -138,6 +138,12 @@ td {
 
 
 /* SPECIFIC CODE */
+td.id {
+    width:40px;
+}
+td.update, td.delete {
+    width:80px;
+}
 td.code {
     width:50vmin;
 }
