@@ -8,6 +8,7 @@
 class Response
 {
     static $contents = [];
+    static $template = [];
 
     static function findTemplate()
     {
@@ -21,7 +22,7 @@ class Response
         foreach($pages as $pagefile) {
             if (is_file($pagefile)) {
                 // special template
-                Xoom::$template = [ 
+                Response::$template = [ 
                     "$pagefile", 
                 ];
                 $foundpage = true;
@@ -37,7 +38,7 @@ class Response
             ];
             foreach($contents as $contentfile) {
                 if (is_file($contentfile)) {
-                    Xoom::$template = [ 
+                    Response::$template = [ 
                         "$rootdir/xoom-templates/header.php", 
                         $contentfile, 
                         "$rootdir/xoom-templates/footer.php", 
@@ -58,9 +59,16 @@ class Response
             }
             foreach($lines as $line) {
                 Response::$contents["dbline"] = $line;
+                if ($template ?? false) {
+                    $template = "default";
+                }
+                else {
+                    // add some security
+                    $template = pathinfo($template, PATHINFO_FILENAME);
+                }
 
-                Xoom::$template = [ 
-                    "$rootdir/xoom-templates/default.php", 
+                Response::$template = [ 
+                    "$rootdir/xoom-templates/template-$template.php", 
                 ];
                 break;  // only one
             }
@@ -110,19 +118,28 @@ class Response
         return $res;
     }
 
+    static function sendResponse()
+    {
+        // https://www.php.net/manual/fr/control-structures.foreach.php
+        foreach (Response::$template as $file) {
+            // https://www.php.net/manual/fr/function.require-once.php
+            require_once $file;
+        }
+    }
+
     static function send ()
     {
         if (Request::$extension == "html") {
             Response::findTemplate();
             // build the page to the browser
-            Xoom::sendResponse();        
+            Response::sendResponse();        
         }
         elseif (Request::$extension == "vjs") {
             header("Content-Type: application/javascript");
 
             Response::findTemplate();
             // build the page to the browser
-            Xoom::sendResponse();        
+            Response::sendResponse();        
         }
         elseif (is_file(Xoom::$rootdir . "/public" .Request::$path)) {
             // FIXME: better code to manage local mode

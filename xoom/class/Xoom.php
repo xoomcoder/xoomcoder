@@ -4,7 +4,6 @@ class Xoom
 {
     // static properties
     static $rootdir     = "";
-    static $template    = [];
     static $filename    = "";
     static $canonical   = "";
     static $configas    = [];
@@ -67,14 +66,6 @@ class Xoom
     }
 
 
-    static function sendResponse()
-    {
-        // https://www.php.net/manual/fr/control-structures.foreach.php
-        foreach (Xoom::$template as $file) {
-            // https://www.php.net/manual/fr/function.require-once.php
-            require_once $file;
-        }
-    }
 
     static function showBodyClass ()
     {
