@@ -136,8 +136,11 @@ class Response
                 $lines = Model::read("geocms", "template", $filename, "priority DESC");
                 foreach($lines as $line) {
                     extract($line);
-                    AdminCommand::runLocal($code);
-                    break;  // security only first
+                    $priority = intval($priority ?? 0);
+                    if ($priority >= 100) {             // security: template are built by webmasters
+                        AdminCommand::runLocal($code);
+                        break;  // security only first
+                    }
                 }
             }
         }
