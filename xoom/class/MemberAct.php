@@ -146,7 +146,13 @@ class MemberAct
         if (($table ?? false) && ("" != ($json ?? ""))) {
             // filter on id_user
             extract(Controller::$user);
-            $resultas = Model::read($table, "id_user", $id);
+
+            // FIXME: make it config
+            $orderby = "";
+            if ($table == "geocms")
+                $orderby = "category DESC, template DESC, priority DESC";
+
+            $resultas = Model::read($table, "id_user", $id, $orderby);
             Form::mergeJson($json, [$table => $resultas]);
         }
     }

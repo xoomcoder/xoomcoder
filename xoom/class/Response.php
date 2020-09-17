@@ -132,7 +132,7 @@ class Response
             else {
                 $filename = pathinfo($file, PATHINFO_FILENAME);
                 // look in geocms if there's a template
-                $lines = Model::read("geocms", "template", $filename, "category DESC, template DESC, priority DESC");
+                $lines = Model::read("geocms", "template", $filename, "priority DESC");
                 foreach($lines as $line) {
                     extract($line);
                     $priority = intval($priority ?? 0);

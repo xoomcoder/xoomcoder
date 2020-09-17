@@ -153,12 +153,9 @@ class VueComponent
             ];
         }
 
-
-
-
         $jsonData["hide"] = [ "options" => true, "outils" => true ];
         $jsonData["data"] = [ 
-            "geocms" => Model::read("geocms", "id_user", $id), 
+            "geocms" => Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC"), 
         ];
         $jsonData["sms"] = [ "event" => null ];
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
