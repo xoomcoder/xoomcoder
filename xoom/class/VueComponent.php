@@ -405,7 +405,7 @@ class VueComponent
         <<<'x'
         n2t(n) {
             let res= '';
-            let c = "bcdfghjklmnpqrstvxz";
+            let c = "bcdfghjklmnpqrstvwxz";
             let v = "aeiou";
             let cur = n;
             while(cur >0) {

@@ -106,7 +106,7 @@ class Response
     {
         $res = "";
         $current = intval($id);
-        $consons = str_split("bcdfghjklmnpqrstvxz");
+        $consons = str_split("bcdfghjklmnpqrstvwxz");
         $voyels = str_split("aeiou");
         while($current > 0) {
             $mod = $current % 100;
