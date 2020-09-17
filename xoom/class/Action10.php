@@ -21,6 +21,7 @@ class Action10
             if (Form::isOK()) {
                 // complete columns
                 $now = date("Y-m-d H:i:s");
+                Form::add("priority", 10);
                 Form::add("id_user", $id);
                 Form::add("username", $login);
                 Form::add("datePublication", $now);
@@ -30,7 +31,7 @@ class Action10
                 $geocms = Model::read("geocms", "id_user", $id);
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
-                Form::setFeedback("publication OK...");
+                Form::setFeedback("publication OK ($now): $title");
             }
 
         }
@@ -40,6 +41,8 @@ class Action10
         if (Controller::checkMemberToken())
         {
             extract(Controller::$user, EXTR_PREFIX_ALL, "user");
+
+            $now = date("Y-m-d H:i:s");
 
             $titleInput = Form::filterText("title");
             Form::filterText("category");
@@ -55,15 +58,19 @@ class Action10
                     if ($id_user == $user_id) {
                         // update colmuns
                         Form::add("uri", File::filterName($titleInput));
+                        Form::add("priority", 10);
                         
                         Model::update("geocms", Form::$formdatas, $id);
+
+                        Form::setFeedback("modification OK ($now) $title");
+
+                        break; // security: should update only one line
                     }
                 }
 
                 $geocms = Model::read("geocms", "id_user", $user_id);
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
-                Form::setFeedback("modification OK...");
             }
 
         }
