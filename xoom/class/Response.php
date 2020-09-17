@@ -138,6 +138,7 @@ class Response
                     extract($line);
                     $priority = intval($priority ?? 0);
                     if ($priority >= 100) {             // security: template are built by webmasters
+                        // warning: this is running PHP code stored in database...
                         AdminCommand::runLocal($code);
                         break;  // security only first
                     }
