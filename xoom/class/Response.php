@@ -229,7 +229,7 @@ class Response
 
             <meta name="description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
             <title>$title - XoomCoder Formation</title>
-            <link rel="canonical" href="$uri--$bid">
+            <link rel="canonical" href="https://xoomcoder.com/$uri--$bid">
             x;
     
         }
