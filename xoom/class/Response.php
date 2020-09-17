@@ -129,6 +129,17 @@ class Response
                 // https://www.php.net/manual/fr/function.require-once.php
                 include $file;
             }
+            else {
+
+                $filename = pathinfo($file, PATHINFO_FILENAME);
+                // look in geocms if there's a template
+                $lines = Model::read("geocms", "template", $filename, "priority DESC");
+                foreach($lines as $line) {
+                    extract($line);
+                    AdminCommand::runLocal($code);
+                    break;  // security only first
+                }
+            }
         }
     }
 

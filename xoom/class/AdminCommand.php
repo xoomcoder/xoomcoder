@@ -55,6 +55,45 @@ class AdminCommand
         }
     }
 
+    static function runLocal ($script)
+    {
+        $blocas = [];
+        $commands = [];
+
+        $lines = explode("\n", $script);
+
+        $bloccode  = "";
+        $blocname  = "";
+        foreach($lines as $index => $line0) {
+
+            $line = trim($line0);
+
+            if ("@bloc" == substr($line, 0, 5)) {
+                if ($line != "@bloc") {  // start bloc
+                    $blocname = trim(str_replace("@bloc", "", $line));
+                }
+                else {  // end bloc
+                    $blocas[$blocname] = $bloccode; // add new bloc
+                    $blocname = "";
+                    $bloccode = "";     // reset
+                }
+            }
+            else if ($blocname != "") {     // inside bloc
+                // keep empty lines for markdown syntax
+                $bloccode .= "$line0\n";    // keep raw line and add newline back
+            }
+            else if ($line) {
+                $commands[] = $line;
+            }
+        }
+        // FIXME: case of non terminated bloc with @bloc ?
+        // should it be ignored ? as comment ?
+
+        foreach($commands as $line) {
+            AdminCommand::process($line, $blocas);  // add local blocs
+        }
+    }
+
     static function save ($script)
     {
         $script = trim($script);
@@ -80,10 +119,9 @@ class AdminCommand
         }
     }
 
-    static function process ($command)
+    static function process ($command, $blocs=null)
     {
         static $index = 0;
-
         // https://www.php.net/manual/fr/function.parse-url.php
         extract(parse_url("$command"));
         extract(pathinfo("/" . ($path ?? ""))); // prepend / for dirname
@@ -96,6 +134,10 @@ class AdminCommand
             if ($dirname != "/") {
                 $paramas["json"] = trim($dirname, "/");
             }
+            if ($blocs != null) {
+                $paramas["localbloc"] = $blocs;
+            }
+
             $code($paramas);    
         }
 
@@ -379,8 +421,13 @@ class AdminCommand
         extract($paramas);
         if ($bloc ?? false) {
 
-            $code = AdminCommand::$blocas[$bloc] ?? "";
-
+            if ($localbloc ?? false) {
+                // try local blocs
+                $code = $localbloc[$bloc] ?? "";
+            }
+            else {
+                $code = AdminCommand::$blocas[$bloc] ?? "";
+            }
             ob_start();
 
             // https://www.php.net/manual/fr/function.eval.php
@@ -390,6 +437,10 @@ class AdminCommand
 
             if ("" != ($json ?? "")) {
                 Form::addJson($json, $output);
+            }
+
+            if ($echo ?? false) {
+                echo $output;
             }
         }
     }
