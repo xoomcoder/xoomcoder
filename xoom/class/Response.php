@@ -144,11 +144,7 @@ class Response
                 }
 
                 if(empty($line)) {
-                    echo 
-                    <<<x
-                    <h1>$file</h1>
-                    x;
-                    print_r($lines);
+                    // no template found...
                 }
             }
         }
