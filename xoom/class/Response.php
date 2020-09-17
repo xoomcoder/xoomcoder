@@ -82,7 +82,7 @@ class Response
     {
         $res = 0;
         $letters =[
-            "bcdfghjklmnpqrstvxz",
+            "bcdfghjklmnpqrstvwxz",
             "aeiou",
         ];
         $step   = 0;
