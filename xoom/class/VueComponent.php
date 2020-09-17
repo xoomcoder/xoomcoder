@@ -253,8 +253,8 @@ class VueComponent
                     <h4>MODIFIER</h4>
                     <button class="w20" @click.prevent="sms.event=null">annuler</button>
                     <button class="w40" type="submit">sauvegarder</button>
-                    <button class="w20" @click.prevent="doUpdateLine(-1)">précédent</button>
                     <button class="w20" @click.prevent="doUpdateLine(1)">suivant</button>
+                    <button class="w20" @click.prevent="doUpdateLine(-1)">précédent</button>
                     <template v-for="field in params.fieldsUpdate">
                         <label>
                             <span>{{ field.label }}</span>
