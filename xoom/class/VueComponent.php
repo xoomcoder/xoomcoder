@@ -208,8 +208,11 @@ class VueComponent
                     fd.append('loginToken', loginToken);
 
                     // waiting...
-                    let feedback = event.target.querySelector('.feedback');
-                    if (feedback) feedback.innerHTML = "...";
+                    let feedback = null;
+                    if ('target' in event) {
+                        feedback = event.target.querySelector('.feedback');
+                        if (feedback) feedback.innerHTML = "...";
+                        } 
 
                     let response = await fetch('api', {
                         method: 'POST',
@@ -220,10 +223,9 @@ class VueComponent
                     console.log(json);
                     // show feedback
                     if ('feedback' in json) {
-                        if ('target' in event){
+                        if ('target' in event) {
                             if (feedback) feedback.innerHTML = json.feedback;
                         }
-
                     }
 
                     if (('data' in json) && ('geocms' in json.data)) {
