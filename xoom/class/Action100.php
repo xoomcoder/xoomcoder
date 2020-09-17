@@ -58,13 +58,14 @@ class Action100
                         Form::add("uri", Controller::filterFilename($titleInput));
                         
                         Model::update("geocms", Form::$formdatas, $id);
+
+                        $now = date("Y-m-d H:i:s");
+                        Form::setFeedback("($now) modification OK... $title");
                     }
                 }
 
-                $geocms = Model::read("geocms", "id_user", $user_id);
+                $geocms = Model::read("geocms", "id_user", $user_id, "category DESC, template DESC, priority DESC");
                 Form::mergeJson("data", [ "geocms" => $geocms]);
-
-                Form::setFeedback("modification OK...");
             }
 
         }
