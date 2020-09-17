@@ -229,7 +229,7 @@ class VueComponent
                     }
                 },
                 actSms (event) {
-                    console.log(event);
+                    // console.log(event);
                     this.sms.event = event;
                 }
             }
@@ -246,10 +246,12 @@ class VueComponent
         <template v-if="params">
             <h4 v-if="params.title">{{ params.title }}</h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
-                <h4>MODIFIER (<a href="#" @click.prevent="sms.event=null">annuler</a>)</h4>
-                <button @click="doUpdateLine(-1)">PRECEDENT</button>
-                <button @click="doUpdateLine(1)">SUIVANT</button>
                 <form @submit.prevent="doSubmitUpdate"> 
+                    <h4>MODIFIER</h4>
+                    <button class="w20" @click.prevent="sms.event=null">annuler</button>
+                    <button class="w20" @click.prevent="doUpdateLine(-1)">précédent</button>
+                    <button class="w20" @click.prevent="doUpdateLine(1)">suivant</button>
+                    <button class="w20" type="submit">sauvegarder</button>
                     <template v-for="field in params.fieldsUpdate">
                         <label>
                             <span>{{ field.label }}</span>
@@ -260,7 +262,7 @@ class VueComponent
                     <input type="hidden" name="id" :value="sms.event.line.id">
                     <input type="hidden" name="classApi" value="Member">
                     <input type="hidden" name="methodApi" value="geocmsUpdate">
-                    <button type="submit">modifier</button>
+                    <button type="submit">sauvegarder</button>
                     <div class="feedback"></div> 
                 </form>
             </div>
@@ -296,7 +298,6 @@ class VueComponent
 
             let line2  = curdata[index2];
 
-            console.log(line2);
             let event = { 
                 line: Object.assign({}, line2), 
                 table: this.params.model, 
@@ -344,7 +345,7 @@ class VueComponent
                 $methods
             },
             created () {
-                console.log(this.params.fieldsCreate);
+                // console.log(this.params.fieldsCreate);
                 if (this.params.fieldsCreate) {
                     for(let f=0; f<this.params.fieldsCreate.length; f++) {
                         let field = this.params.fieldsCreate[f];
@@ -382,7 +383,7 @@ class VueComponent
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
-                            <td class="view"><a target="blank" :href="'/' + line.uri">voir</a></td>  
+                            <td class="view"><a v-if="line.uri" target="blank" :href="'/' + line.uri">voir</a></td>  
                             <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
                             <td><button @click.prevent="doDelete(line.id)">supprimer</button></td>  
                         </tr>
