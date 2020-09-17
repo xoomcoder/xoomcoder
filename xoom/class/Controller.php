@@ -30,6 +30,18 @@ class Controller
         }
         return $result;
     }
+    
+    static function filterFilename ($name)
+    {
+        $nameOK = trim($name);
+        $nameOK = rawurldecode($nameOK);    // accents from URLs...
+        $nameOK = File::removeAccents($nameOK);
+        $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9]/", "-", $nameOK));
+        $nameOK = preg_replace("/[-]+/", "-", $nameOK);
+        $nameOK = trim($nameOK, "-");
+
+        return $nameOK;
+    }
 
     //@end
 }

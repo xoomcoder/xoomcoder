@@ -24,7 +24,7 @@ class Action100
                 Form::add("id_user", $id);
                 Form::add("username", $login);
                 Form::add("datePublication", $now);
-                Form::add("uri", File::filterName($title));
+                Form::add("uri", Controller::filterFilename($title));
 
                 Model::insert("geocms", Form::$formdatas);
                 $geocms = Model::read("geocms", "id_user", $id);
@@ -55,7 +55,7 @@ class Action100
                     extract($line);
                     if ($id_user == $user_id) {
                         // update colmuns
-                        Form::add("uri", File::filterName($titleInput));
+                        Form::add("uri", Controller::filterFilename($titleInput));
                         
                         Model::update("geocms", Form::$formdatas, $id);
                     }
