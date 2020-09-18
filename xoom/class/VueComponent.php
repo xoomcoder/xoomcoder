@@ -116,6 +116,7 @@ class VueComponent
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
+                    [ "name" => "status", "type" => "text", "label" => "statut", "optional" => true, "default"=> "public" ],
                     [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
@@ -126,6 +127,7 @@ class VueComponent
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
+                    [ "name" => "status", "type" => "text", "label" => "statut", "optional" => true ],
                     [ "name" => "code", "type" => "textarea", "label" => "code"],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
@@ -141,6 +143,7 @@ class VueComponent
                     "template" => "template", 
                     "priority" => "priorité", 
                     "image" => "image", 
+                    "status" => "statut", 
                     // "json" => "json", 
                     "datePublication" => "date Publication", 
                 ],
@@ -445,7 +448,9 @@ class VueComponent
             if ((action == 'image') && (value)) {
                 let ext = value.split('.').pop();
                 if (-1 < "jpg,jpeg,gif,png,svg".indexOf(ext)) {
-                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '?fresh=' + this.lastAjax +'">';
+                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext 
+                            + '?b64=' + btoa(line.datePublication + '  ')
+                            +'&fresh=' + this.lastAjax +'">';
                 } 
             }
             return res;

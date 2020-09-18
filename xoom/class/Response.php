@@ -188,15 +188,30 @@ class Response
             $searchBid = Request::$bid;
             $searchMedia = "$rootdir/xoom-data/media/*/my-*-$searchBid.*";
             $fileMedia = glob($searchMedia);
-            foreach($fileMedia as $file) {
-                $mimetype = Response::getMime($file);
-                extract(pathinfo($file));
+            $status = false;
+            if (count($fileMedia) > 0) {
+                $searchId = Response::name2id($searchBid);
+                $lines = Model::read("geocms", "id", $searchId);
+                foreach($lines as $line) {
+                    extract($line);
+                    // $status
 
-                header("X-Robots-Tag: noindex");
-                // $ext = ($extension ?? false) ? ".$extension" : "";
-                // header("Link: <https://xoomcoder.com/--$searchBid$ext" . '>; rel="canonical"');
-                header("Content-Type: $mimetype");
-                readfile($file);
+                    // get b64
+                    $b64 = Form::filterText("b64");
+                    if ($datePublication == trim(base64_decode($b64))) $status = "public";
+                }
+            }
+            if ($status == "public") {
+                foreach($fileMedia as $file) {
+                    $mimetype = Response::getMime($file);
+                    extract(pathinfo($file));
+    
+                    header("X-Robots-Tag: noindex");
+                    // $ext = ($extension ?? false) ? ".$extension" : "";
+                    // header("Link: <https://xoomcoder.com/--$searchBid$ext" . '>; rel="canonical"');
+                    header("Content-Type: $mimetype");
+                    readfile($file);
+                }    
             }
         }
         elseif (is_file("$rootdir/public" .Request::$path)) {

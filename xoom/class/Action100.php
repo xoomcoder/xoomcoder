@@ -18,6 +18,7 @@ class Action100
             Form::filterText("template", "", "optional=true");
             Form::filterInt("priority", $level);
             Form::filterNone("code");
+            Form::filterText("status", "", "optional=true");
             if (Form::isOK()) {
                 // complete columns
                 $now = date("Y-m-d H:i:s");
@@ -56,6 +57,7 @@ class Action100
             Form::filterDatetime("datePublication");
             Form::filterText("template", "", "optional=true");
             Form::filterNone("code");
+            Form::filterText("status", "", "optional=true");
 
             if (Form::isOK()) {
                 $id = intval(Form::filterInput("id"));
