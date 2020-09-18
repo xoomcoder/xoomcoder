@@ -429,7 +429,8 @@ class VueComponent
             if ((action == 'image') && (value)) {
                 let ext = value.split('.').pop();
                 if (-1 < "jpg,jpeg,gif,png,svg".indexOf(ext)) {
-                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '">';
+                    let now = Date.now();
+                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '?fresh=' + now + '">';
                 } 
             }
             return res;
