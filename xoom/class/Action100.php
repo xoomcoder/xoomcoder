@@ -27,6 +27,15 @@ class Action100
                 Form::add("uri", Controller::filterFilename($title));
 
                 Model::insert("geocms", Form::$formdatas);
+
+                // media upload is managed after insert
+                $lastId = Model::lastInsertId();
+                $imageName = Form::filterMedia("image", $lastId);
+                if ($imageName != "") {
+                    // update the column
+                    Model::update("geocms", [ "image" => $imageName], $lastId);
+                }
+
                 $geocms = Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC");
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
@@ -43,7 +52,7 @@ class Action100
 
             $titleInput = Form::filterText("title");
             Form::filterText("category");
-            Form::filterInt("priority", $level);
+            Form::filterInt("priority", $user_level);
             Form::filterDatetime("datePublication");
             Form::filterText("template", "", "optional=true");
             Form::filterNone("code");
@@ -54,13 +63,20 @@ class Action100
                 foreach($found as $line) {
                     extract($line);
                     if ($id_user == $user_id) {
-                        // update colmuns
+                        // update columns
                         Form::add("uri", Controller::filterFilename($titleInput));
                         
+                        // media upload is managed after insert
+                        $imageName = Form::filterMedia("image", $id);
+                        if ($imageName != "") {
+                            // update the column
+                            Form::add("image", $imageName);
+                        }
+
                         Model::update("geocms", Form::$formdatas, $id);
 
                         $now = date("Y-m-d H:i:s");
-                        Form::setFeedback("($now) modification OK... $title");
+                        Form::setFeedback("($now) modification OK... $title ($imageName)");
                     }
                 }
 

@@ -140,6 +140,7 @@ class VueComponent
                     "category" => "catégorie", 
                     "template" => "template", 
                     "priority" => "priorité", 
+                    "image" => "image", 
                     "json" => "json", 
                     "datePublication" => "date Publication", 
                 ],

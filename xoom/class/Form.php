@@ -22,6 +22,7 @@ class Form
     static function add ($key, $value) {
         Form::$formdatas[$key] = $value;
     }
+
     static function filterInput($name, $default="")
     {
         $result = $_REQUEST["$name"] ?? $default;
@@ -291,10 +292,55 @@ class Form
         return $b64;
     }
 
+    static function filterMedia ($nameStart, $idLine)
+    {
+        $result = "";
+        Form::addJson("debug_files", $_FILES);
+        if (!empty($_FILES)) {
+            foreach($_FILES as $nameInput => $upload) {
+                if (0 === strpos($nameInput, $nameStart)) {
+                    // https://www.php.net/manual/fr/features.file-upload.post-method.php
+                    extract($upload);
+                    // $tmp_name, $name, $error, $size, $type
+                    $errors = [];
+                    if ($error != 0) {
+                        $errors[] = "network error";
+                    }
+                    if ($name == "") {
+                        $errors[] = "name is empty";
+                    }
+                    else {
+                        extract(pathinfo($name));
+                        $extOK = Controller::getExtensionOK();
+                        $extension = strtolower($extension ?? "");
+                        if (!in_array($extension, $extOK)) {
+                            $errors[] = "extension is not authorized";
+                        }
+                    }
+
+                    if (count($errors) == 0) {
+                        extract(Xoom::getConfig("rootdir"));
+
+                        // 
+                        $name2bid = Controller::getMediaFilename($idLine);
+                        $subfolder=substr($name2bid, 0, 1);
+
+                        $targetname = "$rootdir/xoom-data/media/$subfolder/my-$name2bid.$extension";
+                        if (is_dir("$rootdir/xoom-data/media/$subfolder")) {
+                            move_uploaded_file($tmp_name, $targetname);
+                            $result = File::filterName($name);    
+                        }
+                    }
+                }
+            }
+        }
+        return $result;
+    }
+
     static function filterUpload ($nameStart)
     {
         if (!empty($_FILES)) {
-            Form::addJson("files", $_FILES);
+            Form::addJson("debug_files", $_FILES);
 
             File::createDir("public/assets/media");
             File::create("public/assets/media/index.php", "", false);

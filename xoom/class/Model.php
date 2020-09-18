@@ -144,5 +144,14 @@ class Model
         return $pdoStatement;
     }
 
+    static function lastInsertId ()
+    {
+        $res = 0;
+        if (Model::$pdo != null) {
+            // https://www.php.net/manual/fr/pdo.lastinsertid.php
+            $res = Model::$pdo->lastInsertId();
+        }
+        return $res;
+    }
     //@end
 }

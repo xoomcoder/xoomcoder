@@ -43,5 +43,33 @@ class Controller
         return $nameOK;
     }
 
+    static function getExtensionOK ()
+    {
+        $res = [];
+        extract(Controller::$user);
+        if ($level == 100) {
+            $res = [
+                "jpg", "jpeg", "png", "webp", "gif", "svg", 
+                "mp4", "mp3", 
+                "js", "css", "md", "html", "txt", 
+                "pdf",
+                "ttf", "otf",
+            ];
+        }
+        else {
+
+        }
+        return $res;
+    }
+
+    static function getMediaFilename ($idLine)
+    {
+        extract(Controller::$user);
+        $user0  = Response::id2name($id);
+        $line0  = Response::id2name($idLine);
+        $res    = "$user0-$line0";
+        return $res;
+    }
+    
     //@end
 }
