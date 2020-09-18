@@ -237,7 +237,6 @@ class VueComponent
                     }
                 },
                 actSms (event) {
-                    // console.log(event);
                     this.sms.event = event;
                 }
             }
@@ -299,18 +298,20 @@ class VueComponent
         $methods =
         <<<'x'
         doUpdateLine(step) {
-            let curdata = this.mydata[this.params.model];
+            let curdata = this.sms.event.filterList;
 
             let index2 = (this.sms.event.index + step) % curdata.length;
             if (index2 < 0) index2 = curdata.length -1; // loop
 
             let line2  = curdata[index2];
 
+            // copy all necessary data
             let event = { 
                 line: Object.assign({}, line2), 
                 table: this.params.model, 
                 action: 'update',
-                index: index2
+                index: index2,
+                filterList: this.sms.event.filterList
             };
             this.$emit('sms', event);        
         },
@@ -414,17 +415,12 @@ class VueComponent
         $methods =
         <<<'x'
         filterUpdate(name,event) {
-            console.log(name);
-            console.log(event.target.value);
             this.filterCol = name;
             this.filterVal = event.target.value;
             this.filterList = this.mydata[this.params.model];
             if ((this.filterCol != "") && (this.filterVal)) {
-                console.log(this.filterCol);
-                console.log(this.filterVal);
 
                 this.filterList = this.filterList.filter((line) => {
-                    console.log(line);
                     let col = line[this.filterCol];
                     if (col) return col.startsWith(this.filterVal);
                     else return false;
@@ -453,7 +449,8 @@ class VueComponent
                 line: Object.assign({}, line), 
                 table: this.params.model, 
                 action: 'update',
-                index: index
+                index: index,
+                filterList: this.filterList
             };
             this.$emit('sms', event);        
         },
