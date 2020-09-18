@@ -9,20 +9,42 @@ class Terminal
 {
     static function runTerminal ()
     {
-        $params = getopt("f:");
+        $params = getopt("f:s:");
         extract($params);
-        // https://www.php.net/manual/fr/function.getcwd.php
-        $cwd = getcwd();
-        $target = "$cwd/$f";
-        if (is_file($target)) {
-            $code = file_get_contents($target);
-            AdminCommand::run($code, false, true);
+
+        if ($f ?? false) {
+            // https://www.php.net/manual/fr/function.getcwd.php
+            $cwd = getcwd();
+            $target = "$cwd/$f";
+            if (is_file($target)) {
+                $code = file_get_contents($target);
+                AdminCommand::run($code, false, true);
+            }
+
+            echo <<<x
+            $cwd/$f
+
+            x;
+
         }
 
-        echo <<<x
-        $cwd/$f
+        if ($s ?? false) {
+            extract(Xoom::getConfig("dbname,dbhost,dbuser,dbpassword"));
 
-        x;
+            $cmd = 
+            <<<x
+            mysqldump --no-tablespaces --host=$dbhost --user=$dbuser --password=$dbpassword $dbname > $s.sql
+            x;
+
+            echo 
+            <<<x
+            $cmd
+
+            x;
+
+            passthru($cmd);
+
+        }
     }
 
     //@end
