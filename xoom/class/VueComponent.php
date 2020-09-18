@@ -115,8 +115,8 @@ class VueComponent
                     [ "name" => "category", "type" => "text", "label" => "catégorie"],
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
-                    [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
+                    [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
                 "fieldsUpdate"    => [
@@ -125,8 +125,8 @@ class VueComponent
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
-                    [ "name" => "code", "type" => "textarea", "label" => "code"],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
+                    [ "name" => "code", "type" => "textarea", "label" => "code"],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
