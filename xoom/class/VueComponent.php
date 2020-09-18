@@ -373,21 +373,24 @@ class VueComponent
     static function xlist ()
     {
         $template = 
-        <<<x
+        <<<'x'
         <template v-if="params">
             <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ mydata[params.model].length }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
                         <tr>
-                            <td v-for="(colv, coln) in params.cols" :class="coln">{{ colv }}</td>
-                            <td class="view">voir</td>  
-                            <td class="update">modifier</td>  
-                            <td class="delete">supprimer</td>  
+                            <td v-for="(colv, coln) in params.cols" :class="coln">
+                                <h5>{{ colv }}</h5>
+                                <input type="text" @keyup="filterUpdate(coln,$event)">
+                            </td>
+                            <td class="view"><h5>voir</h5></td>  
+                            <td class="update"><h5>modifier</h5></td>  
+                            <td class="delete"><h5>supprimer</h5></td>  
                         </tr>
                     </thead>
                     <tbody>
-                        <tr class="w100" v-for="(line, index) in mydata[params.model]" :key="line.id">
+                        <tr class="w100" v-for="(line, index) in showList" :key="line.id">
                             <td v-for="(colv, coln) in params.cols">
                                 <pre>{{ line[coln]}}</pre>
                             </td>
@@ -401,11 +404,21 @@ class VueComponent
         </template>
         x;
 
+        $jsonData = [];
+        $jsonData["filterList"] = [];
+        $jsonData["filterCol"]  = "";
+        $jsonData["filterVal"]  = "";
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
         <<<'x'
+        filterUpdate(name,event) {
+            console.log(name);
+            console.log(event.target.value);
+            this.filterCol = name;
+            this.filterVal = event.target.value;
+        }, 
         n2t(n) {
             let res= '';
             let c = "bcdfghjklmnpqrstvwxz";
@@ -445,6 +458,25 @@ class VueComponent
         }
         x;
 
+        $computed =
+        <<<x
+        showList() {
+            this.filterList = this.mydata[this.params.model];
+            if ((this.filterCol != "") && (this.filterVal)) {
+                console.log(this.filterCol);
+                console.log(this.filterVal);
+
+                this.filterList = this.filterList.filter((line) => {
+                    console.log(line);
+                    let col = line[this.filterCol];
+                    if (col) return col.startsWith(this.filterVal);
+                    else return false;
+                })
+            }
+            return this.filterList;
+        }
+        x;
+
         $compoCode  =
         <<<x
         {
@@ -456,6 +488,9 @@ class VueComponent
             props: [ 'params' ],
             data() {
                 return $jsonData;
+            },
+            computed: {
+                $computed
             }, 
             methods: {
                 $methods
