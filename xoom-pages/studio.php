@@ -33,7 +33,6 @@ header nav a {
 }
 article:hover {
     background-color: #eeeeee;
-    cursor:pointer;
 }
 
 .toolbar {

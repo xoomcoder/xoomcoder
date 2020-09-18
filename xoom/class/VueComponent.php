@@ -103,6 +103,10 @@ class VueComponent
             @bloc
             x;
 
+            $jsonDefault =
+            <<<x
+            x;
+
             $xformParams = [
                 "title"     => "Publier une note",
                 "model"     => "geocms",
@@ -112,6 +116,7 @@ class VueComponent
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
+                    [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
                 "fieldsUpdate"    => [
                     [ "name" => "title", "type" => "text", "label" => "titre"],
@@ -120,6 +125,7 @@ class VueComponent
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                     [ "name" => "code", "type" => "textarea", "label" => "code"],
+                    [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
             $xlistParams = [
@@ -132,7 +138,7 @@ class VueComponent
                     "category" => "catégorie", 
                     "template" => "template", 
                     "priority" => "priorité", 
-                    // "code" => "code", 
+                    "json" => "json", 
                     "datePublication" => "date Publication", 
                 ],
             ];

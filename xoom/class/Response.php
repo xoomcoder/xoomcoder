@@ -132,7 +132,26 @@ class Response
             else {
                 $filename = pathinfo($file, PATHINFO_FILENAME);
                 // look in geocms if there's a template
-                $lines = Model::read("geocms", "template", $filename, "priority DESC");
+                // $lines = Model::read("geocms", "template", $filename, "priority DESC");
+                $sql =
+                <<<x
+                SELECT * FROM geocms
+                WHERE
+                template LIKE :template
+                AND priority >= :priority
+                ORDER BY priority DESC
+                x;
+                $tag = str_replace("template-", "", $filename);
+                $tokens = [
+                    "template" => "template%-$tag%",
+                    "priority" => 100,
+                ];
+
+                $lines = [];
+                $pdoStatement = Model::sendSql($sql, $tokens);
+                if ($pdoStatement) $lines = $pdoStatement->fetchAll();
+                //$pdoStatement->debugDumpParams();
+
                 foreach($lines as $line) {
                     extract($line);
                     $priority = intval($priority ?? 0);
