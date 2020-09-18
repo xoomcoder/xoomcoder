@@ -130,6 +130,11 @@ td {
     overflow-x:hidden;
     text-align:left;
 }
+td img {
+    height: 5vmin;
+    width: 5vmin;
+    object-fit: contain;
+}
 
 @media (min-width: 480px)
 {

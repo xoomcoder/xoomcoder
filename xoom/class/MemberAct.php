@@ -151,7 +151,7 @@ class MemberAct
             // FIXME: make it config
             $orderby = "";
             if ($table == "geocms")
-                $orderby = "category DESC, template DESC, priority DESC";
+                $orderby = "category DESC, template DESC, priority DESC, datePublication DESC, id DESC";
 
             $resultas = Model::read($table, "id_user", $id, $orderby);
             Form::mergeJson($json, [$table => $resultas]);

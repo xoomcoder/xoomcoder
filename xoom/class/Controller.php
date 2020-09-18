@@ -71,5 +71,17 @@ class Controller
         return $res;
     }
     
+    static function getSizeMax ()
+    {
+        $res = 0;
+        extract(Controller::$user);
+        if ($level == 100) {
+            $res = 100 * 1024 * 1024;
+        }
+        if (($level < 100) && ($level >= 10)) {
+            $res = 10 * 1024 * 1024;
+        }
+        return $res;
+    }
     //@end
 }

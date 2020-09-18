@@ -306,6 +306,9 @@ class Form
                     if ($error != 0) {
                         $errors[] = "network error";
                     }
+                    if ($size > Controller::getSizeMax()) {
+                        $errors[] = "size too big";
+                    }
                     if ($name == "") {
                         $errors[] = "name is empty";
                     }
@@ -327,7 +330,11 @@ class Form
 
                         $targetname = "$rootdir/xoom-data/media/$subfolder/my-$name2bid.$extension";
                         if (is_dir("$rootdir/xoom-data/media/$subfolder")) {
+                            // clean files with other extensions
+                            File::deleteMedia($idLine);
+                            // create the new media file
                             move_uploaded_file($tmp_name, $targetname);
+                            // return for db line
                             $result = File::filterName($name);    
                         }
                     }

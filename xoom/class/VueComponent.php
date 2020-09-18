@@ -117,7 +117,7 @@ class VueComponent
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
-                    [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
+                    // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
                 "fieldsUpdate"    => [
                     [ "name" => "title", "type" => "text", "label" => "titre"],
@@ -127,11 +127,11 @@ class VueComponent
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                     [ "name" => "code", "type" => "textarea", "label" => "code"],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
-                    [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
+                    // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
             $xlistParams = [
-                "title"     => "Vos Notes",
+                "title"     => "Vos Contenus",
                 "model"     => "geocms",
                 "cols"      => [
                     "id" => "id", 
@@ -141,8 +141,11 @@ class VueComponent
                     "template" => "template", 
                     "priority" => "priorité", 
                     "image" => "image", 
-                    "json" => "json", 
+                    // "json" => "json", 
                     "datePublication" => "date Publication", 
+                ],
+                "filters" => [
+                    "image" => "image",
                 ],
             ];
             // WEBMASTER
@@ -398,7 +401,9 @@ class VueComponent
                     <tbody>
                         <tr class="w100" v-for="(line, index) in showList" :key="line.id">
                             <td v-for="(colv, coln) in params.cols">
-                                <pre>{{ line[coln]}}</pre>
+                                <div v-if="params.filters[coln]" :title="line[coln]" v-html="filterShow(params.filters[coln], line[coln], line)">
+                                </div>
+                                <pre v-else>{{ line[coln]}}</pre>
                             </td>
                             <td class="view"><a v-if="line.uri" target="blank" :href="'/' + line.uri + '--' + n2t(line.id)">voir</a></td>  
                             <td><button @click.prevent="doUpdate(line, index)">modifier</button></td>  
@@ -419,6 +424,16 @@ class VueComponent
 
         $methods =
         <<<'x'
+        filterShow(action, value, line) {
+            let res=value;
+            if ((action == 'image') && (value)) {
+                let ext = value.split('.').pop();
+                if (-1 < "jpg,jpeg,gif,png,svg".indexOf(ext)) {
+                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '">';
+                } 
+            }
+            return res;
+        },
         filterUpdate(name,event) {
             if (name) this.filterCol = name;
             if (event) this.filterVal = event.target.value;

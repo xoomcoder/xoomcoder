@@ -36,7 +36,7 @@ class Action100
                     Model::update("geocms", [ "image" => $imageName], $lastId);
                 }
 
-                $geocms = Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC");
+                $geocms = Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC");
                 Form::mergeJson("data", [ "geocms" => $geocms]);
 
                 Form::setFeedback("Publication OK ($now) $title");
@@ -80,7 +80,7 @@ class Action100
                     }
                 }
 
-                $geocms = Model::read("geocms", "id_user", $user_id, "category DESC, template DESC, priority DESC");
+                $geocms = Model::read("geocms", "id_user", $user_id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC");
                 Form::mergeJson("data", [ "geocms" => $geocms]);
             }
 
