@@ -169,7 +169,10 @@ class VueComponent
         $jsonData["data"] = [ 
             "geocms" => Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC"), 
         ];
-        $jsonData["sms"] = [ "event" => null ];
+
+        $jsonData["sms"]        = [ "event" => null ];
+        $jsonData["lastAjax"]   = time();
+
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
         
@@ -185,7 +188,8 @@ class VueComponent
             provide () {
                 return {
                     sms: this.sms,
-                    mydata: this.data
+                    mydata: this.data,
+                    lastAjax: this.lastAjax
                 };
             },
             methods: {
@@ -240,10 +244,18 @@ class VueComponent
                     if (('data' in json) && ('geocms' in json.data)) {
                         this.data.geocms = json.data.geocms;
                         console.log(this.data);
+                        // update timestamp
+                        this.lastAjax = Date.now();
+                        console.log(this.lastAjax);
                     }
+
                 },
                 actSms (event) {
                     this.sms.event = event;
+                    // update timestamp
+                    this.lastAjax = Date.now();
+                    console.log(this.lastAjax);
+
                 }
             }
         }
@@ -401,7 +413,7 @@ class VueComponent
                     <tbody>
                         <tr class="w100" v-for="(line, index) in showList" :key="line.id">
                             <td v-for="(colv, coln) in params.cols">
-                                <div v-if="params.filters[coln]" :title="line[coln]" v-html="filterShow(params.filters[coln], line[coln], line)">
+                                <div v-if="params.filters[coln]" :title="line[coln]" v-html="filterShow(line, coln)">
                                 </div>
                                 <pre v-else>{{ line[coln]}}</pre>
                             </td>
@@ -419,18 +431,21 @@ class VueComponent
         $jsonData["filterList"] = [];
         $jsonData["filterCol"]  = "";
         $jsonData["filterVal"]  = "";
+        $jsonData["refresh"]    = "";
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
         <<<'x'
-        filterShow(action, value, line) {
+        filterShow(line, col) {
+            let action = this.params.filters[col];
+            let value = line[col];
+
             let res=value;
             if ((action == 'image') && (value)) {
                 let ext = value.split('.').pop();
                 if (-1 < "jpg,jpeg,gif,png,svg".indexOf(ext)) {
-                    let now = Date.now();
-                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '?fresh=' + now + '">';
+                    res = '<img src="/' + line.uri + '--' + this.n2t(line.id) + '.' + ext + '?fresh=' + this.lastAjax +'">';
                 } 
             }
             return res;
@@ -521,7 +536,7 @@ class VueComponent
             template:`
             $template
             `,
-            inject: [ 'mydata' ],
+            inject: [ 'mydata', 'lastAjax' ],
             emits: [ 'ajaxform', 'sms' ],
             props: [ 'params' ],
             data() {
