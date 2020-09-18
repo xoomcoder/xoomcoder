@@ -375,7 +375,7 @@ class VueComponent
         $template = 
         <<<'x'
         <template v-if="params">
-            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ mydata[params.model].length }})</span></h4>
+            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ filterCount }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
@@ -418,6 +418,18 @@ class VueComponent
             console.log(event.target.value);
             this.filterCol = name;
             this.filterVal = event.target.value;
+            this.filterList = this.mydata[this.params.model];
+            if ((this.filterCol != "") && (this.filterVal)) {
+                console.log(this.filterCol);
+                console.log(this.filterVal);
+
+                this.filterList = this.filterList.filter((line) => {
+                    console.log(line);
+                    let col = line[this.filterCol];
+                    if (col) return col.startsWith(this.filterVal);
+                    else return false;
+                })
+            }
         }, 
         n2t(n) {
             let res= '';
@@ -460,19 +472,10 @@ class VueComponent
 
         $computed =
         <<<x
+        filterCount() {
+            return this.filterList.length + '/' + this.mydata[this.params.model].length;
+        },
         showList() {
-            this.filterList = this.mydata[this.params.model];
-            if ((this.filterCol != "") && (this.filterVal)) {
-                console.log(this.filterCol);
-                console.log(this.filterVal);
-
-                this.filterList = this.filterList.filter((line) => {
-                    console.log(line);
-                    let col = line[this.filterCol];
-                    if (col) return col.startsWith(this.filterVal);
-                    else return false;
-                })
-            }
             return this.filterList;
         }
         x;
@@ -494,6 +497,9 @@ class VueComponent
             }, 
             methods: {
                 $methods
+            },
+            created() {
+                this.filterList = this.mydata[this.params.model];
             }
         }
         x;

@@ -23,6 +23,10 @@ html, body {
     width:100%;
     /* transition: all 0.5s ease-out; */ /* TOO BIG */
 }
+footer {
+    padding:10rem 0;
+}
+
 h2 {
     border: 1px solid #cccccc;
     background-color: #eeeeee;
