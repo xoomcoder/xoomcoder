@@ -418,11 +418,21 @@ class VueComponent
             this.filterCol = name;
             this.filterVal = event.target.value;
             this.filterList = this.mydata[this.params.model];
-            if ((this.filterCol != "") && (this.filterVal)) {
+            if ((this.filterCol != '') && (this.filterVal != '')) {
 
                 this.filterList = this.filterList.filter((line) => {
                     let col = line[this.filterCol];
-                    if (col) return col.startsWith(this.filterVal);
+                    if (col) {
+                        if (this.filterVal.startsWith('**')) {
+                            return col.endsWith(this.filterVal.substring(2));
+                        }
+                        else if (this.filterVal.startsWith('*')) {
+                            return (-1 < col.indexOf(this.filterVal.substring(1)));
+                        }
+                        else {
+                            return col.startsWith(this.filterVal);
+                        }
+                    }
                     else return false;
                 })
             }
