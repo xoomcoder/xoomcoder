@@ -116,6 +116,7 @@ class VueComponent
                     [ "name" => "template", "type" => "text", "label" => "template", "optional" => true ],
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
+                    [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
                     [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
                 "fieldsUpdate"    => [
@@ -125,6 +126,7 @@ class VueComponent
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                     [ "name" => "code", "type" => "textarea", "label" => "code"],
+                    [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
                     [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
@@ -253,7 +255,7 @@ class VueComponent
         <template v-if="params">
             <h4 v-if="params.title">{{ params.title }}</h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
-                <form @submit.prevent="doSubmitUpdate"> 
+                <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
                     <h4>MODIFIER</h4>
                     <button class="w20" @click.prevent="sms.event=null">annuler</button>
                     <button class="w40" type="submit">sauvegarder</button>
@@ -263,6 +265,7 @@ class VueComponent
                         <label>
                             <span>{{ field.label }}</span>
                             <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
                         </label>
                     </template>   
@@ -279,6 +282,7 @@ class VueComponent
                         <label>
                             <span>{{ field.label }}</span>
                             <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
                     </template>   
@@ -376,7 +380,7 @@ class VueComponent
         $template = 
         <<<'x'
         <template v-if="params">
-            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ filterCount }})</span></h4>
+            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ filterCount2 + filterCount }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
@@ -415,8 +419,9 @@ class VueComponent
         $methods =
         <<<'x'
         filterUpdate(name,event) {
-            this.filterCol = name;
-            this.filterVal = event.target.value;
+            if (name) this.filterCol = name;
+            if (event) this.filterVal = event.target.value;
+
             this.filterList = this.mydata[this.params.model];
             if ((this.filterCol != '') && (this.filterVal != '')) {
 
@@ -479,6 +484,12 @@ class VueComponent
 
         $computed =
         <<<x
+        filterCount2() {
+            // hack to be updated when source list is updated
+            let res = this.mydata[this.params.model];
+            this.filterUpdate(null,null);
+            return "";
+        },
         filterCount() {
             return this.filterList.length + '/' + this.mydata[this.params.model].length;
         },
@@ -505,9 +516,15 @@ class VueComponent
             methods: {
                 $methods
             },
+            watch: {
+                mydata(v2, v1) {
+                    console.log(v2);
+                    this.filterList = this.mydata[this.params.model];
+                }
+            },
             created() {
                 this.filterList = this.mydata[this.params.model];
-            }
+            },
         }
         x;
 
