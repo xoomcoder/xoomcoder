@@ -135,6 +135,7 @@ class MemberAct
                 if (($iduser > 0) && ($iduser == $iduser0)) {
                     // ok this is his notes
                     Model::delete($table, $id);
+                    File::deleteMedia($id);
                 }
             }
         }

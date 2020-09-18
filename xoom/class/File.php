@@ -128,4 +128,21 @@ class File
 
         return $nameOK;
     }
+
+    /**
+     * danger: check security before deleting file
+     */
+    static function deleteMedia ($id)
+    {
+        extract(Xoom::getConfig("rootdir"));
+
+        $searchBid = Response::id2name($id);
+        $searchMedia = "$rootdir/xoom-data/media/*/my-*-$searchBid.*";
+        $fileMedia = glob($searchMedia);
+        foreach($fileMedia as $file) {
+            unlink($file);
+        }
+
+    }
+
 }
