@@ -127,7 +127,7 @@ class File
         $nameOK = strtolower(preg_replace("/[^a-zA-Z0-9\.]/", "-", $nameOK));
         $nameOK = preg_replace("/[-]+/", "-", $nameOK);
         // FIXME: remove ending - in filename
-        $nameOK = preg_replace("/[-\.]/", ".", $nameOK);
+        // $nameOK = preg_replace("/[-\.]/", ".", $nameOK);
         $nameOK = trim($nameOK, "-");
 
         return $nameOK;
