@@ -283,7 +283,7 @@ class Response
             <meta property="og:title" content="$ogtitle">
             <meta property="og:description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
             <meta property="og:url" content="https://xoomcoder.com/$uri--$bid">
-            <meta property="og:image" content="https://xoomcoder.com/$uri.jpg">
+            <meta property="og:image" content="https://xoomcoder.com/$uri--$bid.jpg">
             <meta property="og:image:alt" content="$ogtitle">
             <meta property="og:type" content="website">
             <meta property="og:site_name" content="XoomCoder">
