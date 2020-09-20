@@ -111,7 +111,7 @@ class News
 
         if ($summary && ($codelength >= 2000)) {
             // make summary to avoid duplicate content
-            $result = preg_replace("/<h2>.*</h2>/", "", $result, 1);
+            $result = preg_replace(",<h2>.*</h2>,", "", $result, 1);
 
             //$titlelength = mb_strlen($title);
             $result = strip_tags($result);
