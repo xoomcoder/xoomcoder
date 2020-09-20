@@ -274,19 +274,21 @@ class Response
                 // $noindex = "";  // index content as big enough
             }
 
+            $ogtitle = str_replace('"', '', $title);
+
             $res = 
             <<<x
             $noindex
 
-            <meta property="og:title" content="$title">
-            <meta property="og:description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <meta property="og:title" content="$ogtitle">
+            <meta property="og:description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
             <meta property="og:url" content="https://xoomcoder.com/$uri--$bid">
             <meta property="og:image" content="https://xoomcoder.com/$uri.jpg">
-            <meta property="og:image:alt" content="$title">
+            <meta property="og:image:alt" content="$ogtitle">
             <meta property="og:type" content="website">
             <meta property="og:site_name" content="XoomCoder">
 
-            <meta name="description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <meta name="description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
             <title>$title - XoomCoder Formation</title>
             <link rel="canonical" href="https://xoomcoder.com/$uri--$bid">
             x;
@@ -297,14 +299,16 @@ class Response
 
             $title = $canonical;
 
+            $ogtitle = str_replace('"', '', $title);
+
             $res = 
             <<<x
 
-            <meta property="og:title" content="$title">
-            <meta property="og:description" content="$title - XoomCoder - Formation Développeur Fullstack à Distance">
+            <meta property="og:title" content="$ogtitle">
+            <meta property="og:description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
             <meta property="og:url" content="$uri">
             <meta property="og:image" content="https://xoomcoder.com/$uri.jpg">
-            <meta property="og:image:alt" content="$title">
+            <meta property="og:image:alt" content="$ogtitle">
             <meta property="og:type" content="website">
             <meta property="og:site_name" content="XoomCoder">
 
