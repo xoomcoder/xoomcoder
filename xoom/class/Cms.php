@@ -20,7 +20,10 @@ class Cms
             id_user = :id_user
             AND 
             category = :category
-            ORDER BY datePublication DESC
+            AND 
+            priority >= 100 
+            ORDER BY 
+            datePublication DESC
 
             x;
 
