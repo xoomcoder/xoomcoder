@@ -49,38 +49,6 @@ class News
         return $mediafile;
     }
 
-    static function showCms ()
-    {
-        $users = Model::read("user", "level", 100);
-        foreach($users as $user) {
-            extract($user, EXTR_PREFIX_ALL, "user");
-            // $notes = Model::read("geocms", "id_user", $user_id);
-            $sql =
-            <<<x
-            SELECT * FROM geocms
-            WHERE 
-            id_user = :id_user
-            AND 
-            category = :category
-            ORDER BY datePublication DESC
-
-            x;
-
-            $tokens = [
-                "id_user"   => $user_id,
-                "category"  => "news",
-            ];
-            $notes = Model::sendSql($sql, $tokens);
-
-            $html = "";
-            foreach($notes as $note) {
-                $html .= News::buildHtml($note);       
-            }
-            echo $html;
-
-        }
-            
-    }
 
     static function buildHtml ($geocms, $summary=true)
     {
