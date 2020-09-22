@@ -11,6 +11,7 @@
     <title>XoomCoder Studio</title>
 
     <link rel="stylesheet" href="assets/toastui/codemirror.min.css" />
+    <link rel="stylesheet" href="assets/toastui/github.min.css" />
     <!-- Editor's Style -->
     <link rel="stylesheet" href="assets/toastui/toastui-editor.min.css" />
 
@@ -219,9 +220,10 @@ form label span {
         <mypage></mypage>
     </div>
 
+    <script src="assets/toastui/highlight.min.js"></script>
     <script src="assets/toastui/toastui-editor-all.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-chart.min.js"></script>
-    <script src="assets/toastui/toastui-editor-plugin-code-syntax-highlight.min.js"></script>
+    <script src="assets/toastui/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-color-syntax.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-table-merged-cell.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-uml.min.js"></script>
