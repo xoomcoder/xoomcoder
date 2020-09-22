@@ -329,7 +329,7 @@ table {
     table-layout:fixed;
     padding:1rem;
 }
-thead td {
+thead th {
     background-color:#cccccc;
 }
 td {
