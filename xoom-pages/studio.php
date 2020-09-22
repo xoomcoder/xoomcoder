@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="assets/toastui/codemirror.min.css" />
     <link rel="stylesheet" href="assets/toastui/github.min.css" />
     <!-- Editor's Style -->
+    <link rel="stylesheet" href="assets/toastui/tui-color-picker.min.css" />
     <link rel="stylesheet" href="assets/toastui/toastui-editor.min.css" />
 
     <style>
