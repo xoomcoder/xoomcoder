@@ -52,6 +52,10 @@ pre {
     text-align: left;
 /*    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     font-family: 'Roboto', sans-serif;
+    /* WORKAROUND FOR BUG FOR CSS column-count and iframe no show */
+    -webkit-column-break-inside: avoid;
+    -moz-column-break-inside: avoid;
+    column-break-inside: avoid;
 }
 
 
