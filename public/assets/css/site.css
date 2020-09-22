@@ -324,6 +324,26 @@ section.single article {
     width:100%;
 }
 
+/* TABLES */
+table {
+    table-layout:fixed;
+    padding:1rem;
+}
+thead td {
+    background-color:#cccccc;
+}
+td {
+    border: 1px solid #dddddd;
+    padding:0.25rem;
+    overflow-x:hidden;
+    text-align:left;
+}
+td img {
+    height: 5vmin;
+    width: 5vmin;
+    object-fit: contain;
+}
+
 /* https://developer.mozilla.org/fr/docs/Web/CSS/Requ%C3%AAtes_m%C3%A9dia/Utiliser_les_Media_queries */
 @media (max-width: 480px)
 {
