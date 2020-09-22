@@ -22,6 +22,7 @@ class VueComponent
                 </nav>
             </header>
             <main>
+
                 <template v-for="section in sections" :key="section.id">
                     <section v-if="!hide[section.class]">
                         <h2>{{ section.title }}</h2>
@@ -30,7 +31,7 @@ class VueComponent
                                 <h3 v-if="article.title">{{ article.title }}</h3>
                                 <pre v-if="article.code">{{ article.code }}</pre>
                                 <template v-if="article.compo">
-                                    <component :is="article.compo" :params="article.params" v-on:ajaxform="actAjaxForm" v-on:sms="actSms">
+                                    <component :is="article.compo" :params="article.params" v-on:ajaxform="actAjaxForm" v-on:sms="actSms" v-on:loader="actLoader">
                                     </component>
                                 </template>
                             </article>
@@ -53,6 +54,7 @@ class VueComponent
                 </label>
             </div>  
         </div> 
+
         x;
 
         $jsonData   = [];
@@ -117,7 +119,7 @@ class VueComponent
                     [ "name" => "priority", "type" => "number", "label" => "priorité", "default" => $level ],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
                     [ "name" => "status", "type" => "text", "label" => "statut", "optional" => true, "default"=> "public" ],
-                    [ "name" => "code", "type" => "textarea", "label" => "code", "default"=> $codeDefault ],
+                    [ "name" => "code", "type" => "markdown", "label" => "code", "default"=> $codeDefault ],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true, "default"=> $jsonDefault ],
                 ], 
                 "fieldsUpdate"    => [
@@ -128,7 +130,7 @@ class VueComponent
                     [ "name" => "datePublication", "type" => "text", "label" => "date Publication"],
                     [ "name" => "image", "type" => "upload", "label" => "media", "optional" => true ],
                     [ "name" => "status", "type" => "text", "label" => "statut", "optional" => true ],
-                    [ "name" => "code", "type" => "textarea", "label" => "code"],
+                    [ "name" => "code", "type" => "markdown", "label" => "code"],
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
@@ -155,6 +157,7 @@ class VueComponent
             $articles3 = [
                 [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
                 [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
+                // [ "id" => 16, "compo" => "xeditoast", "params" => [], "class" => "w100" ],
             ];
     
             $articles4 = [
@@ -202,6 +205,9 @@ class VueComponent
                 },
                 switchOptions () {
                     this.hide.options = !this.hide.options;
+                },
+                async actLoader (event) {
+                    console.log(event);
                 },
                 async actAjaxForm (event) {
                     let fd = null;
@@ -284,6 +290,9 @@ class VueComponent
                         <label>
                             <span>{{ field.label }}</span>
                             <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            <template v-else-if="field.type=='markdown'">
+                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
                         </label>
@@ -301,6 +310,9 @@ class VueComponent
                         <label>
                             <span>{{ field.label }}</span>
                             <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            <template v-else-if="field.type=='markdown'">
+                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
@@ -310,8 +322,13 @@ class VueComponent
                     <button type="submit">publier</button>
                     <div class="feedback"></div> 
                 </form>
+                <div class="toasteditor" id="toasteditorCreate"></div>
             </template>
+            <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'"></component>
+            <div class="toasteditor" id="toasteditorUpdate"></div>
+
         </template>
+
         x;
 
         $jsonData   = [];
@@ -320,6 +337,10 @@ class VueComponent
 
         $methods =
         <<<'x'
+        actLoader(event) {
+            console.log(event);
+            this.$emit('loader', event);
+        },
         doUpdateLine(step) {
             let curdata = this.sms.event.filterList;
 
@@ -368,7 +389,7 @@ class VueComponent
             $template
             `,
             inject: [ 'mydata', 'sms' ],
-            emits: [ 'ajaxform', 'sms' ],
+            emits: [ 'ajaxform', 'sms', 'loader' ],
             props: [ 'params' ],
             data() {
                 return $jsonData;
@@ -542,7 +563,7 @@ class VueComponent
             $template
             `,
             inject: [ 'mydata', 'lastAjax' ],
-            emits: [ 'ajaxform', 'sms' ],
+            emits: [ 'ajaxform', 'sms', 'loader' ],
             props: [ 'params' ],
             data() {
                 return $jsonData;
@@ -643,6 +664,62 @@ class VueComponent
             }, 
             methods: {
             }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xeditoast ()
+    {
+        $template = 
+        <<<x
+        x;
+
+        $jsonData = [];
+        $jsonData["modelValue"]  = [ "code" => "" ];
+        $jsonData["editor"]  = null;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $extraCode = 
+        <<<'x'
+        created () {
+            let event = { type: 'css', url: 'gogogo'};
+            console.log(event);
+            this.$emit('loader', event);        
+        },
+        mounted () {
+            let targetId = '#' + this.target;
+            this.editor = new Editor({
+                el: document.querySelector(targetId),
+                previewStyle: 'vertical',
+                height: '500px',
+                initialValue: '',
+                usageStatistics: false,
+                plugins: [
+                    [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
+                ]
+            });
+    
+        }
+        x;
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            props: [ 'params', 'edit', 'target' ],
+            emits: [ 'ajaxform', 'sms', 'loader' ],
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+            },
+            $extraCode
         }
         x;
 

@@ -49,12 +49,15 @@ class ApiMember
                     Form::addJson($compoName, $compoCode);  
                 }
                 if ($compoName == "mypage") {
+                    // FIXME: should not be manual...
+                    // add register for each component
                     Form::addJson("xcompo", [ 
-                        "xform" => "xform.vue",
-                        "xmap" => "xmap.vue",
-                        "xlist" => "xlist.vue",
-                        "xedit" => "xedit.vue",
-                        "xfiles" => "xfiles.vue",
+                        "xeditoast" => "xeditoast.vue",
+                        "xform"     => "xform.vue",
+                        "xmap"      => "xmap.vue",
+                        "xlist"     => "xlist.vue",
+                        "xedit"     => "xedit.vue",
+                        "xfiles"    => "xfiles.vue",
                     ]);
                 }
             }
