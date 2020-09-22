@@ -198,8 +198,18 @@ td.datePublication {
 form label span {
     display:none;
 }
+
+/**
+ * TOAST UI EDITOR
+ */
 .toasteditor * {
     text-align: left;
+}
+
+.tui-editor-contents img[alt~='cover']
+{
+    max-height:20vmin;
+    object-fit:cover;
 }
 
     </style>
