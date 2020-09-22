@@ -68,7 +68,17 @@ function run() {
             var current = scripts[s];
             // https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
             current.insertAdjacentHTML('afterend', current.innerHTML);
-        }        
+        }   
+        
+        var videos = document.querySelectorAll('pre code.language-youtube');
+        for(var s=0; s<videos.length; s++)
+        {
+            var current = videos[s];
+            var parsedUrl = new URL(current);
+            const youtubeId = parsedUrl.searchParams.get('v');
+            // https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
+            current.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+        }   
     }, 4000);
 
     // install ajax
