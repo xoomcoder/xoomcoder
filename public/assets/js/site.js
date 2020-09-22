@@ -81,6 +81,9 @@ function run() {
             //`<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`
             //`<iframe width="560" height="315" src="https://www.youtube.com/embed/xm4gcoVmTJs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`
             `<iframe title="tutoriels youtube" width="560" height="315" src="https://www.youtube.com/embed/${youtubeId}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>`            );
+
+            // add link
+            current.parentElement.innerHTML = `<a target="blank" href="${current.innerHTML}">${current.innerHTML} (ouvre un nouvel onglet)</a>`;
         }   
     }, 4000);
 
