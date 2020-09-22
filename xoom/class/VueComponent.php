@@ -701,7 +701,7 @@ class VueComponent
                 plugins: [
                     [chart, chartOptions], 
                     codeSyntaxHighlight, 
-                    colorSyntax, 
+                    // colorSyntax, 
                     tableMergedCell, 
                     [uml, umlOptions],
                     youtubePlugin

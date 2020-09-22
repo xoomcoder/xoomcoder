@@ -47,10 +47,6 @@
             display: inline-block;
         }
 
-        article:hover {
-            background-color: #eeeeee;
-        }
-
         .toolbar {
             position: fixed;
             top: 2rem;
@@ -233,12 +229,9 @@
             display: none;
         }
 
-        /**
- * TOAST UI EDITOR
- */
+        /* TOAST UI EDITOR */
         .toasteditor * {
             text-align: left;
-            width: revert;
         }
 
         .tui-editor-contents img[alt~='cover'] {
@@ -289,7 +282,10 @@
         };
 
         function youtubePlugin() {
-            Editor.codeBlockManager.setReplacer('youtube', function(youtubeId) {
+            Editor.codeBlockManager.setReplacer('youtube', function(youtubeUrl) {
+                var parsedUrl = new URL(youtubeUrl);
+                const youtubeId = parsedUrl.searchParams.get('v');
+
                 // Indentify multiple code blocks
                 const wrapperId = `yt${Math.random()
             .toString(36)
@@ -301,11 +297,12 @@
                 return `<div id="${wrapperId}"></div>`;
             });
         }
-        function renderYoutube(wrapperId, youtubeId) {
-        const el = document.querySelector(`#${wrapperId}`);
 
-        el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
-      }
+        function renderYoutube(wrapperId, youtubeId) {
+            const el = document.querySelector(`#${wrapperId}`);
+
+            el.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+        }
 
         // const viewer = Editor.factory({
         //     el: document.querySelector('#viewer'),
