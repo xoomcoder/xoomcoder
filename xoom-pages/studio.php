@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
-<meta charset="utf-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, , maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
     <!-- IMPORTANT: NO INDEX -->
     <meta name="robots" content="noindex">
@@ -13,209 +14,240 @@
     <link rel="stylesheet" href="assets/toastui/codemirror.min.css" />
     <link rel="stylesheet" href="assets/toastui/github.min.css" />
     <!-- Editor's Style -->
-    <link rel="stylesheet" href="assets/toastui/tui-color-picker.min.css" />
     <link rel="stylesheet" href="assets/toastui/toastui-editor.min.css" />
 
     <style>
-html, body {
-    width:100%;
-    padding:0;
-    margin:0;
-    font-size:12px;
-    text-align: center;
-}
+        html,
+        body {
+            width: 100%;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+            text-align: center;
+        }
 
-* {
-    box-sizing: border-box;
-    width:100%;
-    /* transition: all 0.5s ease-out; */ /* TOO BIG */
-}
-footer {
-    padding:10rem 0;
-}
+        * {
+            box-sizing: border-box;
+            width: 100%;
+            /* transition: all 0.5s ease-out; */
+            /* TOO BIG */
+        }
 
-h2 {
-    border: 1px solid #cccccc;
-    background-color: #eeeeee;
-    padding: 1rem;
-}
-header nav a {
-    display: inline-block;
-}
-article:hover {
-    background-color: #eeeeee;
-}
+        footer {
+            padding: 10rem 0;
+        }
 
-.toolbar {
-    position:fixed;
-    top:2rem;
-    right:2rem;
-    width:4vmin;
-    height:4vmin;
-    z-index:9999;
-    cursor:pointer;
-}
-.options {
-    position:fixed;
-    top:100%;
-    left:0;
-    width:100%;
-    height:100%;
-    z-index:999;
-    transition: all 0.5s ease-out;
-    background-color: rgba(200,200,200,0.9);
-}
-.options.active {
-    top:0;
-    overflow-y:auto;
-}
+        h2 {
+            border: 1px solid #cccccc;
+            background-color: #eeeeee;
+            padding: 1rem;
+        }
 
-form {
-    padding:1rem;
-}
-form label {
-    margin:0.5rem 0;
-    display: inline-block;
-}
-form label span {
-    display: inline-block;
-    padding: 0.5rem;
-}
-input, textarea, button {
-    padding:0.5rem;
-}
-.feedback {
-    padding:1rem;
-    font-weight:700;
-}
+        header nav a {
+            display: inline-block;
+        }
 
-.w10 {
-    width:10%;
-}
-.w20 {
-    width:20%;
-}
-.w25 {
-    width:25%;
-}
-.w30 {
-    width:30%;
-}
-.w40 {
-    width:40%;
-}
-.w50 {
-    width:50%;
-}
-.w60 {
-    width:60%;
-}
-.w70 {
-    width:70%;
-}
-.w80 {
-    width:80%;
-}
-.w90 {
-    width:90%;
-}
-.w100 {
-    width:100%;
-}
+        article:hover {
+            background-color: #eeeeee;
+        }
 
-/* TABLES */
-table {
-    table-layout:fixed;
-    padding:1rem;
-}
-thead td {
-    background-color:#cccccc;
-}
-td {
-    border: 1px solid #dddddd;
-    padding:0.25rem;
-    overflow-x:hidden;
-    text-align:left;
-}
-td img {
-    height: 5vmin;
-    width: 5vmin;
-    object-fit: contain;
-}
+        .toolbar {
+            position: fixed;
+            top: 2rem;
+            right: 2rem;
+            width: 4vmin;
+            height: 4vmin;
+            z-index: 9999;
+            cursor: pointer;
+        }
 
-@media (min-width: 480px)
-{
-    section {
-        display:flex;
-        flex-wrap: wrap;
-    }
-    section article {
-        margin:0.25rem;
-        width: calc(100% / 2 - 0.5rem);
-    }
-}
-@media (min-width: 640px)
-{
-    section article {
-        width: calc(100% / 3 - 0.5rem);
-    }
-}
-@media (min-width: 720px)
-{
-    section article {
-        width: calc(100% / 4 - 0.5rem);
-    }
-}
-@media (min-width: 960px)
-{
-    section article {
-        width: calc(100% / 5 - 0.5rem);
-    }
-}
-@media (min-width: 1200px)
-{
-    section article {
-        width: calc(100% / 6 - 0.5rem);
-    }
-}
+        .options {
+            position: fixed;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 999;
+            transition: all 0.5s ease-out;
+            background-color: rgba(200, 200, 200, 0.9);
+        }
+
+        .options.active {
+            top: 0;
+            overflow-y: auto;
+        }
+
+        form {
+            padding: 1rem;
+        }
+
+        form label {
+            margin: 0.5rem 0;
+            display: inline-block;
+        }
+
+        form label span {
+            display: inline-block;
+            padding: 0.5rem;
+        }
+
+        input,
+        textarea,
+        button {
+            padding: 0.5rem;
+        }
+
+        .feedback {
+            padding: 1rem;
+            font-weight: 700;
+        }
+
+        .w10 {
+            width: 10%;
+        }
+
+        .w20 {
+            width: 20%;
+        }
+
+        .w25 {
+            width: 25%;
+        }
+
+        .w30 {
+            width: 30%;
+        }
+
+        .w40 {
+            width: 40%;
+        }
+
+        .w50 {
+            width: 50%;
+        }
+
+        .w60 {
+            width: 60%;
+        }
+
+        .w70 {
+            width: 70%;
+        }
+
+        .w80 {
+            width: 80%;
+        }
+
+        .w90 {
+            width: 90%;
+        }
+
+        .w100 {
+            width: 100%;
+        }
+
+        /* TABLES */
+        table {
+            table-layout: fixed;
+            padding: 1rem;
+        }
+
+        thead td {
+            background-color: #cccccc;
+        }
+
+        td {
+            border: 1px solid #dddddd;
+            padding: 0.25rem;
+            overflow-x: hidden;
+            text-align: left;
+        }
+
+        td img {
+            height: 5vmin;
+            width: 5vmin;
+            object-fit: contain;
+        }
+
+        @media (min-width: 480px) {
+            section {
+                display: flex;
+                flex-wrap: wrap;
+            }
+
+            section article {
+                margin: 0.25rem;
+                width: calc(100% / 2 - 0.5rem);
+            }
+        }
+
+        @media (min-width: 640px) {
+            section article {
+                width: calc(100% / 3 - 0.5rem);
+            }
+        }
+
+        @media (min-width: 720px) {
+            section article {
+                width: calc(100% / 4 - 0.5rem);
+            }
+        }
+
+        @media (min-width: 960px) {
+            section article {
+                width: calc(100% / 5 - 0.5rem);
+            }
+        }
+
+        @media (min-width: 1200px) {
+            section article {
+                width: calc(100% / 6 - 0.5rem);
+            }
+        }
 
 
-/* SPECIFIC CODE */
-td.id {
-    width:40px;
-}
-td.view, td.update, td.delete {
-    width:80px;
-}
-td.code {
-    width:40vmin;
-}
-td.code pre {
-    overflow-x: auto;
-}
-td.datePublication {
-    width:160px;
-}
+        /* SPECIFIC CODE */
+        td.id {
+            width: 40px;
+        }
 
-form label span {
-    display:none;
-}
+        td.view,
+        td.update,
+        td.delete {
+            width: 80px;
+        }
 
-/**
+        td.code {
+            width: 40vmin;
+        }
+
+        td.code pre {
+            overflow-x: auto;
+        }
+
+        td.datePublication {
+            width: 160px;
+        }
+
+        form label span {
+            display: none;
+        }
+
+        /**
  * TOAST UI EDITOR
  */
-.toasteditor * {
-    text-align: left;
-}
+        .toasteditor * {
+            text-align: left;
+            width: revert;
+        }
 
-.tui-editor-contents img[alt~='cover']
-{
-    max-height:20vmin;
-    object-fit:cover;
-}
-
+        .tui-editor-contents img[alt~='cover'] {
+            max-height: 20vmin;
+            object-fit: cover;
+        }
     </style>
 </head>
+
 <body>
     <div class="page">
         <mypage></mypage>
@@ -224,24 +256,12 @@ form label span {
     <script src="assets/toastui/highlight.min.js"></script>
     <script src="assets/toastui/toastui-editor-all.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-chart.min.js"></script>
-    <script src="assets/toastui/toastui-editor-plugin-code-syntax-highlight-all.min.js"></script>
-    <script src="assets/toastui/toastui-editor-plugin-color-syntax.min.js"></script>
+    <script src="assets/toastui/toastui-editor-plugin-code-syntax-highlight.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-table-merged-cell.min.js"></script>
     <script src="assets/toastui/toastui-editor-plugin-uml.min.js"></script>
     <script>
         // https://github.com/nhn/tui.editor/blob/master/apps/editor/docs/getting-started.md
         // https://github.com/nhn/tui.editor/blob/master/apps/editor/docs/plugins.md
-
-        // const Editor = toastui.Editor;
-        // const editor = new Editor({
-        //     el: document.querySelector('#editor'),
-        //     height: '600px',
-        //     initialEditType: 'markdown',
-        //     previewStyle: 'vertical',
-        //     usageStatistics: false
-        // });
-
-        // editor.getHtml();
 
         const {
             Editor
@@ -263,11 +283,29 @@ form label span {
 
         // http://www.plantuml.com/plantuml/uml/
         const umlOptions = {
-//            rendererURL: 'http://www.plantuml.com/plantuml/png/'
-              rendererURL: 'http://www.plantuml.com/plantuml/svg/'
-//            rendererURL: 'http://www.plantuml.com/plantuml/txt/'
+            //            rendererURL: 'http://www.plantuml.com/plantuml/png/'
+            rendererURL: 'http://www.plantuml.com/plantuml/svg/'
+            //            rendererURL: 'http://www.plantuml.com/plantuml/txt/'
         };
 
+        function youtubePlugin() {
+            Editor.codeBlockManager.setReplacer('youtube', function(youtubeId) {
+                // Indentify multiple code blocks
+                const wrapperId = `yt${Math.random()
+            .toString(36)
+            .substr(2, 10)}`;
+
+                // Avoid sanitizing iframe tag
+                setTimeout(renderYoutube.bind(null, wrapperId, youtubeId), 0);
+
+                return `<div id="${wrapperId}"></div>`;
+            });
+        }
+        function renderYoutube(wrapperId, youtubeId) {
+        const el = document.querySelector(`#${wrapperId}`);
+
+        el.innerHTML = `<iframe width="420" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+      }
 
         // const viewer = Editor.factory({
         //     el: document.querySelector('#viewer'),
@@ -282,7 +320,7 @@ form label span {
     </script>
 
     <script type="module">
-// load Vue from module        
+        // load Vue from module        
 import * as Vue from 'https://cdn.jsdelivr.net/npm/vue@3.0.0-rc.1/dist/vue.esm-browser.js';
 
 let mydata = {
@@ -354,4 +392,5 @@ app.mount('.page');
 
 
 </body>
+
 </html>

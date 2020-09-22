@@ -695,11 +695,16 @@ class VueComponent
             this.editor = new Editor({
                 el: document.querySelector(targetId),
                 previewStyle: 'vertical',
-                height: '500px',
+                height: '50vh',
                 initialValue: '',
                 usageStatistics: false,
                 plugins: [
-                    [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
+                    [chart, chartOptions], 
+                    codeSyntaxHighlight, 
+                    colorSyntax, 
+                    tableMergedCell, 
+                    [uml, umlOptions],
+                    youtubePlugin
                 ]
             });
     
