@@ -77,7 +77,7 @@ function run() {
             var parsedUrl = new URL(current.innerHTML);
             const youtubeId = parsedUrl.searchParams.get('v');
             // https://developer.mozilla.org/fr/docs/Web/API/Element/insertAdjacentHTML
-            current.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+            current.parentNode.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
         }   
     }, 4000);
 
