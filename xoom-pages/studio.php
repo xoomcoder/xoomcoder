@@ -301,8 +301,8 @@
 
         function renderYoutube(wrapperId, youtubeId) {
             const el = document.querySelector(`#${wrapperId}`);
-
-            el.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
+            if (el)
+                el.innerHTML = `<iframe title="youtube" width="100%" height="315" src="https://www.youtube.com/embed/${youtubeId}"></iframe>`;
         }
 
         // const viewer = Editor.factory({
