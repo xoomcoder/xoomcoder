@@ -678,7 +678,8 @@ class VueComponent
     {
         $template = 
         <<<x
-        <button @click.prevent="actCopyCode">copier le code</button>
+        <button @click.prevent="actCopyCode">copier le code source</button>
+        <button @click.prevent="actUpdateCode">mettre à jour le code source</button>
         x;
 
         $jsonData = [];
@@ -746,10 +747,17 @@ class VueComponent
             }, 
             methods: {
                 actCopyCode (event) {
+                    let code = '';
+                    let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
+                    if (textarea) code = textarea.value;
+                    if (code) this.editor.setMarkdown(code);
+                },
+                actUpdateCode (event) {
                     let code = this.editor.getMarkdown();
                     let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
                     if (textarea) textarea.value = code;
                 }
+
             },
             $extraCode
         }
