@@ -178,6 +178,7 @@ class VueComponent
 
         $jsonData["sms"]        = [ "event" => null ];
         $jsonData["lastAjax"]   = time();
+        $jsonData["toast"]      = null;
 
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
@@ -195,7 +196,8 @@ class VueComponent
                 return {
                     sms: this.sms,
                     mydata: this.data,
-                    lastAjax: this.lastAjax
+                    lastAjax: this.lastAjax,
+                    toast: this.toast
                 };
             },
             methods: {
@@ -289,9 +291,10 @@ class VueComponent
                     <template v-for="field in params.fieldsUpdate">
                         <label>
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="60" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
@@ -303,15 +306,17 @@ class VueComponent
                     <button type="submit">sauvegarder</button>
                     <div class="feedback"></div> 
                 </form>
-            </div>
+                <div class="toasteditor" id="toasteditorUpdate"></div>
+                </div>
             <template v-else>
                 <form @submit.prevent="doSubmitCreate"> 
                     <template v-for="field in params.fieldsCreate">
                         <label>
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="20" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
+                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
@@ -324,8 +329,6 @@ class VueComponent
                 </form>
                 <div class="toasteditor" id="toasteditorCreate"></div>
             </template>
-            <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'"></component>
-            <div class="toasteditor" id="toasteditorUpdate"></div>
 
         </template>
 
@@ -679,7 +682,6 @@ class VueComponent
 
         $jsonData = [];
         $jsonData["modelValue"]  = [ "code" => "" ];
-        $jsonData["editor"]  = null;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
@@ -692,22 +694,39 @@ class VueComponent
         },
         mounted () {
             let targetId = '#' + this.target;
-            this.editor = new Editor({
-                el: document.querySelector(targetId),
-                previewStyle: 'vertical',
-                height: '50vh',
-                initialValue: '',
-                usageStatistics: false,
-                plugins: [
-                    [chart, chartOptions], 
-                    codeSyntaxHighlight, 
-                    // colorSyntax, 
-                    tableMergedCell, 
-                    [uml, umlOptions],
-                    youtubePlugin
-                ]
-            });
+            if (this.editor == null) {            
+                this.editor = new Editor({
+                    el: document.querySelector(targetId),
+                    previewStyle: 'vertical',
+                    height: '50vh',
+                    initialValue: '',
+                    usageStatistics: false,
+                    plugins: [
+                        [chart, chartOptions], 
+                        codeSyntaxHighlight, 
+                        // colorSyntax, 
+                        tableMergedCell, 
+                        [uml, umlOptions],
+                        youtubePlugin
+                    ]
+                });
+
+                if (this.data) 
+                    this.editor.setHtml(this.data);
+                else
+                    this.editor.setHtml('');
+            }
+            else {
+                this.editor.reset();
+                this.editor.setHtml('');
+            }
     
+        },
+        beforeDestroy() {
+            // if (this.editor) this.editor.remove();
+            // let targetId = '#' + this.target;
+            // let el = document.querySelector(targetId)
+            // if (el) el.innerHTML = '';
         }
         x;
 
@@ -717,7 +736,8 @@ class VueComponent
             template:`
             $template
             `,
-            props: [ 'params', 'edit', 'target' ],
+            inject: [ 'mydata', 'sms', 'toast' ],
+            props: [ 'params', 'edit', 'target', 'name', 'data' ],
             emits: [ 'ajaxform', 'sms', 'loader' ],
             data() {
                 return $jsonData;
