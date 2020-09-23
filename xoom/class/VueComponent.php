@@ -713,13 +713,13 @@ class VueComponent
 
                 console.log(this.data);
                 if (this.data) 
-                    this.editor.setHtml(this.data);
+                    this.editor.setMarkdown(this.data);
                 else
-                    this.editor.setHtml('');
+                    this.editor.setMarkdown('');
             }
             else {
                 this.editor.reset();
-                this.editor.setHtml('');
+                this.editor.setMarkdown('');
             }
     
         },
