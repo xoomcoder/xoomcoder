@@ -678,8 +678,8 @@ class VueComponent
     {
         $template = 
         <<<x
-        <button @click.prevent="actCopyCode">copier le code source</button>
-        <button @click.prevent="actUpdateCode">mettre à jour le code source</button>
+        <button class="w50" @click.prevent="actCopyCode">copier le code source</button>
+        <button class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</button>
         x;
 
         $jsonData = [];
