@@ -16,6 +16,8 @@
     <!-- Editor's Style -->
     <link rel="stylesheet" href="assets/toastui/toastui-editor.min.css" />
 
+    <link rel="stylesheet" href="assets/codemirror/codemirror.min.css" />
+
     <style>
         html,
         body {
@@ -28,7 +30,7 @@
 
         * {
             box-sizing: border-box;
-            width: 100%;
+            /* width: 100%; */
             /* transition: all 0.5s ease-out; */
             /* TOO BIG */
         }
@@ -238,6 +240,20 @@
             max-height: 20vmin;
             object-fit: cover;
         }
+
+        /* CODE MIRROR */
+        .CodeMirror {
+            text-align: left;
+        }
+
+        .cw100 * {
+            width:100%;
+        }
+
+        /* */
+        label.code {
+            width:100%;
+        }
     </style>
 </head>
 
@@ -245,6 +261,12 @@
     <div class="page">
         <mypage></mypage>
     </div>
+
+    <script src="assets/codemirror/codemirror.min.js"></script>
+    <script src="assets/codemirror/mode/css/css.js"></script>
+    <script src="assets/codemirror/mode/javascript/javascript.js"></script>
+    <script src="assets/codemirror/mode/htmlmixed/htmlmixed.js"></script>
+    <script src="assets/codemirror/mode/markdown/markdown.js"></script>
 
     <script src="assets/toastui/highlight.min.js"></script>
     <script src="assets/toastui/toastui-editor-all.min.js"></script>

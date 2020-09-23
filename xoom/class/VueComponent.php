@@ -14,7 +14,7 @@ class VueComponent
         $template =
         <<<x
         <div class="mypage">
-            <header>
+            <header class="cw100">
                 <nav>
                     <h1>XoomCoder Studio / Bienvenue $login (level: $level)</h1>
                     <a class="home" href="/">retourner sur le site</a>
@@ -24,8 +24,8 @@ class VueComponent
             <main>
 
                 <template v-for="section in sections" :key="section.id">
-                    <section v-if="!hide[section.class]">
-                        <h2>{{ section.title }}</h2>
+                    <section :class="section.class2" v-if="!hide[section.class]">
+                        <h2 class="w100">{{ section.title }}</h2>
                         <template v-if="section.articles.length > 0">
                             <article v-for="article in section.articles" :key="article.id" :class="article.class">
                                 <h3 v-if="article.title">{{ article.title }}</h3>
@@ -39,7 +39,7 @@ class VueComponent
                     </section>
                 </template>
             </main> 
-            <footer>
+            <footer class="cw100">
                 <p>XoomCoder Studio * tous droits réservés</p>
             </footer>
             <div class="toolbar">
@@ -81,8 +81,8 @@ class VueComponent
             ];
 
             $jsonData["sections"] = [
-                [ "id" => 1, "class" => "projets", "title" => "Projets", "articles" => $articles1 ?? [] ],
-                [ "id" => 2, "class" => "technologies", "title" => "Technologies", "articles" => $articles2 ?? [] ],
+                [ "id" => 1, "class" => "projets", "class2" => "projets cw100", "title" => "Projets", "articles" => $articles1 ?? [] ],
+                [ "id" => 2, "class" => "technologies", "class2" => "technologies cw100", "title" => "Technologies", "articles" => $articles2 ?? [] ],
             ];
         
         }
@@ -156,7 +156,7 @@ class VueComponent
             // WEBMASTER
             $articles3 = [
                 [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
-                [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100" ],
+                [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100 cw100" ],
                 // [ "id" => 16, "compo" => "xeditoast", "params" => [], "class" => "w100" ],
             ];
     
@@ -166,8 +166,8 @@ class VueComponent
                 [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
             ];
             $jsonData["sections"] = [
-                [ "id" => 3, "class" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
-                [ "id" => 4, "class" => "outils", "title" => "Outils", "articles" => $articles4 ?? [] ],
+                [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
+                [ "id" => 4, "class" => "outils", "class2" => "outils cw100", "title" => "Outils", "articles" => $articles4 ?? [] ],
             ];
         }
 
@@ -289,11 +289,11 @@ class VueComponent
                     <button class="w20" @click.prevent="doUpdateLine(1)">suivant</button>
                     <button class="w20" @click.prevent="doUpdateLine(-1)">précédent</button>
                     <template v-for="field in params.fieldsUpdate">
-                        <label>
+                        <label :class="field.name">
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                            <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+                                <textarea class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
@@ -303,7 +303,7 @@ class VueComponent
                     <input type="hidden" name="id" :value="sms.event.line.id">
                     <input type="hidden" name="classApi" value="Member">
                     <input type="hidden" name="methodApi" value="geocmsUpdate">
-                    <button type="submit">sauvegarder</button>
+                    <button type="submit"class="w50">sauvegarder</button>
                     <div class="feedback"></div> 
                 </form>
                 <div class="toasteditor" id="toasteditorUpdate"></div>
@@ -311,11 +311,11 @@ class VueComponent
             <template v-else>
                 <form @submit.prevent="doSubmitCreate"> 
                     <template v-for="field in params.fieldsCreate">
-                        <label>
+                        <label :class="field.name">
                             <span>{{ field.label }}</span>
-                            <textarea v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
+                            <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
+                                <textarea class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
@@ -324,10 +324,11 @@ class VueComponent
                     </template>   
                     <input type="hidden" name="classApi" value="Member">
                     <input type="hidden" name="methodApi" value="geocms">
-                    <button type="submit">publier</button>
+                    <button type="submit" class="w50">publier</button>
                     <div class="feedback"></div> 
                 </form>
                 <div class="toasteditor" id="toasteditorCreate"></div>
+                <textarea ref="code"></textarea>
             </template>
 
         </template>
@@ -336,6 +337,7 @@ class VueComponent
 
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
+        $jsonData["myCodeMirror"] = [ "id" => null ];
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
@@ -385,6 +387,17 @@ class VueComponent
 
         x;
 
+        $extraCode =
+        <<<'x'
+        mounted () {
+            console.log(this.$refs.code);
+            this.myCodeMirror = CodeMirror.fromTextArea(this.$refs.code, {
+                mode: "markdown",
+                lineNumbers: true
+            });
+        }
+        x;
+
         $compoCode  =
         <<<x
         {
@@ -410,7 +423,9 @@ class VueComponent
                         }
                     }
                 }
-            }
+
+            },
+            $extraCode
         }
         x;
 
