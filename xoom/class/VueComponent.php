@@ -678,7 +678,7 @@ class VueComponent
     {
         $template = 
         <<<x
-        <button @click="actCopyCode">copier le code</button>
+        <button @click.prevent="actCopyCode">copier le code</button>
         x;
 
         $jsonData = [];
