@@ -711,6 +711,7 @@ class VueComponent
                     ]
                 });
 
+                console.log(this.data);
                 if (this.data) 
                     this.editor.setHtml(this.data);
                 else
