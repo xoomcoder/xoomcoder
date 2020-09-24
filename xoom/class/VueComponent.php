@@ -315,7 +315,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
+                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
@@ -326,14 +326,18 @@ class VueComponent
                     <input type="hidden" name="methodApi" value="geocms">
                     <button type="submit" class="w50">publier</button>
                     <div class="feedback"></div> 
+
                 </form>
                 <div class="toasteditor" id="toasteditorCreate"></div>
-                <textarea ref="code"></textarea>
+                <form>
+                </form>
             </template>
 
         </template>
 
         x;
+
+
 
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
