@@ -58,6 +58,7 @@ class ApiMember
                         "xlist"     => "xlist.vue",
                         "xedit"     => "xedit.vue",
                         "xfiles"    => "xfiles.vue",
+                        "xmenu"     => "xmenu.vue",
                     ]);
                 }
             }

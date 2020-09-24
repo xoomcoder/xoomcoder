@@ -166,12 +166,12 @@ class VueComponent
                 [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
             ];
             $articles5 = [
-                [ "id" => 20, "title" => "Tableau de Bord", "code" => "dashboard"],
-                [ "id" => 21, "title" => "News", "code" => "articles" ],
-                [ "id" => 22, "title" => "Media", "code" => "media" ],
-                [ "id" => 23, "title" => "Pages", "code" => "pages" ],
-                [ "id" => 24, "title" => "Templates", "code" => "template" ],
-                [ "id" => 25, "title" => "Réglages", "code" => "options" ],
+                [ "id" => 20, "title" => "Tableau de Bord", "code" => "dashboard", "compo" => "xmenu"],
+                [ "id" => 21, "title" => "News", "code" => "articles", "compo" => "xmenu" ],
+                [ "id" => 22, "title" => "Media", "code" => "media", "compo" => "xmenu" ],
+                [ "id" => 23, "title" => "Pages", "code" => "pages", "compo" => "xmenu" ],
+                [ "id" => 24, "title" => "Templates", "code" => "template", "compo" => "xmenu" ],
+                [ "id" => 25, "title" => "Réglages", "code" => "options", "compo" => "xmenu" ],
             ];
             $jsonData["sections"] = [
                 [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
@@ -182,7 +182,7 @@ class VueComponent
 
         $jsonData["hide"] = [ "options" => true, "outils" => true ];
         $jsonData["data"] = [ 
-            "geocms" => Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC"), 
+            "geocms" => Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC"), 
         ];
 
         $jsonData["sms"]        = [ "event" => null ];
@@ -696,6 +696,36 @@ class VueComponent
                 return $jsonData;
             }, 
             methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xmenu ()
+    {
+        $template = 
+        <<<x
+            <h5><a class="act" @click="actMenu">xmenu</a></h5>
+        x;
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            data() {
+                return $jsonData;
+            }, 
+            methods: {
+                actMenu(event) {
+                    console.log(event.target);
+                }
             }
         }
         x;

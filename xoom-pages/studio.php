@@ -253,6 +253,7 @@
             background-color: #dddddd;
             color: #000000;
             font-weight:500;
+            cursor: pointer;
         }
 
         /* menus */
