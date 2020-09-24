@@ -315,6 +315,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
+                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name" data=""></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
@@ -335,9 +336,7 @@ class VueComponent
         x;
 
 
-        //                                 <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
-//                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
-
+ 
 
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
@@ -699,9 +698,6 @@ class VueComponent
         return $compoCode;
 
     }
-//        <button class="w50" @click.prevent="actCopyCode">copier le code source</button>
-// <button class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</button>
-//         <div class="toasteditor" :id="this.target"></div>
 
     static function xeditoast ()
     {
