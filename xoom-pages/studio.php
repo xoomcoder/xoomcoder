@@ -79,16 +79,6 @@
             padding: 1rem;
         }
 
-        /* form label {
-            margin: 0.5rem 0;
-            display: inline-block;
-        }
-
-        form label span {
-            display: inline-block;
-            padding: 0.5rem;
-        } */
-
         input,
         textarea,
         button {
@@ -227,9 +217,9 @@
             width: 160px;
         }
 
-        /* form label span {
+        form > label > span {
             display: none;
-        } */
+        }
 
         /* TOAST UI EDITOR */
         .toasteditor * {

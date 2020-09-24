@@ -317,7 +317,8 @@ class VueComponent
                             <template v-else-if="field.type=='markdown'">
                                 <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name"></component>
-                            </template>
+                                <div class="toasteditor" id="toasteditorCreate"></div>
+                                </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
@@ -328,7 +329,6 @@ class VueComponent
                     <div class="feedback"></div> 
 
                 </form>
-                <div class="toasteditor" id="toasteditorCreate"></div>
                 <form>
                 </form>
             </template>
