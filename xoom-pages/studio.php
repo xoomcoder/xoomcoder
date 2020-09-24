@@ -244,6 +244,16 @@
         label.code {
             width:100%;
         }
+
+        .act {
+            display: inline-block;
+            text-decoration: none;
+            padding:1rem;
+            border: 1px solid #aaaaaa;
+            background-color: #dddddd;
+            color: #000000;
+            font-weight:500;
+        }
     </style>
 </head>
 

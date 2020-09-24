@@ -699,8 +699,8 @@ class VueComponent
             <textarea ref="code" class="w100" :name="this.field.name" :required="!this.field.optional" cols="60" rows="30" :placeholder="this.field.label"></textarea>
             <h1>{{ infos }}</h1>
             <div>
-                <a href="#" class="w50" @click.prevent="actCopyCode">copier le code source</a>
-                <a href="#" class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</a>
+                <a href="#" class="act w50" @click.prevent="actCopyCode">copier le code source</a>
+                <a href="#" class="act w50" @click.prevent="actUpdateCode">mettre à jour le code source</a>
             </div>
             <div class="toasteditor" :id="this.target"></div>
         x;
