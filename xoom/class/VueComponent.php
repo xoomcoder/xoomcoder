@@ -393,12 +393,6 @@ class VueComponent
         $extraCode =
         <<<'x'
         mounted () {
-            if (this.$refs.code2) {
-                this.codeMirror2 = CodeMirror.fromTextArea(this.$refs.code2, {
-                    mode: "markdown",
-                    lineNumbers: true
-                });
-            }
         }
         x;
 
