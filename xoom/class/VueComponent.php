@@ -295,7 +295,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]"></component>
+                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]" :field="field"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
@@ -315,8 +315,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
-                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name" data=""></component>
+                                <component is="xeditoast" v-on:loader="actLoader" :field="field" :target="'toasteditorCreate'" :name="field.name" data=""></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
@@ -341,6 +340,7 @@ class VueComponent
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
         $jsonData["codeMirror"] = [ "id" => null ];
+        $jsonData["codeMirror2"] = [ "id" => null ];
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
@@ -393,9 +393,8 @@ class VueComponent
         $extraCode =
         <<<'x'
         mounted () {
-            console.log(this.$refs.code);
-            if (this.$refs.code) {
-                this.codeMirror = CodeMirror.fromTextArea(this.$refs.code, {
+            if (this.$refs.code2) {
+                this.codeMirror2 = CodeMirror.fromTextArea(this.$refs.code2, {
                     mode: "markdown",
                     lineNumbers: true
                 });
@@ -703,6 +702,7 @@ class VueComponent
     {
         $template = 
         <<<x
+            <textarea ref="code" class="w100" :name="this.field.name" :required="!this.field.optional" cols="60" rows="30" :placeholder="this.field.label"></textarea>
             <div>
                 <a href="#" class="w50" @click.prevent="actCopyCode">copier le code source</a>
                 <a href="#" class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</a>
@@ -769,6 +769,16 @@ class VueComponent
                 //this.editor.reset();
                 //this.editor.setMarkdown('');
             }
+
+            // CODE MIRROR
+            console.log(this.$refs.code);
+            if (this.$refs.code) {
+                this.codeMirror = CodeMirror.fromTextArea(this.$refs.code, {
+                    mode: "markdown",
+                    lineNumbers: true
+                });
+            }
+
     
         },
         beforeDestroy() {
@@ -786,7 +796,7 @@ class VueComponent
             $template
             `,
             inject: [ 'mydata', 'sms', 'toast', 'codeMirror' ],
-            props: [ 'params', 'edit', 'target', 'name', 'data' ],
+            props: [ 'params', 'edit', 'target', 'name', 'data', 'field' ],
             emits: [ 'ajaxform', 'sms', 'loader' ],
             data() {
                 return $jsonData;
