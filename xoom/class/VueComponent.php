@@ -22,7 +22,6 @@ class VueComponent
                 </nav>
             </header>
             <main>
-                <div class="toasteditor" id="editor"></div>
 
                 <template v-for="section in sections" :key="section.id">
                     <section :class="section.class2" v-if="!hide[section.class]">
@@ -271,16 +270,6 @@ class VueComponent
                 }
             },
             mounted () {
-                const editor = new Editor({
-                    el: document.querySelector('#editor'),
-                    previewStyle: 'vertical',
-                    height: '500px',
-                    initialValue: '',
-                    usageStatistics: false,
-                    plugins: [
-                        // [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
-                    ]
-                });
             }
         }
         x;
@@ -718,11 +707,12 @@ class VueComponent
     {
         $template = 
         <<<x
+            <div class="toasteditor" id="editor"></div>
         x;
 
         $jsonData = [];
         $jsonData["modelValue"]  = [ "code" => "" ];
-        $jsonData["editor"]  = [ "empty" => false ];
+        $jsonData["editor"]  = [ "empty" => true ];
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
@@ -734,28 +724,40 @@ class VueComponent
             this.$emit('loader', event);        
         },
         mounted () {
-            let targetId = '#' + this.target;
+            // let targetId = '#' + this.target;
+            let targetId = '#editor';
             if (this.editor.empty) {
                 console.log(targetId);
                 let target = document.querySelector(targetId);
                 if (target) {
-                    this.editor = new Editor({
-                        el: target,
-                        previewStyle: 'vertical',
-                        height: '50vh',
-                        initialValue: '',
-                        usageStatistics: false,
-                        plugins: [
-                            // [chart, chartOptions], 
-                            // codeSyntaxHighlight, 
-                            // colorSyntax, 
-                            // tableMergedCell, 
-                            // [uml, umlOptions],
-                            // youtubePlugin
-                        ]
-                    });
+                    const editor = new Editor({
+                            el: document.querySelector('#editor'),
+                            previewStyle: 'vertical',
+                            height: '500px',
+                            initialValue: '',
+                            usageStatistics: false,
+                            plugins: [
+                                // [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
+                            ]
+                        });
+            
+                    // this.editor = new Editor({
+                    //     el: target,
+                    //     previewStyle: 'vertical',
+                    //     height: '50vh',
+                    //     initialValue: '',
+                    //     usageStatistics: false,
+                    //     plugins: [
+                    //         // [chart, chartOptions], 
+                    //         // codeSyntaxHighlight, 
+                    //         // colorSyntax, 
+                    //         // tableMergedCell, 
+                    //         // [uml, umlOptions],
+                    //         // youtubePlugin
+                    //     ]
+                    // });
     
-                    this.editor.setMarkdown('');
+                    // this.editor.setMarkdown('');
                 }
                 // console.log(this.data);
                 // if ('undefined' !== this.data) 
