@@ -265,7 +265,7 @@ class VueComponent
                     this.sms.event = event;
                     // update timestamp
                     this.lastAjax = Date.now();
-                    console.log(this.lastAjax);
+                    // console.log(this.lastAjax);
 
                 }
             },
@@ -731,7 +731,11 @@ class VueComponent
                             initialValue: '',
                             usageStatistics: false,
                             plugins: [
-                                // [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
+                                [chart, chartOptions], 
+                                codeSyntaxHighlight, 
+                                tableMergedCell,
+                                [uml, umlOptions],
+                                youtubePlugin
                             ]
                         });    
                 }
@@ -749,7 +753,7 @@ class VueComponent
                 });
                 if ('undefined' !== this.data) {
                     this.codeMirror.setValue(this.data);
-                    //this.actCopyCode();
+                    this.actCopyCode();
                 }
                 else
                     this.codeMirror.setValue('');
