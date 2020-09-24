@@ -295,7 +295,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]" :field="field"></component>
+                                <component ref="xeditoast" is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]" :field="field"></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
@@ -315,7 +315,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <component is="xeditoast" v-on:loader="actLoader" :field="field" :target="'toasteditorCreate'" :name="field.name" data=""></component>
+                                <component ref="xeditoast" is="xeditoast" v-on:loader="actLoader" :field="field" :target="'toasteditorCreate'" :name="field.name" data=""></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
@@ -330,7 +330,6 @@ class VueComponent
             </template>
 
         </template>
-        <div class="toasteditor" id="toasteditorCreate"></div>
 
         x;
 
@@ -374,6 +373,10 @@ class VueComponent
 
             // add extra option
             event.keepInput = true;
+
+            // FIXME: force sync with textarea
+            // console.log(this.$refs.xeditoast);
+            // this.$refs.xeditoast.forceSave();
 
             this.$emit('ajaxform', event);        
         },
@@ -760,6 +763,12 @@ class VueComponent
                 else
                     this.codeMirror.setValue('');
 
+                // FIXME: debug first submit
+                this.codeMirror.on('change', (event) => {
+                    //console.log(event);
+                    this.codeMirror.save();
+                });    
+
             }
 
     
@@ -785,6 +794,9 @@ class VueComponent
                 return $jsonData;
             }, 
             methods: {
+                forceSave () {
+                    console.log('forceSave');
+                },
                 actCopyCode (event) {
                     let code = '';
                     if (this.codeMirror) code = this.codeMirror.getValue();
