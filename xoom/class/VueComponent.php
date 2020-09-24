@@ -782,12 +782,17 @@ class VueComponent
                 actCopyCode (event) {
                     let code = '';
                     if (this.codeMirror) code = this.codeMirror.getValue();
-                    if (code) this.editor.setMarkdown(code);
+
+                    this.editor.changeMode('wysiwyg'); // debug: markdown mode error
+                    if (code) this.editor.setMarkdown(code, false);
+
+                    // https://nhn.github.io/tui.editor/latest/ToastUIEditor#moveCursorToStart
+                    this.editor.moveCursorToStart();
                 },
                 actUpdateCode (event) {
                     let code = this.editor.getMarkdown();
                     if (this.codeMirror) {
-                        // this.codeMirror.setValue(code);
+                        this.codeMirror.setValue(code);
                     }
                     else {            
                         let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
