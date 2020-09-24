@@ -696,7 +696,7 @@ class VueComponent
     {
         $template = 
         <<<x
-            <textarea ref="code" class="w100" :name="this.field.name" :required="!this.field.optional" cols="60" rows="30" :placeholder="this.field.label"></textarea>
+            <textarea ref="code" class="w100" :name="this.field.name" cols="60" rows="30" :placeholder="this.field.label"></textarea>
             <h1>{{ infos }}</h1>
             <div>
                 <a href="#" class="act w50" @click.prevent="actCopyCode">copier le code source</a>
