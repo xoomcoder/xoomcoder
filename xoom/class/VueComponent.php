@@ -697,6 +697,7 @@ class VueComponent
         $template = 
         <<<x
             <textarea ref="code" class="w100" :name="this.field.name" :required="!this.field.optional" cols="60" rows="30" :placeholder="this.field.label"></textarea>
+            <h1>{{ infos }}</h1>
             <div>
                 <a href="#" class="w50" @click.prevent="actCopyCode">copier le code source</a>
                 <a href="#" class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</a>
@@ -707,6 +708,7 @@ class VueComponent
         $jsonData = [];
         $jsonData["modelValue"]  = [ "code" => "" ];
         $jsonData["editor"]  = [ "empty" => true ];
+        //$jsonData["codeMirror"]  = [ "empty" => true ];
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
@@ -776,7 +778,7 @@ class VueComponent
             template:`
             $template
             `,
-            inject: [ 'mydata', 'sms', 'toast', 'codeMirror' ],
+            inject: [ 'mydata', 'sms', 'toast', 'codeMirror' ], // bug if data ?
             props: [ 'params', 'edit', 'target', 'name', 'data', 'field' ],
             emits: [ 'ajaxform', 'sms', 'loader' ],
             data() {
@@ -795,6 +797,7 @@ class VueComponent
                 },
                 actUpdateCode (event) {
                     let code = this.editor.getMarkdown();
+                    console.log(this.codeMirror);
                     if (this.codeMirror) {
                         this.codeMirror.setValue(code);
                     }
@@ -804,6 +807,18 @@ class VueComponent
                     }
                 }
 
+            },
+            computed: {
+                infos () {
+                    if (this.sms.event && this.sms.event.line) {
+                        // hack to stay updated...
+                        if (this.sms.event.action == 'update') {
+                            let code = this.sms.event.line[this.field.name];
+                            if (this.codeMirror && this.codeMirror.setValue) this.codeMirror.setValue(code);
+                        }
+                        return this.sms.event.line.title + ' (' + this.sms.event.line.id + ')';
+                    }
+                }   
             },
             $extraCode
         }
