@@ -733,31 +733,8 @@ class VueComponent
                             plugins: [
                                 // [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
                             ]
-                        });
-            
-                    // this.editor = new Editor({
-                    //     el: target,
-                    //     previewStyle: 'vertical',
-                    //     height: '50vh',
-                    //     initialValue: '',
-                    //     usageStatistics: false,
-                    //     plugins: [
-                    //         // [chart, chartOptions], 
-                    //         // codeSyntaxHighlight, 
-                    //         // colorSyntax, 
-                    //         // tableMergedCell, 
-                    //         // [uml, umlOptions],
-                    //         // youtubePlugin
-                    //     ]
-                    // });
-    
-                    // this.editor.setMarkdown('');
+                        });    
                 }
-                // console.log(this.data);
-                // if ('undefined' !== this.data) 
-                //     this.editor.setMarkdown(this.data);
-                // else
-                //     this.editor.setMarkdown('');
             }
             else {
                 //this.editor.reset();
@@ -765,12 +742,18 @@ class VueComponent
             }
 
             // CODE MIRROR
-            console.log(this.$refs.code);
             if (this.$refs.code) {
                 this.codeMirror = CodeMirror.fromTextArea(this.$refs.code, {
                     mode: "markdown",
                     lineNumbers: true
                 });
+                if ('undefined' !== this.data) {
+                    this.codeMirror.setValue(this.data);
+                    //this.actCopyCode();
+                }
+                else
+                    this.codeMirror.setValue('');
+
             }
 
     
@@ -798,8 +781,7 @@ class VueComponent
             methods: {
                 actCopyCode (event) {
                     let code = '';
-                    let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
-                    if (textarea) code = textarea.value;
+                    if (this.codeMirror) code = this.codeMirror.getValue();
                     if (code) this.editor.setMarkdown(code);
                 },
                 actUpdateCode (event) {
