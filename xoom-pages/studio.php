@@ -254,6 +254,25 @@
             color: #000000;
             font-weight:500;
         }
+
+        /* menus */
+        section.menu {
+            position:fixed;
+            top:0;
+            left:0;
+            width:10vw;
+            min-width:160px;
+            height:100%;
+            background-color: #eeeeee;
+            z-index:9999;
+        }
+        header, main, footer {
+            margin-left:10vw;
+        }
+
+        section.menu article {
+            width:100%;
+        }
     </style>
 </head>
 

@@ -165,9 +165,18 @@ class VueComponent
                 [ "id" => 18, "title" => "Editeur de Code", "code" => "", "compo" => "xedit" ],
                 [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
             ];
+            $articles5 = [
+                [ "id" => 20, "title" => "Tableau de Bord", "code" => "dashboard"],
+                [ "id" => 21, "title" => "News", "code" => "articles" ],
+                [ "id" => 22, "title" => "Media", "code" => "media" ],
+                [ "id" => 23, "title" => "Pages", "code" => "pages" ],
+                [ "id" => 24, "title" => "Templates", "code" => "template" ],
+                [ "id" => 25, "title" => "Réglages", "code" => "options" ],
+            ];
             $jsonData["sections"] = [
                 [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
                 [ "id" => 4, "class" => "outils", "class2" => "outils cw100", "title" => "Outils", "articles" => $articles4 ?? [] ],
+                [ "id" => 5, "class" => "menu", "class2" => "menu", "title" => "Menu", "articles" => $articles5 ?? [] ],
             ];
         }
 
