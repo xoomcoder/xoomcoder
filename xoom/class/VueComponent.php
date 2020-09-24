@@ -22,6 +22,7 @@ class VueComponent
                 </nav>
             </header>
             <main>
+                <div class="toasteditor" id="editor"></div>
 
                 <template v-for="section in sections" :key="section.id">
                     <section :class="section.class2" v-if="!hide[section.class]">
@@ -268,6 +269,18 @@ class VueComponent
                     console.log(this.lastAjax);
 
                 }
+            },
+            mounted () {
+                const editor = new Editor({
+                    el: document.querySelector('#editor'),
+                    previewStyle: 'vertical',
+                    height: '500px',
+                    initialValue: '',
+                    usageStatistics: false,
+                    plugins: [
+                        // [chart, chartOptions], codeSyntaxHighlight, colorSyntax, tableMergedCell, [uml, umlOptions]
+                    ]
+                });
             }
         }
         x;
@@ -293,9 +306,8 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]"></component>
-                            </template>
+                                </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
                         </label>
@@ -303,10 +315,9 @@ class VueComponent
                     <input type="hidden" name="id" :value="sms.event.line.id">
                     <input type="hidden" name="classApi" value="Member">
                     <input type="hidden" name="methodApi" value="geocmsUpdate">
-                    <button type="submit"class="w50">sauvegarder</button>
+                    <button type="submit" class="w50">sauvegarder</button>
                     <div class="feedback"></div> 
                 </form>
-                <div class="toasteditor" id="toasteditorUpdate"></div>
                 </div>
             <template v-else>
                 <form @submit.prevent="doSubmitCreate"> 
@@ -315,9 +326,7 @@ class VueComponent
                             <span>{{ field.label }}</span>
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
-                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
-                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name"></component>
-                                <div class="toasteditor" id="toasteditorCreate"></div>
+                                <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name" data=""></component>
                                 </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
@@ -329,19 +338,21 @@ class VueComponent
                     <div class="feedback"></div> 
 
                 </form>
-                <form>
-                </form>
             </template>
 
         </template>
+        <div class="toasteditor" id="toasteditorCreate"></div>
 
         x;
 
 
+        //                                 <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
+//                                <textarea ref="code" class="w100" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="current[field.name]" :placeholder="field.label"></textarea>
+
 
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
-        $jsonData["myCodeMirror"] = [ "id" => null ];
+        $jsonData["codeMirror"] = [ "id" => null ];
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
@@ -395,10 +406,12 @@ class VueComponent
         <<<'x'
         mounted () {
             console.log(this.$refs.code);
-            this.myCodeMirror = CodeMirror.fromTextArea(this.$refs.code, {
-                mode: "markdown",
-                lineNumbers: true
-            });
+            if (this.$refs.code) {
+                this.codeMirror = CodeMirror.fromTextArea(this.$refs.code, {
+                    mode: "markdown",
+                    lineNumbers: true
+                });
+            }
         }
         x;
 
@@ -409,6 +422,11 @@ class VueComponent
             $template
             `,
             inject: [ 'mydata', 'sms' ],
+            provide () {
+                return {
+                    codeMirror: this.codeMirror
+                };
+            },
             emits: [ 'ajaxform', 'sms', 'loader' ],
             props: [ 'params' ],
             data() {
@@ -692,17 +710,19 @@ class VueComponent
         return $compoCode;
 
     }
+//        <button class="w50" @click.prevent="actCopyCode">copier le code source</button>
+// <button class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</button>
+//         <div class="toasteditor" :id="this.target"></div>
 
     static function xeditoast ()
     {
         $template = 
         <<<x
-        <button class="w50" @click.prevent="actCopyCode">copier le code source</button>
-        <button class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</button>
         x;
 
         $jsonData = [];
         $jsonData["modelValue"]  = [ "code" => "" ];
+        $jsonData["editor"]  = [ "empty" => false ];
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
@@ -715,32 +735,37 @@ class VueComponent
         },
         mounted () {
             let targetId = '#' + this.target;
-            if (this.editor == null) {            
-                this.editor = new Editor({
-                    el: document.querySelector(targetId),
-                    previewStyle: 'vertical',
-                    height: '50vh',
-                    initialValue: '',
-                    usageStatistics: false,
-                    plugins: [
-                        [chart, chartOptions], 
-                        codeSyntaxHighlight, 
-                        // colorSyntax, 
-                        tableMergedCell, 
-                        [uml, umlOptions],
-                        youtubePlugin
-                    ]
-                });
-
-                console.log(this.data);
-                if (this.data) 
-                    this.editor.setMarkdown(this.data);
-                else
+            if (this.editor.empty) {
+                console.log(targetId);
+                let target = document.querySelector(targetId);
+                if (target) {
+                    this.editor = new Editor({
+                        el: target,
+                        previewStyle: 'vertical',
+                        height: '50vh',
+                        initialValue: '',
+                        usageStatistics: false,
+                        plugins: [
+                            // [chart, chartOptions], 
+                            // codeSyntaxHighlight, 
+                            // colorSyntax, 
+                            // tableMergedCell, 
+                            // [uml, umlOptions],
+                            // youtubePlugin
+                        ]
+                    });
+    
                     this.editor.setMarkdown('');
+                }
+                // console.log(this.data);
+                // if ('undefined' !== this.data) 
+                //     this.editor.setMarkdown(this.data);
+                // else
+                //     this.editor.setMarkdown('');
             }
             else {
-                this.editor.reset();
-                this.editor.setMarkdown('');
+                //this.editor.reset();
+                //this.editor.setMarkdown('');
             }
     
         },
@@ -758,7 +783,7 @@ class VueComponent
             template:`
             $template
             `,
-            inject: [ 'mydata', 'sms', 'toast' ],
+            inject: [ 'mydata', 'sms', 'toast', 'codeMirror' ],
             props: [ 'params', 'edit', 'target', 'name', 'data' ],
             emits: [ 'ajaxform', 'sms', 'loader' ],
             data() {
@@ -773,8 +798,13 @@ class VueComponent
                 },
                 actUpdateCode (event) {
                     let code = this.editor.getMarkdown();
-                    let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
-                    if (textarea) textarea.value = code;
+                    if (this.codeMirror) {
+                        // this.codeMirror.setValue(code);
+                    }
+                    else {            
+                        let textarea = event.target.parentNode.querySelector('form textarea[name=' + this.name + ']');
+                        if (textarea) textarea.value = code;
+                    }
                 }
 
             },
