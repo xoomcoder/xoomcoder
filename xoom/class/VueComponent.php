@@ -296,7 +296,7 @@ class VueComponent
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" v-model="sms.event.line[field.name]" :placeholder="field.label"></textarea>
                             <template v-else-if="field.type=='markdown'">
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorUpdate'" :name="field.name" :data="sms.event.line[field.name]"></component>
-                                </template>
+                            </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" v-model="sms.event.line[field.name]" :placeholder="field.label">
                         </label>
@@ -316,7 +316,7 @@ class VueComponent
                             <textarea class="w100" v-if="field.type=='textarea'" :name="field.name" :required="!field.optional" cols="60" rows="30" :placeholder="field.label" v-model="current[field.name]"></textarea>
                             <template v-else-if="field.type=='markdown'">
                                 <component is="xeditoast" v-on:loader="actLoader" :target="'toasteditorCreate'" :name="field.name" data=""></component>
-                                </template>
+                            </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
                             <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
@@ -707,7 +707,11 @@ class VueComponent
     {
         $template = 
         <<<x
-            <div class="toasteditor" id="editor"></div>
+            <div>
+                <a href="#" class="w50" @click.prevent="actCopyCode">copier le code source</a>
+                <a href="#" class="w50" @click.prevent="actUpdateCode">mettre à jour le code source</a>
+            </div>
+            <div class="toasteditor" :id="this.target"></div>
         x;
 
         $jsonData = [];
@@ -724,14 +728,14 @@ class VueComponent
             this.$emit('loader', event);        
         },
         mounted () {
-            // let targetId = '#' + this.target;
-            let targetId = '#editor';
+            console.log(this.target);
+            let targetId = '#' + this.target;
             if (this.editor.empty) {
                 console.log(targetId);
                 let target = document.querySelector(targetId);
                 if (target) {
-                    const editor = new Editor({
-                            el: document.querySelector('#editor'),
+                    this.editor = new Editor({
+                            el: document.querySelector(targetId),
                             previewStyle: 'vertical',
                             height: '500px',
                             initialValue: '',
