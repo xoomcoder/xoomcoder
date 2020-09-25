@@ -76,5 +76,30 @@ class Action10
         }
     }
 
+    static function geocmsDelete ($paramas)
+    {
+        extract($paramas);
+        // $id
+        if (($table ?? false) && ($id ?? false)) {
+
+            $geocms = Model::read($table, "id", $id);
+            foreach($geocms as $note) {
+                extract($note);
+                $iduser = intval($id_user ?? 0);
+
+                // check if line belongs to user
+                // FIXME: better extract to avoid variables collisions...
+                extract(Controller::$user, EXTR_PREFIX_ALL, "user");
+                $iduser0 = intval($user_id ?? 0);
+                if (($iduser > 0) && ($iduser == $iduser0)) {
+                    // ok this is his notes
+                    Model::delete($table, $id);
+                    File::deleteMedia($id);
+                }
+            }    
+        }
+
+    }
+
     //@end
 }

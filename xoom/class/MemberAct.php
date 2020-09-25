@@ -123,22 +123,11 @@ class MemberAct
 
     static function apiDbDelete ($paramas)
     {
-        extract(Controller::$user);
-        $iduser0 = $id ?? 0;
-
         extract($paramas);
         if (($table ?? false) && ($id ?? false)) {
-            $notes = Model::read($table, "id", $id);
-            // check if line belongs to user
-            foreach($notes as $note) {
-                extract($note);
-                $iduser = intval($id_user ?? 0);
-                if (($iduser > 0) && ($iduser == $iduser0)) {
-                    // ok this is his notes
-                    Model::delete($table, $id);
-                    File::deleteMedia($id);
-                }
-            }
+            $action = "ApiMember::${table}Delete";
+            if (is_callable($action))
+                $action([ "table" => $table, "id" => $id ]);
         }
     }
 

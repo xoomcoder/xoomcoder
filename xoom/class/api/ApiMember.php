@@ -7,6 +7,26 @@
 
 class ApiMember
 {
+    /**
+     * 
+     * MAGIC STATIC METHOD (FACADE)
+     * automatic forward depending on token level  
+     */     
+    static function __callStatic($name, $arguments)
+    {
+        if (Controller::checkMemberToken())
+        {
+            extract(Controller::$user);
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::$name";
+            if ($level >= 100)
+                $action = "Action100::$name";
+
+            if (is_callable($action ?? "")) $action(...$arguments);
+        }
+        
+    }
+
     static function run ()
     {
         if (Controller::checkMemberToken())
@@ -23,10 +43,6 @@ class ApiMember
                 MemberAct::run($note2, false, true);
             }
             
-            // extract(Controller::$user);
-            //$blocnotes = Model::read("blocnote", "id_user", $id);
-            //Form::mergeJson("data", [ "blocnote" => $blocnotes]);
-
             $now = date("Y-m-d H:i:s");
             Form::setFeedback("($now)...");
         }
@@ -62,62 +78,6 @@ class ApiMember
                     ]);
                 }
             }
-        }
-    }
-
-    static function geocmsMenu ()
-    {
-        if (Controller::checkMemberToken())
-        {
-            extract(Controller::$user);
-            if (($level < 100) && ($level >= 10))
-                $action = "Action10::geocmsMenu";
-            if ($level >= 100)
-                $action = "Action100::geocmsMenu";
-
-            if (is_callable($action ?? "")) $action();
-        }
-    }
-
-    static function geocms ()
-    {
-        if (Controller::checkMemberToken())
-        {
-            extract(Controller::$user);
-            if (($level < 100) && ($level >= 10))
-                $action = "Action10::geocms";
-            if ($level >= 100)
-                $action = "Action100::geocms";
-
-            if (is_callable($action ?? "")) $action();
-        }
-    }
-
-    static function geocmsUpdate ()
-    {
-        if (Controller::checkMemberToken())
-        {
-            extract(Controller::$user);
-            if (($level < 100) && ($level >= 10))
-                $action = "Action10::geocmsUpdate";
-            if ($level >= 100)
-                $action = "Action100::geocmsUpdate";
-                
-            if (is_callable($action ?? "")) $action();
-        }
-    }
-
-    static function geocmsDelete ()
-    {
-        if (Controller::checkMemberToken())
-        {
-            extract(Controller::$user);
-            if (($level < 100) && ($level >= 10))
-                $action = "Action10::geocmsDelete";
-            if ($level >= 100)
-                $action = "Action100::geocmsDelete";
-                
-            if (is_callable($action ?? "")) $action();
         }
     }
 
