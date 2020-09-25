@@ -24,7 +24,6 @@ class Cms
         priority >= 100 
         AND 
         id_user = :id_user
-
         $orderbyline
 
         x;
