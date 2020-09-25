@@ -719,20 +719,35 @@ class VueComponent
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
+        $extraCode  = 
+        <<<'x'
+            methods: {
+                actMenu(event) {
+                    console.log(event.target);
+                    let event2 = { type: 'css', url: 'gogogo'};
+                    event2.extrafd = { 
+                        classApi: 'Member',
+                        methodApi: 'geocmsMenu',
+                        code: `
+                        data/DbRead?table=geocms
+                        ` };    
+        
+                    this.$emit('ajaxform', event2);
+                }
+            }
+        x;
+
         $compoCode  =
         <<<x
         {
             template:`
             $template
             `,
+            emits: [ 'ajaxform', 'sms', 'loader' ],
             data() {
                 return $jsonData;
-            }, 
-            methods: {
-                actMenu(event) {
-                    console.log(event.target);
-                }
-            }
+            },
+            $extraCode 
         }
         x;
 

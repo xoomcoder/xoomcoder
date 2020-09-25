@@ -7,6 +7,26 @@
 
 class Action100
 {
+    static function geocmsMenu ()
+    {
+        if (Controller::checkMemberToken())
+        {
+            extract(Controller::$user);
+
+            $code = Form::filterText("code");
+            if (Form::isOK()) {
+                Form::setFeedback("working... $code");
+                $tabCode = explode("\n", $code);
+                foreach($tabCode as $line) {
+                    $line = trim($line);
+                    if ($line != "") {
+                        MemberAct::process($line);
+                    }
+                }
+            }
+        }
+    }
+
     static function geocms ()
     {
         if (Controller::checkMemberToken())

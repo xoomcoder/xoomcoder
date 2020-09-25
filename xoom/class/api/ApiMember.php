@@ -65,6 +65,20 @@ class ApiMember
         }
     }
 
+    static function geocmsMenu ()
+    {
+        if (Controller::checkMemberToken())
+        {
+            extract(Controller::$user);
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::geocmsMenu";
+            if ($level >= 100)
+                $action = "Action100::geocmsMenu";
+
+            if (is_callable($action ?? "")) $action();
+        }
+    }
+
     static function geocms ()
     {
         if (Controller::checkMemberToken())
