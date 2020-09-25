@@ -43,6 +43,7 @@
             border: 1px solid #cccccc;
             background-color: #eeeeee;
             padding: 1rem;
+            margin:0;
         }
 
         header nav a {
@@ -266,6 +267,7 @@
             height:100%;
             background-color: #eeeeee;
             z-index:9999;
+            display:block;
         }
         header, main, footer {
             margin-left:10vw;
@@ -276,11 +278,13 @@
         }
         section.menu article h3 {
             margin:0;
+            display:none;
         }
         section.menu .act {
             width:100%;
-            padding:0.2rem;
+            padding:0.5rem;
         }
+
     </style>
 </head>
 
