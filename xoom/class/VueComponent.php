@@ -207,9 +207,9 @@ class VueComponent
         $jsonData["lastAjax"]       = time();
         $jsonData["toast"]          = null;
         $jsonData["menuContext"]    = [ 
-            "name" => "news", 
-            "label" => "News", 
-            "form" => [ "category" => "news" ], 
+            "name" => "dashboard", 
+            "label" => "Tableau de Bord", 
+            "form" => [ "category" => "dashboard" ], 
         ];
 
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
