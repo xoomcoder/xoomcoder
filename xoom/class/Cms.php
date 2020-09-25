@@ -13,7 +13,7 @@ class Cms
 
         $orderbyline = "";
         $orderby = trim($orderby);
-        if ($orderby) $oderbyline = "ORDER BY $orderby";
+        if ($orderby) $orderbyline = "ORDER BY $orderby";
 
         $sql =
         <<<x

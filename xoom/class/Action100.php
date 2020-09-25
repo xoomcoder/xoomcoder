@@ -69,7 +69,7 @@ class Action100
     {
         // not model
         $category   = Form::filterText("menuContext", "", "optional=true");
-        $orderby    = "category DESC, template DESC, priority DESC, datePublication DESC, id DESC";
+        $orderby    = "datePublication DESC, priority DESC, id DESC";
         $geocms     = Cms::read($category ?? "news", $orderby);
         Form::mergeJson("data", [ "geocms" => $geocms]);
 

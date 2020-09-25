@@ -151,7 +151,7 @@ class MemberAct
             // FIXME: make it config
             $orderby = "";
             if ($table == "geocms") {
-                $orderby = "category DESC, template DESC, priority DESC, datePublication DESC, id DESC";
+                $orderby = "datePublication DESC, priority DESC, id DESC";
                 $resultas = Cms::read($category ?? "news", $orderby);
             }
             else {
