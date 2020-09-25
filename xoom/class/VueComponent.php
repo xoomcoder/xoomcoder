@@ -212,7 +212,7 @@ class VueComponent
                     "params" => [ "table" => "geocms", "label" => "Réglages", "name" => "option" ] ],
             ];
             $jsonData["sections"] = [
-                [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
+                [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Administration", "articles" => $articles3 ?? [] ],
                 [ "id" => 4, "class" => "outils", "class2" => "outils cw100", "title" => "Outils", "articles" => $articles4 ?? [] ],
                 [ "id" => 5, "class" => "menu", "class2" => "menu", "title" => "Menu", "articles" => $articles5 ?? [] ],
             ];
