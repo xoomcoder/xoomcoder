@@ -309,8 +309,11 @@ class VueComponent
         $template = 
         <<<x
         <template v-if="params">
-            <h4 v-if="params.title">{{ params.title }}</h4>
-            <div class="options active" v-if="sms.event && sms.event.action=='update'">
+            <h4 v-if="params.title" @click="actSwitch">
+                <input type="checkbox" v-model="show"> 
+                {{ params.title }}
+            </h4>
+            <div class="options active" v-if="show && sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
                     <h4>MODIFIER</h4>
                     <button class="w20" @click.prevent="sms.event=null">annuler</button>
@@ -335,7 +338,7 @@ class VueComponent
                     <div class="feedback"></div> 
                 </form>
                 </div>
-            <template v-else>
+            <template v-else-if="show">
                 <form @submit.prevent="doSubmitCreate"> 
                     <template v-for="field in params.fieldsCreate">
                         <label :class="field.name">
@@ -360,14 +363,19 @@ class VueComponent
 
         x;
 
-        $jsonData   = [];
-        $jsonData["current"] = [ "id" => null ];
-        $jsonData["codeMirror"] = [ "id" => null ];
-        $jsonData["codeMirror2"] = [ "id" => null ];
+        $jsonData                   = [];
+        $jsonData["current"]        = [ "id" => null ];
+        $jsonData["codeMirror"]     = [ "id" => null ];
+        $jsonData["codeMirror2"]    = [ "id" => null ];
+        $jsonData["show"]           = false;
+
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $methods =
         <<<'x'
+        actSwitch () {
+            this.show = !this.show;
+        },
         actLoader(event) {
             console.log(event);
             this.$emit('loader', event);
@@ -420,6 +428,7 @@ class VueComponent
         $extraCode =
         <<<'x'
         mounted () {
+            console.log(this.show);
         }
         x;
 
