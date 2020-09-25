@@ -56,7 +56,7 @@
             right: 2rem;
             width: 4vmin;
             height: 4vmin;
-            z-index: 9999;
+            z-index: 99995;
             cursor: pointer;
         }
 
@@ -66,7 +66,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 999;
+            z-index: 99990;
             transition: all 0.5s ease-out;
             background-color: rgba(200, 200, 200, 0.9);
         }

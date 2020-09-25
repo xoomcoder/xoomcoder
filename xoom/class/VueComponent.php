@@ -313,7 +313,7 @@ class VueComponent
                 <input type="checkbox" v-model="show"> 
                 {{ params.title }}
             </h4>
-            <div class="options active" v-if="show && sms.event && sms.event.action=='update'">
+            <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
                     <h4>MODIFIER</h4>
                     <button class="w20" @click.prevent="sms.event=null">annuler</button>
