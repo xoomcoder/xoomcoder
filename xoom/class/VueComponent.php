@@ -347,7 +347,7 @@ class VueComponent
         <template v-if="params">
             <h4 v-if="params.title" @click="actSwitch">
                 <input type="checkbox" v-model="show"> 
-                {{ syncLabel() }}
+                <span>{{ syncLabel }}</span>
             </h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
@@ -409,11 +409,6 @@ class VueComponent
 
         $methods =
         <<<'x'
-        syncLabel () {
-            // hack: force category in form
-            this.current.category = this.menuContext.form.category;
-            return this.params.title  + ' ' + this.menuContext.label;
-        },
         actSwitch () {
             this.show = !this.show;
         },
@@ -490,6 +485,11 @@ class VueComponent
                 return $jsonData;
             }, 
             computed: {
+                syncLabel () {
+                    // hack: force category in form
+                    this.current.category = this.menuContext.form.category;
+                    return this.params.title  + ' ' + this.menuContext.label;
+                }
             },
             methods: {
                 $methods
