@@ -165,5 +165,17 @@ class Action100
             }    
         }
     }
+
+    static function userReadFilter ($paramas)
+    {
+        $results = [];
+        extract($paramas);
+        // $lines
+        foreach($lines as $line) {
+            unset($line["password"]);
+            $results[] = $line;
+        }
+        return $results;
+    }
     //@end
 }

@@ -159,7 +159,10 @@ class VueComponent
                 "model"     => "user",
                 "cols"      => [
                     "id"    => "id",
+                    "login" => "login",
                     "email" => "email",
+                    "level" => "level",
+                    "dateCreation" => "dateCreation",
                 ],
                 "filters" => [
                 ],

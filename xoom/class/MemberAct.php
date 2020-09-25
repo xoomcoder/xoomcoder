@@ -125,6 +125,7 @@ class MemberAct
     {
         extract($paramas);
         if (($table ?? false) && ($id ?? false)) {
+            // FIXME: PREFIX ACTION AND NOT SUFFIX
             $action = "ApiMember::${table}Delete";
             if (is_callable($action))
                 $action([ "table" => $table, "id" => $id ]);
@@ -147,6 +148,16 @@ class MemberAct
             else {
                 $resultas = Model::read($table);
             }
+
+            // FIXME: PREFIX ACTION AND NOT SUFFIX
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::${table}ReadFilter";
+            if ($level >= 100)
+                $action = "Action100::${table}ReadFilter";
+
+            if (is_callable($action ?? "")) 
+                $resultas = $action([ "lines" => $resultas ]);
+
             Form::mergeJson($json, [$table => $resultas]);
         }
     }

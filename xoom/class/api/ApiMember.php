@@ -22,7 +22,8 @@ class ApiMember
             if ($level >= 100)
                 $action = "Action100::$name";
 
-            if (is_callable($action ?? "")) $action(...$arguments);
+            if (is_callable($action ?? "")) 
+                return $action(...$arguments);
         }
         
     }
