@@ -346,8 +346,8 @@ class VueComponent
         <<<x
         <template v-if="params">
             <h4 v-if="params.title" @click="actSwitch">
+                <a class="act">{{ syncLabel }}</a>
                 <input type="checkbox" v-model="show"> 
-                <span>{{ syncLabel }}</span>
             </h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
@@ -488,6 +488,7 @@ class VueComponent
                 syncLabel () {
                     // hack: force category in form
                     this.current.category = this.menuContext.form.category;
+                    this.show = false;
                     return this.params.title  + ' ' + this.menuContext.label;
                 }
             },
