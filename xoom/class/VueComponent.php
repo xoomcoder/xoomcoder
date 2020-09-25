@@ -206,7 +206,11 @@ class VueComponent
         $jsonData["sms"]            = [ "event" => null ];
         $jsonData["lastAjax"]       = time();
         $jsonData["toast"]          = null;
-        $jsonData["menuContext"]    = [ "name" => "news", "label" => "News" ];
+        $jsonData["menuContext"]    = [ 
+            "name" => "news", 
+            "label" => "News", 
+            "form" => [ "category" => "news" ], 
+        ];
 
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
@@ -316,7 +320,7 @@ class VueComponent
         <template v-if="params">
             <h4 v-if="params.title" @click="actSwitch">
                 <input type="checkbox" v-model="show"> 
-                {{ params.title }} {{ menuContext.label}}
+                {{ syncLabel() }}
             </h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
@@ -378,6 +382,11 @@ class VueComponent
 
         $methods =
         <<<'x'
+        syncLabel () {
+            // hack: force category in form
+            this.current.category = this.menuContext.form.category;
+            return this.params.title  + ' ' + this.menuContext.label;
+        },
         actSwitch () {
             this.show = !this.show;
         },
@@ -434,7 +443,7 @@ class VueComponent
         <<<'x'
         mounted () {
             //console.log(this.show);
-            this.current.category = this.menuContext.name;
+            this.current.category = this.menuContext.form.category;
         }
         x;
 
@@ -752,6 +761,7 @@ class VueComponent
                 actMenu(event) {
                     this.menuContext.name = this.params.name;
                     this.menuContext.label = this.params.label;
+                    this.menuContext.form.category = this.params.name;
 
                     let event2 = { type: 'css', url: 'gogogo'};
                     event2.extrafd = { 
