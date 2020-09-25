@@ -274,6 +274,13 @@
         section.menu article {
             width:100%;
         }
+        section.menu article h3 {
+            margin:0;
+        }
+        section.menu .act {
+            width:100%;
+            padding:0.2rem;
+        }
     </style>
 </head>
 

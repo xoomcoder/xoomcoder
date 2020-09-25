@@ -170,8 +170,14 @@ class VueComponent
                 [ "id" => 21, "title" => "News", "code" => "articles", "compo" => "xmenu" ],
                 [ "id" => 22, "title" => "Media", "code" => "media", "compo" => "xmenu" ],
                 [ "id" => 23, "title" => "Pages", "code" => "pages", "compo" => "xmenu" ],
-                [ "id" => 24, "title" => "Templates", "code" => "template", "compo" => "xmenu" ],
-                [ "id" => 25, "title" => "Réglages", "code" => "options", "compo" => "xmenu" ],
+                [ "id" => 24, "title" => "Menus", "code" => "menus", "compo" => "xmenu" ],
+                [ "id" => 25, "title" => "Templates", "code" => "templates", "compo" => "xmenu" ],
+                [ "id" => 26, "title" => "Tutoriels", "code" => "tutoriels", "compo" => "xmenu" ],
+                [ "id" => 27, "title" => "Formations", "code" => "formations", "compo" => "xmenu" ],
+                [ "id" => 28, "title" => "Cities", "code" => "cities", "compo" => "xmenu" ],
+                [ "id" => 29, "title" => "Membres", "code" => "membres", "compo" => "xmenu" ],
+                [ "id" => 30, "title" => "Premium", "code" => "premium", "compo" => "xmenu" ],
+                [ "id" => 31, "title" => "Réglages", "code" => "options", "compo" => "xmenu" ],
             ];
             $jsonData["sections"] = [
                 [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
@@ -708,7 +714,7 @@ class VueComponent
     {
         $template = 
         <<<x
-            <h5><a class="act" @click="actMenu">xmenu</a></h5>
+            <a class="act" @click="actMenu">xmenu</a>
         x;
 
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
