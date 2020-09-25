@@ -581,10 +581,12 @@ class VueComponent
 
             this.filterList = this.mydata[this.menuContext.table];
             if ((this.filterCol != '') && (this.filterVal != '')) {
+                this.filterVal = this.filterVal.toLowerCase();
 
                 this.filterList = this.filterList.filter((line) => {
                     let col = line[this.filterCol];
                     if (col) {
+                        col = col.toLowerCase();
                         if (this.filterVal.startsWith('**')) {
                             return col.endsWith(this.filterVal.substring(2));
                         }
