@@ -134,7 +134,7 @@ class VueComponent
                     // [ "name" => "json", "type" => "textarea", "label" => "json", "optional" => true],
                 ], 
             ];
-            $xlistParams = [
+            $xlistGeocmsParams = [
                 "title"     => "Vos Contenus",
                 "model"     => "geocms",
                 "cols"      => [
@@ -153,6 +153,23 @@ class VueComponent
                     "image" => "image",
                 ],
             ];
+
+            $xlistUserParams = [
+                "title"     => "Vos Membres",
+                "model"     => "user",
+                "cols"      => [
+                    "id"    => "id",
+                    "email" => "email",
+                ],
+                "filters" => [
+                ],
+            ];
+
+            $xlistParams = [
+                "geocms" => $xlistGeocmsParams,
+                "user" => $xlistUserParams,
+            ];
+
             // WEBMASTER
             $articles3 = [
                 [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
@@ -167,29 +184,29 @@ class VueComponent
             ];
             $articles5 = [
                 [ "id" => 20, "title" => "Tableau de Bord", "compo" => "xmenu",
-                     "params" => [ "label" => "Tableau de Bord", "name" => "dashboard" ] ],
+                     "params" => [ "table" => "geocms", "label" => "Tableau de Bord", "name" => "dashboard" ] ],
                 [ "id" => 21, "title" => "News", "compo" => "xmenu", 
-                    "params" => [ "label" => "News", "name" => "news" ] ],
+                    "params" => [ "table" => "geocms", "label" => "News", "name" => "news" ] ],
                 [ "id" => 22, "title" => "Media", "compo" => "xmenu",
-                    "params" => [ "label" => "Media", "name" => "media" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Media", "name" => "media" ] ],
                 [ "id" => 23, "title" => "Pages", "compo" => "xmenu",
-                    "params" => [ "label" => "Pages", "name" => "page" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Pages", "name" => "page" ] ],
                 [ "id" => 24, "title" => "Menus", "compo" => "xmenu",
-                    "params" => [ "label" => "Menus", "name" => "menu" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Menus", "name" => "menu" ] ],
                 [ "id" => 25, "title" => "Templates", "compo" => "xmenu",
-                    "params" => [ "label" => "Templates", "name" => "template" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Templates", "name" => "template" ] ],
                 [ "id" => 26, "title" => "Tutoriels", "compo" => "xmenu",
-                    "params" => [ "label" => "Tutoriels", "name" => "tuto" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Tutoriels", "name" => "tuto" ] ],
                 [ "id" => 27, "title" => "Formations", "compo" => "xmenu",
-                    "params" => [ "label" => "Formations", "name" => "formation" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Formations", "name" => "formation" ] ],
                 [ "id" => 28, "title" => "Cities", "compo" => "xmenu",
-                    "params" => [ "label" => "Cities", "name" => "city" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Cities", "name" => "city" ] ],
                 [ "id" => 29, "title" => "Membres", "compo" => "xmenu",
-                    "params" => [ "label" => "Membres", "name" => "user" ] ],
+                    "params" => [ "table" => "user", "label" => "Membres", "name" => "user" ] ],
                 [ "id" => 30, "title" => "Premium", "compo" => "xmenu",
-                    "params" => [ "label" => "Premium", "name" => "product" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Premium", "name" => "product" ] ],
                 [ "id" => 31, "title" => "Réglages", "compo" => "xmenu",
-                    "params" => [ "label" => "Réglages", "name" => "option" ] ],
+                    "params" => [ "table" => "geocms", "label" => "Réglages", "name" => "option" ] ],
             ];
             $jsonData["sections"] = [
                 [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
@@ -207,9 +224,10 @@ class VueComponent
         $jsonData["lastAjax"]       = time();
         $jsonData["toast"]          = null;
         $jsonData["menuContext"]    = [ 
-            "name" => "dashboard", 
+            "table" => "geocms",
+            "name"  => "dashboard", 
             "label" => "Tableau de Bord", 
-            "form" => [ "category" => "dashboard" ], 
+            "form"  => [ "category" => "dashboard" ], 
         ];
 
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
@@ -288,12 +306,18 @@ class VueComponent
                         }
                     }
 
-                    if (('data' in json) && ('geocms' in json.data)) {
-                        this.data.geocms = json.data.geocms;
-                        console.log(this.data);
-                        // update timestamp
-                        this.lastAjax = Date.now();
-                        console.log(this.lastAjax);
+                    if ('data' in json) {
+                        if ('user' in json.data) {
+                            this.data.user = json.data.user;
+                            console.log(this.data);
+                        }
+                        if ('geocms' in json.data) {
+                            this.data.geocms = json.data.geocms;
+                            console.log(this.data);
+                            // update timestamp
+                            this.lastAjax = Date.now();
+                            console.log(this.lastAjax);
+                        }
                     }
 
                 },
@@ -442,8 +466,6 @@ class VueComponent
         $extraCode =
         <<<'x'
         mounted () {
-            //console.log(this.show);
-            this.current.category = this.menuContext.form.category;
         }
         x;
 
@@ -494,12 +516,12 @@ class VueComponent
         $template = 
         <<<'x'
         <template v-if="params">
-            <h4>{{ menuContext.label }} <span v-if="mydata[params.model]">({{ filterCount2 + filterCount }})</span></h4>
+            <h4>{{ menuContext.label }} <span v-if="mydata[menuContext.table]">({{ filterCount2 + filterCount }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
                         <tr>
-                            <td v-for="(colv, coln) in params.cols" :class="coln">
+                            <td v-for="(colv, coln) in params[menuContext.table].cols" :class="coln">
                                 <h5>{{ colv }}</h5>
                                 <input type="text" @keyup="filterUpdate(coln,$event)">
                             </td>
@@ -510,8 +532,8 @@ class VueComponent
                     </thead>
                     <tbody>
                         <tr class="w100" v-for="(line, index) in showList" :key="line.id">
-                            <td v-for="(colv, coln) in params.cols">
-                                <div v-if="params.filters[coln]" :title="line[coln]" v-html="filterShow(line, coln)">
+                            <td v-for="(colv, coln) in params[menuContext.table].cols">
+                                <div v-if="params[menuContext.table].filters[coln]" :title="line[coln]" v-html="filterShow(line, coln)">
                                 </div>
                                 <pre v-else>{{ line[coln]}}</pre>
                             </td>
@@ -536,7 +558,7 @@ class VueComponent
         $methods =
         <<<'x'
         filterShow(line, col) {
-            let action = this.params.filters[col];
+            let action = this.params[this.menuContext.table].filters[col];
             let value = line[col];
 
             let res=value;
@@ -554,7 +576,7 @@ class VueComponent
             if (name) this.filterCol = name;
             if (event) this.filterVal = event.target.value;
 
-            this.filterList = this.mydata[this.params.model];
+            this.filterList = this.mydata[this.menuContext.table];
             if ((this.filterCol != '') && (this.filterVal != '')) {
 
                 this.filterList = this.filterList.filter((line) => {
@@ -594,7 +616,7 @@ class VueComponent
         doUpdate(line, index) {
             let event = { 
                 line: Object.assign({}, line), 
-                table: this.params.model, 
+                table: this.menuContext.table, 
                 action: 'update',
                 index: index,
                 filterList: this.filterList
@@ -607,8 +629,8 @@ class VueComponent
                 classApi: 'Member',
                 methodApi: 'run',
                 note2: `
-                    DbDelete?table=${this.params.model}&id=${id}
-                    data/DbRead?table=geocms&category=${this.menuContext.name}
+                    DbDelete?table=${this.menuContext.table}&id=${id}
+                    data/DbRead?table=${this.menuContext.table}&category=${this.menuContext.name}
                     ` };    
             this.$emit('ajaxform', event);        
         }
@@ -618,12 +640,12 @@ class VueComponent
         <<<x
         filterCount2() {
             // hack to be updated when source list is updated
-            let res = this.mydata[this.params.model];
+            let res = this.mydata[this.menuContext.table];
             this.filterUpdate(null,null);
             return "";
         },
         filterCount() {
-            return this.filterList.length + '/' + this.mydata[this.params.model].length;
+            return this.filterList.length + '/' + this.mydata[this.menuContext.table].length;
         },
         showList() {
             return this.filterList;
@@ -649,13 +671,9 @@ class VueComponent
                 $methods
             },
             watch: {
-                mydata(v2, v1) {
-                    console.log(v2);
-                    this.filterList = this.mydata[this.params.model];
-                }
             },
             created() {
-                this.filterList = this.mydata[this.params.model];
+                this.filterList = this.mydata[this.menuContext.table];
             },
         }
         x;
@@ -761,6 +779,7 @@ class VueComponent
                 actMenu(event) {
                     this.menuContext.name = this.params.name;
                     this.menuContext.label = this.params.label;
+                    this.menuContext.table = this.params.table;
                     this.menuContext.form.category = this.params.name;
 
                     let event2 = { type: 'css', url: 'gogogo'};
@@ -768,7 +787,7 @@ class VueComponent
                         classApi: 'Member',
                         methodApi: 'geocmsMenu',
                         code: `
-                        data/DbRead?table=geocms&category=${this.params.name}
+                        data/DbRead?table=${this.params.table}&category=${this.params.name}
                         ` };    
                         
                     this.$emit('ajaxform', event2);

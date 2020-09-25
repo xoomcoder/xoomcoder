@@ -92,6 +92,7 @@ class ApiMember
             if (is_callable($action ?? "")) $action();
         }
     }
+
     static function geocmsUpdate ()
     {
         if (Controller::checkMemberToken())
@@ -101,6 +102,20 @@ class ApiMember
                 $action = "Action10::geocmsUpdate";
             if ($level >= 100)
                 $action = "Action100::geocmsUpdate";
+                
+            if (is_callable($action ?? "")) $action();
+        }
+    }
+
+    static function geocmsDelete ()
+    {
+        if (Controller::checkMemberToken())
+        {
+            extract(Controller::$user);
+            if (($level < 100) && ($level >= 10))
+                $action = "Action10::geocmsDelete";
+            if ($level >= 100)
+                $action = "Action100::geocmsDelete";
                 
             if (is_callable($action ?? "")) $action();
         }

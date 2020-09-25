@@ -129,6 +129,7 @@ class MemberAct
         extract($paramas);
         if (($table ?? false) && ($id ?? false)) {
             $notes = Model::read($table, "id", $id);
+            // check if line belongs to user
             foreach($notes as $note) {
                 extract($note);
                 $iduser = intval($id_user ?? 0);
@@ -155,7 +156,7 @@ class MemberAct
                 $resultas = Cms::read($category ?? "news", $orderby);
             }
             else {
-                $resultas = Model::read($table, "id_user", $id, $orderby);
+                $resultas = Model::read($table);
             }
             Form::mergeJson($json, [$table => $resultas]);
         }
