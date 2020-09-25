@@ -57,14 +57,24 @@ class Action100
                     Model::update("geocms", [ "image" => $imageName], $lastId);
                 }
 
-                $geocms = Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC");
-                Form::mergeJson("data", [ "geocms" => $geocms]);
+                Action100::readCms();
 
                 Form::setFeedback("Publication OK ($now) $title");
             }
 
         }
     }
+
+    static function readCms ()
+    {
+        // not model
+        $category   = Form::filterText("menuContext", "", "optional=true");
+        $orderby    = "category DESC, template DESC, priority DESC, datePublication DESC, id DESC";
+        $geocms     = Cms::read($category ?? "news", $orderby);
+        Form::mergeJson("data", [ "geocms" => $geocms]);
+
+    }
+
     static function geocmsUpdate ()
     {
         if (Controller::checkMemberToken())
@@ -102,8 +112,7 @@ class Action100
                     }
                 }
 
-                $geocms = Model::read("geocms", "id_user", $user_id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC");
-                Form::mergeJson("data", [ "geocms" => $geocms]);
+                Action100::readCms();
             }
 
         }

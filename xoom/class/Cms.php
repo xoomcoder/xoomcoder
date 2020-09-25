@@ -9,6 +9,8 @@ class Cms
 {
     static function read ($category="news", $orderby="")
     {
+        extract(Controller::$user);
+
         $orderbyline = "";
         $orderby = trim($orderby);
         if ($orderby) $oderbyline = "ORDER BY $orderby";
@@ -20,12 +22,16 @@ class Cms
         category = :category
         AND 
         priority >= 100 
+        AND 
+        id_user = :id_user
+
         $orderbyline
 
         x;
 
         $tokens = [
             "category"  => $category,
+            "id_user"   => $id,
         ];
         $notes = Model::sendSql($sql, $tokens);
         return $notes->fetchAll(PDO::FETCH_ASSOC);

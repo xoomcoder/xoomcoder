@@ -110,7 +110,7 @@ class VueComponent
             x;
 
             $xformParams = [
-                "title"     => "Publier une note",
+                "title"     => "Ajouter",
                 "model"     => "geocms",
                 "fieldsCreate"    => [
                     [ "name" => "title", "type" => "text", "label" => "titre"],
@@ -203,9 +203,10 @@ class VueComponent
             // "geocms" => Model::read("geocms", "id_user", $id, "category DESC, template DESC, priority DESC, datePublication DESC, id DESC"), 
         ];
 
-        $jsonData["sms"]        = [ "event" => null ];
-        $jsonData["lastAjax"]   = time();
-        $jsonData["toast"]      = null;
+        $jsonData["sms"]            = [ "event" => null ];
+        $jsonData["lastAjax"]       = time();
+        $jsonData["toast"]          = null;
+        $jsonData["menuContext"]    = [ "name" => "news", "label" => "News" ];
 
         $jsonData   = json_encode($jsonData, JSON_PRETTY_PRINT);
 
@@ -224,7 +225,8 @@ class VueComponent
                     sms: this.sms,
                     mydata: this.data,
                     lastAjax: this.lastAjax,
-                    toast: this.toast
+                    toast: this.toast,
+                    menuContext: this.menuContext
                 };
             },
             methods: {
@@ -249,6 +251,9 @@ class VueComponent
                     else {
                         fd = new FormData;
                     }
+                    // add menu context
+                    fd.append('menuContext', this.menuContext.name);
+
                     if('extrafd' in event) {
                         for(let k in event.extrafd) {
                             fd.append(k, event.extrafd[k]);
@@ -311,7 +316,7 @@ class VueComponent
         <template v-if="params">
             <h4 v-if="params.title" @click="actSwitch">
                 <input type="checkbox" v-model="show"> 
-                {{ params.title }}
+                {{ params.title }} {{ menuContext.label}}
             </h4>
             <div class="options active" v-if="sms.event && sms.event.action=='update'">
                 <form @submit.prevent="doSubmitUpdate" method="POST" enctype="multipart/form-data"> 
@@ -348,7 +353,7 @@ class VueComponent
                                 <component ref="xeditoast" is="xeditoast" v-on:loader="actLoader" :field="field" :target="'toasteditorCreate'" :name="field.name" data=""></component>
                             </template>
                             <input v-else-if="field.type=='upload'" type="file" :name="field.name" :required="!field.optional" :placeholder="field.label">
-                            <input v-else type="text" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
+                            <input v-else type="text" :ref="field.name" :name="field.name" :required="!field.optional" :placeholder="field.label" v-model="current[field.name]">
                         </label>
                     </template>   
                     <input type="hidden" name="classApi" value="Member">
@@ -428,7 +433,8 @@ class VueComponent
         $extraCode =
         <<<'x'
         mounted () {
-            console.log(this.show);
+            //console.log(this.show);
+            this.current.category = this.menuContext.name;
         }
         x;
 
@@ -438,7 +444,7 @@ class VueComponent
             template:`
             $template
             `,
-            inject: [ 'mydata', 'sms' ],
+            inject: [ 'mydata', 'sms', 'menuContext' ],
             provide () {
                 return {
                     codeMirror: this.codeMirror
@@ -449,6 +455,8 @@ class VueComponent
             data() {
                 return $jsonData;
             }, 
+            computed: {
+            },
             methods: {
                 $methods
             },
@@ -477,7 +485,7 @@ class VueComponent
         $template = 
         <<<'x'
         <template v-if="params">
-            <h4>{{ params.title }} <span v-if="mydata[params.model]">({{ filterCount2 + filterCount }})</span></h4>
+            <h4>{{ menuContext.label }} <span v-if="mydata[params.model]">({{ filterCount2 + filterCount }})</span></h4>
             <div v-if="mydata">
                 <table>
                     <thead>
@@ -591,7 +599,7 @@ class VueComponent
                 methodApi: 'run',
                 note2: `
                     DbDelete?table=${this.params.model}&id=${id}
-                    data/DbRead?table=geocms
+                    data/DbRead?table=geocms&category=${this.menuContext.name}
                     ` };    
             this.$emit('ajaxform', event);        
         }
@@ -619,7 +627,7 @@ class VueComponent
             template:`
             $template
             `,
-            inject: [ 'mydata', 'lastAjax' ],
+            inject: [ 'mydata', 'lastAjax', 'menuContext' ],
             emits: [ 'ajaxform', 'sms', 'loader' ],
             props: [ 'params' ],
             data() {
@@ -742,7 +750,9 @@ class VueComponent
         <<<'x'
             methods: {
                 actMenu(event) {
-                    console.log(event.target);
+                    this.menuContext.name = this.params.name;
+                    this.menuContext.label = this.params.label;
+
                     let event2 = { type: 'css', url: 'gogogo'};
                     event2.extrafd = { 
                         classApi: 'Member',
@@ -750,8 +760,9 @@ class VueComponent
                         code: `
                         data/DbRead?table=geocms&category=${this.params.name}
                         ` };    
-        
+                        
                     this.$emit('ajaxform', event2);
+
                 }
             }
         x;
@@ -763,6 +774,7 @@ class VueComponent
             $template
             `,
             emits: [ 'ajaxform', 'sms', 'loader' ],
+            inject: [ 'menuContext' ],
             props: [ 'params' ],
             data() {
                 return $jsonData;
