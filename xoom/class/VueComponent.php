@@ -166,18 +166,30 @@ class VueComponent
                 [ "id" => 19, "title" => "Vos Fichiers", "code" => "", "compo" => "xfiles" ],
             ];
             $articles5 = [
-                [ "id" => 20, "title" => "Tableau de Bord", "code" => "dashboard", "compo" => "xmenu"],
-                [ "id" => 21, "title" => "News", "code" => "articles", "compo" => "xmenu" ],
-                [ "id" => 22, "title" => "Media", "code" => "media", "compo" => "xmenu" ],
-                [ "id" => 23, "title" => "Pages", "code" => "pages", "compo" => "xmenu" ],
-                [ "id" => 24, "title" => "Menus", "code" => "menus", "compo" => "xmenu" ],
-                [ "id" => 25, "title" => "Templates", "code" => "templates", "compo" => "xmenu" ],
-                [ "id" => 26, "title" => "Tutoriels", "code" => "tutoriels", "compo" => "xmenu" ],
-                [ "id" => 27, "title" => "Formations", "code" => "formations", "compo" => "xmenu" ],
-                [ "id" => 28, "title" => "Cities", "code" => "cities", "compo" => "xmenu" ],
-                [ "id" => 29, "title" => "Membres", "code" => "membres", "compo" => "xmenu" ],
-                [ "id" => 30, "title" => "Premium", "code" => "premium", "compo" => "xmenu" ],
-                [ "id" => 31, "title" => "Réglages", "code" => "options", "compo" => "xmenu" ],
+                [ "id" => 20, "title" => "Tableau de Bord", "compo" => "xmenu",
+                     "params" => [ "label" => "Tableau de Bord", "name" => "dashboard" ] ],
+                [ "id" => 21, "title" => "News", "compo" => "xmenu", 
+                    "params" => [ "label" => "News", "name" => "news" ] ],
+                [ "id" => 22, "title" => "Media", "compo" => "xmenu",
+                    "params" => [ "label" => "Media", "name" => "media" ] ],
+                [ "id" => 23, "title" => "Pages", "compo" => "xmenu",
+                    "params" => [ "label" => "Pages", "name" => "page" ] ],
+                [ "id" => 24, "title" => "Menus", "compo" => "xmenu",
+                    "params" => [ "label" => "Menus", "name" => "menu" ] ],
+                [ "id" => 25, "title" => "Templates", "compo" => "xmenu",
+                    "params" => [ "label" => "Templates", "name" => "template" ] ],
+                [ "id" => 26, "title" => "Tutoriels", "compo" => "xmenu",
+                    "params" => [ "label" => "Tutoriels", "name" => "tuto" ] ],
+                [ "id" => 27, "title" => "Formations", "compo" => "xmenu",
+                    "params" => [ "label" => "Formations", "name" => "formation" ] ],
+                [ "id" => 28, "title" => "Cities", "compo" => "xmenu",
+                    "params" => [ "label" => "Cities", "name" => "city" ] ],
+                [ "id" => 29, "title" => "Membres", "compo" => "xmenu",
+                    "params" => [ "label" => "Membres", "name" => "user" ] ],
+                [ "id" => 30, "title" => "Premium", "compo" => "xmenu",
+                    "params" => [ "label" => "Premium", "name" => "product" ] ],
+                [ "id" => 31, "title" => "Réglages", "compo" => "xmenu",
+                    "params" => [ "label" => "Réglages", "name" => "option" ] ],
             ];
             $jsonData["sections"] = [
                 [ "id" => 3, "class" => "dashboard", "class2" => "dashboard", "title" => "Tableau de Bord", "articles" => $articles3 ?? [] ],
@@ -347,9 +359,6 @@ class VueComponent
         </template>
 
         x;
-
-
- 
 
         $jsonData   = [];
         $jsonData["current"] = [ "id" => null ];
@@ -714,9 +723,10 @@ class VueComponent
     {
         $template = 
         <<<x
-            <a class="act" @click="actMenu">xmenu</a>
+            <a class="act" @click="actMenu">{{ params.label }}</a>
         x;
 
+        $jsonData   = [];
         $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
 
         $extraCode  = 
@@ -729,7 +739,7 @@ class VueComponent
                         classApi: 'Member',
                         methodApi: 'geocmsMenu',
                         code: `
-                        data/DbRead?table=geocms
+                        data/DbRead?table=geocms&category=${this.params.name}
                         ` };    
         
                     this.$emit('ajaxform', event2);
@@ -744,6 +754,7 @@ class VueComponent
             $template
             `,
             emits: [ 'ajaxform', 'sms', 'loader' ],
+            props: [ 'params' ],
             data() {
                 return $jsonData;
             },

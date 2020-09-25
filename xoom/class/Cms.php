@@ -7,6 +7,30 @@
 
 class Cms
 {
+    static function read ($category="news", $orderby="")
+    {
+        $orderbyline = "";
+        $orderby = trim($orderby);
+        if ($orderby) $oderbyline = "ORDER BY $orderby";
+
+        $sql =
+        <<<x
+        SELECT * FROM geocms
+        WHERE 
+        category = :category
+        AND 
+        priority >= 100 
+        $orderbyline
+
+        x;
+
+        $tokens = [
+            "category"  => $category,
+        ];
+        $notes = Model::sendSql($sql, $tokens);
+        return $notes->fetchAll(PDO::FETCH_ASSOC);
+    }
+
     static function showNews ()
     {
         $users = Model::read("user", "level", 100);
