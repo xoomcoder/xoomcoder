@@ -740,7 +740,7 @@ class VueComponent
                         </g>
                         <g id="mypoly" fill="none" stroke="#66aa66">
                             <circle cx="100" cy="100" r="100" fill="yellow"/>
-                            <circle cx="100" cy="100" r="50" fill="orange"/>
+                            <circle cx="100" cy="100" r="50" fill="orange" @click="actCircle0"/>
                             <polygon :points="points" />
                         </g>
                     </defs>
@@ -784,6 +784,9 @@ class VueComponent
                 }
             },
             methods: {
+                actCircle0(event) {
+                    console.log(event.target);
+                },
                 valueToPoint(value, index, total) {
                     let x = 0;
                     //let y = -value * 0.8;
