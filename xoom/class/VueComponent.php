@@ -721,6 +721,7 @@ class VueComponent
 
     static function xsvg ()
     {
+        // https://fr.vuejs.org/v2/examples/svg.html
         $template = 
         <<<x
             <h4>SVG</h4>
@@ -728,18 +729,23 @@ class VueComponent
                 <input type="range" v-model="crx" min="-100" max="100">
                 <input type="range" v-model="cry">
                 <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-                    <rect :x="200+0.1*crx" y="0" :width="200-0.2*crx" :height="200+0.1*cry" rx="16" ry="16" fill="pink" />
-                    <circle :cx="250" cy="50" :r="20+0.1*crx" fill="white" />
-                    <circle :cx="350" cy="50" :r="20+0.1*crx" fill="white" />
-                    <circle :cx="250+0.1*crx" cy="50" :r="10+0.1*crx"/>
-                    <circle :cx="350+0.1*crx" cy="50" :r="10+0.1*crx"/>
-                    <ellipse cx="300" cy="150" :rx="50+0.1*crx" :ry="0.5*cry"/>
                     <defs>
-                        <g id="mypoly" fill="#66aa66">
+                        <g id="happy">
+                            <rect :x="200+0.1*crx" y="0" :width="200-0.2*crx" :height="200+0.1*cry" rx="16" ry="16" fill="pink" />
+                            <circle :cx="250" cy="50" :r="20+0.1*crx" fill="white" />
+                            <circle :cx="350" cy="50" :r="20+0.1*crx" fill="white" />
+                            <circle :cx="250+0.1*crx" cy="50" :r="10+0.1*crx"/>
+                            <circle :cx="350+0.1*crx" cy="50" :r="10+0.1*crx"/>
+                            <ellipse cx="300" cy="150" :rx="50+0.1*crx" :ry="0.5*cry"/>
+                        </g>
+                        <g id="mypoly" fill="none" stroke="#66aa66">
+                            <circle cx="100" cy="100" r="100" fill="yellow"/>
+                            <circle cx="100" cy="100" r="50" fill="orange"/>
                             <polygon :points="points" />
                         </g>
                     </defs>
-                    <use href="#mypoly" x="300" y="100" width="100" height="100"></use>
+                    <use href="#happy" x="100" y="0" width="100" height="100"></use>
+                    <use href="#mypoly" x="600" y="0" width="100" height="100"></use>
                 </svg>
             </div>
         x;
@@ -772,16 +778,16 @@ class VueComponent
                     return this.stats
                     .map(function(stat, i) {
                         let point = myapp.valueToPoint(stat, i, total);
-                        return (2*point.x) + "," + (2*point.y);
+                        return point.x + "," + point.y;
                     })
                     .join(" ");
                 }
             },
             methods: {
                 valueToPoint(value, index, total) {
-                    console.log(value);
                     let x = 0;
-                    let y = -value * 0.8;
+                    //let y = -value * 0.8;
+                    let y = -value * 1;
                     let angle = ((Math.PI * 2) / total) * index;
                     let cos = Math.cos(angle);
                     let sin = Math.sin(angle);
