@@ -176,6 +176,7 @@ class VueComponent
             $articles3 = [
                 [ "id" => 15, "compo" => "xform", "params" => $xformParams, "class" => "w100" ],
                 [ "id" => 16, "compo" => "xlist", "params" => $xlistParams, "class" => "w100 cw100" ],
+                [ "id" => 17, "compo" => "xsvg", "params" => [], "class" => "w100" ],
                 // [ "id" => 16, "compo" => "xeditoast", "params" => [], "class" => "w100" ],
             ];
     
@@ -710,6 +711,84 @@ class VueComponent
                 return $jsonData;
             }, 
             methods: {
+            }
+        }
+        x;
+
+        return $compoCode;
+
+    }
+
+    static function xsvg ()
+    {
+        $template = 
+        <<<x
+            <h4>SVG</h4>
+            <div class="wreset w50 h50">
+                <input type="range" v-model="crx" min="-100" max="100">
+                <input type="range" v-model="cry">
+                <svg viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
+                    <rect :x="200+0.1*crx" y="0" :width="200-0.2*crx" :height="200+0.1*cry" rx="16" ry="16" fill="pink" />
+                    <circle :cx="250" cy="50" :r="20+0.1*crx" fill="white" />
+                    <circle :cx="350" cy="50" :r="20+0.1*crx" fill="white" />
+                    <circle :cx="250+0.1*crx" cy="50" :r="10+0.1*crx"/>
+                    <circle :cx="350+0.1*crx" cy="50" :r="10+0.1*crx"/>
+                    <ellipse cx="300" cy="150" :rx="50+0.1*crx" :ry="0.5*cry"/>
+                    <defs>
+                        <g id="mypoly" fill="#66aa66">
+                            <polygon :points="points" />
+                        </g>
+                    </defs>
+                    <use href="#mypoly" x="300" y="100" width="100" height="100"></use>
+                </svg>
+            </div>
+        x;
+
+        $jsonData = [
+            "crx"    => 20,
+            "cry"    => 50,
+            "stats"   => [ 100, 100, 100, 100, 100 ],
+        ];
+
+        $jsonData   = json_encode($jsonData ?? [], JSON_PRETTY_PRINT);
+
+        $compoCode  =
+        <<<x
+        {
+            template:`
+            $template
+            `,
+            emits: [ 'ajaxform', 'sms', 'loader' ],
+            inject: [ 'menuContext' ],
+            props: [ 'params' ],
+            data() {
+                return $jsonData;
+            }, 
+            computed: {
+                // a computed property for the polygon's points
+                points: function() {
+                    let total = this.stats.length;
+                    let myapp = this;
+                    return this.stats
+                    .map(function(stat, i) {
+                        let point = myapp.valueToPoint(stat, i, total);
+                        return (2*point.x) + "," + (2*point.y);
+                    })
+                    .join(" ");
+                }
+            },
+            methods: {
+                valueToPoint(value, index, total) {
+                    console.log(value);
+                    let x = 0;
+                    let y = -value * 0.8;
+                    let angle = ((Math.PI * 2) / total) * index;
+                    let cos = Math.cos(angle);
+                    let sin = Math.sin(angle);
+                    let tx = x * cos - y * sin + 100;
+                    let ty = x * sin + y * cos + 100;
+                    return { x: tx, y: ty };
+                }
             }
         }
         x;

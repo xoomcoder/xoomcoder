@@ -240,6 +240,9 @@
         .cw100 * {
             width:100%;
         }
+        .cw100 .wreset * {
+            width:auto;
+        }
 
         /* */
         label.code {
