@@ -52,7 +52,7 @@ class WP_HTTP_IXR_Client extends IXR_Client {
 	 *
 	 * @return bool
 	 */
-	public function query( ...$args ) {
+	public function queryWP( ...$args ) {
 		$method  = array_shift( $args );
 		$request = new IXR_Request( $method, $args );
 		$xml     = $request->getXml();
@@ -77,7 +77,7 @@ class WP_HTTP_IXR_Client extends IXR_Client {
 		 *
 		 * @param string[] $headers Associative array of headers to be sent.
 		 */
-		$args['headers'] = apply_filters( 'wp_http_ixr_client_headers', $args['headers'] );
+		// $args['headers'] = apply_filters( 'wp_http_ixr_client_headers', $args['headers'] );
 
 		if ( false !== $this->timeout ) {
 			$args['timeout'] = $this->timeout;
