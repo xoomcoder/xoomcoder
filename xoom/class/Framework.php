@@ -8,23 +8,19 @@
 class Framework
 {
     static $asteps  = [];
-    static $consons = [];
-    static $voyels  = [];
+    static $consons = [ "b", "c", "d", "f", "g", "h", "j", "k", "l", "m", "n", "p", "q", "r", "s", "t", "v", "w", "x", "z"];
+    static $voyels  = [ "a", "e", "i", "o", "u" ];
     static $start   = 0;
     static $end     = 10000;
     static $step    = 20;
     static $lines   = [];
 
-    static function start ()
-    {
-        Framework::$consons = str_split("bcdfghjklmnpqrstvwxz");
-        Framework::$voyels  = str_split("aeiou");
-
-        // run all todos
-        Framework::run();
-    }
-
     static function add ($key, $todo, $name="") {
+        $step = intval($key);
+        if ($step > 0) {
+            $key = Framework::step2key($step);
+        }
+
         if (($key != "") && ($todo != "")) {
             if ($name == "") $name = $todo;
             Framework::$asteps[$key][$name] = $todo;

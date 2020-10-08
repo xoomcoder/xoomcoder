@@ -21,29 +21,28 @@ class Xoom
 
         // store the root dir for all project
         Xoom::$rootdir = $rootdir;
+        Xoom::$configas["rootdir"] = Xoom::$rootdir;
 
         // https://www.php.net/manual/fr/function.spl-autoload-register.php
         spl_autoload_register("Xoom::loadClass");
 
-        Xoom::$configas["rootdir"] = Xoom::$rootdir;
-        // load all .json files
-        Xoom::loadConfig();
-        // complete config
-        Xoom::completeConfig();
-
         if ($mode == "web") {
-            Framework::add("bica", "Cms::load");
-            Framework::add("bida", "Plugin::load");
-            Framework::add("bira", "Request::parse");
-            Framework::add("biva", "Response::build");
-            Framework::add("bivu", "Response::send");
+            Framework::add(1000, "Xoom::loadConfig");
+            Framework::add(2000, "Xoom::completeConfig");
+            Framework::add(3000, "Cms::load");
+            Framework::add(4000, "Plugin::load");
+            Framework::add(5000, "Request::parse");
+            Framework::add(6000, "Response::build");
+            Framework::add(7000, "Response::send");
         }
         elseif ($mode == "xterm") {
-            Framework::add("bica", "Cms::load");
-            Framework::add("bida", "Plugin::load");
-            Framework::add("biva", "Terminal::runTerminal");
+            Framework::add(1000, "Xoom::loadConfig");
+            Framework::add(2000, "Xoom::completeConfig");
+            Framework::add(3000, "Cms::load");
+            Framework::add(4000, "Plugin::load");
+            Framework::add(5000, "Terminal::runTerminal");
         }
-        Framework::start();
+        Framework::run();
 
     }
 
