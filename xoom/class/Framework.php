@@ -17,10 +17,8 @@ class Framework
     static function start ()
     {
         Framework::$consons = str_split("bcdfghjklmnpqrstvwxz");
-        Framework::$voyels = str_split("aeiou");
+        Framework::$voyels  = str_split("aeiou");
 
-        Framework::add("bava", "Request::parse");
-        Framework::add("bavu", "Response::send");
         // run all todos
         Framework::run();
     }

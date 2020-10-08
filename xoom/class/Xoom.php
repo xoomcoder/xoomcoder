@@ -32,11 +32,13 @@ class Xoom
         Xoom::completeConfig();
 
         if ($mode == "web") {
-            Framework::start();
+            Framework::add("bava", "Request::parse");
+            Framework::add("bavu", "Response::send");
         }
         elseif ($mode == "xterm") {
-            Terminal::runTerminal();
+            Framework::add("bava", "Terminal::runTerminal");
         }
+        Framework::start();
 
     }
 
