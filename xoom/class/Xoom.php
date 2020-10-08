@@ -23,23 +23,26 @@ class Xoom
 
         if ($mode == "web") {
             Framework::add(1000, "Xoom::setup");
-            Framework::add(2000, "Xoom::loadConfig");
-            Framework::add(3000, "Xoom::completeConfig");
-            Framework::add(4000, "Cms::load");
-            Framework::add(5000, "Plugin::load");
-            Framework::add(6000, "Request::parse");
-            Framework::add(7000, "Router::build");
+            Framework::add(1200, "Xoom::loadConfig");
+            Framework::add(1400, "Xoom::completeConfig");
+            Framework::add(1600, "Cms::load");
+            Framework::add(1800, "Plugin::load");
+            Framework::add(2000, "Request::parse");
+            Framework::add(3000, "Router::build");
+            Framework::add(4000, "Cms::process");
             Framework::add(8000, "Response::build");
             Framework::add(9000, "Response::send");
         }
         elseif ($mode == "xterm") {
             Framework::add(1000, "Xoom::setup");
-            Framework::add(2000, "Xoom::loadConfig");
-            Framework::add(3000, "Xoom::completeConfig");
-            Framework::add(4000, "Cms::load");
-            Framework::add(5000, "Plugin::load");
-            Framework::add(6000, "Terminal::runTerminal");
+            Framework::add(1200, "Xoom::loadConfig");
+            Framework::add(1400, "Xoom::completeConfig");
+            Framework::add(1600, "Cms::load");
+            Framework::add(1800, "Plugin::load");
+            Framework::add(3000, "Terminal::runTerminal");
+            Framework::add(4000, "Cms::process");
         }
+        
         // run all todos
         Framework::run();
 

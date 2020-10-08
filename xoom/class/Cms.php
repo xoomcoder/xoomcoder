@@ -11,6 +11,11 @@ class Cms
     {
 
     }
+
+    static function process ()
+    {
+
+    }
     
     static function read ($category="news", $orderby="")
     {
