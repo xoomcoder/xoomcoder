@@ -32,8 +32,9 @@ class Xoom
             Framework::add(3000, "Cms::load");
             Framework::add(4000, "Plugin::load");
             Framework::add(5000, "Request::parse");
-            Framework::add(6000, "Response::build");
-            Framework::add(7000, "Response::send");
+            Framework::add(6000, "Router::build");
+            Framework::add(7000, "Response::build");
+            Framework::add(8000, "Response::send");
         }
         elseif ($mode == "xterm") {
             Framework::add(1000, "Xoom::loadConfig");
