@@ -32,8 +32,7 @@ class Xoom
         Xoom::completeConfig();
 
         if ($mode == "web") {
-            Request::parse();
-            Response::send();
+            Framework::start();
         }
         elseif ($mode == "xterm") {
             Terminal::runTerminal();
