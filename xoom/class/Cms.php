@@ -7,6 +7,11 @@
 
 class Cms
 {
+    static function load ()
+    {
+
+    }
+    
     static function read ($category="news", $orderby="")
     {
         extract(Controller::$user);

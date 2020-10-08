@@ -32,11 +32,16 @@ class Xoom
         Xoom::completeConfig();
 
         if ($mode == "web") {
-            Framework::add("bava", "Request::parse");
-            Framework::add("bavu", "Response::send");
+            Framework::add("bica", "Cms::load");
+            Framework::add("bida", "Plugin::load");
+            Framework::add("bira", "Request::parse");
+            Framework::add("biva", "Response::build");
+            Framework::add("bivu", "Response::send");
         }
         elseif ($mode == "xterm") {
-            Framework::add("bava", "Terminal::runTerminal");
+            Framework::add("bica", "Cms::load");
+            Framework::add("bida", "Plugin::load");
+            Framework::add("biva", "Terminal::runTerminal");
         }
         Framework::start();
 

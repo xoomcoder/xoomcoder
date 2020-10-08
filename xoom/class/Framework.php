@@ -12,7 +12,8 @@ class Framework
     static $voyels  = [];
     static $start   = 0;
     static $end     = 10000;
-    static $step    = 100;
+    static $step    = 20;
+    static $lines   = [];
 
     static function start ()
     {
