@@ -14,11 +14,6 @@ class Xoom
 
     static function start($rootdir, $mode="web")
     {
-        set_error_handler("Xoom::handleError");
-
-        error_reporting(E_ALL);
-        ini_set("error_display", "1");
-
         // store the root dir for all project
         Xoom::$rootdir = $rootdir;
         Xoom::$configas["rootdir"] = Xoom::$rootdir;
@@ -27,26 +22,37 @@ class Xoom
         spl_autoload_register("Xoom::loadClass");
 
         if ($mode == "web") {
-            Framework::add(1000, "Xoom::loadConfig");
-            Framework::add(2000, "Xoom::completeConfig");
-            Framework::add(3000, "Cms::load");
-            Framework::add(4000, "Plugin::load");
-            Framework::add(5000, "Request::parse");
-            Framework::add(6000, "Router::build");
-            Framework::add(7000, "Response::build");
-            Framework::add(8000, "Response::send");
+            Framework::add(1000, "Xoom::setup");
+            Framework::add(2000, "Xoom::loadConfig");
+            Framework::add(3000, "Xoom::completeConfig");
+            Framework::add(4000, "Cms::load");
+            Framework::add(5000, "Plugin::load");
+            Framework::add(6000, "Request::parse");
+            Framework::add(7000, "Router::build");
+            Framework::add(8000, "Response::build");
+            Framework::add(9000, "Response::send");
         }
         elseif ($mode == "xterm") {
-            Framework::add(1000, "Xoom::loadConfig");
-            Framework::add(2000, "Xoom::completeConfig");
-            Framework::add(3000, "Cms::load");
-            Framework::add(4000, "Plugin::load");
-            Framework::add(5000, "Terminal::runTerminal");
+            Framework::add(1000, "Xoom::setup");
+            Framework::add(2000, "Xoom::loadConfig");
+            Framework::add(3000, "Xoom::completeConfig");
+            Framework::add(4000, "Cms::load");
+            Framework::add(5000, "Plugin::load");
+            Framework::add(6000, "Terminal::runTerminal");
         }
+        // run all todos
         Framework::run();
 
     }
 
+    static function setup ()
+    {
+        set_error_handler("Xoom::handleError");
+
+        error_reporting(E_ALL);
+        ini_set("error_display", "1");
+
+    }
 
     static function handleError ($errno, $errstr, $errfile, $errline)
     {
