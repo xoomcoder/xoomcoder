@@ -97,6 +97,50 @@
         ]
     },
     {
+        "name": "incutio/xmlrpc",
+        "version": "dev-master",
+        "version_normalized": "9999999-dev",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/web3d/ixr.git",
+            "reference": "517e4bc26b7ff35878f94410cf5d7399ec5d6cff"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/web3d/ixr/zipball/517e4bc26b7ff35878f94410cf5d7399ec5d6cff",
+            "reference": "517e4bc26b7ff35878f94410cf5d7399ec5d6cff",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.0"
+        },
+        "time": "2018-01-26T01:05:40+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Incutio\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "New BSD"
+        ],
+        "authors": [
+            {
+                "name": "Jimmy Jaw",
+                "email": "web3d@live.com",
+                "homepage": "http://seld.be",
+                "role": "Developer"
+            }
+        ],
+        "description": "Incutio XMLRPC for PHP 5.3",
+        "homepage": "https://github.com/web3d/ixr",
+        "keywords": [
+            "xmlrpc"
+        ]
+    },
+    {
         "name": "league/commonmark",
         "version": "1.5.4",
         "version_normalized": "1.5.4.0",

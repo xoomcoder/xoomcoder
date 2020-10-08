@@ -15,6 +15,10 @@ class ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901
         array (
             'League\\CommonMark\\' => 18,
         ),
+        'I' => 
+        array (
+            'Incutio\\' => 8,
+        ),
     );
 
     public static $prefixDirsPsr4 = array (
@@ -25,6 +29,10 @@ class ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901
         'League\\CommonMark\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/commonmark/src',
+        ),
+        'Incutio\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/incutio/xmlrpc/src',
         ),
     );
 
