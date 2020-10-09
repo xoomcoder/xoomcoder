@@ -10,31 +10,36 @@ class Router
     static $aExtRoutes = [];
     static $aUriRoutes = [];
 
+    static function addExt($extension, $callback)
+    {
+        Router::$aExtRoutes["$extension"][] = $callback;
+    }
+
     static function build ()
     {
         extract(Xoom::getConfig("rootdir"));
 
-        if (Request::$extension == "html") {
-            Framework::add(8200, "Cms::findTemplate");
-            Framework::add(8400, "Cms::sendResponse");
-        }
-        elseif (Request::$extension == "vjs") {
-            header("Content-Type: application/javascript");
+        $stop = false;
+        if (array_key_exists(Request::$extension, Router::$aExtRoutes)) {
+            $routes = Router::$aExtRoutes[Request::$extension];
+            foreach($routes as $route) {
+                if ($route && is_callable($route)) {
+                    $stop = $route();
+                    if ($stop) break;
+                }    
+            }
+        }   
 
-            Framework::add(8200, "Cms::findTemplate");
-            Framework::add(8400, "Cms::sendResponse");
-        }
-        elseif (Request::$bid != "") {
-            Framework::add(8400, "Cms::showMedia");
-        }
-        elseif (is_file("$rootdir/public" .Request::$path)) {
-            Framework::add(8400, "Response::sendStatic");
-        }
-        elseif (Request::$extension == "jpg") {
-            Framework::add(8400, "Cms::sendPhoto");
-        }
-        else {
-            Framework::add(8400, "Response::send404");
+        if (!$stop) {
+            if (Request::$bid != "") {
+                Framework::add(8400, "Cms::showMedia");
+            }
+            elseif (is_file("$rootdir/public" .Request::$path)) {
+                Framework::add(8400, "Response::sendStatic");
+            }
+            else {
+                Framework::add(8400, "Response::send404");
+            }    
         }
 
     }

@@ -9,7 +9,37 @@ class Cms
 {
     static function load ()
     {
+        Router::addExt("html", "Cms::routeHtml");
+        Router::addExt("vjs", "Cms::routeVjs");
+        Router::addExt("jpg", "Cms::routeJpg");
+    }
 
+    static function routeHtml ()
+    {
+        Framework::add(8200, "Cms::findTemplate");
+        Framework::add(8400, "Cms::sendResponse");
+        return true; // stop
+    }
+
+    static function routeVjs ()
+    {
+        header("Content-Type: application/javascript");
+
+        Framework::add(8200, "Cms::findTemplate");
+        Framework::add(8400, "Cms::sendResponse");
+        return true; // stop
+    }
+
+    static function routeJpg ()
+    {
+        extract(Xoom::getConfig("rootdir"));
+        if (is_file("$rootdir/public" . Request::$path)) {
+            Framework::add(8400, "Response::sendStatic");
+        }
+        elseif (Request::$extension == "jpg") {
+            Framework::add(8400, "Cms::sendPhoto");
+        }
+        return true; // stop
     }
 
     static function process ()
