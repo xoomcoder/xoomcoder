@@ -31,8 +31,8 @@ class Cms
 
     static function routeHtml ()
     {
-        Framework::add(8200, "Cms::findTemplate");
-        Framework::add(8400, "Cms::sendResponse");
+        Framework::add(6200, "Cms::findTemplate");
+        Framework::add(6400, "Cms::sendResponse");
         return true; // stop
     }
 
@@ -40,8 +40,8 @@ class Cms
     {
         header("Content-Type: application/javascript");
 
-        Framework::add(8200, "Cms::findTemplate");
-        Framework::add(8400, "Cms::sendResponse");
+        Framework::add(6200, "Cms::findTemplate");
+        Framework::add(6400, "Cms::sendResponse");
         return true; // stop
     }
 
@@ -49,13 +49,13 @@ class Cms
     {
         extract(Xoom::getConfig("rootdir"));
         if (Request::$bid != "") {
-            Framework::add(8400, "Cms::showMedia");
+            Framework::add(6400, "Cms::showMedia");
         }
         elseif (is_file("$rootdir/public" . Request::$path)) {
-            Framework::add(8400, "Response::sendStatic");
+            Framework::add(6400, "Response::sendStatic");
         }
         elseif (Request::$extension == "jpg") {
-            Framework::add(8400, "Cms::sendPhoto");
+            Framework::add(6400, "Cms::sendPhoto");
         }
         return true; // stop
     }
@@ -65,15 +65,12 @@ class Cms
 
     }
     
+    // 9000: sendResponse
     static function api ()
     {
-        // log forms
-        Form::log();
-
-        // process forms
-        Form::process();
-
-        Form::sendJSON();
+        Framework::add(7200, "Form::log");
+        Framework::add(7400, "Form::process");
+        Framework::add(7600, "Form::sendJSON");
     }
 
     static function read ($category="news", $orderby="")

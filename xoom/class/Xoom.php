@@ -30,7 +30,7 @@ class Xoom
             Framework::add(2000, "Request::parse");
             Framework::add(3000, "Router::build");
             Framework::add(4000, "Cms::process");
-            Framework::add(8000, "Response::build");
+            Framework::add(6000, "Response::build");
             Framework::add(9000, "Response::send");
         }
         elseif ($mode == "xterm") {
