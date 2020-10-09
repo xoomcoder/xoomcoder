@@ -80,13 +80,6 @@ class Xoom
         }
     }
 
-
-
-    static function showBodyClass ()
-    {
-        echo Xoom::$filename;
-    }
-
     static function loadConfig ()
     {
         $files = File::list("xoom-data/my-config-*.json");

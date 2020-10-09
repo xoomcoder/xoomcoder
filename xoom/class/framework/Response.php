@@ -121,53 +121,6 @@ class Response
         return $res;
     }
 
-    static function sendResponse()
-    {
-        // https://www.php.net/manual/fr/control-structures.foreach.php
-        foreach (Response::$template as $file) {
-            if (is_file($file)) {
-                // https://www.php.net/manual/fr/function.require-once.php
-                include $file;
-            }
-            else {
-                $filename = pathinfo($file, PATHINFO_FILENAME);
-                // look in geocms if there's a template
-                // $lines = Model::read("geocms", "template", $filename, "priority DESC");
-                $sql =
-                <<<x
-                SELECT * FROM geocms
-                WHERE
-                template LIKE :template
-                AND priority >= :priority
-                ORDER BY priority DESC
-                x;
-                $tag = str_replace("template-", "", $filename);
-                $tokens = [
-                    "template" => "template%-$tag%",
-                    "priority" => 100,
-                ];
-
-                $lines = [];
-                $pdoStatement = Model::sendSql($sql, $tokens);
-                if ($pdoStatement) $lines = $pdoStatement->fetchAll();
-                //$pdoStatement->debugDumpParams();
-
-                foreach($lines as $line) {
-                    extract($line);
-                    $priority = intval($priority ?? 0);
-                    if ($priority >= 100) {             // security: template are built by webmasters
-                        // warning: this is running PHP code stored in database...
-                        AdminCommand::runLocal($code);
-                    }
-                }
-
-                if(empty($line)) {
-                    // no template found...
-                }
-            }
-        }
-    }
-
     static function send ()
     {
         extract(Xoom::getConfig("rootdir"));
@@ -175,14 +128,14 @@ class Response
         if (Request::$extension == "html") {
             Response::findTemplate();
             // build the page to the browser
-            Response::sendResponse();        
+            Cms::sendResponse();        
         }
         elseif (Request::$extension == "vjs") {
             header("Content-Type: application/javascript");
 
             Response::findTemplate();
             // build the page to the browser
-            Response::sendResponse();        
+            Cms::sendResponse();        
         }
         elseif (Request::$bid != "") {
             $searchBid = Request::$bid;
@@ -256,69 +209,6 @@ class Response
         ];
         $mimetype = $mimes[Request::$extension] ?? mime_content_type($file);
         return $mimetype;
-    }
-
-    static function Htmlheader ()
-    {
-        $canonical = Xoom::$canonical;
-        $uri = "https://xoomcoder.com/$canonical";        
-
-        $geocms = Response::$contents["dbline"] ?? []; 
-        if (!empty($geocms)) {
-            extract($geocms);
-            $bid    = Response::id2name($id);
-
-            $noindex = '<meta name="robots" content="index">';
-            $codelength = mb_strlen($code);
-            if ($codelength > 2000) {
-                // $noindex = "";  // index content as big enough
-            }
-
-            $ogtitle = str_replace('"', '', $title);
-
-            $res = 
-            <<<x
-            $noindex
-
-            <meta property="og:title" content="$ogtitle">
-            <meta property="og:description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
-            <meta property="og:url" content="https://xoomcoder.com/$uri--$bid">
-            <meta property="og:image" content="https://xoomcoder.com/$uri--$bid.jpg">
-            <meta property="og:image:alt" content="$ogtitle">
-            <meta property="og:type" content="website">
-            <meta property="og:site_name" content="XoomCoder">
-
-            <meta name="description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
-            <title>$title - XoomCoder Formation</title>
-            <link rel="canonical" href="https://xoomcoder.com/$uri--$bid">
-            x;
-    
-        }
-        else {
-            if ($canonical == "") $canonical = "Accueil";
-
-            $title = $canonical;
-
-            $ogtitle = str_replace('"', '', $title);
-
-            $res = 
-            <<<x
-
-            <meta property="og:title" content="$ogtitle">
-            <meta property="og:description" content="$ogtitle - XoomCoder - Formation Développeur Fullstack à Distance">
-            <meta property="og:url" content="$uri">
-            <meta property="og:image" content="https://xoomcoder.com/$uri.jpg">
-            <meta property="og:image:alt" content="$ogtitle">
-            <meta property="og:type" content="website">
-            <meta property="og:site_name" content="XoomCoder">
-
-            <meta name="description" content="$canonical - XoomCoder - Formation Développeur Fullstack à Distance">
-            <title>$canonical - XoomCoder * Formation Développeur Fullstack à Distance</title>
-            <link rel="canonical" href="$uri">
-            x;
-        }
-
-        echo $res;
     }
 
 

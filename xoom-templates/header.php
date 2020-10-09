@@ -6,7 +6,7 @@
     <!-- important pour rendre la page responsive -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <?php Response::Htmlheader() ?>
+    <?php Cms::htmlHeader() ?>
     <!-- favicon -->
     <link rel="icon" href="assets/img/xoomcoder.svg">
     <!-- google fonts -->
@@ -17,7 +17,7 @@
 
     </style>
 </head>
-<body class="<?php Xoom::showBodyClass() ?>">
+<body class="<?php Cms::showBodyClass() ?>">
     <header>
         <nav>
             <h1 class="">
