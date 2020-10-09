@@ -7,18 +7,21 @@
 
 class Router
 {
+    static $aExtRoutes = [];
+    static $aUriRoutes = [];
+
     static function build ()
     {
         extract(Xoom::getConfig("rootdir"));
 
         if (Request::$extension == "html") {
-            Framework::add(8200, "Response::findTemplate");
+            Framework::add(8200, "Cms::findTemplate");
             Framework::add(8400, "Cms::sendResponse");
         }
         elseif (Request::$extension == "vjs") {
             header("Content-Type: application/javascript");
 
-            Framework::add(8200, "Response::findTemplate");
+            Framework::add(8200, "Cms::findTemplate");
             Framework::add(8400, "Cms::sendResponse");
         }
         elseif (Request::$bid != "") {

@@ -82,6 +82,74 @@ class Cms
             
     }
 
+    static function findTemplate()
+    {
+        // if there's a page
+        extract(Xoom::getConfig("rootdir,contentdir,filename,bid"));
+        $pages = [
+            "$contentdir/templates/pages/$filename.php",
+            "$rootdir/xoom-pages/$filename.php",
+        ];
+        $foundpage = false;
+        foreach($pages as $pagefile) {
+            if (is_file($pagefile)) {
+                // special template
+                Response::$template = [ 
+                    "$pagefile", 
+                ];
+                $foundpage = true;
+                break; // only the first
+            }            
+        }
+        if (!$foundpage) {
+            extract(Xoom::getConfig("rootdir,contentdir"));
+            // FIXME: add folders in config files
+            $contents = [
+                "$contentdir/templates/content/$filename.php",  
+                "$rootdir/xoom-templates/contenu-$filename.php",
+            ];
+            foreach($contents as $contentfile) {
+                if (is_file($contentfile)) {
+                    Response::$template = [ 
+                        "$rootdir/xoom-templates/header.php", 
+                        $contentfile, 
+                        "$rootdir/xoom-templates/footer.php", 
+                    ];
+                    $foundpage = true;
+                    break; // only the first
+                }
+            }
+        }
+        if (!$foundpage) {
+            // WARNING: SHOULD FILTER MEMBER CONTENT
+            if ($bid != "") {
+                $geocms_id = Response::name2id($bid);
+                $lines = Model::read("geocms", "id", $geocms_id, "priority DESC");
+            }
+            else {
+                $lines = Model::read("geocms", "uri", $filename, "priority DESC");
+            }
+            foreach($lines as $line) {
+                Response::$contents["dbline"] = $line;
+
+                extract($line);
+                // $template
+                if ($template ?? false) {
+                    // add some security
+                    $template = pathinfo($template, PATHINFO_FILENAME);
+                }
+                else {
+                    $template = "default";
+                }
+
+                Response::$template = [ 
+                    "$rootdir/xoom-templates/template-$template.php", 
+                ];
+                break;  // only one
+            }
+        }
+    }
+
     static function sendResponse()
     {
         // https://www.php.net/manual/fr/control-structures.foreach.php
