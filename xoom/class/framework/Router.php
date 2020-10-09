@@ -15,10 +15,13 @@ class Router
         Router::$aExtRoutes["$extension"][] = $callback;
     }
 
+    static function addUri($callback)
+    {
+        Router::$aUriRoutes[] = $callback;
+    }
+
     static function build ()
     {
-        extract(Xoom::getConfig("rootdir"));
-
         $stop = false;
         if (array_key_exists(Request::$extension, Router::$aExtRoutes)) {
             $routes = Router::$aExtRoutes[Request::$extension];
@@ -31,15 +34,12 @@ class Router
         }   
 
         if (!$stop) {
-            if (Request::$bid != "") {
-                Framework::add(8400, "Cms::showMedia");
+            foreach(Router::$aUriRoutes as $route) {
+                if ($route && is_callable($route)) {
+                    $stop = $route();
+                    if ($stop) break;
+                }
             }
-            elseif (is_file("$rootdir/public" .Request::$path)) {
-                Framework::add(8400, "Response::sendStatic");
-            }
-            else {
-                Framework::add(8400, "Response::send404");
-            }    
         }
 
     }

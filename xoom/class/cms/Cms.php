@@ -9,9 +9,24 @@ class Cms
 {
     static function load ()
     {
-        Router::addExt("html", "Cms::routeHtml");
-        Router::addExt("vjs", "Cms::routeVjs");
-        Router::addExt("jpg", "Cms::routeJpg");
+        Router::addExt("html",  "Cms::routeHtml");
+        Router::addExt("vjs",   "Cms::routeVjs");
+        Router::addExt("jpg",   "Cms::routeJpg");
+
+        Router::addUri("Cms::routeStatic");
+
+    }
+
+    static function routeStatic ()
+    {
+        extract(Xoom::getConfig("rootdir"));
+        if (is_file("$rootdir/public" .Request::$path)) {
+            Framework::add(8400, "Response::sendStatic");
+        }
+        else {
+            Framework::add(8400, "Response::send404");
+        }    
+        return false; // continue
     }
 
     static function routeHtml ()
@@ -33,7 +48,10 @@ class Cms
     static function routeJpg ()
     {
         extract(Xoom::getConfig("rootdir"));
-        if (is_file("$rootdir/public" . Request::$path)) {
+        if (Request::$bid != "") {
+            Framework::add(8400, "Cms::showMedia");
+        }
+        elseif (is_file("$rootdir/public" . Request::$path)) {
             Framework::add(8400, "Response::sendStatic");
         }
         elseif (Request::$extension == "jpg") {
