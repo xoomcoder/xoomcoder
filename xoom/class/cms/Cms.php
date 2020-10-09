@@ -65,6 +65,17 @@ class Cms
 
     }
     
+    static function api ()
+    {
+        // log forms
+        Form::log();
+
+        // process forms
+        Form::process();
+
+        Form::sendJSON();
+    }
+
     static function read ($category="news", $orderby="")
     {
         extract(Controller::$user);
