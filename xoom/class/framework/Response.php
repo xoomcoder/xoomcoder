@@ -137,6 +137,32 @@ class Response
         return $mimetype;
     }
 
+    static function sendStatic ()
+    {
+        extract(Xoom::getConfig("rootdir"));
 
+        // FIXME: better code to manage local mode
+        // local mode where php is main router
+        $file = "$rootdir/public" . Request::$path;
+        // https://www.php.net/manual/fr/function.mime-content-type.php
+        $mimetype = Response::getMime($file);
+
+        // router can help fix some bad urls 
+        // but don't index bad urls
+        header("X-Robots-Tag: noindex");
+
+        header("Content-Type: $mimetype");
+
+        readfile($file);
+
+    }
+
+    static function send404 ()
+    {
+        // https://www.php.net/manual/fr/function.header.php
+        header("HTTP/1.1 404 Not Found");
+        echo "Erreur 404: Page non trouvée " .Request::$path;
+    }
+    
     //@end
 }

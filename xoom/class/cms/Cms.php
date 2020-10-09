@@ -197,5 +197,50 @@ class Cms
         echo Xoom::$filename;
     }
 
+    static function showMedia ()
+    {
+        extract(Xoom::getConfig("rootdir"));
+
+        $searchBid      = Request::$bid;
+        $searchMedia    = "$rootdir/xoom-data/media/*/my-*-$searchBid.*";
+        $fileMedia      = glob($searchMedia);
+        $status         = false;
+        if (count($fileMedia) > 0) {
+            $searchId = Response::name2id($searchBid);
+            $lines = Model::read("geocms", "id", $searchId);
+            foreach($lines as $line) {
+                extract($line);
+                // $status
+
+                // get b64
+                $b64 = Form::filterText("b64");
+                if ($datePublication == trim(base64_decode($b64))) $status = "public";
+            }
+        }
+        if ($status == "public") {
+            foreach($fileMedia as $file) {
+                $mimetype = Response::getMime($file);
+                extract(pathinfo($file));
+
+                header("X-Robots-Tag: noindex");
+                // $ext = ($extension ?? false) ? ".$extension" : "";
+                // header("Link: <https://xoomcoder.com/--$searchBid$ext" . '>; rel="canonical"');
+                header("Content-Type: $mimetype");
+                readfile($file);
+            }    
+        }
+
+    }
+
+    static function sendPhoto ()
+    {
+        if (Request::$bid == "") {
+            $file = News::getPhotos(Request::$filename);
+            if (is_file($file)) {
+                header("Content-Type: image/jpeg");
+                readfile($file);
+            }    
+        }
+    }
     //@end
 }
