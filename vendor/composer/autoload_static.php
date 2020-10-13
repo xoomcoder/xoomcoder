@@ -34,12 +34,55 @@ class ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901
         ),
     );
 
+    public static $classMap = array (
+        'Action10' => __DIR__ . '/../..' . '/xoom/class/cms/Action10.php',
+        'Action100' => __DIR__ . '/../..' . '/xoom/class/cms/Action100.php',
+        'AdminCommand' => __DIR__ . '/../..' . '/xoom/class/cms/AdminCommand.php',
+        'ApiAdmin' => __DIR__ . '/../..' . '/xoom/class/api/ApiAdmin.php',
+        'ApiContact' => __DIR__ . '/../..' . '/xoom/class/api/ApiContact.php',
+        'ApiInstall' => __DIR__ . '/../..' . '/xoom/class/api/ApiInstall.php',
+        'ApiMember' => __DIR__ . '/../..' . '/xoom/class/api/ApiMember.php',
+        'ApiPublic' => __DIR__ . '/../..' . '/xoom/class/api/ApiPublic.php',
+        'ApiUser' => __DIR__ . '/../..' . '/xoom/class/api/ApiUser.php',
+        'Cms' => __DIR__ . '/../..' . '/xoom/class/cms/Cms.php',
+        'Controller' => __DIR__ . '/../..' . '/xoom/class/framework/Controller.php',
+        'Email' => __DIR__ . '/../..' . '/xoom/class/framework/Email.php',
+        'EmailDev' => __DIR__ . '/../..' . '/xoom/class/framework/EmailDev.php',
+        'File' => __DIR__ . '/../..' . '/xoom/class/framework/File.php',
+        'Form' => __DIR__ . '/../..' . '/xoom/class/framework/Form.php',
+        'Framework' => __DIR__ . '/../..' . '/xoom/class/framework/Framework.php',
+        'IXR_Base64' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-base64.php',
+        'IXR_Client' => __DIR__ . '/../..' . '/xoom/class/wp/IXR_Client.php',
+        'IXR_ClientMulticall' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-clientmulticall.php',
+        'IXR_Date' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-date.php',
+        'IXR_Error' => __DIR__ . '/../..' . '/xoom/class/wp/IXR_Error.php',
+        'IXR_IntrospectionServer' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-introspectionserver.php',
+        'IXR_Message' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-message.php',
+        'IXR_Request' => __DIR__ . '/../..' . '/xoom/class/wp/IXR_Request.php',
+        'IXR_Server' => __DIR__ . '/../..' . '/xoom/class/wp/IXR/class-IXR-server.php',
+        'IXR_Value' => __DIR__ . '/../..' . '/xoom/class/wp/IXR_Value.php',
+        'MemberAct' => __DIR__ . '/../..' . '/xoom/class/cms/MemberAct.php',
+        'Model' => __DIR__ . '/../..' . '/xoom/class/framework/Model.php',
+        'News' => __DIR__ . '/../..' . '/xoom/class/cms/News.php',
+        'Plugin' => __DIR__ . '/../..' . '/xoom/class/framework/Plugin.php',
+        'Request' => __DIR__ . '/../..' . '/xoom/class/framework/Request.php',
+        'Response' => __DIR__ . '/../..' . '/xoom/class/framework/Response.php',
+        'Router' => __DIR__ . '/../..' . '/xoom/class/framework/Router.php',
+        'Terminal' => __DIR__ . '/../..' . '/xoom/class/framework/Terminal.php',
+        'Test' => __DIR__ . '/../..' . '/xoom/class/Test.php',
+        'View' => __DIR__ . '/../..' . '/xoom/class/framework/View.php',
+        'VueComponent' => __DIR__ . '/../..' . '/xoom/class/cms/VueComponent.php',
+        'WP_HTTP_IXR_Client' => __DIR__ . '/../..' . '/xoom/class/wp/WP_HTTP_IXR_Client.php',
+        'Xoom' => __DIR__ . '/../..' . '/xoom/class/Xoom.php',
+    );
+
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901::$prefixesPsr0;
+            $loader->classMap = ComposerStaticInit5fdb5954efad7c15db8db86fabdbb901::$classMap;
 
         }, null, ClassLoader::class);
     }
