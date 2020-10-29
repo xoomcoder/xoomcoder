@@ -121,6 +121,77 @@ class News
         return $html;
     }
 
+    static function buildHtml2 ($geocms, $summary=true)
+    {
+        extract($geocms);
+        // $code
+        $codelength = mb_strlen($code);
+        $bid    = Response::id2name($id);
+        $seouri = File::filterName($title);
+        
+        $html = "";
+        extract(View::parseBlocMD($code));
+        // $result and $meta
+        // custom html upgrade
+        $filters = [
+            "<img " => '<img loading="lazy" ',
+            "<a "   => '<a rel="nofollow" ',
+            "<pre><code "   => '<pre class="xcode"><code  ',
+            "<h2>"   => '<h2><a href="/' . "$seouri--$bid" .'">',
+            "</h2>"   => '</a></h2>',
+        ];
+        $class = $meta["class"] ?? "";
+
+        if ($codelength < 2000) {
+            // save seo crawl time and duplicate content
+            $filters["<h2>"]  = '<h2><a href="/' . "$seouri--$bid" .'" rel="nofollow">';
+        }
+        $result = str_replace(array_keys($filters), array_values($filters), $result);
+
+        if ($summary && ($codelength >= 2000)) {
+            // make summary to avoid duplicate content
+            $result = preg_replace(",<h2>.*</h2>,", "", $result, 1);
+
+            //$titlelength = mb_strlen($title);
+            $result = strip_tags($result);
+            // remove title
+            $result = trim(substr($result, 0, 1000));
+
+            $result = 
+            <<<x
+            <h2><a href="/$seouri--$bid">$title</a></h2>
+            <pre>$result... <a href="/$seouri--$bid">lire la suite</a></pre> 
+            
+            x;
+
+            $class .= " summary";
+        }
+
+        // add cover image
+        $cover  = $meta["cover"] ?? "";
+        if ($cover) {
+            // FIXME
+            // p tags is to conform with markdown...
+            $result = 
+            <<<x
+            <picture><img src="/assets/square/$cover.jpg" alt="$cover cover"></picture>
+            $result
+            x;
+        }
+
+        $time = date("d/m/Y", strtotime($datePublication));
+
+        $html  .= 
+        <<<x
+        <article class="id-$id bid-$bid $class">
+            $result
+            <small class="date">publié le: $time</small>
+        </article>
+        x;
+        
+        return $html;
+    }
+
     static function showBloc ()
     {
         extract(Xoom::getConfig("contentdir"));
